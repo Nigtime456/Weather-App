@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/4/25
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <set android:duration="@android:integer/config_shortAnimTime">
+            <objectAnimator
+                android:propertyName="z"
+                android:valueTo="@dimen/toolbarElevation"
+                android:valueType="floatType" />
+        </set>
+    </item>
+
+    <item>
+        <set android:duration="@android:integer/config_shortAnimTime">
+            <objectAnimator
+                android:propertyName="z"
+                android:valueTo="0dp"
+                android:valueType="floatType" />
+        </set>
+    </item>
+</selector>

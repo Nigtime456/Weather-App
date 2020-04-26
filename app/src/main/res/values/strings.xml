@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">WeatherApplication</string>
+
+    <!--  Common  -->
+    <string name="content_description_start_drag">Начать перетаскивание</string>
+    <string name="content_description_temp">Температура</string>
+
+    <!--  Search city  -->
+    <string name="fragment_search_city_title">Добавить город</string>
+    <string name="fragment_search_city_hint">For example: Moscow</string>
+    <string name="fragment_search_city_current_location">Текущее местоположение</string>
+    <string name="fragment_search_city_search_hint">Начните вводить для поиска</string>
+    <string name="fragment_search_city_not_found">No such city was found :(</string>
+    <string name="fragment_search_city_already_selected">Этот город уже добавлен!</string>
+
+    <!--  List of cities  -->
+    <string name="fragment_list_cities_title">Список городов</string>
+    <string name="fragment_list_cities_wait">Секунду…</string>
+    <string name="fragment_list_cities_hint">Нет добавленных городов\nДобавить?</string>
+    <string name="fragment_list_cities_city_count_f">Городов добавлено: %s</string>
+    <string name="fragment_list_city_removed">Город удален</string>
+    <string name="fragment_list_city_undo">Отмена</string>
+
+
+    <!--  Menu  -->
+    <string name="menu_add_city">Add city</string>
+
+</resources>

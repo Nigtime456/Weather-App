@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentListCitiesRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/themeScreenBackground"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/fragmentListCitiesAppbar"
+        style="@style/LiftingToolbarCardStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stateListAnimator="@animator/selector_lifting_app_bar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/fragmentListCitiesToolbar"
+                style="@style/ToolbarMainStyle"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:menu="@menu/list_cities"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:title="@string/fragment_list_cities_title" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <ViewAnimator
+        android:id="@+id/fragmentListCitiesViewSwitcher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end" />
+
+            <TextView
+                style="@style/PrimaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/small_margin"
+                android:gravity="center"
+                android:text="@string/fragment_list_cities_wait" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragmentListCitiesRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:overScrollMode="always"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_city_list" />
+
+        <TextView
+            style="@style/PrimaryText.Lowest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/fragment_list_cities_hint" />
+
+    </ViewAnimator>
+
+
+</LinearLayout>

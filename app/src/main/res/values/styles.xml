@@ -1,0 +1,157 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/orange</item>
+
+
+        <item name="android:colorEdgeEffect">?attr/colorAccent</item>
+
+        <!--    Custom color attributes     -->
+        <item name="themePrimaryTextColor">@color/white</item>
+
+        <item name="themeSecondaryTextColor">@color/light_gray</item>
+
+        <item name="themePrimaryTextColorSelector">@color/selector_text_primary</item>
+        <item name="themeSecondaryTextColorSelector">@color/selector_text_secondary</item>
+
+        <item name="themeScreenBackground">@color/black</item>
+
+        <item name="themeDayColor">@color/dark_blue</item>
+        <item name="themeDividerColor">@color/light_black</item>
+
+        <item name="themeIconTintColor">?attr/colorAccent</item>
+        <item name="themeNightColor">@color/gray</item>
+
+
+        <!--   Action Mode     -->
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeBackground">?themeScreenBackground</item>
+        <item name="android:actionModeCloseDrawable">@drawable/ic_arrow_back</item>
+        <item name="android:actionModeCopyDrawable">@drawable/ic_content_copy</item>
+        <item name="android:actionModeCutDrawable">@drawable/ic_content_cut</item>
+        <item name="android:actionModePasteDrawable">@drawable/ic_content_paste</item>
+        <item name="android:actionModeSelectAllDrawable">@drawable/ic_select_all</item>
+
+        <!--    Snackbar    -->
+        <item name="snackbarStyle">@style/SnackMain</item>
+        <item name="snackbarTextViewStyle">@style/SnackTextStyle</item>
+        <item name="snackbarButtonStyle">@style/SnackButton</item>
+    </style>
+
+    <!--    Snackbar  styles  -->
+    <style name="SnackMain" parent="Widget.MaterialComponents.Snackbar">
+        <item name="animationMode">slide</item>
+        <item name="backgroundTint">?attr/themeScreenBackground</item>
+    </style>
+
+    <style name="SnackTextStyle" parent="PrimaryText.Lowest">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="SnackButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:textSize">14sp</item>
+        <item name="rippleColor">?attr/colorAccent</item>
+    </style>
+
+
+    <!-- Card styles -->
+    <style name="LiftingToolbarCardStyle">
+        <item name="cardBackgroundColor">?attr/themeScreenBackground</item>
+        <item name="cardCornerRadius">0dp</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <!--   Toolbar style  -->
+    <style name="ToolbarMainStyle">
+        <item name="titleTextColor">?attr/themePrimaryTextColorSelector</item>
+    </style>
+
+    <!--  Button's style   -->
+    <style name="TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="iconPadding">@dimen/small_padding</item>
+        <item name="iconSize">@dimen/small_icon</item>
+        <item name="iconTint">?attr/themeIconTintColor</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="rippleColor">@color/orange</item>
+    </style>
+
+    <style name="TextButton.PrimaryLowest">
+        <item name="android:textAppearance">@style/PrimaryText.Lowest</item>
+        <item name="android:textColor">?attr/themePrimaryTextColorSelector</item>
+    </style>
+
+    <!--  TextInputLayout style  -->
+    <style name="TextInputLayoutMainStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="theme">@style/TextInputLayoutThemeOverlay</item>
+        <item name="boxCollapsedPaddingTop">0dp</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="endIconTint">?attr/themeIconTintColor</item>
+        <item name="hintEnabled">false</item>
+    </style>
+
+    <style name="TextInputLayoutThemeOverlay">
+        <item name="colorPrimary">@color/orange</item>
+    </style>
+
+    <style name="TextInputEditMainStyle" parent="PrimaryText.Lowest">
+        <item name="android:textColor">?attr/themePrimaryTextColorSelector</item>
+        <item name="android:textColorHint">?attr/themeSecondaryTextColorSelector</item>
+    </style>
+
+
+    <!--Text styles-->
+    <style name="PrimaryText">
+        <item name="android:textColor">?attr/themePrimaryTextColorSelector</item>
+    </style>
+
+    <style name="SecondaryText">
+        <item name="android:textColor">?attr/themeSecondaryTextColorSelector</item>
+    </style>
+
+
+    <style name="PrimaryText.Large">
+        <item name="android:textSize">90sp</item>
+    </style>
+
+    <style name="PrimaryText.Medium">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="SecondaryText.Medium">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="PrimaryText.Lowest">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="PrimaryText.Lowest.Title">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="SecondaryText.Lowest">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="SecondaryText.Lowest.Title">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+</resources>

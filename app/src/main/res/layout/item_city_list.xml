@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_list_city_height"
+    android:background="?attr/themeScreenBackground"
+    android:elevation="@dimen/item_city_list_elevation"
+    android:paddingHorizontal="@dimen/medium_padding"
+    android:stateListAnimator="@animator/selector_drag_n_drop">
+
+    <FrameLayout
+        android:id="@+id/itemListCityDragArea"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="@dimen/small_icon"
+            android:layout_height="@dimen/small_icon"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/content_description_start_drag"
+            android:src="@drawable/ic_drag_handle" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/itemListCityName"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_margin"
+        app:layout_constraintBottom_toTopOf="@id/itemListCityStateAndCountry"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@id/itemListCityDragArea"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="CityName" />
+
+    <TextView
+        android:id="@+id/itemListCityStateAndCountry"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/itemListCityName"
+        app:layout_constraintStart_toStartOf="@id/itemListCityName"
+        app:layout_constraintTop_toBottomOf="@id/itemListCityName"
+        tools:text="State, Country" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/small_icon"
+        android:layout_height="@dimen/small_icon"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:contentDescription="@string/content_description_temp"
+        android:src="@drawable/_weather_stub"
+        app:layout_constraintBottom_toBottomOf="@id/itemListCityTemp"
+        app:layout_constraintEnd_toStartOf="@id/itemListCityTemp"
+        app:layout_constraintTop_toTopOf="@id/itemListCityTemp" />
+
+    <TextView
+        android:id="@+id/itemListCityTemp"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="25°"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

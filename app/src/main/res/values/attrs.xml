@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!--  Theme attrs  -->
+    <attr name="themeDayColor" format="color" />
+    <attr name="themeNightColor" format="color" />
+
+
+    <attr name="themeDividerColor" format="color" />
+
+    <attr name="themeIconTintColor" format="color" />
+
+    <attr name="themePrimaryTextColor" format="color" />
+    <attr name="themeSecondaryTextColor" format="color" />
+
+    <attr name="themePrimaryTextColorSelector" format="color" />
+    <attr name="themeSecondaryTextColorSelector" format="color" />
+
+    <attr name="themeScreenBackground" format="color" />
+
+
+    <declare-styleable name="CrossFadeAnimatorLayout">
+        <attr name="crossDisplayedChild" format="integer" />
+        <attr name="crossStartDelay" format="integer" />
+        <attr name="crossAnimationDuration" format="integer" />
+    </declare-styleable>
+
+</resources>
