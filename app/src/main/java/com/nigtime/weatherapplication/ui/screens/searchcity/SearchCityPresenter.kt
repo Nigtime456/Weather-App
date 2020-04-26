@@ -49,7 +49,7 @@ class SearchCityPresenter constructor(
     }
 
     fun processInput(text: String) {
-        if (text.length > MIN_QUERY_LENGTH) {
+        if (text.length >= MIN_QUERY_LENGTH) {
             loadQuery(text)
         } else {
             getView()?.showHint()
@@ -78,9 +78,9 @@ class SearchCityPresenter constructor(
         getView()?.showProgressBar()
         pagingListLoader.load(query, selectedCitiesIds!!)
             .subscribeAndHandleError(false) { pagedList ->
+                getView()?.submitList(pagedList)
                 if (pagedList.isNotEmpty()) {
                     getView()?.showList()
-                    getView()?.submitList(pagedList)
                 } else {
                     getView()?.showMessageEmpty()
                 }

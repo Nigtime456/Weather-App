@@ -28,15 +28,11 @@ class ColorSpanHelper constructor(private val color: Int) {
         var startIndex = source.toLowerCase().indexOf(substring.toLowerCase())
         var endIndex = startIndex + substring.length
 
-        Log.d("sas", "source = $source , substring = $substring")
-
         if (startIndex == -1)
             startIndex = 0
         if (endIndex == -1)
             endIndex = 0
 
-
-        Log.d("sas", "s = $startIndex , e = $endIndex")
 
         return if (startIndex == 0 && endIndex == 0) {
             SpannableString(source)

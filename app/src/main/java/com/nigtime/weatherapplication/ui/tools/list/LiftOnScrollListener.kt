@@ -5,6 +5,7 @@
 
 package com.nigtime.weatherapplication.ui.tools.list
 
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -19,6 +20,8 @@ class LiftOnScrollListener constructor(private val doLift: (Boolean) -> Unit) :
     private var totalScroll = 0
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         totalScroll += dy
+
+
 
         if (totalScroll == 0)
             doLift(false)

@@ -97,6 +97,7 @@ class SearchCityFragment :
             PagingCityAdapter.ItemClickClickListener(this) { searchCityData ->
                 presenter.onClickListItem(searchCityData)
             }
+
             addOnScrollListener(LiftOnScrollListener { doLift ->
                 fragmentSearchCityAppbar.isSelected = doLift
             })
