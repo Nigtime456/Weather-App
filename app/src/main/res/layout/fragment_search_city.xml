@@ -12,7 +12,7 @@
         style="@style/LiftingToolbarCardStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stateListAnimator="@animator/selector_lifting_app_bar">
+        android:stateListAnimator="@animator/selector_lift_app_bar">
 
         <LinearLayout
             android:layout_width="match_parent"
