@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.paging.PagedList
+import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.db.data.SearchCityData
 import com.nigtime.weatherapplication.db.repository.SelectedCitySourceImpl
@@ -42,6 +43,7 @@ class SearchCityFragment :
     interface Listener : NavigationController
 
     private lateinit var toastController: ToastController
+    private lateinit var liftOnScrollListener: LiftOnScrollListener
 
     override fun provideMvpPresenter(): SearchCityPresenter {
         val citiesDao = AppDatabase.Instance.get(requireContext()).geoCityDao()
@@ -64,6 +66,11 @@ class SearchCityFragment :
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_search_city, container, false)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        liftOnScrollListener.release()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -97,11 +104,16 @@ class SearchCityFragment :
             PagingCityAdapter.ItemClickClickListener(this) { searchCityData ->
                 presenter.onClickListItem(searchCityData)
             }
-
-            addOnScrollListener(LiftOnScrollListener { doLift ->
-                fragmentSearchCityAppbar.isSelected = doLift
-            })
+            setLiftOnScrollAppBar(this)
         }
+    }
+
+    private fun setLiftOnScrollAppBar(recyclerView: RecyclerView) {
+        liftOnScrollListener = LiftOnScrollListener(recyclerView, this::liftAppBar)
+    }
+
+    private fun liftAppBar(lift: Boolean) {
+        fragmentSearchCityAppbar.isSelected = lift
     }
 
     private fun getSpanHelper(): ColorSpanHelper {
@@ -120,11 +132,13 @@ class SearchCityFragment :
 
 
     override fun submitList(pagedList: PagedList<SearchCityData>) {
+        fragmentSearchCityRecycler.smoothScrollToPosition(0)
         (fragmentSearchCityRecycler.adapter as PagingCityAdapter).submitList(pagedList)
     }
 
     //TODO исправь этот спагети
     override fun showHint() {
+        liftAppBar(false)
         fragmentSearchCityRecycler.visibility = View.INVISIBLE
         fragmentSearchCityProgressBar.hide()
         fragmentSearchCityNotFound.visibility = View.INVISIBLE
@@ -132,6 +146,7 @@ class SearchCityFragment :
     }
 
     override fun showProgressBar() {
+        liftAppBar(false)
         fragmentSearchCityRecycler.visibility = View.INVISIBLE
         fragmentSearchCityNotFound.visibility = View.INVISIBLE
         fragmentSearchCityHint.visibility = View.INVISIBLE
@@ -147,6 +162,7 @@ class SearchCityFragment :
     }
 
     override fun showMessageEmpty() {
+        liftAppBar(false)
         fragmentSearchCityHint.visibility = View.INVISIBLE
         fragmentSearchCityProgressBar.hide()
         fragmentSearchCityRecycler.visibility = View.INVISIBLE

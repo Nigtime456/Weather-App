@@ -6,6 +6,7 @@
 package com.nigtime.weatherapplication.ui.tools.list
 
 import android.util.Log
+import android.view.ViewTreeObserver
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -15,17 +16,38 @@ import androidx.recyclerview.widget.RecyclerView
  *
  */
 
-class LiftOnScrollListener constructor(private val doLift: (Boolean) -> Unit) :
-    RecyclerView.OnScrollListener() {
+class LiftOnScrollListener constructor(
+    private var recyclerView: RecyclerView?,
+    private val doLift: (Boolean) -> Unit
+) :
+    RecyclerView.OnScrollListener(), ViewTreeObserver.OnScrollChangedListener {
     private var totalScroll = 0
+
+    init {
+        // recyclerView.addOnScrollListener(this)
+        recyclerView!!.viewTreeObserver.addOnScrollChangedListener(this)
+    }
+
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         totalScroll += dy
-
-
 
         if (totalScroll == 0)
             doLift(false)
         else
             doLift(true)
     }
+
+    override fun onScrollChanged() {
+        val scrollOffset = recyclerView!!.computeVerticalScrollOffset()
+        if (scrollOffset == 0)
+            doLift(false)
+        else
+            doLift(true)
+    }
+
+    fun release() {
+        recyclerView!!.viewTreeObserver.removeOnScrollChangedListener(this)
+        recyclerView = null
+    }
+
 }

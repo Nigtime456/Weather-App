@@ -78,8 +78,8 @@ class SearchCityPresenter constructor(
         getView()?.showProgressBar()
         pagingListLoader.load(query, selectedCitiesIds!!)
             .subscribeAndHandleError(false) { pagedList ->
-                getView()?.submitList(pagedList)
                 if (pagedList.isNotEmpty()) {
+                    getView()?.submitList(pagedList)
                     getView()?.showList()
                 } else {
                     getView()?.showMessageEmpty()

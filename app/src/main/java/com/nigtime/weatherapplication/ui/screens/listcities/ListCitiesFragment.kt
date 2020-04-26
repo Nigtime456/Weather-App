@@ -35,6 +35,7 @@ class ListCitiesFragment :
 
     private lateinit var itemTouchHelper: ItemTouchHelper
     private var undoSnackbar: Snackbar? = null
+    private lateinit var liftOnScrollListener: LiftOnScrollListener
 
     private val adapterListener = object : ListCitiesAdapter.Listener {
         override fun onRequestDrag(viewHolder: RecyclerView.ViewHolder) {
@@ -79,6 +80,11 @@ class ListCitiesFragment :
         return inflater.inflate(R.layout.fragmet_list_cities, container, false)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        liftOnScrollListener.release()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attach(this, lifecycleBus, ExtendLifecycle.DESTROY_VIEW)
@@ -108,9 +114,13 @@ class ListCitiesFragment :
             initTouchGestures(citiesAdapter)
             addItemDecoration(getDivider())
             itemTouchHelper.attachToRecyclerView(this)
-            addOnScrollListener(LiftOnScrollListener { doLift ->
-                fragmentListCitiesAppbar.isSelected = doLift
-            })
+            setLiftOnScrollAppBar(this)
+        }
+    }
+
+    private fun setLiftOnScrollAppBar(recyclerView: RecyclerView) {
+        liftOnScrollListener = LiftOnScrollListener(recyclerView) { doLift ->
+            fragmentListCitiesAppbar.isSelected = doLift
         }
     }
 
@@ -146,6 +156,7 @@ class ListCitiesFragment :
 
 
     override fun insertItemToList(item: SelectedCityData, position: Int) {
+        fragmentListCitiesRecycler.smoothScrollToPosition(position)
         (fragmentListCitiesRecycler.adapter as ListCitiesAdapter).insertItemToList(item, position)
     }
 
