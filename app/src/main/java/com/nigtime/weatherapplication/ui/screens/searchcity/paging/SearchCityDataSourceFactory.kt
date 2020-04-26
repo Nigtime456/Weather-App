@@ -30,7 +30,7 @@ class SearchCityDataSourceFactory constructor(private val searchCitySource: Pagi
             callback: LoadRangeCallback<SearchCityData>
         ) {
             //worker thread
-            val result = searchCitySource.loadPage(params.startPosition, params.loadSize)
+            val result = searchCitySource.loadNextPage(params.startPosition, params.loadSize)
                 .blockingGet()
             callback.onResult(result)
         }
@@ -40,7 +40,7 @@ class SearchCityDataSourceFactory constructor(private val searchCitySource: Pagi
             params: LoadInitialParams, callback: LoadInitialCallback<SearchCityData>
         ) {
             //worker thread
-            val result = searchCitySource.loadPage(params.requestedStartPosition, params.pageSize)
+            val result = searchCitySource.loadNextPage(params.requestedStartPosition, params.pageSize)
                 .blockingGet()
             callback.onResult(result, params.requestedStartPosition)
         }

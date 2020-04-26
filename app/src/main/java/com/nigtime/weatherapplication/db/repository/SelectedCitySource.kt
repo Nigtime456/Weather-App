@@ -20,6 +20,10 @@ interface SelectedCitySource {
      */
     fun getListSelectedCities(): Single<List<SelectedCityData>>
 
+    /**
+     * Получить города только с именем и идом.
+     * [CityForForecastData]
+     */
     fun getListCityForForecast(): Single<List<CityForForecastData>>
 
     /**

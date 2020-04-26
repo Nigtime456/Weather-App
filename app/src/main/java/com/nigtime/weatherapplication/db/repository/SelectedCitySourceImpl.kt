@@ -26,7 +26,13 @@ class SelectedCitySourceImpl constructor(
     }
 
     override fun getListCityForForecast(): Single<List<CityForForecastData>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return Single.fromCallable { selectedCityDao.getAllIds() }
+            .map { ids ->
+                ids.map { cityId ->
+                    val cityName = geoCityDao.getNameById(cityId)
+                    CityForForecastData(cityId, cityName)
+                }
+            }
     }
 
     override fun getAllIds(): Single<Set<Long>> {

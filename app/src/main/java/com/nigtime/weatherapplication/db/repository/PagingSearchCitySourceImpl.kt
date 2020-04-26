@@ -23,7 +23,7 @@ class PagingSearchCitySourceImpl(
 ) : PagingSearchCitySource {
     private val queryPattern: String = "%$query%"
 
-    override fun loadPage(startPosition: Int, loadSize: Int): Single<List<SearchCityData>> {
+    override fun loadNextPage(startPosition: Int, loadSize: Int): Single<List<SearchCityData>> {
         return Single.fromCallable { geoCityDao.queryByName(queryPattern, startPosition, loadSize) }
             .map { list ->
                 list.map { geoCityTable ->

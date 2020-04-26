@@ -12,5 +12,8 @@ import io.reactivex.Single
  */
 
 interface PagingSearchCitySource {
-    fun loadPage(startPosition: Int, loadSize: Int): Single<List<SearchCityData>>
+    /**
+     * Загрузить порцию данных с [startPosition] количеством [loadSize]
+     */
+    fun loadNextPage(startPosition: Int, loadSize: Int): Single<List<SearchCityData>>
 }

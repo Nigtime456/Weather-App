@@ -6,5 +6,5 @@ package com.nigtime.weatherapplication.db.data
 
 data class CityForForecastData(
     val cityId: Long,
-    val name: String
+    val cityName: String
 )

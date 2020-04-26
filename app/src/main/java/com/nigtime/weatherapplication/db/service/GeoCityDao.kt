@@ -21,6 +21,8 @@ interface GeoCityDao {
     @Query("SELECT * FROM geonames WHERE city_id = :cityId")
     fun getById(cityId: Long): GeoCityTable
 
+    @Query("SELECT city_name FROM geonames WHERE city_id = :cityId")
+    fun getNameById(cityId: Long): String
 
     //TODO удалить в будущем
     @Insert
