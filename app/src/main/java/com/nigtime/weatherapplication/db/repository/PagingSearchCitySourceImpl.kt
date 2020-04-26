@@ -24,7 +24,7 @@ class PagingSearchCitySourceImpl(
     private val queryPattern: String = "%$query%"
 
     override fun loadPage(startPosition: Int, loadSize: Int): Single<List<SearchCityData>> {
-        return geoCityDao.queryByName(queryPattern, startPosition, loadSize)
+        return Single.fromCallable { geoCityDao.queryByName(queryPattern, startPosition, loadSize) }
             .map { list ->
                 list.map { geoCityTable ->
                     val isSelect = selectedCitiesIds.contains(geoCityTable.cityId)

@@ -4,6 +4,7 @@
 
 package com.nigtime.weatherapplication.db.repository
 
+import com.nigtime.weatherapplication.db.data.CityForForecastData
 import com.nigtime.weatherapplication.db.data.SearchCityData
 import com.nigtime.weatherapplication.db.data.SelectedCityData
 import com.nigtime.weatherapplication.db.service.GeoCityDao
@@ -18,24 +19,28 @@ class SelectedCitySourceImpl constructor(
     private val selectedCityDao: SelectedCityDao
 ) : SelectedCitySource {
 
-    override fun getAllAsSingle(): Single<List<SelectedCityData>> {
-        return selectedCityDao.getAllAsSingle()
+    override fun getListSelectedCities(): Single<List<SelectedCityData>> {
+        return Single.fromCallable { selectedCityDao.getAllAsSingle() }
             .map(this::getCityDataByIds)
 
     }
 
+    override fun getListCityForForecast(): Single<List<CityForForecastData>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getAllIds(): Single<Set<Long>> {
-        return selectedCityDao.getAllIds()
+        return Single.fromCallable { selectedCityDao.getAllIds() }
             .map { sourceList -> sourceList.toSet() }
     }
 
     override fun hasCities(): Single<Boolean> {
-        return selectedCityDao.getOneRow()
+        return Single.fromCallable { selectedCityDao.getOneRow() }
             .map { sourceList -> sourceList.isNotEmpty() }
     }
 
     override fun insert(item: SearchCityData): Completable {
-        return selectedCityDao.getMaxListIndex()
+        return Single.fromCallable { selectedCityDao.getMaxListIndex() }
             .map(this::getNewIndexFromList)
             .map { newIndex -> item.toTableObject(newIndex) }
             .map(selectedCityDao::insert)
@@ -65,7 +70,6 @@ class SelectedCitySourceImpl constructor(
     private fun getCityDataByIds(sourceList: List<SelectedCityTable>): List<SelectedCityData> {
         return sourceList.map { tableItem ->
             geoCityDao.getById(tableItem.cityId)
-                .blockingGet()
                 .toCityData(tableItem.listIndex)
         }
     }

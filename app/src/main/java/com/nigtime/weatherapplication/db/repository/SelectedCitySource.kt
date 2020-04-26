@@ -4,6 +4,7 @@
 
 package com.nigtime.weatherapplication.db.repository
 
+import com.nigtime.weatherapplication.db.data.CityForForecastData
 import com.nigtime.weatherapplication.db.data.SearchCityData
 import com.nigtime.weatherapplication.db.data.SelectedCityData
 import io.reactivex.Completable
@@ -17,7 +18,9 @@ interface SelectedCitySource {
     /**
      * Получить все сохраненные города однакратно
      */
-    fun getAllAsSingle(): Single<List<SelectedCityData>>
+    fun getListSelectedCities(): Single<List<SelectedCityData>>
+
+    fun getListCityForForecast(): Single<List<CityForForecastData>>
 
     /**
      * Получить все ID's сохраненных городов

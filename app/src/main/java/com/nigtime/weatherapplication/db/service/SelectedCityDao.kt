@@ -13,10 +13,10 @@ import io.reactivex.Single
 interface SelectedCityDao {
 
     @Query("SELECT *FROM selected_city ORDER BY list_index ASC")
-    fun getAllAsSingle(): Single<List<SelectedCityTable>>
+    fun getAllAsSingle(): List<SelectedCityTable>
 
     @Query("SELECT city_id FROM selected_city")
-    fun getAllIds(): Single<List<Long>>
+    fun getAllIds(): List<Long>
 
     @Insert
     fun insert(city: SelectedCityTable)
@@ -32,9 +32,9 @@ interface SelectedCityDao {
      * @return - максимальный порядковый номер
      */
     @Query("SELECT list_index FROM selected_city WHERE list_index = (SELECT MAX(list_index) FROM selected_city)")
-    fun getMaxListIndex(): Single<List<Int>>
+    fun getMaxListIndex(): List<Int>
 
     @Query("SELECT * FROM selected_city LIMIT 1")
-    fun getOneRow(): Single<List<SelectedCityTable>>
+    fun getOneRow(): List<SelectedCityTable>
 
 }

@@ -82,7 +82,7 @@ class ListCitiesPresenter constructor(
     fun provideCities() {
         getView()?.showProgressBar()
 
-        selectedCitySource.getAllAsSingle()
+        selectedCitySource.getListSelectedCities()
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())
             .subscribeAndHandleError(false) { list ->

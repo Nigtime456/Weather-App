@@ -16,10 +16,11 @@ interface GeoCityDao {
      * поиск по имени.
      */
     @Query("SELECT * FROM geonames WHERE city_name LIKE :name ORDER BY city_name ASC LIMIT :startPosition, :count ")
-    fun queryByName(name: String, startPosition: Int, count: Int): Single<List<GeoCityTable>>
+    fun queryByName(name: String, startPosition: Int, count: Int): List<GeoCityTable>
 
     @Query("SELECT * FROM geonames WHERE city_id = :cityId")
-    fun getById(cityId: Long): Single<GeoCityTable>
+    fun getById(cityId: Long): GeoCityTable
+
 
     //TODO удалить в будущем
     @Insert
