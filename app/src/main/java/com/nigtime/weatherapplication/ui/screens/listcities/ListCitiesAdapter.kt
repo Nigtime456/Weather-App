@@ -145,6 +145,9 @@ class ListCitiesAdapter constructor(private val listener: Listener) :
     fun insertItemToList(item: SelectedCityData, position: Int) {
         mutableItems.add(position, item)
         notifyItemInserted(position)
+        //если между удалением и отменой удаления, происходило перемещение элементов
+        //в списке, то возвращенный элемент не сохранится. Отправляем список ещё
+        //раз что бы это исправить. Не проверяем наличие движений, для упрощения реализаций.
         listener.onItemsMoved(mutableItems)
     }
 

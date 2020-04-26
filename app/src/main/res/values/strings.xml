@@ -16,7 +16,7 @@
     <!--  List of cities  -->
     <string name="fragment_list_cities_title">Список городов</string>
     <string name="fragment_list_cities_wait">Секунду…</string>
-    <string name="fragment_list_cities_hint">Нет добавленных городов\nДобавить?</string>
+    <string name="fragment_list_cities_hint">Нет добавленных городов\nНажмите \'+\' что бы добавить.</string>
     <string name="fragment_list_cities_city_count_f">Городов добавлено: %s</string>
     <string name="fragment_list_city_removed">Город удален</string>
     <string name="fragment_list_city_undo">Отмена</string>

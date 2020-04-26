@@ -81,6 +81,10 @@ class SearchCityFragment :
             presenter.processInput(it)
         }
 
+        fragmentSearchCityCurrentLocation.setOnClickListener {
+            toastController.showToast("TODO")
+        }
+
         fragmentSearchCityToolbar.setNavigationOnClickListener {
             presenter.onClickToolbarNavigationButton()
         }

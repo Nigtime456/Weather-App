@@ -43,6 +43,7 @@ class PagingCityAdapter constructor(private val spannHelper: ColorSpanHelper) :
         override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
             val child = recyclerView.findChildViewUnder(e.x, e.y)
             child?.let {
+                child.performClick()
                 if (gestureDetector.onTouchEvent(e)) {
                     val viewHolder = recyclerView.getChildViewHolder(child)
                     val cityViewHolder = viewHolder as CityViewHolder

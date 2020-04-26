@@ -8,7 +8,6 @@
 
 
     <attr name="themeDividerColor" format="color" />
-
     <attr name="themeIconTintColor" format="color" />
 
     <attr name="themePrimaryTextColor" format="color" />
@@ -18,6 +17,7 @@
     <attr name="themeSecondaryTextColorSelector" format="color" />
 
     <attr name="themeScreenBackground" format="color" />
+    <attr name="themeHighlightColor" format="color"/>
 
 
     <declare-styleable name="CrossFadeAnimatorLayout">

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_list_city_height"
-    android:background="?attr/selectableItemBackground"
+    android:background="@drawable/selector_list_item"
     android:clickable="true"
     android:elevation="@dimen/item_city_list_elevation"
     android:focusable="true"

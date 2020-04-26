@@ -55,11 +55,13 @@
                 android:background="?attr/themeDividerColor" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/fragmentSearchCityCurrentLocation"
                 style="@style/TextButton.PrimaryLowest"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/medium_margin"
-                android:layout_marginVertical="@dimen/small_margin"
+                android:gravity="start"
+                android:paddingHorizontal="@dimen/medium_padding"
+                android:paddingVertical="@dimen/small_padding"
                 android:text="@string/fragment_search_city_current_location"
                 app:icon="@drawable/ic_my_location" />
         </LinearLayout>
