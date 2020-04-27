@@ -13,6 +13,7 @@ import com.nigtime.weatherapplication.db.tables.GeoCityTable
 import com.nigtime.weatherapplication.db.tables.SelectedCityTable
 import io.reactivex.Completable
 import io.reactivex.Single
+import java.util.concurrent.TimeUnit
 
 class SelectedCitySourceImpl constructor(
     private val geoCityDao: GeoCityDao,

@@ -38,8 +38,8 @@ class SearchCityPresenter constructor(
                 .subscribeOn(schedulerProvider.syncDatabase())
                 .observeOn(schedulerProvider.ui())
                 .subscribeAndHandleError(false) {
-                    logger.d("insert = ok")
                     getView()?.navigateToPreviousScreen()
+                    logger.d("insert = ok")
                 }
         }
     }
