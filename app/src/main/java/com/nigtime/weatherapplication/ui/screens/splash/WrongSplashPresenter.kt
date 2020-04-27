@@ -24,7 +24,7 @@ class WrongSplashPresenter : BasePresenter<SplashView>(MainSchedulerProvider.INS
     fun checkAndSetCitiesDictionary() {
         RoomDictionaryWriter(AppDatabase.Instance.get(App.INSTANCE).geoCityDao())
             .isDictionaryWritten()
-            .subscribeOn(schedulerProvider.io())
+            .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
             .subscribe(this::onCheckSuccess, this::onStreamError)
             .disposeOnDetach()
@@ -51,7 +51,7 @@ class WrongSplashPresenter : BasePresenter<SplashView>(MainSchedulerProvider.INS
             .flatMap { marshallingHelper.readFromReader(it) }
             .doOnNext { dictionaryWriter.writeDictionaryCity(it) }
             .ignoreElements()
-            .subscribeOn(schedulerProvider.io())
+            .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
             .subscribe(this::onWrithingCompleted, this::rethrowError)
             .disposeOnDetach()

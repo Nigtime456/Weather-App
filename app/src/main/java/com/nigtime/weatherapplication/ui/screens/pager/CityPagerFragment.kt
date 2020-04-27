@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.db.data.CityForForecastData
-import com.nigtime.weatherapplication.db.repository.SelectedCitySourceImpl
+import com.nigtime.weatherapplication.db.source.SelectedCitySourceImpl
 import com.nigtime.weatherapplication.db.service.AppDatabase
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle

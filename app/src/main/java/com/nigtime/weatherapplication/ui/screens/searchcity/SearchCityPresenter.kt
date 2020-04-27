@@ -5,7 +5,7 @@
 package com.nigtime.weatherapplication.ui.screens.searchcity
 
 import com.nigtime.weatherapplication.db.data.SearchCityData
-import com.nigtime.weatherapplication.db.repository.SelectedCitySource
+import com.nigtime.weatherapplication.db.source.SelectedCitySource
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
 import com.nigtime.weatherapplication.ui.screens.searchcity.paging.PagingListLoader
 import com.nigtime.weatherapplication.utility.rx.SchedulerProvider
@@ -35,7 +35,7 @@ class SearchCityPresenter constructor(
         } else {
             logger.d("insert, object = $searchCityData")
             selectedCitySource.insert(searchCityData)
-                .subscribeOn(schedulerProvider.io())
+                .subscribeOn(schedulerProvider.syncDatabase())
                 .observeOn(schedulerProvider.ui())
                 .subscribeAndHandleError(false) {
                     logger.d("insert = ok")
@@ -66,7 +66,7 @@ class SearchCityPresenter constructor(
 
     private fun loadSelectedCities(query: String) {
         selectedCitySource.getAllIds()
-            .subscribeOn(schedulerProvider.io())
+            .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
             .subscribeAndHandleError(false) { set ->
                 selectedCitiesIds = set

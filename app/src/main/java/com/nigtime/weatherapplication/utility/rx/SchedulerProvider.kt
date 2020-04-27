@@ -11,7 +11,18 @@ import io.reactivex.Scheduler
  * позволяя подменять дистетчеры не прибегая к RxJavaPlugins.setIoSchedulerHandler() or etc
  */
 interface SchedulerProvider {
+    /**
+     * UI поток
+     */
     fun ui(): Scheduler
+
+    /**
+     * Вспомогательные потоки, для ресурсов, которым не нужна сихнронизация
+     */
     fun io(): Scheduler
-    fun single(): Scheduler
+
+    /**
+     * Одиночный поток для синхронизации операций с БД
+     */
+    fun syncDatabase(): Scheduler
 }

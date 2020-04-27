@@ -6,9 +6,7 @@ package com.nigtime.weatherapplication.ui.screens.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.db.repository.SelectedCitySourceImpl
 import com.nigtime.weatherapplication.db.service.AppDatabase
 import com.nigtime.weatherapplication.ui.screens.common.BaseActivity
 import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle
@@ -19,7 +17,6 @@ import com.nigtime.weatherapplication.ui.screens.pager.CityPagerFragment
 import com.nigtime.weatherapplication.ui.screens.searchcity.SearchCityFragment
 import com.nigtime.weatherapplication.ui.screens.splash.SplashFragment
 import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
-import io.reactivex.schedulers.Schedulers
 
 /**
  * Главная активити, управляет только фрагментами, не имеет собственной разметки.

@@ -13,7 +13,7 @@ import java.util.concurrent.Executors
 class MainSchedulerProvider private constructor() : SchedulerProvider {
     override fun ui(): Scheduler = AndroidSchedulers.mainThread()
     override fun io(): Scheduler = Schedulers.from(Executors.newFixedThreadPool(3))
-    override fun single(): Scheduler = Schedulers.single()
+    override fun syncDatabase(): Scheduler = Schedulers.single()
 
     companion object {
         val INSTANCE = MainSchedulerProvider()

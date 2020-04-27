@@ -72,7 +72,7 @@ class RxDelayedMessageDispatcher constructor(
     private fun delayInvoke() {
         //что бы была возможность выполнять принудительно сообщения, будем их отправлять
         //в main thread
-        dis = Single.timer(timesMillis, TimeUnit.MILLISECONDS, schedulerProvider.single())
+        dis = Single.timer(timesMillis, TimeUnit.MILLISECONDS, schedulerProvider.syncDatabase())
             .subscribeOn(schedulerProvider.ui())
             .subscribe(Consumer {
                 runCallback()

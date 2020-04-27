@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/4/23
  */
 
-package com.nigtime.weatherapplication.db.repository
+package com.nigtime.weatherapplication.db.source
 
 import com.nigtime.weatherapplication.db.data.SearchCityData
 import com.nigtime.weatherapplication.db.service.GeoCityDao

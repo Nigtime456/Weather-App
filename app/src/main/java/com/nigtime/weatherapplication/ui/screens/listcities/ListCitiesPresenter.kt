@@ -6,12 +6,13 @@ package com.nigtime.weatherapplication.ui.screens.listcities
 
 import android.annotation.SuppressLint
 import com.nigtime.weatherapplication.db.data.SelectedCityData
-import com.nigtime.weatherapplication.db.repository.SelectedCitySource
+import com.nigtime.weatherapplication.db.source.SelectedCitySource
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
 import com.nigtime.weatherapplication.utility.log.CustomLogger
 import com.nigtime.weatherapplication.utility.rx.RxDelayedMessageDispatcher
 import com.nigtime.weatherapplication.utility.rx.SchedulerProvider
 import io.reactivex.Scheduler
+import java.util.concurrent.TimeUnit
 
 
 class ListCitiesPresenter constructor(
@@ -35,6 +36,7 @@ class ListCitiesPresenter constructor(
         //если уже что то стоит в очереди - удаляем
         messageDispatcher.forceRun()
         //оставляем возможность отмены
+
         getView()?.showUndoDeleteSnack()
         checkList(items, false)
         logger.d("delay delete obj = $item,pos = $position")
@@ -44,7 +46,7 @@ class ListCitiesPresenter constructor(
                 item,
                 position,
                 selectedCitySource,
-                schedulerProvider.io(),
+                schedulerProvider.syncDatabase(),
                 logger
             )
         )
@@ -60,7 +62,7 @@ class ListCitiesPresenter constructor(
         logger.d("do replace")
         checkList(items, false)
         selectedCitySource.replaceAll(items)
-            .subscribeOn(schedulerProvider.io())
+            .subscribeOn(schedulerProvider.syncDatabase())
             .subscribeAndHandleError(false) {
                 logger.d("items replaced")
                 //nothing
@@ -88,7 +90,7 @@ class ListCitiesPresenter constructor(
         getView()?.showProgressBar()
 
         selectedCitySource.getListSelectedCities()
-            .subscribeOn(schedulerProvider.io())
+            .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
             .subscribeAndHandleError(false) { list ->
                 checkList(list, true)

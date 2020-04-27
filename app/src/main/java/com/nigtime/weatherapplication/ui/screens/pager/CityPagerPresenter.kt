@@ -4,7 +4,7 @@
 
 package com.nigtime.weatherapplication.ui.screens.pager
 
-import com.nigtime.weatherapplication.db.repository.SelectedCitySource
+import com.nigtime.weatherapplication.db.source.SelectedCitySource
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
 import com.nigtime.weatherapplication.utility.rx.SchedulerProvider
 
@@ -17,7 +17,7 @@ class CityPagerPresenter(
 
     fun provideCities() {
         selectedCitySource.getListCityForForecast()
-            .subscribeOn(schedulerProvider.io())
+            .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
             .subscribeAndHandleError(false) { list ->
                 require(list.isNotEmpty()) { "pager screen must not get empty cities list!" }

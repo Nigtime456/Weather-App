@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.db.data.SelectedCityData
-import com.nigtime.weatherapplication.db.repository.SelectedCitySourceImpl
+import com.nigtime.weatherapplication.db.source.SelectedCitySourceImpl
 import com.nigtime.weatherapplication.db.service.AppDatabase
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle

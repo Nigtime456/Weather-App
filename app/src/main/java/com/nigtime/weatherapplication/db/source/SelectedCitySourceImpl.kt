@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/4/25 
  */
 
-package com.nigtime.weatherapplication.db.repository
+package com.nigtime.weatherapplication.db.source
 
 import com.nigtime.weatherapplication.db.data.CityForForecastData
 import com.nigtime.weatherapplication.db.data.SearchCityData
@@ -20,7 +20,8 @@ class SelectedCitySourceImpl constructor(
 ) : SelectedCitySource {
 
     override fun getListSelectedCities(): Single<List<SelectedCityData>> {
-        return Single.fromCallable { selectedCityDao.getAllAsSingle() }
+        return Single.fromCallable {
+            selectedCityDao.getAllAsSingle() }
             .map(this::getCityDataByIds)
 
     }

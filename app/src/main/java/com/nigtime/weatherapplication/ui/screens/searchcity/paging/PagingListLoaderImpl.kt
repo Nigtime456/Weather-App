@@ -7,7 +7,7 @@ package com.nigtime.weatherapplication.ui.screens.searchcity.paging
 import androidx.paging.PagedList
 import androidx.paging.toObservable
 import com.nigtime.weatherapplication.db.data.SearchCityData
-import com.nigtime.weatherapplication.db.repository.PagingSearchCitySourceImpl
+import com.nigtime.weatherapplication.db.source.PagingSearchCitySourceImpl
 import com.nigtime.weatherapplication.db.service.GeoCityDao
 import com.nigtime.weatherapplication.utility.rx.SchedulerProvider
 import io.reactivex.Observable
@@ -29,7 +29,7 @@ class PagingListLoaderImpl constructor(
         return SearchCityDataSourceFactory(searchCitySource)
             .toObservable(
                 PagingConfig.default(),
-                fetchScheduler = schedulerProvider.io(),
+                fetchScheduler = schedulerProvider.syncDatabase(),
                 notifyScheduler = schedulerProvider.ui()
             )
     }

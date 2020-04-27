@@ -4,7 +4,7 @@
 
 package com.nigtime.weatherapplication.ui.screens.splash
 
-import com.nigtime.weatherapplication.db.repository.SelectedCitySource
+import com.nigtime.weatherapplication.db.source.SelectedCitySource
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
 import com.nigtime.weatherapplication.utility.rx.SchedulerProvider
 
@@ -21,7 +21,7 @@ class SplashPresenter(
     fun dispatchScreen() {
         getView()?.playAnimation()
         selectedCitySource.hasCities()
-            .subscribeOn(schedulerProvider.io())
+            .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
             .subscribe(this::dispatchResult, this::rethrowError)
             .disposeOnDetach()

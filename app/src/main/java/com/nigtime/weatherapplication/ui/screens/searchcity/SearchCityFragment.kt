@@ -15,7 +15,7 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.db.data.SearchCityData
-import com.nigtime.weatherapplication.db.repository.SelectedCitySourceImpl
+import com.nigtime.weatherapplication.db.source.SelectedCitySourceImpl
 import com.nigtime.weatherapplication.db.service.AppDatabase
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle
