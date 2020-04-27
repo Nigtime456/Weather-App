@@ -29,7 +29,7 @@ class SearchCityPresenter constructor(
         getView()?.showHint()
     }
 
-    fun onClickListItem(searchCityData: SearchCityData) {
+    fun onClickItem(searchCityData: SearchCityData) {
         if (searchCityData.isSelected) {
             getView()?.showMessageAlreadySelected()
         } else {
@@ -44,7 +44,7 @@ class SearchCityPresenter constructor(
         }
     }
 
-    fun onClickToolbarNavigationButton() {
+    fun onClickNavigationButton() {
         getView()?.navigateToPreviousScreen()
     }
 

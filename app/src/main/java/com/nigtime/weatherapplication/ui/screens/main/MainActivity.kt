@@ -25,7 +25,7 @@ import io.reactivex.schedulers.Schedulers
  * Главная активити, управляет только фрагментами, не имеет собственной разметки.
  */
 class MainActivity : BaseActivity<MainView, MainPresenter>(), MainView, NavigationController,
-    SplashFragment.Listener, SearchCityFragment.Listener, ListCitiesFragment.Listener, CityPagerFragment.Listener{
+    SplashFragment.Listener, SearchCityFragment.Listener, ListCitiesFragment.Listener, CityPagerFragment.ActivityListener{
 
     override fun provideMvpPresenter(): MainPresenter {
         return MainPresenter(MainSchedulerProvider.INSTANCE)
@@ -38,7 +38,7 @@ class MainActivity : BaseActivity<MainView, MainPresenter>(), MainView, Navigati
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         presenter.attach(this, lifecycleBus, ExtendLifecycle.DESTROY)
-        navigateTo(Screen.SPLASH)
+        navigateTo(Screen.Factory.splash())
         test()
     }
 
@@ -47,18 +47,14 @@ class MainActivity : BaseActivity<MainView, MainPresenter>(), MainView, Navigati
 
         val selectedCityDao = AppDatabase.Instance.get(this).selectedCityDao()
         val geoCityDao = AppDatabase.Instance.get(this).geoCityDao()
-        SelectedCitySourceImpl(geoCityDao,selectedCityDao)
-            .getListCityForForecast()
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                Log.d("sas","success = $it")
-            },{
-                Log.d("sas","err = $it")
-            })
 
     }
 
     override fun navigateTo(screen: Screen) {
         screen.load(supportFragmentManager, R.id.activityMainFragContainer)
+    }
+
+    override fun toBack() {
+        onBackPressed()
     }
 }

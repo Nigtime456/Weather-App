@@ -4,6 +4,7 @@
 
 package com.nigtime.weatherapplication.ui.screens.common
 
+import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
 import com.nigtime.weatherapplication.ui.screens.listcities.ListCitiesFragment
@@ -16,43 +17,62 @@ import com.nigtime.weatherapplication.ui.screens.splash.SplashFragment
  * TODO сделать на NavigationFramework
  */
 interface Screen {
-    fun load(fragmentManager: FragmentManager, @IdRes fragmentContainer: Int)
+    fun load(fragmentManager: FragmentManager, @IdRes fragmentContainer: Int, args: Bundle? = null)
 
-    companion object {
-        val SPLASH = object : Screen {
-            override fun load(fragmentManager: FragmentManager, fragmentContainer: Int) {
+    object Factory {
+
+        fun splash() = object : Screen {
+            override fun load(
+                fragmentManager: FragmentManager, @IdRes fragmentContainer: Int,
+                args: Bundle?
+            ) {
                 fragmentManager.beginTransaction()
                     .replace(fragmentContainer, SplashFragment())
                     .commit()
             }
         }
 
-        val SEARCH_CITY = object : Screen {
-            override fun load(fragmentManager: FragmentManager, fragmentContainer: Int) {
+        fun searchCity() = object : Screen {
+            override fun load(
+                fragmentManager: FragmentManager, @IdRes fragmentContainer: Int,
+                args: Bundle?
+            ) {
                 fragmentManager.beginTransaction()
-                    .replace(fragmentContainer, SearchCityFragment())
                     .addToBackStack(null)
+                    .replace(fragmentContainer, SearchCityFragment())
                     .commit()
             }
         }
 
-        val LIST_CITIES = object : Screen {
-            override fun load(fragmentManager: FragmentManager, fragmentContainer: Int) {
+        fun listCities() = object : Screen {
+            override fun load(
+                fragmentManager: FragmentManager, @IdRes fragmentContainer: Int,
+                args: Bundle?
+            ) {
+
                 fragmentManager.beginTransaction()
+                    .addToBackStack(null)
                     .replace(
                         fragmentContainer,
                         ListCitiesFragment(),
                         ListCitiesFragment::class.java.simpleName
                     )
-                    .addToBackStack(null)
                     .commit()
             }
         }
 
-        val PAGER = object : Screen {
-            override fun load(fragmentManager: FragmentManager, fragmentContainer: Int) {
+        fun pager(page: Int = -1) = object : Screen {
+            override fun load(
+                fragmentManager: FragmentManager, @IdRes fragmentContainer: Int,
+                args: Bundle?
+            ) {
+                val frag = if (page == -1) {
+                    CityPagerFragment()
+                } else {
+                    CityPagerFragment.newInstance(page)
+                }
                 fragmentManager.beginTransaction()
-                    .replace(fragmentContainer, CityPagerFragment())
+                    .replace(fragmentContainer, frag,"pager")
                     .commit()
             }
         }

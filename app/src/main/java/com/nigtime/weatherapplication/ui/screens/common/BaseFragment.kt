@@ -38,11 +38,13 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>, L> :
     override fun onAttach(context: Context) {
         super.onAttach(context)
         presenter = provideMvpPresenter()
-        provideListenerClass()?.let {
-            if (it.isAssignableFrom(context.javaClass)) {
-                listener = it.cast(context)
+        provideListenerClass()?.let { clazz ->
+            listener = if (clazz.isAssignableFrom(context.javaClass)) {
+                clazz.cast(context)
+            } else if (parentFragment != null && clazz.isAssignableFrom(parentFragment!!.javaClass)) {
+                clazz.cast(parentFragment)
             } else {
-                error("${context.javaClass.name} must implement ${it.name}")
+                error("${context.javaClass.name} or $parentFragment must implement ${clazz.name}")
             }
         }
     }

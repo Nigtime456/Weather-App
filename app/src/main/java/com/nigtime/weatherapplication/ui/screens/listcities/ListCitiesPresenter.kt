@@ -26,6 +26,11 @@ class ListCitiesPresenter constructor(
         private const val TAG = "list_cities"
     }
 
+    fun onClickItem(position: Int) {
+        messageDispatcher.forceRun()
+        getView()?.navigateToPage(position)
+    }
+
     fun onItemSwiped(item: SelectedCityData, position: Int, items: MutableList<SelectedCityData>) {
         //если уже что то стоит в очереди - удаляем
         messageDispatcher.forceRun()
@@ -106,6 +111,12 @@ class ListCitiesPresenter constructor(
             getView()?.showMessageEmpty()
         }
     }
+
+    fun onClickNavigationButton() {
+        //TODO проверять не пустой ли лист
+        getView()?.navigateToPreviousScreen()
+    }
+
 
     private class DeleteItemMessage(
         val item: SelectedCityData,

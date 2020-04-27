@@ -18,6 +18,8 @@ class CityPagerAdapter(fragment: Fragment) :
         notifyDataSetChanged()
     }
 
+
+
     override fun getItemCount(): Int = items.size
 
     override fun createFragment(position: Int): Fragment =

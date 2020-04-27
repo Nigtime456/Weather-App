@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.db.data.SelectedCityData
-import kotlinx.android.synthetic.main.item_city_list.view.*
+import kotlinx.android.synthetic.main.item_list_city.view.*
 
 
 class ListCitiesAdapter constructor(private val listener: Listener) :
@@ -29,6 +29,7 @@ class ListCitiesAdapter constructor(private val listener: Listener) :
         )
 
         fun onItemsMoved(items: List<SelectedCityData>)
+        fun onItemClick(position: Int)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -58,7 +59,11 @@ class ListCitiesAdapter constructor(private val listener: Listener) :
             }
         }
 
-        fun bindDragListener(onStartDrag: (ViewHolder) -> Unit) {
+        fun attachClickListener(onClick: (Int) -> Unit) {
+            itemView.setOnClickListener { onClick(adapterPosition) }
+        }
+
+        fun attachDragListener(onStartDrag: (ViewHolder) -> Unit) {
             itemView.itemListCityDragArea.setOnTouchListener { _, event ->
                 when (event.actionMasked) {
                     MotionEvent.ACTION_DOWN -> {
@@ -69,8 +74,9 @@ class ListCitiesAdapter constructor(private val listener: Listener) :
             }
         }
 
-        fun unbindDragListener() {
+        fun removeListeners() {
             itemView.itemListCityDragArea.setOnClickListener(null)
+            itemView.setOnClickListener(null)
         }
     }
 
@@ -153,12 +159,13 @@ class ListCitiesAdapter constructor(private val listener: Listener) :
 
     override fun onViewAttachedToWindow(holder: ViewHolder) {
         super.onViewAttachedToWindow(holder)
-        holder.bindDragListener(listener::onRequestDrag)
+        holder.attachClickListener(listener::onItemClick)
+        holder.attachDragListener(listener::onRequestDrag)
     }
 
     override fun onViewDetachedFromWindow(holder: ViewHolder) {
         super.onViewDetachedFromWindow(holder)
-        holder.unbindDragListener()
+        holder.removeListeners()
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
@@ -168,7 +175,7 @@ class ListCitiesAdapter constructor(private val listener: Listener) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ViewHolder(inflater.inflate(R.layout.item_city_list, parent, false))
+        return ViewHolder(inflater.inflate(R.layout.item_list_city, parent, false))
     }
 
     override fun getItemCount(): Int = mutableItems.size

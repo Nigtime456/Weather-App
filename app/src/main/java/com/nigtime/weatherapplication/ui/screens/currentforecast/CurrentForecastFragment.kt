@@ -12,25 +12,36 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.db.data.CityForForecastData
-import com.nigtime.weatherapplication.db.data.SelectedCityData
+import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
+import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
 import kotlinx.android.synthetic.main.fragment_current_forecast.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class CurrentForecastFragment : Fragment() {
+class CurrentForecastFragment :
+    BaseFragment<CurrentForecastView, CurrentForecastPresenter, CurrentForecastFragment.ParentListener>() {
 
 
+    interface ParentListener {
+        fun onClickAddCity()
+    }
 
     companion object {
         //TODO constant
-        private const val EXTRA_CITY = "com.nigtime.weatherapplication.forecast_city"
+        private const val EXTRA_CITY = "com.nigtime.weatherapp.current_forecast.forecast_city"
 
         fun newInstance(cityForForecastData: CityForForecastData): CurrentForecastFragment {
             return CurrentForecastFragment().apply {
                 arguments = bundleOf(EXTRA_CITY to cityForForecastData)
             }
         }
+    }
+
+    override fun provideListenerClass(): Class<ParentListener> = ParentListener::class.java
+
+    override fun provideMvpPresenter(): CurrentForecastPresenter {
+        return CurrentForecastPresenter(MainSchedulerProvider.INSTANCE)
     }
 
     override fun onCreateView(
@@ -45,7 +56,18 @@ class CurrentForecastFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val city = arguments!!.getParcelable<CityForForecastData>(EXTRA_CITY)
         testTitle.text = city!!.cityName
-        testId.text = city!!.cityName
+        testId.text = city.cityId.toString()
+        configureAppBar()
     }
+
+    private fun configureAppBar() {
+        fragmentCurrentForecastToolbar.setOnMenuItemClickListener {
+            if (it.itemId == R.id.menuAddCity) {
+                listener?.onClickAddCity()
+            }
+            true
+        }
+    }
+
 
 }

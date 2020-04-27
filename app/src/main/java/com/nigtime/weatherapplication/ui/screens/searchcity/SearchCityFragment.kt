@@ -93,7 +93,7 @@ class SearchCityFragment :
         }
 
         fragmentSearchCityToolbar.setNavigationOnClickListener {
-            presenter.onClickToolbarNavigationButton()
+            presenter.onClickNavigationButton()
         }
     }
 
@@ -102,7 +102,7 @@ class SearchCityFragment :
             adapter = PagingCityAdapter(getSpanHelper())
             addItemDecoration(getDivider())
             PagingCityAdapter.ItemClickClickListener(this) { searchCityData ->
-                presenter.onClickListItem(searchCityData)
+                presenter.onClickItem(searchCityData)
             }
             setLiftOnScrollAppBar(this)
         }
@@ -175,7 +175,7 @@ class SearchCityFragment :
     }
 
     override fun navigateToPreviousScreen() {
-        activity?.onBackPressed()
+        listener?.toBack()
     }
 
     private fun EditText.simpleTextListener(block: (String) -> Unit) {

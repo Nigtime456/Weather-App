@@ -65,7 +65,7 @@
 
             android:overScrollMode="always"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_city_list" />
+            tools:listitem="@layout/item_list_city" />
 
         <TextView
             style="@style/PrimaryText.Lowest"

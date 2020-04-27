@@ -54,7 +54,9 @@ class ListCitiesFragment :
             presenter.onItemsMoved(items)
         }
 
-
+        override fun onItemClick(position: Int) {
+            presenter.onClickItem(position)
+        }
     }
 
     override fun provideListenerClass(): Class<Listener>? = Listener::class.java
@@ -99,12 +101,18 @@ class ListCitiesFragment :
     }
 
     private fun configureAppBar() {
-        fragmentListCitiesToolbar.setOnMenuItemClickListener { menuItem ->
-            if (menuItem.itemId == R.id.menuAddCity) {
-                listener?.navigateTo(Screen.SEARCH_CITY)
+        fragmentListCitiesToolbar.apply {
+            setOnMenuItemClickListener { menuItem ->
+                if (menuItem.itemId == R.id.menuAddCity) {
+                    listener?.navigateTo(Screen.Factory.searchCity())
+                }
+                true
             }
-            true
+            setNavigationOnClickListener {
+                presenter.onClickNavigationButton()
+            }
         }
+
     }
 
     private fun configureRecycler() {
@@ -175,6 +183,14 @@ class ListCitiesFragment :
     override fun hideUndoDeleteSnack() {
         undoSnackbar?.dismiss()
         undoSnackbar = null
+    }
+
+    override fun navigateToPreviousScreen() {
+        listener?.toBack()
+    }
+
+    override fun navigateToPage(position: Int) {
+        listener?.navigateTo(Screen.Factory.pager(position))
     }
 
     private fun getRemoveDuration(): Long {

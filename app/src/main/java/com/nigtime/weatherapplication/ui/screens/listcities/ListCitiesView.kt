@@ -18,4 +18,6 @@ interface ListCitiesView : MvpView {
     fun insertItemToList(item: SelectedCityData, position: Int)
     fun showUndoDeleteSnack()
     fun hideUndoDeleteSnack()
+    fun navigateToPreviousScreen()
+    fun navigateToPage(position: Int)
 }
