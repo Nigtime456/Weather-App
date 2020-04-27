@@ -87,7 +87,7 @@ class SplashFragment : BaseFragment<SplashView, WrongSplashPresenter, SplashFrag
     }
 
     override fun delayedLoadPagerScreen() {
-        listener?.navigateTo(Screen.LIST_CITIES)
+        listener?.navigateTo(Screen.PAGER)
     }
 
     override fun delayedLoadSearchCityScreen() {

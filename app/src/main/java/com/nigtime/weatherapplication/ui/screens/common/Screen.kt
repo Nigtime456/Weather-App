@@ -7,6 +7,7 @@ package com.nigtime.weatherapplication.ui.screens.common
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
 import com.nigtime.weatherapplication.ui.screens.listcities.ListCitiesFragment
+import com.nigtime.weatherapplication.ui.screens.pager.CityPagerFragment
 import com.nigtime.weatherapplication.ui.screens.searchcity.SearchCityFragment
 import com.nigtime.weatherapplication.ui.screens.splash.SplashFragment
 
@@ -44,6 +45,14 @@ interface Screen {
                         ListCitiesFragment::class.java.simpleName
                     )
                     .addToBackStack(null)
+                    .commit()
+            }
+        }
+
+        val PAGER = object : Screen {
+            override fun load(fragmentManager: FragmentManager, fragmentContainer: Int) {
+                fragmentManager.beginTransaction()
+                    .replace(fragmentContainer, CityPagerFragment())
                     .commit()
             }
         }
