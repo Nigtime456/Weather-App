@@ -3,7 +3,7 @@
   -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="true" android:state_activated="false">
+    <item android:state_enabled="true" android:state_pressed="true">
         <layer-list>
             <item>
                 <color android:color="?attr/themeScreenBackground" />

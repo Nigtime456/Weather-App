@@ -17,7 +17,8 @@
     <attr name="themeSecondaryTextColorSelector" format="color" />
 
     <attr name="themeScreenBackground" format="color" />
-    <attr name="themeHighlightColor" format="color"/>
+    <attr name="themeHighlightColor" format="color" />
+
 
 
     <declare-styleable name="CrossFadeAnimatorLayout">

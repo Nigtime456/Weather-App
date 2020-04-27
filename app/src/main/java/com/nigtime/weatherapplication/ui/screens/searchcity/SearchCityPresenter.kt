@@ -50,31 +50,31 @@ class SearchCityPresenter constructor(
 
     fun processInput(text: String) {
         if (text.length >= MIN_QUERY_LENGTH) {
-            loadQuery(text)
+            performQuery(text)
         } else {
             getView()?.showHint()
         }
     }
 
-    private fun loadQuery(query: String) {
+    private fun performQuery(query: String) {
         if (selectedCitiesIds == null) {
-            loadSelectedCities(query)
+            loadSelectedIds(query)
         } else {
-            loadQueryList(query)
+            loadListQuery(query)
         }
     }
 
-    private fun loadSelectedCities(query: String) {
+    private fun loadSelectedIds(query: String) {
         selectedCitySource.getAllIds()
             .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
             .subscribeAndHandleError(false) { set ->
                 selectedCitiesIds = set
-                loadQueryList(query)
+                loadListQuery(query)
             }
     }
 
-    private fun loadQueryList(query: String) {
+    private fun loadListQuery(query: String) {
         getView()?.showProgressBar()
         pagingListLoader.load(query, selectedCitiesIds!!)
             .subscribeAndHandleError(false) { pagedList ->

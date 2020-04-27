@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<!--
+  ~ Сreated by Igor Pokrovsky. 2020/4/27
+  -->
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/drawer_width"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="?attr/themeScreenBackground"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/list_item_elevation"
+
+            app:cardBackgroundColor="?attr/themeScreenBackground">
+
+            <TextView
+                style="@style/PrimaryText.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/normal_list_item_height"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/medium_padding"
+                android:text="@string/app_name" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/medium_margin"
+            android:elevation="@dimen/list_item_elevation"
+            app:cardBackgroundColor="?attr/themeScreenBackground"
+            app:contentPaddingBottom="@dimen/small_padding"
+            app:contentPaddingTop="@dimen/small_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/SecondaryText.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/small_margin"
+                    android:paddingHorizontal="@dimen/medium_padding"
+                    android:text="@string/fragment_city_pager_cities" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_size"
+                    android:background="?attr/themeDividerColor" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/fragmentCityPagerDrawerList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    android:paddingHorizontal="@dimen/medium_padding"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/item_drawer_list_city" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/medium_margin"
+            android:elevation="@dimen/list_item_elevation"
+            app:cardBackgroundColor="?attr/themeScreenBackground">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/SecondaryText.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/small_margin"
+                    android:paddingHorizontal="@dimen/medium_padding"
+                    android:text="@string/fragment_city_pager_other" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_size"
+                    android:background="?attr/themeDividerColor" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/fragmentCityPagerSettings"
+                    style="@style/TextButton.PrimaryLowest"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/small_list_item_height"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/medium_padding"
+                    android:text="@string/fragment_city_pager_settings"
+                    app:icon="@drawable/ic_settings" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_size"
+                    android:layout_marginHorizontal="@dimen/medium_margin"
+                    android:background="?attr/themeDividerColor" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/fragmentCityPagerAboutApp"
+                    style="@style/TextButton.PrimaryLowest"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/small_list_item_height"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/medium_padding"
+                    android:text="@string/fragment_city_pager_about_app"
+                    app:icon="@drawable/ic_about_app" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
+

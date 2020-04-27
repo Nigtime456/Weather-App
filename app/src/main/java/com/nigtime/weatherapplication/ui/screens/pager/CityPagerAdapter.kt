@@ -15,10 +15,9 @@ class CityPagerAdapter(fragment: Fragment) :
 
     fun submitList(items: List<CityForForecastData>) {
         this.items = items
+        //данный список не планируется обновлять между onCreateView() и onDestroyView()
         notifyDataSetChanged()
     }
-
-
 
     override fun getItemCount(): Int = items.size
 

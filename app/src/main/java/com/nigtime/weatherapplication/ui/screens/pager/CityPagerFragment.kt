@@ -9,17 +9,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.GravityCompat
+import androidx.viewpager2.widget.ViewPager2
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.db.data.CityForForecastData
-import com.nigtime.weatherapplication.db.source.SelectedCitySourceImpl
 import com.nigtime.weatherapplication.db.service.AppDatabase
+import com.nigtime.weatherapplication.db.source.SelectedCitySourceImpl
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle
 import com.nigtime.weatherapplication.ui.screens.common.NavigationController
 import com.nigtime.weatherapplication.ui.screens.common.Screen
 import com.nigtime.weatherapplication.ui.screens.currentforecast.CurrentForecastFragment
+import com.nigtime.weatherapplication.ui.tools.ThemeHelper
+import com.nigtime.weatherapplication.ui.tools.list.ColorDividerDecoration
 import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
 import kotlinx.android.synthetic.main.fragment_city_pager.*
+import kotlinx.android.synthetic.main.fragment_city_pager_drawer.*
 
 
 class CityPagerFragment :
@@ -40,6 +45,15 @@ class CityPagerFragment :
     }
 
     private var currentPage = 0
+    private val pagerScrollListener = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageScrolled(
+            position: Int,
+            positionOffset: Float,
+            positionOffsetPixels: Int
+        ) {
+            (fragmentCityPagerDrawerList.adapter as DrawerListAdapter).setActivatedItem(position)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +81,7 @@ class CityPagerFragment :
         super.onViewCreated(view, savedInstanceState)
         presenter.attach(this, lifecycleBus, ExtendLifecycle.DESTROY_VIEW)
         configureViewPager()
+        configureDrawer()
         presenter.provideCities()
     }
 
@@ -75,16 +90,61 @@ class CityPagerFragment :
         currentPage = fragmentCityPagerViewPager.currentItem
     }
 
+    private fun configureDrawer() {
+        fragmentCityPagerDrawerList.apply {
+            adapter = DrawerListAdapter { position ->
+                setCurrentPage(position, true)
+                closeDrawer()
+            }
+            addItemDecoration(getDivider())
+        }
+    }
+
+    private fun setCurrentPage(page: Int, smoothScroll: Boolean) {
+        fragmentCityPagerViewPager.setCurrentItem(page, smoothScroll)
+    }
+
+    private fun getDivider(): ColorDividerDecoration {
+        val dividerColor = ThemeHelper.getColor(requireContext(), R.attr.themeDividerColor)
+        val dividerSize = resources.getDimensionPixelSize(R.dimen.divider_size)
+        return ColorDividerDecoration(
+            dividerColor,
+            dividerSize
+        )
+    }
+
+    private fun closeDrawer() {
+        fragmentCityPagerViewDrawer.closeDrawer(GravityCompat.START)
+    }
+
+    private fun openDrawer() {
+        fragmentCityPagerViewDrawer.openDrawer(GravityCompat.START)
+    }
+
     private fun configureViewPager() {
-        fragmentCityPagerViewPager.adapter = CityPagerAdapter(this)
+        fragmentCityPagerViewPager.apply {
+            adapter = CityPagerAdapter(this@CityPagerFragment)
+            registerOnPageChangeCallback(pagerScrollListener)
+        }
     }
 
     override fun submitList(items: List<CityForForecastData>) {
-        (fragmentCityPagerViewPager.adapter as CityPagerAdapter).submitList(items)
-        fragmentCityPagerViewPager.setCurrentItem(currentPage,false)
+        fragmentCityPagerViewPager.apply {
+            (adapter as CityPagerAdapter).submitList(items)
+            setCurrentPage(currentPage, false)
+        }
+        (fragmentCityPagerDrawerList.adapter as DrawerListAdapter).apply {
+            submitList(items)
+            setActivatedItem(currentPage)
+        }
     }
 
     override fun onClickAddCity() {
         listener?.navigateTo(Screen.Factory.listCities())
+    }
+
+
+    override fun onClickOpenDrawer() {
+        openDrawer()
     }
 }

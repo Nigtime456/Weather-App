@@ -132,8 +132,10 @@ class SearchCityFragment :
 
 
     override fun submitList(pagedList: PagedList<SearchCityData>) {
-        fragmentSearchCityRecycler.smoothScrollToPosition(0)
-        (fragmentSearchCityRecycler.adapter as PagingCityAdapter).submitList(pagedList)
+        fragmentSearchCityRecycler.apply {
+            smoothScrollToPosition(0)
+            (adapter as PagingCityAdapter).submitList(pagedList)
+        }
     }
 
     //TODO исправь этот спагети

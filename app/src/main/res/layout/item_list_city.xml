@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_list_city_height"
+    android:layout_height="@dimen/normal_list_item_height"
     android:id="@+id/itemListCityRoot"
     android:background="@drawable/selector_list_item"
     android:clickable="true"
-    android:elevation="@dimen/item_city_list_elevation"
+    android:elevation="@dimen/list_item_elevation"
     android:focusable="true"
     android:paddingHorizontal="@dimen/medium_padding"
     android:stateListAnimator="@animator/selector_drag_n_drop">

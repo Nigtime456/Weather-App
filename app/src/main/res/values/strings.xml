@@ -21,6 +21,11 @@
     <string name="fragment_list_city_removed">Город удален</string>
     <string name="fragment_list_city_undo">Отмена</string>
 
+    <!--  Pager  -->
+    <string name="fragment_city_pager_cities">Города</string>
+    <string name="fragment_city_pager_other">Прочее</string>
+    <string name="fragment_city_pager_settings">Настройки</string>
+    <string name="fragment_city_pager_about_app">О приложение</string>
 
     <!--  Menu  -->
     <string name="menu_add_city">Add city</string>

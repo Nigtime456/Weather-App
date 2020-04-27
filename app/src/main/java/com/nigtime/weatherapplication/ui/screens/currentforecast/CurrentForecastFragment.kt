@@ -25,6 +25,7 @@ class CurrentForecastFragment :
 
     interface ParentListener {
         fun onClickAddCity()
+        fun onClickOpenDrawer()
     }
 
     companion object {
@@ -61,11 +62,16 @@ class CurrentForecastFragment :
     }
 
     private fun configureAppBar() {
-        fragmentCurrentForecastToolbar.setOnMenuItemClickListener {
-            if (it.itemId == R.id.menuAddCity) {
-                listener?.onClickAddCity()
+        fragmentCurrentForecastToolbar.apply {
+            setOnMenuItemClickListener {
+                if (it.itemId == R.id.menuAddCity) {
+                    listener?.onClickAddCity()
+                }
+                true
             }
-            true
+            setNavigationOnClickListener {
+                listener?.onClickOpenDrawer()
+            }
         }
     }
 

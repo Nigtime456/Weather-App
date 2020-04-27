@@ -127,11 +127,11 @@
     </style>
 
     <style name="PrimaryText.Medium">
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="SecondaryText.Medium">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="PrimaryText.Lowest">

@@ -72,6 +72,8 @@ class PagingCityAdapter constructor(private val spannHelper: ColorSpanHelper) :
             itemView.itemSearchStateAndCountry.text = getStateAndCounty(city)
             //это используется для выделения добавленных городов
             itemView.isActivated = city.isSelected
+            //выключаем, что отключить рипл эффект
+            itemView.isEnabled = !city.isSelected
         }
 
         fun onRecycled() {
@@ -117,7 +119,7 @@ class PagingCityAdapter constructor(private val spannHelper: ColorSpanHelper) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return CityViewHolder(inflater.inflate(R.layout.item_search_list, parent, false))
+        return CityViewHolder(inflater.inflate(R.layout.item_list_city, parent, false))
     }
 
     override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
