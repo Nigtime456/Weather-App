@@ -16,7 +16,7 @@ class PagerCityPresenter(
 ) {
     private var currentPage = 0
 
-    fun handlePagerPosition(page: Int){
+    fun handlePagerPosition(page: Int) {
         currentPage = page
     }
 

@@ -7,5 +7,5 @@ package com.nigtime.weatherapplication.ui.screens.common
 /**
  * Базовый интерфейс
  */
-interface MvpView{
+interface MvpView {
 }

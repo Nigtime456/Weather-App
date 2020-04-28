@@ -27,6 +27,7 @@ class WishListAdapter constructor(private val listener: Listener) :
             position: Int,
             items: MutableList<WishCity>
         )
+
         fun onItemsMoved(items: List<WishCity>)
         fun onItemClick(position: Int)
     }

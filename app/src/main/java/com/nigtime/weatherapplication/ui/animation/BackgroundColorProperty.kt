@@ -10,7 +10,6 @@ import android.util.Property
 import android.view.View
 
 
-
 class BackgroundColorProperty :
     Property<View, Int>(Int::class.java, PROPERTY_NAME) {
     companion object {

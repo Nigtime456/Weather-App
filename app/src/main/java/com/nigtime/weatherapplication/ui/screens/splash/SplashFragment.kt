@@ -31,6 +31,7 @@ class SplashFragment : BaseFragment<SplashFragment.Listener>(),
     SplashView {
 
     interface Listener : NavigationController
+
     private val presenter = WrongSplashPresenter()
 
     override fun provideListenerClass(): Class<Listener>? = Listener::class.java

@@ -20,7 +20,6 @@
     <attr name="themeHighlightColor" format="color" />
 
 
-
     <declare-styleable name="CrossFadeAnimatorLayout">
         <attr name="crossDisplayedChild" format="integer" />
         <attr name="crossStartDelay" format="integer" />

@@ -6,7 +6,6 @@ package com.nigtime.weatherapplication.ui.tools
 
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 
 /**
  * Вспомогательный класс для выделения части текста, с помощью SpannableString

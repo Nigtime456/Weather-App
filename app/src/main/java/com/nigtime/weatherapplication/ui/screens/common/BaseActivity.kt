@@ -4,9 +4,7 @@
 
 package com.nigtime.weatherapplication.ui.screens.common
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 

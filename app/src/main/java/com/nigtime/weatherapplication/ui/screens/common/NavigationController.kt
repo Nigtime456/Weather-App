@@ -12,5 +12,6 @@ interface NavigationController {
      * Переключить на следущий экран
      */
     fun navigateTo(screen: Screen)
+
     fun toBack()
 }

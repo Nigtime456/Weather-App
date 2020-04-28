@@ -4,8 +4,8 @@
 
 package com.nigtime.weatherapplication.ui.screens.splash
 
-import com.nigtime.weatherapplication.trash.CitiesMarshallingHelper
 import com.nigtime.weatherapplication.App
+import com.nigtime.weatherapplication.trash.CitiesMarshallingHelper
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
 import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
 import com.nigtime.weatherbitapp.uselles.storage.room.repository.RoomDictionaryWriter

@@ -67,7 +67,7 @@ class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("sas","create = ${hashCode()}")
+        Log.d("sas", "create = ${hashCode()}")
         presenter.handlePagerPosition(arguments?.getInt(EXTRA_PAGE) ?: 0)
     }
 
@@ -110,7 +110,7 @@ class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
                     Toast.makeText(requireContext(), "TODO", Toast.LENGTH_LONG).show()
                 }
                 else -> {
-                    setCurrentPage(menuItem.itemId-1000, true)
+                    setCurrentPage(menuItem.itemId - 1000, true)
                 }
             }
             closeDrawer()
@@ -161,7 +161,7 @@ class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
     }
 
     override fun setPage(page: Int) {
-        Log.d("sas","setPage = $page")
+        Log.d("sas", "setPage = $page")
         setCurrentPage(page, false)
         setNavigationItem(page)
     }

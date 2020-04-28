@@ -12,17 +12,17 @@ import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.ui.screens.common.BaseActivity
 import com.nigtime.weatherapplication.ui.screens.common.NavigationController
 import com.nigtime.weatherapplication.ui.screens.common.Screen
-import com.nigtime.weatherapplication.ui.screens.wishlist.WishCitiesFragment
 import com.nigtime.weatherapplication.ui.screens.pager.PagerCityFragment
 import com.nigtime.weatherapplication.ui.screens.search.SearchCityFragment
 import com.nigtime.weatherapplication.ui.screens.splash.SplashFragment
+import com.nigtime.weatherapplication.ui.screens.wishlist.WishCitiesFragment
 
 /**
  * Главная активити, управляет только фрагментами, не имеет собственной разметки.
  */
 class MainActivity : BaseActivity(), MainView, NavigationController,
-    SplashFragment.Listener, SearchCityFragment.Listener, WishCitiesFragment.Listener, PagerCityFragment.ActivityListener{
-
+    SplashFragment.Listener, SearchCityFragment.Listener, WishCitiesFragment.Listener,
+    PagerCityFragment.ActivityListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,13 +33,12 @@ class MainActivity : BaseActivity(), MainView, NavigationController,
     }
 
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d("sas","a result")
+        Log.d("sas", "a result")
         data?.let {
             val int = it.extras!!.getInt(SearchCityFragment.EXTRA_INSERTED_POSITION)
-            Log.d("sas","a pos = $int")
+            Log.d("sas", "a pos = $int")
         }
     }
 

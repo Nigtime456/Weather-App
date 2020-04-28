@@ -4,10 +4,10 @@
 
 package com.nigtime.weatherapplication.utility.di
 
+import com.nigtime.weatherapplication.App
 import com.nigtime.weatherapplication.db.repository.*
 import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.db.service.WishCityDao
-import com.nigtime.weatherapplication.App
 
 object DataRepositoryFactory {
 

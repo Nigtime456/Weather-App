@@ -5,7 +5,6 @@
 
 package com.nigtime.weatherapplication.ui.tools.list
 
-import android.util.Log
 import android.view.ViewTreeObserver
 import androidx.recyclerview.widget.RecyclerView
 

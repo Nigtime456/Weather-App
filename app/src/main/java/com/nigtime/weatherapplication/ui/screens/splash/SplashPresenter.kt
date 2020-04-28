@@ -6,7 +6,6 @@ package com.nigtime.weatherapplication.ui.screens.splash
 
 
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
-import com.nigtime.weatherapplication.ui.screens.common.Screen
 import com.nigtime.weatherapplication.utility.rx.SchedulerProvider
 
 class SplashPresenter(schedulerProvider: SchedulerProvider) :

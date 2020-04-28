@@ -16,7 +16,10 @@ import io.reactivex.Observable
  */
 class PagedListLoaderImpl(private val schedulerProvider: SchedulerProvider) : PagedListLoader {
 
-    override fun loadList(pagedRepository: PagedSearchRepository, query: String): Observable<PagedList<SearchCity>> {
+    override fun loadList(
+        pagedRepository: PagedSearchRepository,
+        query: String
+    ): Observable<PagedList<SearchCity>> {
         return SearchCitySourceFactory(pagedRepository, query)
             .toObservable(
                 PagedConfig.default(),

@@ -23,9 +23,9 @@
         android:background="?attr/themeScreenBackground"
         android:theme="@style/NavigationViewOverlay"
         app:headerLayout="@layout/fragment_pager_header"
+        app:itemBackground="@drawable/selector_list_item"
         app:itemIconPadding="@dimen/padding_small"
         app:itemIconSize="@dimen/icon_small"
-        app:itemBackground="@drawable/selector_list_item"
         app:itemIconTint="@color/selector_highlight_icon"
         app:itemTextColor="@color/selector_text_primary"
         app:menu="@menu/pager_drawer" />
