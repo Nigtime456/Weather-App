@@ -17,6 +17,8 @@ import com.nigtime.weatherapplication.ui.screens.wishlist.WishCitiesFragment
  * Представляет собой абстракцию для навигации
  * TODO сделать на NavigationFramework
  */
+
+
 interface Screen {
     fun load(fragmentManager: FragmentManager, @IdRes fragmentContainer: Int, args: Bundle? = null)
 

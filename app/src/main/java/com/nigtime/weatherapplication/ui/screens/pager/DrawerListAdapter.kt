@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.db.data.CityForForecast
+import com.nigtime.weatherapplication.domain.database.CityForForecast
 import kotlinx.android.synthetic.main.item_drawer_city.view.*
 
 class DrawerListAdapter constructor(private val onClick: (Int) -> Unit) :

@@ -3,7 +3,7 @@
  */
 
 
-package com.nigtime.weatherapplication.ui.tools.list
+package com.nigtime.weatherapplication.utility.ui.list
 
 import android.view.ViewTreeObserver
 import androidx.recyclerview.widget.RecyclerView

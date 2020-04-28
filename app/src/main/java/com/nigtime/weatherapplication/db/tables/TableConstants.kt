@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/4/23
  */
 
-package com.nigtime.weatherapplication.db.entity
+package com.nigtime.weatherapplication.db.tables
 
 object TableConstants {
     const val DATABASE_NAME = "main.db"

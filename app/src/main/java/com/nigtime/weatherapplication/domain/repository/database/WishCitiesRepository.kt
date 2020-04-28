@@ -2,9 +2,9 @@
  * Сreated by Igor Pokrovsky. 2020/4/28
  */
 
-package com.nigtime.weatherapplication.db.repository
+package com.nigtime.weatherapplication.domain.repository.database
 
-import com.nigtime.weatherapplication.db.data.WishCity
+import com.nigtime.weatherapplication.domain.database.WishCity
 import io.reactivex.Completable
 import io.reactivex.Single
 

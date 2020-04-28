@@ -2,10 +2,10 @@
  * Сreated by Igor Pokrovsky. 2020/4/23
  */
 
-package com.nigtime.weatherapplication.db.entity
+package com.nigtime.weatherapplication.db.tables
 
 import androidx.room.*
-import com.nigtime.weatherapplication.db.entity.TableConstants.COLUMN_LIST_INDEX
+import com.nigtime.weatherapplication.db.tables.TableConstants.COLUMN_LIST_INDEX
 
 /**
  * Таблица выбранных городов.

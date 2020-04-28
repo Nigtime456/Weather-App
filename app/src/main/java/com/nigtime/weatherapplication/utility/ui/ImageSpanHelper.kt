@@ -6,7 +6,7 @@
  * Сreated by Igor Pokrovsky. 2020/4/23
  */
 
-package com.nigtime.weatherapplication.ui.tools
+package com.nigtime.weatherapplication.utility.ui
 
 import android.content.Context
 import android.text.SpannableString

@@ -18,7 +18,7 @@ import com.nigtime.weatherapplication.ui.animation.BackgroundColorProperty
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.ui.screens.common.NavigationController
 import com.nigtime.weatherapplication.ui.screens.common.Screen
-import com.nigtime.weatherapplication.ui.tools.ThemeHelper
+import com.nigtime.weatherapplication.utility.ui.ThemeHelper
 import kotlinx.android.synthetic.main.fragment_splash.*
 
 /**

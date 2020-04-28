@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/4/26
  */
 
-package com.nigtime.weatherapplication.db.data
+package com.nigtime.weatherapplication.domain.database
 
 import android.os.Parcel
 import android.os.Parcelable

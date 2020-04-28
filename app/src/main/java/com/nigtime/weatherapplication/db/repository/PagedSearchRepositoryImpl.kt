@@ -4,11 +4,12 @@
 
 package com.nigtime.weatherapplication.db.repository
 
-import com.nigtime.weatherapplication.db.data.SearchCity
-import com.nigtime.weatherapplication.db.entity.ReferenceCityTable
-import com.nigtime.weatherapplication.db.entity.WishCityTable
+import com.nigtime.weatherapplication.domain.database.SearchCity
+import com.nigtime.weatherapplication.db.tables.ReferenceCityTable
+import com.nigtime.weatherapplication.db.tables.WishCityTable
 import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.db.service.WishCityDao
+import com.nigtime.weatherapplication.domain.repository.database.PagedSearchRepository
 import io.reactivex.Single
 
 class PagedSearchRepositoryImpl(
@@ -51,7 +52,7 @@ class PagedSearchRepositoryImpl(
         return if (listWithIndex.isEmpty()) 0 else listWithIndex.first().inc()
     }
 
-
+    //TODO mapper
     private fun mapEntityListToData(
         list: List<ReferenceCityTable>,
         query: String
@@ -65,6 +66,7 @@ class PagedSearchRepositoryImpl(
     private fun ReferenceCityTable.toSearchCityData(isWish: Boolean, query: String): SearchCity {
         return SearchCity(cityId, name, stateName, countryName, isWish, query)
     }
+
 
     private fun SearchCity.toWishCityEntity(listIndex: Int): WishCityTable {
         return WishCityTable(cityId, listIndex)

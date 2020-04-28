@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/4/23
  */
 
-package com.nigtime.weatherapplication.db.data
+package com.nigtime.weatherapplication.domain.database
 
 /**
  * Data класс для представления результата поиска города

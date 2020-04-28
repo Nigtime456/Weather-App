@@ -4,9 +4,10 @@
 
 package com.nigtime.weatherapplication.db.repository
 
-import com.nigtime.weatherapplication.db.data.CityForForecast
+import com.nigtime.weatherapplication.domain.database.CityForForecast
 import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.db.service.WishCityDao
+import com.nigtime.weatherapplication.domain.repository.database.ForecastCitiesRepository
 import io.reactivex.Single
 
 class ForecastCitiesRepositoryImpl constructor(
@@ -19,6 +20,7 @@ class ForecastCitiesRepositoryImpl constructor(
             .map { ids -> ids.map(this::mapCity) }
     }
 
+    //TODO mapper
     private fun mapCity(cityId: Long): CityForForecast {
         return CityForForecast(cityId, referenceCityDao.getNameById(cityId))
     }

@@ -5,7 +5,7 @@
 package com.nigtime.weatherapplication.db.service
 
 import androidx.room.*
-import com.nigtime.weatherapplication.db.entity.WishCityTable
+import com.nigtime.weatherapplication.db.tables.WishCityTable
 
 
 @Dao

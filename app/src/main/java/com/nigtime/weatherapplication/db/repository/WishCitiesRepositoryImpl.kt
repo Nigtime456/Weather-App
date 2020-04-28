@@ -4,11 +4,12 @@
 
 package com.nigtime.weatherapplication.db.repository
 
-import com.nigtime.weatherapplication.db.data.WishCity
-import com.nigtime.weatherapplication.db.entity.ReferenceCityTable
-import com.nigtime.weatherapplication.db.entity.WishCityTable
+import com.nigtime.weatherapplication.domain.database.WishCity
+import com.nigtime.weatherapplication.db.tables.ReferenceCityTable
+import com.nigtime.weatherapplication.db.tables.WishCityTable
 import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.db.service.WishCityDao
+import com.nigtime.weatherapplication.domain.repository.database.WishCitiesRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 

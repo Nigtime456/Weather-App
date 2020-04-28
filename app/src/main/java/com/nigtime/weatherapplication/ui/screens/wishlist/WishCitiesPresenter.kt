@@ -5,8 +5,8 @@
 package com.nigtime.weatherapplication.ui.screens.wishlist
 
 import android.annotation.SuppressLint
-import com.nigtime.weatherapplication.db.data.WishCity
-import com.nigtime.weatherapplication.db.repository.WishCitiesRepository
+import com.nigtime.weatherapplication.domain.database.WishCity
+import com.nigtime.weatherapplication.domain.repository.database.WishCitiesRepository
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
 import com.nigtime.weatherapplication.utility.log.CustomLogger
 import com.nigtime.weatherapplication.utility.rx.RxDelayedMessageDispatcher

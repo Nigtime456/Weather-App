@@ -8,6 +8,9 @@ import com.nigtime.weatherapplication.App
 import com.nigtime.weatherapplication.db.repository.*
 import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.db.service.WishCityDao
+import com.nigtime.weatherapplication.domain.repository.database.ForecastCitiesRepository
+import com.nigtime.weatherapplication.domain.repository.database.PagedSearchRepository
+import com.nigtime.weatherapplication.domain.repository.database.WishCitiesRepository
 
 object DataRepositoryFactory {
 

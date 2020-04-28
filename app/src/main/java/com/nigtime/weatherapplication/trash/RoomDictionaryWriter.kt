@@ -4,7 +4,7 @@
 
 package com.nigtime.weatherbitapp.uselles.storage.room.repository
 
-import com.nigtime.weatherapplication.db.entity.ReferenceCityTable
+import com.nigtime.weatherapplication.db.tables.ReferenceCityTable
 import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import io.reactivex.Single
 

@@ -9,7 +9,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,17 +17,17 @@ import android.widget.EditText
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.db.data.SearchCity
+import com.nigtime.weatherapplication.domain.database.SearchCity
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle
 import com.nigtime.weatherapplication.ui.screens.common.NavigationController
 import com.nigtime.weatherapplication.ui.screens.search.paging.PagedListLoaderImpl
 import com.nigtime.weatherapplication.ui.screens.search.paging.PagedSearchAdapter
-import com.nigtime.weatherapplication.ui.tools.ColorSpanHelper
-import com.nigtime.weatherapplication.ui.tools.ThemeHelper
-import com.nigtime.weatherapplication.ui.tools.ToastController
-import com.nigtime.weatherapplication.ui.tools.list.ColorDividerDecoration
-import com.nigtime.weatherapplication.ui.tools.list.LiftOnScrollListener
+import com.nigtime.weatherapplication.utility.ui.ColorSpanHelper
+import com.nigtime.weatherapplication.utility.ui.ThemeHelper
+import com.nigtime.weatherapplication.utility.ui.ToastController
+import com.nigtime.weatherapplication.utility.ui.list.ColorDividerDecoration
+import com.nigtime.weatherapplication.utility.ui.list.LiftOnScrollListener
 import com.nigtime.weatherapplication.utility.di.DataRepositoryFactory
 import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
 import kotlinx.android.synthetic.main.fragment_search_city.*
@@ -82,7 +81,10 @@ class SearchCityFragment : BaseFragment<SearchCityFragment.Listener>(), SearchCi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attach(this, lifecycleBus, ExtendLifecycle.DESTROY_VIEW)
-        toastController = ToastController(requireContext())
+        toastController =
+            ToastController(
+                requireContext()
+            )
         presenter.onViewCreated()
         initViews()
     }
@@ -125,7 +127,9 @@ class SearchCityFragment : BaseFragment<SearchCityFragment.Listener>(), SearchCi
 
     private fun getSpanHelper(): ColorSpanHelper {
         val highlightColor = ThemeHelper.getColor(requireContext(), R.attr.colorAccent)
-        return ColorSpanHelper(highlightColor)
+        return ColorSpanHelper(
+            highlightColor
+        )
     }
 
     private fun getDivider(): ColorDividerDecoration {

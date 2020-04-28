@@ -9,8 +9,8 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.db.data.SearchCity
-import com.nigtime.weatherapplication.ui.tools.ColorSpanHelper
+import com.nigtime.weatherapplication.domain.database.SearchCity
+import com.nigtime.weatherapplication.utility.ui.ColorSpanHelper
 import kotlinx.android.synthetic.main.item_search_city.view.*
 
 /**

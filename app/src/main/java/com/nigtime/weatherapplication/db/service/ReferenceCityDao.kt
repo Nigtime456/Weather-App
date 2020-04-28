@@ -7,7 +7,7 @@ package com.nigtime.weatherapplication.db.service
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.nigtime.weatherapplication.db.entity.ReferenceCityTable
+import com.nigtime.weatherapplication.db.tables.ReferenceCityTable
 import io.reactivex.Single
 
 @Dao

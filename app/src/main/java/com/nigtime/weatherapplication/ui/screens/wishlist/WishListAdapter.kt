@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.db.data.WishCity
+import com.nigtime.weatherapplication.domain.database.WishCity
 import kotlinx.android.synthetic.main.item_wish_city.view.*
 
 
