@@ -6,11 +6,12 @@ package com.nigtime.weatherapplication.ui.screens.common
 
 import android.os.Bundle
 import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.nigtime.weatherapplication.ui.screens.wishlist.WishCitiesFragment
-import com.nigtime.weatherapplication.ui.screens.pager.PagerFragmentCity
+import com.nigtime.weatherapplication.ui.screens.pager.PagerCityFragment
 import com.nigtime.weatherapplication.ui.screens.search.SearchCityFragment
 import com.nigtime.weatherapplication.ui.screens.splash.SplashFragment
+import com.nigtime.weatherapplication.ui.screens.wishlist.WishCitiesFragment
 
 /**
  * Представляет собой абстракцию для навигации
@@ -32,14 +33,17 @@ interface Screen {
             }
         }
 
-        fun searchCity() = object : Screen {
+        fun searchCity(targetFragment: Fragment, requestCode: Int) = object : Screen {
             override fun load(
                 fragmentManager: FragmentManager, @IdRes fragmentContainer: Int,
                 args: Bundle?
             ) {
+                val frag = SearchCityFragment()
+                frag.setTargetFragment(targetFragment, requestCode)
+
                 fragmentManager.beginTransaction()
                     .addToBackStack(null)
-                    .replace(fragmentContainer, SearchCityFragment())
+                    .replace(fragmentContainer, frag)
                     .commit()
             }
         }
@@ -67,12 +71,12 @@ interface Screen {
                 args: Bundle?
             ) {
                 val frag = if (page == -1) {
-                    PagerFragmentCity()
+                    PagerCityFragment()
                 } else {
-                    PagerFragmentCity.newInstance(page)
+                    PagerCityFragment.newInstance(page)
                 }
                 fragmentManager.beginTransaction()
-                    .replace(fragmentContainer, frag,"pager")
+                    .replace(fragmentContainer, frag, "pager")
                     .commit()
             }
         }

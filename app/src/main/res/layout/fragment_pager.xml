@@ -7,7 +7,7 @@
     android:id="@+id/pagerDrawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.screens.pager.PagerFragmentCity">
+    tools:context=".ui.screens.pager.PagerCityFragment">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pagerViewPager"

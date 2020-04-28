@@ -57,7 +57,7 @@ class WrongSplashPresenter : BasePresenter<SplashView>(MainSchedulerProvider.INS
 
     private fun onWrithingCompleted() {
         getView()?.playSplashAnimation()
-        getView()?.navigateToWishListScreen()
+        getView()?.navigateToPagerScreen()
     }
 
 }

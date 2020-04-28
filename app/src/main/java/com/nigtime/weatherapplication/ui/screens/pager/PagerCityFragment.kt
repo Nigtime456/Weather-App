@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_pager.*
 import kotlinx.android.synthetic.main.fragment_pager_drawer.*
 
 
-class PagerFragmentCity : BaseFragment<PagerFragmentCity.ActivityListener>(),
+class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
     PagerCityView,
     CurrentForecastFragment.ParentListener {
 
@@ -36,8 +36,8 @@ class PagerFragmentCity : BaseFragment<PagerFragmentCity.ActivityListener>(),
     companion object {
         private const val EXTRA_PAGE = "com.nigtime.weatherapp.city_pager.page"
 
-        fun newInstance(page: Int): PagerFragmentCity {
-            return PagerFragmentCity().apply {
+        fun newInstance(page: Int): PagerCityFragment {
+            return PagerCityFragment().apply {
                 arguments = bundleOf(EXTRA_PAGE to page)
             }
         }
@@ -148,6 +148,7 @@ class PagerFragmentCity : BaseFragment<PagerFragmentCity.ActivityListener>(),
         pagerCityAdapter.submitList(items)
         listAdapter.submitList(items)
         listAdapter.setActivatedItem(currentPage)
+        pagerCityCount.text = getString(R.string.pager_cities_f, items.size)
         setCurrentPage(currentPage, false)
     }
 

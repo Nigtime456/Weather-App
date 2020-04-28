@@ -21,10 +21,12 @@ class WishCitiesPresenter constructor(
 ) :
     BasePresenter<WishCitiesView>(schedulerProvider, TAG) {
 
-
     companion object {
-        private const val TAG = "list_cities"
+        private const val TAG = "wish_list"
+        private val NO_POSITION = -1
     }
+
+    private var insertedPosition = NO_POSITION
 
     fun onClickItem(position: Int) {
         messageDispatcher.forceRun()
@@ -78,6 +80,7 @@ class WishCitiesPresenter constructor(
             //отображаем элемент
             getView()?.showList()
             getView()?.insertItemToList(message.item, message.position)
+            getView()?.scrollListToPosition(message.position)
         } else {
             error("unknown message type = $message")
         }
@@ -107,6 +110,10 @@ class WishCitiesPresenter constructor(
             logger.d("submit list")
             getView()?.showList()
             getView()?.submitList(list)
+
+            if (insertedPosition != NO_POSITION)
+                getView()?.scrollListToPosition(insertedPosition)
+
         } else if (list.isEmpty()) {
             logger.d("list empty")
             getView()?.showMessageEmpty()
@@ -117,6 +124,11 @@ class WishCitiesPresenter constructor(
         //TODO проверять не пустой ли лист
         getView()?.navigateToPreviousScreen()
     }
+
+    fun onCityInsertedAt(position: Int) {
+        insertedPosition = position
+    }
+
 
 
     private class DeleteItemMessage(

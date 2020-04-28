@@ -24,6 +24,7 @@ class SearchCityPresenter constructor(
     }
 
     fun onViewCreated() {
+        getView()?.setInsertedResultCanceled()
         getView()?.showHint()
     }
 
@@ -35,8 +36,8 @@ class SearchCityPresenter constructor(
             pagedSearchRepository.insert(searchCity)
                 .subscribeOn(schedulerProvider.syncDatabase())
                 .observeOn(schedulerProvider.ui())
-                .subscribeAndHandleError(false) {
-                    //TODO set result с этим
+                .subscribeAndHandleError(false) { insertedPosition ->
+                    getView()?.setInsertedResultOk(insertedPosition)
                     getView()?.navigateToPreviousScreen()
                     logger.d("insert = ok")
                 }

@@ -22,7 +22,7 @@
     <string name="wish_undo">Отмена</string>
 
     <!--  Pager  -->
-    <string name="pager_cities">Города</string>
+    <string name="pager_cities_f">Городов: %s</string>
     <string name="pager_other">Прочее</string>
     <string name="pager_settings">Настройки</string>
     <string name="pager_about_app">О приложение</string>

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -18,6 +19,7 @@ import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle
 import com.nigtime.weatherapplication.ui.screens.common.NavigationController
 import com.nigtime.weatherapplication.ui.screens.common.Screen
+import com.nigtime.weatherapplication.ui.screens.search.SearchCityFragment
 import com.nigtime.weatherapplication.ui.tools.ThemeHelper
 import com.nigtime.weatherapplication.ui.tools.list.ColorDividerDecoration
 import com.nigtime.weatherapplication.ui.tools.list.LiftOnScrollListener
@@ -28,9 +30,13 @@ import kotlinx.android.synthetic.main.fragmet_wish_list.*
 
 
 class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(),
-    WishCitiesView {
+    WishCitiesView, SearchCityFragment.Caller {
 
     interface Listener : NavigationController
+
+    companion object {
+        const val REQUEST_CITY = 0
+    }
 
     private lateinit var itemTouchHelper: ItemTouchHelper
     private var undoSnackbar: Snackbar? = null
@@ -58,6 +64,7 @@ class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(),
         override fun onItemClick(position: Int) {
             presenter.onClickItem(position)
         }
+
     }
 
     override fun provideListenerClass(): Class<Listener>? = Listener::class.java
@@ -106,7 +113,9 @@ class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(),
         wishToolbar.apply {
             setOnMenuItemClickListener { menuItem ->
                 if (menuItem.itemId == R.id.menuAdd) {
-                    parentListener?.navigateTo(Screen.Factory.searchCity())
+                    parentListener?.navigateTo(
+                        Screen.Factory.searchCity(this@WishCitiesFragment, REQUEST_CITY)
+                    )
                 }
                 true
             }
@@ -150,7 +159,7 @@ class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(),
     }
 
     override fun submitList(items: List<WishCity>) {
-        (wishRecycler.adapter as WishListAdapter).submitList(items)
+        listAdapter.submitList(items)
     }
 
     override fun showProgressBar() {
@@ -167,8 +176,22 @@ class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(),
 
 
     override fun insertItemToList(item: WishCity, position: Int) {
+        listAdapter.insertItemToList(item, position)
+    }
+
+    override fun scrollListToPosition(position: Int) {
         wishRecycler.smoothScrollToPosition(position)
-        (wishRecycler.adapter as WishListAdapter).insertItemToList(item, position)
+    }
+
+    override fun delayScrollListToPosition(position: Int) {
+        wishRecycler.viewTreeObserver.addOnPreDrawListener(object :
+            ViewTreeObserver.OnPreDrawListener {
+            override fun onPreDraw(): Boolean {
+                wishRecycler.smoothScrollToPosition(position)
+                wishRecycler.viewTreeObserver.removeOnPreDrawListener(this)
+                return true
+            }
+        })
     }
 
     override fun showUndoDeleteSnack() {
@@ -194,6 +217,10 @@ class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(),
 
     private fun getRemoveDuration(): Long {
         return resources.getInteger(R.integer.wish_remove_delay).toLong()
+    }
+
+    override fun onCityInserted(position: Int) {
+        presenter.onCityInsertedAt(position)
     }
 
 }

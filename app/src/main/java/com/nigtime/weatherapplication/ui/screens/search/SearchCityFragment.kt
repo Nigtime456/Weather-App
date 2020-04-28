@@ -4,10 +4,12 @@
 
 package com.nigtime.weatherapplication.ui.screens.search
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,11 +42,21 @@ class SearchCityFragment : BaseFragment<SearchCityFragment.Listener>(), SearchCi
 
     interface Listener : NavigationController
 
+    interface Caller {
+        fun onCityInserted(position: Int)
+    }
+
     private lateinit var toastController: ToastController
     private lateinit var liftOnScrollListener: LiftOnScrollListener
     private lateinit var presenter: SearchCityPresenter
 
+    companion object {
+        const val EXTRA_INSERTED_POSITION =
+            "com.nigtime.weatherapplication.search.inserted_position"
+    }
+
     override fun provideListenerClass(): Class<Listener>? = Listener::class.java
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -167,6 +179,18 @@ class SearchCityFragment : BaseFragment<SearchCityFragment.Listener>(), SearchCi
 
     override fun showMessageAlreadyWish() {
         toastController.showToast(R.string.search_already_selected)
+    }
+
+    override fun setInsertedResultOk(position: Int) {
+        if (targetFragment is Caller) {
+            (targetFragment as Caller).onCityInserted(position)
+        }
+    }
+
+    override fun setInsertedResultCanceled() {
+        targetFragment?.let {
+            onActivityResult(targetRequestCode, Activity.RESULT_OK, null)
+        }
     }
 
     override fun navigateToPreviousScreen() {

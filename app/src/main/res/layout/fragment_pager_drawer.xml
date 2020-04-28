@@ -41,9 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/margin_medium"
             android:elevation="@dimen/elevation_list_item"
-            app:cardBackgroundColor="?attr/themeScreenBackground"
-            app:contentPaddingBottom="@dimen/padding_small"
-            app:contentPaddingTop="@dimen/padding_small">
+            app:cardBackgroundColor="?attr/themeScreenBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,13 +49,14 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/pagerCityCount"
                     style="@style/SecondaryText.Medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_settings"
                     android:layout_marginVertical="@dimen/margin_small"
+                    android:drawableEnd="@drawable/ic_launch"
                     android:paddingHorizontal="@dimen/padding_medium"
-                    android:text="@string/pager_cities" />
+                    tools:text="Городов: 2" />
 
                 <View
                     android:layout_width="match_parent"

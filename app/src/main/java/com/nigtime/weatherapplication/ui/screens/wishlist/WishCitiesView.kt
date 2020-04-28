@@ -16,6 +16,8 @@ interface WishCitiesView : MvpView {
     fun showMessageEmpty()
     fun showList()
     fun insertItemToList(item: WishCity, position: Int)
+    fun scrollListToPosition(position: Int)
+    fun delayScrollListToPosition(position: Int)
     fun showUndoDeleteSnack()
     fun hideUndoDeleteSnack()
     fun navigateToPreviousScreen()

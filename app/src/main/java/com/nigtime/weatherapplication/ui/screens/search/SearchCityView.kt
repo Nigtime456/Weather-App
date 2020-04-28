@@ -15,5 +15,7 @@ interface SearchCityView : MvpView {
     fun showList()
     fun showMessageEmpty()
     fun showMessageAlreadyWish()
+    fun setInsertedResultOk(position: Int)
+    fun setInsertedResultCanceled()
     fun navigateToPreviousScreen()
 }
