@@ -17,12 +17,13 @@
     <string name="wish_title">Список городов</string>
     <string name="wish_wait">Секунду…</string>
     <string name="wish_hint">Нет добавленных городов\nНажмите \'+\' что бы добавить.</string>
-    <string name="wish_city_count_f">Городов добавлено: %s</string>
+    <string name="wish_cities">Городов добавлено: %s</string>
     <string name="wish_city_removed">Город удален</string>
     <string name="wish_undo">Отмена</string>
+    <string name="pager_change_list">Изменить местоположение</string>
 
     <!--  Pager  -->
-    <string name="pager_cities_f">Городов: %s</string>
+    <string name="pager_cities">Города</string>
     <string name="pager_other">Прочее</string>
     <string name="pager_settings">Настройки</string>
     <string name="pager_about_app">О приложение</string>
@@ -32,5 +33,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

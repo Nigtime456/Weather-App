@@ -14,6 +14,11 @@ class PagerCityPresenter(
 ) : BasePresenter<PagerCityView>(
     schedulerProvider
 ) {
+    private var currentPage = 0
+
+    fun handlePagerPosition(page: Int){
+        currentPage = page
+    }
 
     fun provideCities() {
         forecastCitiesRepository.getListCityForForecast()
@@ -22,6 +27,7 @@ class PagerCityPresenter(
             .subscribeAndHandleError(false) { list ->
                 require(list.isNotEmpty()) { "pager screen must not get empty cities list!" }
                 getView()?.submitList(list)
+                getView()?.setPage(currentPage)
             }
     }
 }

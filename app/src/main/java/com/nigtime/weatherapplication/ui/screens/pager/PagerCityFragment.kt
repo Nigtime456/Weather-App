@@ -6,9 +6,11 @@ package com.nigtime.weatherapplication.ui.screens.pager
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.viewpager2.widget.ViewPager2
@@ -19,17 +21,14 @@ import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle
 import com.nigtime.weatherapplication.ui.screens.common.NavigationController
 import com.nigtime.weatherapplication.ui.screens.common.Screen
 import com.nigtime.weatherapplication.ui.screens.currentforecast.CurrentForecastFragment
-import com.nigtime.weatherapplication.ui.tools.ThemeHelper
-import com.nigtime.weatherapplication.ui.tools.list.ColorDividerDecoration
+import com.nigtime.weatherapplication.ui.screens.search.SearchCityFragment
 import com.nigtime.weatherapplication.utility.di.DataRepositoryFactory
 import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
 import kotlinx.android.synthetic.main.fragment_pager.*
-import kotlinx.android.synthetic.main.fragment_pager_drawer.*
 
 
 class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
-    PagerCityView,
-    CurrentForecastFragment.ParentListener {
+    PagerCityView, CurrentForecastFragment.ParentListener, SearchCityFragment.TargetFragment {
 
     interface ActivityListener : NavigationController
 
@@ -43,9 +42,7 @@ class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
         }
     }
 
-    private lateinit var cityPresenter: PagerCityPresenter
-    private var currentPage = 0
-    private lateinit var listAdapter: DrawerListAdapter
+    private lateinit var presenter: PagerCityPresenter
     private lateinit var pagerCityAdapter: PagerCityAdapter
 
     private val pagerScrollListener = object : ViewPager2.OnPageChangeCallback() {
@@ -54,7 +51,7 @@ class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
             positionOffset: Float,
             positionOffsetPixels: Int
         ) {
-            (pagerDrawerList.adapter as DrawerListAdapter).setActivatedItem(position)
+            setNavigationItem(position)
         }
     }
 
@@ -62,7 +59,7 @@ class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        cityPresenter = PagerCityPresenter(
+        presenter = PagerCityPresenter(
             MainSchedulerProvider.INSTANCE,
             DataRepositoryFactory.getForecastCitiesRepository()
         )
@@ -70,7 +67,8 @@ class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        currentPage = arguments?.getInt(EXTRA_PAGE) ?: 0
+        Log.d("sas","create = ${hashCode()}")
+        presenter.handlePagerPosition(arguments?.getInt(EXTRA_PAGE) ?: 0)
     }
 
     override fun onCreateView(
@@ -84,9 +82,9 @@ class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cityPresenter.attach(this, lifecycleBus, ExtendLifecycle.DESTROY_VIEW)
+        presenter.attach(this, lifecycleBus, ExtendLifecycle.DESTROY_VIEW)
         configureViews()
-        cityPresenter.provideCities()
+        presenter.provideCities()
     }
 
     override fun onDestroyView() {
@@ -96,25 +94,32 @@ class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
 
     override fun onStop() {
         super.onStop()
-        currentPage = pagerViewPager.currentItem
+        presenter.handlePagerPosition(pagerViewPager.currentItem)
     }
 
     private fun configureViews() {
-        listAdapter = DrawerListAdapter { position ->
-            setCurrentPage(position, true)
+        pagerNavView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menuAboutApp -> {
+                    Toast.makeText(requireContext(), "TODO", Toast.LENGTH_LONG).show()
+                }
+                R.id.menuChangeCityList -> {
+                    parentListener?.navigateTo(Screen.Factory.wishList())
+                }
+                R.id.menuSettings -> {
+                    Toast.makeText(requireContext(), "TODO", Toast.LENGTH_LONG).show()
+                }
+                else -> {
+                    setCurrentPage(menuItem.itemId-1000, true)
+                }
+            }
             closeDrawer()
+            true
         }
         pagerCityAdapter = PagerCityAdapter(this)
         configureViewPager()
-        configureDrawer()
     }
 
-    private fun configureDrawer() {
-        pagerDrawerList.apply {
-            adapter = listAdapter
-            addItemDecoration(getDivider())
-        }
-    }
 
     private fun configureViewPager() {
         pagerViewPager.apply {
@@ -127,15 +132,6 @@ class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
         pagerViewPager.setCurrentItem(page, smoothScroll)
     }
 
-    private fun getDivider(): ColorDividerDecoration {
-        val dividerColor = ThemeHelper.getColor(requireContext(), R.attr.themeDividerColor)
-        val dividerSize = resources.getDimensionPixelSize(R.dimen.divider_size)
-        return ColorDividerDecoration(
-            dividerColor,
-            dividerSize
-        )
-    }
-
     private fun closeDrawer() {
         pagerDrawer.closeDrawer(GravityCompat.START)
     }
@@ -146,18 +142,45 @@ class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
 
     override fun submitList(items: List<CityForForecast>) {
         pagerCityAdapter.submitList(items)
-        listAdapter.submitList(items)
-        listAdapter.setActivatedItem(currentPage)
-        pagerCityCount.text = getString(R.string.pager_cities_f, items.size)
-        setCurrentPage(currentPage, false)
+        buildDrawerList(items)
     }
 
+    private fun buildDrawerList(items: List<CityForForecast>) {
+        items.forEachIndexed { index: Int, city: CityForForecast ->
+            val menuItem = pagerNavView.menu
+                .getItem(0)
+                .subMenu
+                .add(0, getNavViewItemId(index), 0, city.cityName)
+            menuItem.isCheckable = true
+            menuItem.setIcon(R.drawable.ic_location_city)
+        }
+    }
+
+    private fun getNavViewItemId(position: Int): Int {
+        return position + 1000
+    }
+
+    override fun setPage(page: Int) {
+        Log.d("sas","setPage = $page")
+        setCurrentPage(page, false)
+        setNavigationItem(page)
+    }
+
+    private fun setNavigationItem(index: Int) {
+        pagerNavView.setCheckedItem(getNavViewItemId(index))
+    }
+
+
     override fun onClickAddCity() {
-        parentListener?.navigateTo(Screen.Factory.wishList())
+        parentListener?.navigateTo(Screen.Factory.searchCity(this))
     }
 
 
     override fun onClickOpenDrawer() {
         openDrawer()
+    }
+
+    override fun onCityInserted(position: Int) {
+        presenter.handlePagerPosition(position)
     }
 }

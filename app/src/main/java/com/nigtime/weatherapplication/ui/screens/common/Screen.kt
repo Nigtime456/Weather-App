@@ -33,13 +33,13 @@ interface Screen {
             }
         }
 
-        fun searchCity(targetFragment: Fragment, requestCode: Int) = object : Screen {
+        fun searchCity(targetFragment: Fragment) = object : Screen {
             override fun load(
                 fragmentManager: FragmentManager, @IdRes fragmentContainer: Int,
                 args: Bundle?
             ) {
                 val frag = SearchCityFragment()
-                frag.setTargetFragment(targetFragment, requestCode)
+                frag.setTargetFragment(targetFragment, 0)
 
                 fragmentManager.beginTransaction()
                     .addToBackStack(null)

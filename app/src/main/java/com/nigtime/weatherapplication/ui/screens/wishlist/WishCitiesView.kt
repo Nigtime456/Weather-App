@@ -22,4 +22,5 @@ interface WishCitiesView : MvpView {
     fun hideUndoDeleteSnack()
     fun navigateToPreviousScreen()
     fun navigateToPageScreen(position: Int)
+    fun showPopupMessageEmptyList()
 }

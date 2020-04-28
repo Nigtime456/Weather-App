@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -30,13 +31,9 @@ import kotlinx.android.synthetic.main.fragmet_wish_list.*
 
 
 class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(),
-    WishCitiesView, SearchCityFragment.Caller {
+    WishCitiesView, SearchCityFragment.TargetFragment {
 
     interface Listener : NavigationController
-
-    companion object {
-        const val REQUEST_CITY = 0
-    }
 
     private lateinit var itemTouchHelper: ItemTouchHelper
     private var undoSnackbar: Snackbar? = null
@@ -114,7 +111,7 @@ class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(),
             setOnMenuItemClickListener { menuItem ->
                 if (menuItem.itemId == R.id.menuAdd) {
                     parentListener?.navigateTo(
-                        Screen.Factory.searchCity(this@WishCitiesFragment, REQUEST_CITY)
+                        Screen.Factory.searchCity(this@WishCitiesFragment)
                     )
                 }
                 true
@@ -212,7 +209,12 @@ class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(),
     }
 
     override fun navigateToPageScreen(position: Int) {
+        //TODO сейчас пересоздается фрагмент, надо бы пересмотреть это поведение.
         parentListener?.navigateTo(Screen.Factory.pager(position))
+    }
+
+    override fun showPopupMessageEmptyList() {
+        Toast.makeText(requireContext(), "Список не должен быть пустым!", Toast.LENGTH_LONG).show()
     }
 
     private fun getRemoveDuration(): Long {

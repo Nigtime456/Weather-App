@@ -43,6 +43,13 @@
         <item name="snackbarButtonStyle">@style/SnackButton</item>
     </style>
 
+    <!--  NavigationViews  -->
+    <style name="NavigationViewOverlay">
+        <item name="android:listDivider">?attr/themeDividerColor</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColorSecondary">?attr/themeSecondaryTextColorSelector</item>
+    </style>
+
     <!--    Snackbar  styles  -->
     <style name="SnackMain" parent="Widget.MaterialComponents.Snackbar">
         <item name="animationMode">slide</item>
@@ -123,24 +130,23 @@
 
 
     <style name="PrimaryText.Large">
-        <item name="android:textSize">90sp</item>
+        <item name="android:textSize">@dimen/text_size_primary_large</item>
     </style>
 
     <style name="PrimaryText.Medium">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/text_size_primary_medium</item>
     </style>
 
     <style name="SecondaryText.Medium">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/text_size_secondary_medium</item>
     </style>
 
     <style name="PrimaryText.Lowest">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/text_size_primary_lowest</item>
     </style>
 
-
     <style name="SecondaryText.Lowest">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/text_size_secondary_lowest</item>
     </style>
 
 

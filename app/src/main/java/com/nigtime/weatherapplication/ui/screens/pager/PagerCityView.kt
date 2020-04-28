@@ -9,4 +9,5 @@ import com.nigtime.weatherapplication.ui.screens.common.MvpView
 
 interface PagerCityView : MvpView {
     fun submitList(items: List<CityForForecast>)
+    fun setPage(page: Int)
 }

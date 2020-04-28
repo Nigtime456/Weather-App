@@ -27,6 +27,7 @@ class WishCitiesPresenter constructor(
     }
 
     private var insertedPosition = NO_POSITION
+    private var isListEmpty: Boolean = false
 
     fun onClickItem(position: Int) {
         messageDispatcher.forceRun()
@@ -106,29 +107,34 @@ class WishCitiesPresenter constructor(
      */
     private fun checkList(list: List<WishCity>, submit: Boolean) {
         logger.d("check list $list submit = $submit")
-        if (list.isNotEmpty() && submit) {
+        isListEmpty = list.isEmpty()
+        if (!isListEmpty && submit) {
             logger.d("submit list")
             getView()?.showList()
             getView()?.submitList(list)
 
+            //Из за DiffUtil список может отрсисываваться долго и проглотит
+            //переданную позицию.
             if (insertedPosition != NO_POSITION)
-                getView()?.scrollListToPosition(insertedPosition)
+                getView()?.delayScrollListToPosition(insertedPosition)
 
-        } else if (list.isEmpty()) {
+        } else if (isListEmpty) {
             logger.d("list empty")
             getView()?.showMessageEmpty()
         }
     }
 
     fun onClickNavigationButton() {
-        //TODO проверять не пустой ли лист
-        getView()?.navigateToPreviousScreen()
+        if (!isListEmpty) {
+            getView()?.navigateToPreviousScreen()
+        } else {
+            getView()?.showPopupMessageEmptyList()
+        }
     }
 
     fun onCityInsertedAt(position: Int) {
         insertedPosition = position
     }
-
 
 
     private class DeleteItemMessage(

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/4/28
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:checkable="true"
+        android:title="@string/pager_cities">
+        <menu>
+            <item
+                android:id="@+id/menuChangeCityList"
+                android:checked="true"
+                android:icon="@drawable/ic_launch"
+                android:title="@string/pager_change_list" />
+        </menu>
+    </item>
+
+    <item android:title="@string/pager_other">
+        <menu>
+            <item
+                android:id="@+id/menuSettings"
+                android:checked="true"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/pager_settings" />
+            <item
+                android:id="@+id/menuAboutApp"
+                android:checked="true"
+                android:icon="@drawable/ic_about_app"
+                android:title="@string/pager_about_app" />
+        </menu>
+    </item>
+</menu>

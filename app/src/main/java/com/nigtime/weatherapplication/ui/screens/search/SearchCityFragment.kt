@@ -9,7 +9,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +41,7 @@ class SearchCityFragment : BaseFragment<SearchCityFragment.Listener>(), SearchCi
 
     interface Listener : NavigationController
 
-    interface Caller {
+    interface TargetFragment {
         fun onCityInserted(position: Int)
     }
 
@@ -182,8 +181,8 @@ class SearchCityFragment : BaseFragment<SearchCityFragment.Listener>(), SearchCi
     }
 
     override fun setInsertedResultOk(position: Int) {
-        if (targetFragment is Caller) {
-            (targetFragment as Caller).onCityInserted(position)
+        if (targetFragment is TargetFragment) {
+            (targetFragment as TargetFragment).onCityInserted(position)
         }
     }
 
