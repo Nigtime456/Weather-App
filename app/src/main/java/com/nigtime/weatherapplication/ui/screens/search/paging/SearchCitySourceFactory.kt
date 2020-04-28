@@ -9,6 +9,7 @@ import androidx.paging.DataSource
 import androidx.paging.PositionalDataSource
 import com.nigtime.weatherapplication.db.data.SearchCity
 import com.nigtime.weatherapplication.db.repository.PagedSearchRepository
+import java.util.concurrent.TimeUnit
 
 /**
  * Фабрика [DataSource], нужна для подрузки первой партии данных асинхронно

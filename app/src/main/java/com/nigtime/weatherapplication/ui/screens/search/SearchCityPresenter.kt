@@ -4,6 +4,7 @@
 
 package com.nigtime.weatherapplication.ui.screens.search
 
+import androidx.paging.PagedList
 import com.nigtime.weatherapplication.db.data.SearchCity
 import com.nigtime.weatherapplication.db.repository.PagedSearchRepository
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
@@ -52,6 +53,7 @@ class SearchCityPresenter constructor(
         if (text.length >= MIN_QUERY_LENGTH) {
             loadListQuery(text.toLowerCase())
         } else {
+            performDispose()
             getView()?.showHint()
         }
     }
@@ -60,8 +62,9 @@ class SearchCityPresenter constructor(
         getView()?.showProgressBar()
         pagedListLoader.loadList(pagedSearchRepository, query)
             .subscribeAndHandleError(false) { pagedList ->
+                getView()?.submitList(pagedList)
                 if (pagedList.isNotEmpty()) {
-                    getView()?.submitList(pagedList)
+                    getView()?.delayScrollListToPosition(0)
                     getView()?.showList()
                 } else {
                     getView()?.showMessageEmpty()

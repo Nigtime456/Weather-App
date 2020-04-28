@@ -67,7 +67,6 @@ class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("sas", "create = ${hashCode()}")
         presenter.handlePagerPosition(arguments?.getInt(EXTRA_PAGE) ?: 0)
     }
 
@@ -110,6 +109,7 @@ class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
                     Toast.makeText(requireContext(), "TODO", Toast.LENGTH_LONG).show()
                 }
                 else -> {
+                    //TODO костыль
                     setCurrentPage(menuItem.itemId - 1000, true)
                 }
             }
@@ -157,11 +157,11 @@ class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
     }
 
     private fun getNavViewItemId(position: Int): Int {
+        //TODO костыль
         return position + 1000
     }
 
     override fun setPage(page: Int) {
-        Log.d("sas", "setPage = $page")
         setCurrentPage(page, false)
         setNavigationItem(page)
     }

@@ -10,6 +10,7 @@ import com.nigtime.weatherapplication.ui.screens.common.MvpView
 
 interface SearchCityView : MvpView {
     fun submitList(pagedList: PagedList<SearchCity>)
+    fun delayScrollListToPosition(position: Int)
     fun showHint()
     fun showProgressBar()
     fun showList()

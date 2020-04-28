@@ -33,15 +33,6 @@ class MainActivity : BaseActivity(), MainView, NavigationController,
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        Log.d("sas", "a result")
-        data?.let {
-            val int = it.extras!!.getInt(SearchCityFragment.EXTRA_INSERTED_POSITION)
-            Log.d("sas", "a pos = $int")
-        }
-    }
-
     @SuppressLint("CheckResult")
     private fun test() {
 

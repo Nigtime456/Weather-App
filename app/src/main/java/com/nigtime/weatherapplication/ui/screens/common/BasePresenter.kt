@@ -71,6 +71,13 @@ abstract class BasePresenter<V : MvpView> constructor(
     protected open fun onDetach() {
         logger.d("presenter is detach = ${hashCode()}")
         weakView.clear()
+        performDispose()
+    }
+
+    /**
+     * Выполнить отписку от потоков Rx
+     */
+    protected fun performDispose() {
         compositeDisposable.clear()
     }
 

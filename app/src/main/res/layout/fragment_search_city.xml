@@ -67,9 +67,12 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <FrameLayout
+    <com.nigtime.weatherapplication.ui.customviews.CrossFadeAnimatorLayout
         android:id="@+id/searchViewSwitcher"
         android:layout_width="match_parent"
+        app:crossDisplayedChild="0"
+        app:crossStartDelay="300"
+        app:crossAnimationDuration="300"
         android:layout_height="match_parent">
 
 
@@ -81,7 +84,7 @@
             android:layout_gravity="center"
             android:text="@string/search_widget_hint" />
 
-        <androidx.core.widget.ContentLoadingProgressBar
+        <ProgressBar
             android:id="@+id/searchProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,5 +107,5 @@
             android:layout_gravity="center"
             android:text="@string/search_city_not_found" />
 
-    </FrameLayout>
+    </com.nigtime.weatherapplication.ui.customviews.CrossFadeAnimatorLayout>
 </LinearLayout>

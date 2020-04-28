@@ -9,9 +9,11 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.EditText
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
@@ -105,6 +107,7 @@ class SearchCityFragment : BaseFragment<SearchCityFragment.Listener>(), SearchCi
         searchRecycler.apply {
             adapter = PagedSearchAdapter(getSpanHelper())
             addItemDecoration(getDivider())
+            itemAnimator = null
             PagedSearchAdapter.ItemClickClickListener(this) { searchCityData ->
                 presenter.onClickItem(searchCityData)
             }
@@ -137,43 +140,39 @@ class SearchCityFragment : BaseFragment<SearchCityFragment.Listener>(), SearchCi
 
     override fun submitList(pagedList: PagedList<SearchCity>) {
         searchRecycler.apply {
-            smoothScrollToPosition(0)
             (adapter as PagedSearchAdapter).submitList(pagedList)
         }
     }
 
-    //TODO исправь этот спагети
+    override fun delayScrollListToPosition(position: Int) {
+        //Т.к. из за DiffUtil список формирмует с задержкой
+        searchRecycler.viewTreeObserver.addOnPreDrawListener(object :
+            ViewTreeObserver.OnPreDrawListener {
+            override fun onPreDraw(): Boolean {
+                searchRecycler.scrollToPosition(position)
+                searchRecycler.viewTreeObserver.removeOnPreDrawListener(this)
+                return true
+            }
+        })
+    }
+
     override fun showHint() {
         liftAppBar(false)
-        searchRecycler.visibility = View.INVISIBLE
-        searchProgressBar.hide()
-        searchNotFound.visibility = View.INVISIBLE
-        searchHint.visibility = View.VISIBLE
+        searchViewSwitcher.switchTo(0, true)
     }
 
     override fun showProgressBar() {
         liftAppBar(false)
-        searchRecycler.visibility = View.INVISIBLE
-        searchNotFound.visibility = View.INVISIBLE
-        searchHint.visibility = View.INVISIBLE
-        searchProgressBar.show()
-
+        searchViewSwitcher.switchTo(1, true)
     }
 
     override fun showList() {
-        searchNotFound.visibility = View.INVISIBLE
-        searchHint.visibility = View.INVISIBLE
-        searchProgressBar.hide()
-        searchRecycler.visibility = View.VISIBLE
+        searchViewSwitcher.switchTo(2, false)
     }
 
     override fun showMessageEmpty() {
         liftAppBar(false)
-        searchHint.visibility = View.INVISIBLE
-        searchProgressBar.hide()
-        searchRecycler.visibility = View.INVISIBLE
-        searchNotFound.visibility = View.VISIBLE
-
+        searchViewSwitcher.switchTo(3, false)
     }
 
     override fun showMessageAlreadyWish() {
