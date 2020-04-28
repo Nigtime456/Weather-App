@@ -4,14 +4,11 @@
 
 package com.nigtime.weatherapplication.ui.screens.splash
 
-import com.nigtime.weatherapplication.db.source.SelectedCitySource
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
+import com.nigtime.weatherapplication.ui.screens.common.Screen
 import com.nigtime.weatherapplication.utility.rx.SchedulerProvider
 
-class SplashPresenter(
-    schedulerProvider: SchedulerProvider,
-    private val selectedCitySource: SelectedCitySource
-) :
+class SplashPresenter(schedulerProvider: SchedulerProvider) :
     BasePresenter<SplashView>(schedulerProvider, TAG) {
 
     companion object {
@@ -19,19 +16,15 @@ class SplashPresenter(
     }
 
     fun dispatchScreen() {
-        getView()?.playAnimation()
-        selectedCitySource.hasCities()
-            .subscribeOn(schedulerProvider.syncDatabase())
-            .observeOn(schedulerProvider.ui())
-            .subscribe(this::dispatchResult, this::rethrowError)
-            .disposeOnDetach()
+        getView()?.playSplashAnimation()
+
     }
 
     private fun dispatchResult(hasSelectedCities: Boolean) {
         if (hasSelectedCities) {
-            getView()?.delayedLoadPagerScreen()
+            getView()?.navigateToPagerScreen()
         } else {
-            getView()?.delayedLoadSearchCityScreen()
+            getView()?.navigateToWishListScreen()
         }
     }
 }

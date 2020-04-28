@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.db.data.CityForForecastData
+import com.nigtime.weatherapplication.db.data.CityForForecast
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
 import kotlinx.android.synthetic.main.fragment_current_forecast.*
@@ -19,9 +19,7 @@ import kotlinx.android.synthetic.main.fragment_current_forecast.*
 /**
  * A simple [Fragment] subclass.
  */
-class CurrentForecastFragment :
-    BaseFragment<CurrentForecastView, CurrentForecastPresenter, CurrentForecastFragment.ParentListener>() {
-
+class CurrentForecastFragment : BaseFragment<CurrentForecastFragment.ParentListener>() {
 
     interface ParentListener {
         fun onClickAddCity()
@@ -32,18 +30,16 @@ class CurrentForecastFragment :
         //TODO constant
         private const val EXTRA_CITY = "com.nigtime.weatherapp.current_forecast.forecast_city"
 
-        fun newInstance(cityForForecastData: CityForForecastData): CurrentForecastFragment {
+        fun newInstance(cityForForecast: CityForForecast): CurrentForecastFragment {
             return CurrentForecastFragment().apply {
-                arguments = bundleOf(EXTRA_CITY to cityForForecastData)
+                arguments = bundleOf(EXTRA_CITY to cityForForecast)
             }
         }
     }
 
-    override fun provideListenerClass(): Class<ParentListener> = ParentListener::class.java
+    private val presenter = CurrentForecastPresenter(MainSchedulerProvider.INSTANCE)
 
-    override fun provideMvpPresenter(): CurrentForecastPresenter {
-        return CurrentForecastPresenter(MainSchedulerProvider.INSTANCE)
-    }
+    override fun provideListenerClass(): Class<ParentListener> = ParentListener::class.java
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,22 +51,22 @@ class CurrentForecastFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val city = arguments!!.getParcelable<CityForForecastData>(EXTRA_CITY)
+        val city = arguments!!.getParcelable<CityForForecast>(EXTRA_CITY)
         testTitle.text = city!!.cityName
         testId.text = city.cityId.toString()
         configureAppBar()
     }
 
     private fun configureAppBar() {
-        fragmentCurrentForecastToolbar.apply {
+        currentForecastToolbar.apply {
             setOnMenuItemClickListener {
-                if (it.itemId == R.id.menuAddCity) {
-                    listener?.onClickAddCity()
+                if (it.itemId == R.id.menuAdd) {
+                    parentListener?.onClickAddCity()
                 }
                 true
             }
             setNavigationOnClickListener {
-                listener?.onClickOpenDrawer()
+                parentListener?.onClickOpenDrawer()
             }
         }
     }

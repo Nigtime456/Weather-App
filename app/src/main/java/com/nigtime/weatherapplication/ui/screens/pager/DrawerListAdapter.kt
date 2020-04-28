@@ -9,25 +9,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.db.data.CityForForecastData
-import kotlinx.android.synthetic.main.item_drawer_list_city.view.*
+import com.nigtime.weatherapplication.db.data.CityForForecast
+import kotlinx.android.synthetic.main.item_drawer_city.view.*
 
 class DrawerListAdapter constructor(private val onClick: (Int) -> Unit) :
     RecyclerView.Adapter<DrawerListAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: CityForForecastData, isDisabled: Boolean) {
-            itemView.itemDrawerListCityName.text = item.cityName
+        fun bind(item: CityForForecast, isDisabled: Boolean) {
+            itemView.itemDrawerName.text = item.cityName
             //false == enabled, true == disabled
             itemView.isActivated = isDisabled
         }
     }
 
-    private var items = emptyList<CityForForecastData>()
+    private var items = emptyList<CityForForecast>()
     private var currentActivated = 0
 
-    fun submitList(items: List<CityForForecastData>) {
+    fun submitList(items: List<CityForForecast>) {
         this.items = items
         //данный список не планируется обновлять между onCreateView() и onDestroyView()
         notifyDataSetChanged()
@@ -52,7 +52,7 @@ class DrawerListAdapter constructor(private val onClick: (Int) -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ViewHolder(inflater.inflate(R.layout.item_drawer_list_city, parent, false))
+        return ViewHolder(inflater.inflate(R.layout.item_drawer_city, parent, false))
     }
 
     override fun getItemCount(): Int = items.size

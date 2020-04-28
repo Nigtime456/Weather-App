@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/fragmentSearchCityAppbar"
+        android:id="@+id/searchAppbar"
         style="@style/LiftingToolbarCardStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,27 +20,27 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/fragmentSearchCityToolbar"
+                android:id="@+id/searchToolbar"
                 style="@style/ToolbarMainStyle"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:navigationIcon="@drawable/ic_arrow_back"
-                app:title="@string/fragment_search_city_title" />
+                app:title="@string/search_title" />
 
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayoutMainStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/medium_margin">
+                android:layout_marginHorizontal="@dimen/margin_medium">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fragmentSearchCityEditText"
+                    android:id="@+id/searchEditText"
                     style="@style/TextInputEditMainStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/fragment_search_city_hint"
-                    android:paddingVertical="@dimen/medium_margin"
+                    android:hint="@string/search_input_hint"
+                    android:paddingVertical="@dimen/margin_medium"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp">
 
@@ -51,58 +51,58 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/divider_size"
-                android:layout_marginHorizontal="@dimen/medium_margin"
+                android:layout_marginHorizontal="@dimen/margin_medium"
                 android:background="?attr/themeDividerColor" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/fragmentSearchCityCurrentLocation"
+                android:id="@+id/searchCurrentLocation"
                 style="@style/TextButton.PrimaryLowest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:paddingHorizontal="@dimen/medium_padding"
-                android:paddingVertical="@dimen/small_padding"
-                android:text="@string/fragment_search_city_current_location"
+                android:paddingHorizontal="@dimen/padding_medium"
+                android:paddingVertical="@dimen/padding_small"
+                android:text="@string/search_current_location"
                 app:icon="@drawable/ic_my_location" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <FrameLayout
-        android:id="@+id/fragmentSearchCityViewSwitcher"
+        android:id="@+id/searchViewSwitcher"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
         <TextView
-            android:id="@+id/fragmentSearchCityHint"
+            android:id="@+id/searchHint"
             style="@style/PrimaryText.Lowest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/fragment_search_city_search_hint" />
+            android:text="@string/search_widget_hint" />
 
         <androidx.core.widget.ContentLoadingProgressBar
-            android:id="@+id/fragmentSearchCityProgressBar"
+            android:id="@+id/searchProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fragmentSearchCityRecycler"
+            android:id="@+id/searchRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="ifContentScrolls"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_search_list" />
+            tools:listitem="@layout/item_search_city" />
 
 
         <TextView
-            android:id="@+id/fragmentSearchCityNotFound"
+            android:id="@+id/searchNotFound"
             style="@style/PrimaryText.Lowest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/fragment_search_city_not_found" />
+            android:text="@string/search_city_not_found" />
 
     </FrameLayout>
 </LinearLayout>

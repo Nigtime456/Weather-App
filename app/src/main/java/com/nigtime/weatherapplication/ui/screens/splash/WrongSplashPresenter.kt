@@ -4,9 +4,8 @@
 
 package com.nigtime.weatherapplication.ui.screens.splash
 
-import com.nigtime.weatherapplication.db.service.AppDatabase
 import com.nigtime.weatherapplication.trash.CitiesMarshallingHelper
-import com.nigtime.weatherapplication.ui.screens.common.App
+import com.nigtime.weatherapplication.App
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
 import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
 import com.nigtime.weatherbitapp.uselles.storage.room.repository.RoomDictionaryWriter
@@ -21,8 +20,8 @@ class WrongSplashPresenter : BasePresenter<SplashView>(MainSchedulerProvider.INS
         private const val TAG = "wrong_splash"
     }
 
-    fun checkAndSetCitiesDictionary() {
-        RoomDictionaryWriter(AppDatabase.Instance.get(App.INSTANCE).geoCityDao())
+    fun checkReferenceCities() {
+        RoomDictionaryWriter(App.INSTANCE.database.referenceCityDao())
             .isDictionaryWritten()
             .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
@@ -41,8 +40,7 @@ class WrongSplashPresenter : BasePresenter<SplashView>(MainSchedulerProvider.INS
     private fun writeCities() {
         val citiesDictionaryProvider = AssetCityProvider(App.INSTANCE)
         val marshallingHelper = CitiesMarshallingHelper()
-        val dictionaryWriter =
-            RoomDictionaryWriter(AppDatabase.Instance.get(App.INSTANCE).geoCityDao())
+        val dictionaryWriter = RoomDictionaryWriter(App.INSTANCE.database.referenceCityDao())
         Single.just(citiesDictionaryProvider.getZippedCitiesDictionary())
             .map { ZipInputStream(it) }
             .doOnSuccess { it.nextEntry }
@@ -58,8 +56,8 @@ class WrongSplashPresenter : BasePresenter<SplashView>(MainSchedulerProvider.INS
     }
 
     private fun onWrithingCompleted() {
-        getView()?.playAnimation()
-        getView()?.delayedLoadPagerScreen()
+        getView()?.playSplashAnimation()
+        getView()?.navigateToWishListScreen()
     }
 
 }

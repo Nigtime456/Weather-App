@@ -5,37 +5,28 @@
 package com.nigtime.weatherapplication.db.service
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.nigtime.weatherapplication.db.tables.GeoCityTable
-import com.nigtime.weatherapplication.db.tables.SelectedCityTable
-import com.nigtime.weatherapplication.db.tables.TableConstants
+import com.nigtime.weatherapplication.db.entity.ReferenceCityTable
+import com.nigtime.weatherapplication.db.entity.TableConstants
+import com.nigtime.weatherapplication.db.entity.WishCityTable
 
 @Database(
-    entities = [GeoCityTable::class, SelectedCityTable::class],
+    entities = [ReferenceCityTable::class, WishCityTable::class],
     version = 1,
     exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun geoCityDao(): GeoCityDao
-    abstract fun selectedCityDao(): SelectedCityDao
+    abstract fun referenceCityDao(): ReferenceCityDao
+    abstract fun wishCityDao(): WishCityDao
 
-    object Instance {
-        private lateinit var db: AppDatabase
-
+    companion object{
         fun get(context: Context): AppDatabase {
-            if (!Instance::db.isInitialized) {
-                db = Room.databaseBuilder(
-                    context,
-                    AppDatabase::class.java,
-                    TableConstants.DATABASE_NAME
-                )
-                    .build()
-            }
-            return db
+            return Room.databaseBuilder(context, AppDatabase::class.java, TableConstants.DATABASE_NAME)
+                .build()
         }
     }
+
 }

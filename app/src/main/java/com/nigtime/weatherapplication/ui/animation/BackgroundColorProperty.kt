@@ -9,10 +9,14 @@ import android.graphics.drawable.ColorDrawable
 import android.util.Property
 import android.view.View
 
-class BackgroundColorProperty : Property<View, Int>(Int::class.java, PROPERTY_NAME) {
+
+
+class BackgroundColorProperty :
+    Property<View, Int>(Int::class.java, PROPERTY_NAME) {
     companion object {
         const val PROPERTY_NAME = "backgroundColor"
     }
+
 
     override fun set(view: View, value: Int) {
         view.setBackgroundColor(value)

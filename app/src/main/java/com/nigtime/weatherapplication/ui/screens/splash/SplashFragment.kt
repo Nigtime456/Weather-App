@@ -16,7 +16,6 @@ import android.view.animation.LinearInterpolator
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.ui.animation.BackgroundColorProperty
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
-import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle
 import com.nigtime.weatherapplication.ui.screens.common.NavigationController
 import com.nigtime.weatherapplication.ui.screens.common.Screen
 import com.nigtime.weatherapplication.ui.tools.ThemeHelper
@@ -28,15 +27,11 @@ import kotlinx.android.synthetic.main.fragment_splash.*
  * не будет выполнена инициализация. (инициализация может продлиться долго)
  * Так же надо предусмотреть минимальный тайминг отображения.
  */
-class SplashFragment : BaseFragment<SplashView, WrongSplashPresenter, SplashFragment.Listener>(),
+class SplashFragment : BaseFragment<SplashFragment.Listener>(),
     SplashView {
 
     interface Listener : NavigationController
-
-    override fun provideMvpPresenter(): WrongSplashPresenter {
-        //TODO mock
-        return WrongSplashPresenter()
-    }
+    private val presenter = WrongSplashPresenter()
 
     override fun provideListenerClass(): Class<Listener>? = Listener::class.java
 
@@ -49,27 +44,34 @@ class SplashFragment : BaseFragment<SplashView, WrongSplashPresenter, SplashFrag
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.attach(this, lifecycleBus, ExtendLifecycle.DESTROY_VIEW)
-        presenter.checkAndSetCitiesDictionary()
+        presenter.attach(this, lifecycleBus)
+        presenter.checkReferenceCities()
     }
 
-    override fun playAnimation() {
+    override fun playSplashAnimation() {
         val backgroundAnimator = getBackgroundAnimator()
         val rotateAnimator = getRotateAnimator()
-
         AnimatorSet().apply {
+            duration = resources.getInteger(R.integer.splash_rotate_color_transition).toLong()
             play(backgroundAnimator).with(rotateAnimator)
             start()
         }
 
     }
 
+    override fun navigateToPagerScreen() {
+        parentListener?.navigateTo(Screen.Factory.pager())
+    }
+
+    override fun navigateToWishListScreen() {
+        parentListener?.navigateTo(Screen.Factory.wishList())
+    }
+
     private fun getRotateAnimator(): Animator {
-        return ObjectAnimator.ofFloat(fragmentSplashIco, View.ROTATION, 0f, 360f).apply {
+        return ObjectAnimator.ofFloat(splashIco, View.ROTATION, 0f, 360f).apply {
             repeatCount = ValueAnimator.INFINITE
             repeatMode = ValueAnimator.REVERSE
             interpolator = LinearInterpolator()
-            duration = resources.getInteger(R.integer.splash_rotate_anim).toLong()
         }
     }
 
@@ -77,21 +79,12 @@ class SplashFragment : BaseFragment<SplashView, WrongSplashPresenter, SplashFrag
         val startColor = ThemeHelper.getColor(requireContext(), R.attr.themeNightColor)
         val endColor = ThemeHelper.getColor(requireContext(), R.attr.themeDayColor)
         return ObjectAnimator.ofArgb(
-            fragmentSplashRoot,
+            splashRoot,
             BackgroundColorProperty(),
             startColor,
             endColor
-        ).apply {
-            duration = resources.getInteger(R.integer.splash_rotate_color_transition).toLong()
-        }
+        )
     }
 
-    override fun delayedLoadPagerScreen() {
-        listener?.navigateTo(Screen.Factory.pager())
-    }
-
-    override fun delayedLoadSearchCityScreen() {
-
-    }
 
 }

@@ -6,6 +6,6 @@
     <integer name="splash_rotate_anim">2000</integer>
     <integer name="splash_rotate_color_transition">2000</integer>
 
-    <integer name="list_cities_remove_delay">5000</integer>
+    <integer name="wish_remove_delay">5000</integer>
 
 </resources>

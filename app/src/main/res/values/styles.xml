@@ -74,8 +74,8 @@
 
     <!--  Button's style   -->
     <style name="TextButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="iconPadding">@dimen/small_padding</item>
-        <item name="iconSize">@dimen/small_icon</item>
+        <item name="iconPadding">@dimen/padding_small</item>
+        <item name="iconSize">@dimen/icon_small</item>
         <item name="iconTint">?attr/themeIconTintColor</item>
         <item name="android:insetLeft">0dp</item>
         <item name="android:insetTop">0dp</item>

@@ -3,7 +3,7 @@
     package="com.nigtime.weatherapplication">
 
     <application
-        android:name="com.nigtime.weatherapplication.ui.screens.common.App"
+        android:name="com.nigtime.weatherapplication.App"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

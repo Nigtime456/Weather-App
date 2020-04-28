@@ -7,7 +7,7 @@ package com.nigtime.weatherapplication.ui.screens.splash
 import com.nigtime.weatherapplication.ui.screens.common.MvpView
 
 interface SplashView : MvpView {
-    fun playAnimation()
-    fun delayedLoadPagerScreen()
-    fun delayedLoadSearchCityScreen()
+    fun playSplashAnimation()
+    fun navigateToPagerScreen()
+    fun navigateToWishListScreen()
 }

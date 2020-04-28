@@ -6,26 +6,26 @@
     <string name="content_description_temp">Температура</string>
 
     <!--  Search city  -->
-    <string name="fragment_search_city_title">Добавить город</string>
-    <string name="fragment_search_city_hint">For example: Moscow</string>
-    <string name="fragment_search_city_current_location">Текущее местоположение</string>
-    <string name="fragment_search_city_search_hint">Начните вводить для поиска</string>
-    <string name="fragment_search_city_not_found">No such city was found :(</string>
-    <string name="fragment_search_city_already_selected">Этот город уже добавлен!</string>
+    <string name="search_title">Добавить город</string>
+    <string name="search_input_hint">For example: Moscow</string>
+    <string name="search_current_location">Текущее местоположение</string>
+    <string name="search_widget_hint">Начните вводить для поиска</string>
+    <string name="search_city_not_found">No such city was found :(</string>
+    <string name="search_already_selected">Этот город уже добавлен!</string>
 
     <!--  List of cities  -->
-    <string name="fragment_list_cities_title">Список городов</string>
-    <string name="fragment_list_cities_wait">Секунду…</string>
-    <string name="fragment_list_cities_hint">Нет добавленных городов\nНажмите \'+\' что бы добавить.</string>
-    <string name="fragment_list_cities_city_count_f">Городов добавлено: %s</string>
-    <string name="fragment_list_city_removed">Город удален</string>
-    <string name="fragment_list_city_undo">Отмена</string>
+    <string name="wish_title">Список городов</string>
+    <string name="wish_wait">Секунду…</string>
+    <string name="wish_hint">Нет добавленных городов\nНажмите \'+\' что бы добавить.</string>
+    <string name="wish_city_count_f">Городов добавлено: %s</string>
+    <string name="wish_city_removed">Город удален</string>
+    <string name="wish_undo">Отмена</string>
 
     <!--  Pager  -->
-    <string name="fragment_city_pager_cities">Города</string>
-    <string name="fragment_city_pager_other">Прочее</string>
-    <string name="fragment_city_pager_settings">Настройки</string>
-    <string name="fragment_city_pager_about_app">О приложение</string>
+    <string name="pager_cities">Города</string>
+    <string name="pager_other">Прочее</string>
+    <string name="pager_settings">Настройки</string>
+    <string name="pager_about_app">О приложение</string>
 
     <!--  Menu  -->
     <string name="menu_add_city">Add city</string>

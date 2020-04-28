@@ -11,7 +11,7 @@
     tools:context=".ui.screens.currentforecast.CurrentForecastFragment">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/fragmentCurrentForecastAppbar"
+        android:id="@+id/currentForecastAppbar"
         style="@style/LiftingToolbarCardStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/fragmentCurrentForecastToolbar"
+                android:id="@+id/currentForecastToolbar"
                 style="@style/ToolbarMainStyle"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"

@@ -7,7 +7,7 @@
         <set android:duration="@android:integer/config_shortAnimTime">
             <objectAnimator
                 android:propertyName="z"
-                android:valueTo="@dimen/list_item_drag_elevation"
+                android:valueTo="@dimen/elevation_drag_item"
                 android:valueType="floatType" />
         </set>
     </item>
@@ -16,7 +16,7 @@
         <set android:duration="@android:integer/config_shortAnimTime">
             <objectAnimator
                 android:propertyName="z"
-                android:valueTo="@dimen/list_item_elevation"
+                android:valueTo="@dimen/elevation_list_item"
                 android:valueType="floatType" />
         </set>
     </item>

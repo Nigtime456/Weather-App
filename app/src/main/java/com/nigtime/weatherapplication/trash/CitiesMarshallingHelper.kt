@@ -11,7 +11,7 @@ package com.nigtime.weatherapplication.trash
 
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonToken
-import com.nigtime.weatherapplication.db.tables.GeoCityTable
+import com.nigtime.weatherapplication.db.entity.ReferenceCityTable
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import java.io.Reader
@@ -19,7 +19,7 @@ import java.io.Reader
 
 class CitiesMarshallingHelper {
 
-    fun readFromReader(reader: Reader): Flowable<GeoCityTable> {
+    fun readFromReader(reader: Reader): Flowable<ReferenceCityTable> {
 
         return Flowable.create({ emitter ->
             try {
@@ -44,7 +44,7 @@ class CitiesMarshallingHelper {
         }, BackpressureStrategy.ERROR)
     }
 
-    private fun makeCity(jsonReader: JsonReader): GeoCityTable {
+    private fun makeCity(jsonReader: JsonReader): ReferenceCityTable {
         var id = 0L
         var name = ""
         var stateName = ""
@@ -60,7 +60,7 @@ class CitiesMarshallingHelper {
             }
         }
 
-        return GeoCityTable(
+        return ReferenceCityTable(
             id,
             name,
             stateName,

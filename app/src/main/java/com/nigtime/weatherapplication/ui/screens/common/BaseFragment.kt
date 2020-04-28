@@ -15,31 +15,25 @@ import io.reactivex.subjects.Subject
  * Подклассы сами присоединяют презентер.
  *
  * @param L - parent listener class
- * @param P - presenter class
- * @param V - MVP view class
  */
 @Suppress("MemberVisibilityCanBePrivate")
-abstract class BaseFragment<V : MvpView, P : BasePresenter<V>, L> :
+abstract class BaseFragment<L> :
     Fragment() {
     /**
      * Шина для уведомления презентера об событиях ЖЦ
      */
     protected val lifecycleBus: Subject<ExtendLifecycle> = PublishSubject.create()
     /**
-     * Презентер
-     */
-    protected lateinit var presenter: P
-    /**
      * Связанный листенер
      */
-    protected var listener: L? = null
+    protected var parentListener: L? = null
 
     @Suppress("UNCHECKED_CAST")
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        presenter = provideMvpPresenter()
+
         provideListenerClass()?.let { clazz ->
-            listener = if (clazz.isAssignableFrom(context.javaClass)) {
+            parentListener = if (clazz.isAssignableFrom(context.javaClass)) {
                 clazz.cast(context)
             } else if (parentFragment != null && clazz.isAssignableFrom(parentFragment!!.javaClass)) {
                 clazz.cast(parentFragment)
@@ -47,6 +41,13 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>, L> :
                 error("${context.javaClass.name} or $parentFragment must implement ${clazz.name}")
             }
         }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        lifecycleBus.onNext(ExtendLifecycle.DETACH)
+        parentListener = null
+
     }
 
     override fun onPause() {
@@ -69,21 +70,11 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>, L> :
         lifecycleBus.onNext(ExtendLifecycle.DESTROY)
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        lifecycleBus.onNext(ExtendLifecycle.DETACH)
-        listener = null
-    }
 
     /**
-     * Вернуть листерен.
+     * Вернуть класс listener'a.
      * @return - null - without listener
      */
     protected open fun provideListenerClass(): Class<L>? = null
-
-    /**
-     * Предоставить презентер
-     */
-    protected abstract fun provideMvpPresenter(): P
 
 }

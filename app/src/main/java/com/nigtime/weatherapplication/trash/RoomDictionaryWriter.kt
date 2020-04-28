@@ -4,12 +4,12 @@
 
 package com.nigtime.weatherbitapp.uselles.storage.room.repository
 
-import com.nigtime.weatherapplication.db.service.GeoCityDao
-import com.nigtime.weatherapplication.db.tables.GeoCityTable
+import com.nigtime.weatherapplication.db.service.ReferenceCityDao
+import com.nigtime.weatherapplication.db.entity.ReferenceCityTable
 import io.reactivex.Single
 
 //TODO USELESS
-class RoomDictionaryWriter constructor(private val dictionaryDao: GeoCityDao) {
+class RoomDictionaryWriter constructor(private val dictionaryDao: ReferenceCityDao) {
 
     fun isDictionaryWritten(): Single<Boolean> {
         return dictionaryDao
@@ -18,7 +18,7 @@ class RoomDictionaryWriter constructor(private val dictionaryDao: GeoCityDao) {
     }
 
 
-    fun writeDictionaryCity(dictionaryCity: GeoCityTable) {
+    fun writeDictionaryCity(dictionaryCity: ReferenceCityTable) {
         dictionaryDao.insert(dictionaryCity)
     }
 }

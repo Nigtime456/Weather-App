@@ -28,7 +28,7 @@ abstract class BasePresenter<V : MvpView> constructor(
     tag: String = TAG
 ) {
 
-    private lateinit var weakReferenceView: WeakReference<V>
+    private lateinit var weakView: WeakReference<V>
     private lateinit var compositeDisposable: CompositeDisposable
     protected val logger: CustomLogger = CustomLogger(tag, true)
 
@@ -42,9 +42,16 @@ abstract class BasePresenter<V : MvpView> constructor(
      * @param lifecycleBus - поток для уведомления об ЖЦ фрагмента
      * @param detachOn - ивент [ExtendLifecycle] при котором отписаться
      */
-    fun attach(view: V, lifecycleBus: Observable<ExtendLifecycle>, detachOn: ExtendLifecycle) {
+    fun attach(
+        view: V,
+        lifecycleBus: Observable<ExtendLifecycle>,
+        detachOn: ExtendLifecycle = ExtendLifecycle.DESTROY_VIEW
+    ) {
         logger.d("presenter is attach = ${hashCode()}")
-        weakReferenceView = WeakReference(view)
+
+        weakView = WeakReference(view)
+
+
         compositeDisposable = CompositeDisposable()
         lifecycleBus
             .subscribe { lifecycleEvent ->
@@ -63,7 +70,7 @@ abstract class BasePresenter<V : MvpView> constructor(
     @CallSuper
     protected open fun onDetach() {
         logger.d("presenter is detach = ${hashCode()}")
-        weakReferenceView.clear()
+        weakView.clear()
         compositeDisposable.clear()
     }
 
@@ -71,15 +78,14 @@ abstract class BasePresenter<V : MvpView> constructor(
      * true - view присоеденно
      */
     fun isViewAttached(): Boolean {
-        return weakReferenceView.isEnqueued
+        return weakView.isEnqueued
     }
 
     /**
      * Получить ссылку на присоеденную view.
      * @return присоеденная MvpView или null, если она отсодена
      */
-    protected fun getView(): V? = weakReferenceView.get()
-
+    protected fun getView(): V? = weakView.get()
 
     /**
      * Расширение к Disposable для простой отписки
