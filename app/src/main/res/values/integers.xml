@@ -8,4 +8,7 @@
 
     <integer name="wish_remove_delay">5000</integer>
 
+    <integer name="cross_anim_duration">@android:integer/config_shortAnimTime</integer>
+    <integer name="cross_start_delay">300</integer>
+
 </resources>

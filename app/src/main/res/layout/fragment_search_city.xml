@@ -70,9 +70,9 @@
     <com.nigtime.weatherapplication.ui.customviews.CrossFadeAnimatorLayout
         android:id="@+id/searchViewSwitcher"
         android:layout_width="match_parent"
+        app:crossAnimationDuration="@integer/cross_anim_duration"
         app:crossDisplayedChild="0"
-        app:crossStartDelay="300"
-        app:crossAnimationDuration="300"
+        app:crossStartDelay="@integer/cross_start_delay"
         android:layout_height="match_parent">
 
 

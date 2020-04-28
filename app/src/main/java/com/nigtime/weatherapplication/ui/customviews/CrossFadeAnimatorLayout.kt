@@ -16,7 +16,7 @@ import com.nigtime.weatherapplication.R
 
 /**
  * Layout который выполняет CrossFade анимацию,
- * принцип работы схожий с ContentLoadingProgressBar.
+ * принцип работы схожий с ContentLoadingProgressBar, но работает как ViewAnimator.
  * При переключение на другое View, Layout некоторое время
  * ототображает текущий вью, если за это время не было переключения на следующий
  * View то выполняется анимация, таким образом избегется резкое переключение

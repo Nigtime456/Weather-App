@@ -160,15 +160,17 @@ class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(),
     }
 
     override fun showProgressBar() {
-        wishViewSwitcher.displayedChild = 0
+        wishViewSwitcher.switchTo(0,true)
     }
 
     override fun showList() {
-        wishViewSwitcher.displayedChild = 1
+        wishViewSwitcher.switchTo(1,false)
+
     }
 
     override fun showMessageEmpty() {
-        wishViewSwitcher.displayedChild = 2
+        wishViewSwitcher.switchTo(2,true)
+
     }
 
 
@@ -214,6 +216,7 @@ class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(),
     }
 
     override fun showPopupMessageEmptyList() {
+        //TODO должен диалог отображаться или типо того
         Toast.makeText(requireContext(), "Список не должен быть пустым!", Toast.LENGTH_LONG).show()
     }
 
