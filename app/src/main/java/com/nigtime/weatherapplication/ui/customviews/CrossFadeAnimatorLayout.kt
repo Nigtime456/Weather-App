@@ -14,6 +14,15 @@ import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import com.nigtime.weatherapplication.R
 
+/**
+ * Layout который выполняет CrossFade анимацию,
+ * принцип работы схожий с ContentLoadingProgressBar.
+ * При переключение на другое View, Layout некоторое время
+ * ототображает текущий вью, если за это время не было переключения на следующий
+ * View то выполняется анимация, таким образом избегется резкое переключение
+ * виджетов.
+ *
+ */
 class CrossFadeAnimatorLayout : FrameLayout {
 
     private companion object {
@@ -67,10 +76,14 @@ class CrossFadeAnimatorLayout : FrameLayout {
     }
 
 
+    /**
+     * Переключиться на следующуй дочерений вью.
+     * @param childIndex - индекс вью.
+     * @param immediately - выполнить переключенеи немедленно, без ожидания
+     */
     fun switchTo(childIndex: Int, immediately: Boolean) {
         //уже ожидает переключения
         if (childIndex == pendingDisplayedChild) {
-            Log.d("sas", "already pending!")
             return
         }
 
@@ -78,35 +91,33 @@ class CrossFadeAnimatorLayout : FrameLayout {
         pendingDisplayedChild = NO_INDEX
         //уже отображается
         if (childIndex == currentDisplayedChild) {
-            Log.d("sas", "same index!")
             return
         }
 
         pendingDisplayedChild = childIndex
 
         if (immediately) {
-            Log.d("sas", "immediately")
             switch()
         } else {
-            Log.d("sas", "delay = $startDelayDuration")
             postDelayed(pendingSwitch, startDelayDuration)
         }
     }
 
     private fun switch() {
-        Log.d("sas", "switch to = $pendingDisplayedChild, duration = $animationDuration")
         val currentChild = getChildAt(currentDisplayedChild)
         val nextChild = get(pendingDisplayedChild)
+
         val transition = Fade().apply { duration = animationDuration }
         TransitionManager.beginDelayedTransition(this, transition)
+
         currentChild.visibility = View.GONE
         nextChild.visibility = View.VISIBLE
+
         currentDisplayedChild = pendingDisplayedChild
         pendingDisplayedChild = NO_INDEX
     }
 
     private val pendingSwitch = Runnable {
-        Log.d("sas", "runnable")
         switch()
     }
 }
