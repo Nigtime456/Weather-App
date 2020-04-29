@@ -14,14 +14,14 @@ import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.domain.database.CityForForecast
+import com.nigtime.weatherapplication.domain.cities.CityForForecast
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle
 import com.nigtime.weatherapplication.ui.screens.common.NavigationController
 import com.nigtime.weatherapplication.ui.screens.common.Screen
 import com.nigtime.weatherapplication.ui.screens.currentforecast.CurrentForecastFragment
 import com.nigtime.weatherapplication.ui.screens.search.SearchCityFragment
-import com.nigtime.weatherapplication.utility.di.DataRepositoryFactory
+import com.nigtime.weatherapplication.utility.di.CitiesRepositoryFactory
 import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
 import kotlinx.android.synthetic.main.fragment_pager.*
 
@@ -60,7 +60,7 @@ class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
         super.onAttach(context)
         presenter = PagerCityPresenter(
             MainSchedulerProvider.INSTANCE,
-            DataRepositoryFactory.getForecastCitiesRepository()
+            CitiesRepositoryFactory.getForecastCitiesRepository()
         )
     }
 

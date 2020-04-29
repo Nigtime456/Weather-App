@@ -17,18 +17,18 @@ import android.widget.EditText
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.domain.database.SearchCity
+import com.nigtime.weatherapplication.domain.cities.SearchCity
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle
 import com.nigtime.weatherapplication.ui.screens.common.NavigationController
 import com.nigtime.weatherapplication.ui.screens.search.paging.PagedListLoaderImpl
 import com.nigtime.weatherapplication.ui.screens.search.paging.PagedSearchAdapter
-import com.nigtime.weatherapplication.utility.ui.ColorSpanHelper
-import com.nigtime.weatherapplication.utility.ui.ThemeHelper
-import com.nigtime.weatherapplication.utility.ui.ToastController
-import com.nigtime.weatherapplication.utility.ui.list.ColorDividerDecoration
-import com.nigtime.weatherapplication.utility.ui.list.LiftOnScrollListener
-import com.nigtime.weatherapplication.utility.di.DataRepositoryFactory
+import com.nigtime.weatherapplication.ui.helpers.ColorSpanHelper
+import com.nigtime.weatherapplication.ui.helpers.ThemeHelper
+import com.nigtime.weatherapplication.ui.helpers.ToastController
+import com.nigtime.weatherapplication.ui.helpers.list.ColorDividerDecoration
+import com.nigtime.weatherapplication.ui.helpers.list.LiftOnScrollListener
+import com.nigtime.weatherapplication.utility.di.CitiesRepositoryFactory
 import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
 import kotlinx.android.synthetic.main.fragment_search_city.*
 
@@ -62,7 +62,7 @@ class SearchCityFragment : BaseFragment<SearchCityFragment.Listener>(), SearchCi
         super.onAttach(context)
         val schedulerProvider = MainSchedulerProvider.INSTANCE
         val pagedListLoader = PagedListLoaderImpl(schedulerProvider)
-        val pagedSearchRepository = DataRepositoryFactory.getPagedSearchRepository()
+        val pagedSearchRepository = CitiesRepositoryFactory.getPagedSearchRepository()
         presenter = SearchCityPresenter(schedulerProvider, pagedSearchRepository, pagedListLoader)
     }
 

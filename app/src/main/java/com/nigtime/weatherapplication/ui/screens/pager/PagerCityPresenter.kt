@@ -4,7 +4,7 @@
 
 package com.nigtime.weatherapplication.ui.screens.pager
 
-import com.nigtime.weatherapplication.domain.repository.database.ForecastCitiesRepository
+import com.nigtime.weatherapplication.domain.repository.cities.ForecastCitiesRepository
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
 import com.nigtime.weatherapplication.utility.rx.SchedulerProvider
 
@@ -21,7 +21,7 @@ class PagerCityPresenter(
     }
 
     fun provideCities() {
-        forecastCitiesRepository.getListCityForForecast()
+        forecastCitiesRepository.getListCities()
             .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
             .subscribeAndHandleError(false) { list ->

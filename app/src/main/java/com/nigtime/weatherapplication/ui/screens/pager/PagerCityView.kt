@@ -4,7 +4,7 @@
 
 package com.nigtime.weatherapplication.ui.screens.pager
 
-import com.nigtime.weatherapplication.domain.database.CityForForecast
+import com.nigtime.weatherapplication.domain.cities.CityForForecast
 import com.nigtime.weatherapplication.ui.screens.common.MvpView
 
 interface PagerCityView : MvpView {

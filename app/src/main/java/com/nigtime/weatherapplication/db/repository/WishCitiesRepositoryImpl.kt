@@ -4,12 +4,12 @@
 
 package com.nigtime.weatherapplication.db.repository
 
-import com.nigtime.weatherapplication.domain.database.WishCity
+import com.nigtime.weatherapplication.domain.cities.WishCity
 import com.nigtime.weatherapplication.db.tables.ReferenceCityTable
 import com.nigtime.weatherapplication.db.tables.WishCityTable
 import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.db.service.WishCityDao
-import com.nigtime.weatherapplication.domain.repository.database.WishCitiesRepository
+import com.nigtime.weatherapplication.domain.repository.cities.WishCitiesRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -18,7 +18,7 @@ class WishCitiesRepositoryImpl constructor(
     private val wishCityDao: WishCityDao
 ) : WishCitiesRepository {
 
-    override fun getWishCitiesList(): Single<List<WishCity>> {
+    override fun getCitiesList(): Single<List<WishCity>> {
         return Single.fromCallable { wishCityDao.getAll() }
             .map(this::getWishListByIds)
     }
@@ -30,7 +30,7 @@ class WishCitiesRepositoryImpl constructor(
         }
     }
 
-    override fun hasWishCities(): Single<Boolean> {
+    override fun hasCities(): Single<Boolean> {
         return Single.fromCallable { wishCityDao.getOneRow() }
             .map { list -> list.isNotEmpty() }
     }

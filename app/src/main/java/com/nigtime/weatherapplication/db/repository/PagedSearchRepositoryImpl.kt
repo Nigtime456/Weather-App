@@ -4,12 +4,12 @@
 
 package com.nigtime.weatherapplication.db.repository
 
-import com.nigtime.weatherapplication.domain.database.SearchCity
+import com.nigtime.weatherapplication.domain.cities.SearchCity
 import com.nigtime.weatherapplication.db.tables.ReferenceCityTable
 import com.nigtime.weatherapplication.db.tables.WishCityTable
 import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.db.service.WishCityDao
-import com.nigtime.weatherapplication.domain.repository.database.PagedSearchRepository
+import com.nigtime.weatherapplication.domain.repository.cities.PagedSearchRepository
 import io.reactivex.Single
 
 class PagedSearchRepositoryImpl(

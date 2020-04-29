@@ -15,16 +15,16 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.domain.database.WishCity
+import com.nigtime.weatherapplication.domain.cities.WishCity
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle
 import com.nigtime.weatherapplication.ui.screens.common.NavigationController
 import com.nigtime.weatherapplication.ui.screens.common.Screen
 import com.nigtime.weatherapplication.ui.screens.search.SearchCityFragment
-import com.nigtime.weatherapplication.utility.ui.ThemeHelper
-import com.nigtime.weatherapplication.utility.ui.list.ColorDividerDecoration
-import com.nigtime.weatherapplication.utility.ui.list.LiftOnScrollListener
-import com.nigtime.weatherapplication.utility.di.DataRepositoryFactory
+import com.nigtime.weatherapplication.ui.helpers.ThemeHelper
+import com.nigtime.weatherapplication.ui.helpers.list.ColorDividerDecoration
+import com.nigtime.weatherapplication.ui.helpers.list.LiftOnScrollListener
+import com.nigtime.weatherapplication.utility.di.CitiesRepositoryFactory
 import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
 import com.nigtime.weatherapplication.utility.rx.RxDelayedMessageDispatcher
 import kotlinx.android.synthetic.main.fragmet_wish_list.*
@@ -69,7 +69,7 @@ class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(),
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val schedulerProvider = MainSchedulerProvider.INSTANCE
-        val repository = DataRepositoryFactory.getWishCitiesRepository()
+        val repository = CitiesRepositoryFactory.getWishCitiesRepository()
         val messageDispatcher =
             RxDelayedMessageDispatcher(getRemoveDuration(), schedulerProvider)
         presenter =

@@ -6,7 +6,7 @@ package com.nigtime.weatherapplication.ui.screens.pager
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.nigtime.weatherapplication.domain.database.CityForForecast
+import com.nigtime.weatherapplication.domain.cities.CityForForecast
 import com.nigtime.weatherapplication.ui.screens.currentforecast.CurrentForecastFragment
 
 class PagerCityAdapter(fragment: Fragment) :

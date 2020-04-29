@@ -6,8 +6,8 @@ package com.nigtime.weatherapplication.ui.screens.search.paging
 
 import androidx.paging.PagedList
 import androidx.paging.toObservable
-import com.nigtime.weatherapplication.domain.database.SearchCity
-import com.nigtime.weatherapplication.domain.repository.database.PagedSearchRepository
+import com.nigtime.weatherapplication.domain.cities.SearchCity
+import com.nigtime.weatherapplication.domain.repository.cities.PagedSearchRepository
 import com.nigtime.weatherapplication.utility.rx.SchedulerProvider
 import io.reactivex.Observable
 

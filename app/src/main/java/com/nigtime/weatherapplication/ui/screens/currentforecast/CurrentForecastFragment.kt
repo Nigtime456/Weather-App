@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.domain.database.CityForForecast
+import com.nigtime.weatherapplication.domain.cities.CityForForecast
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
 import kotlinx.android.synthetic.main.fragment_current_forecast.*

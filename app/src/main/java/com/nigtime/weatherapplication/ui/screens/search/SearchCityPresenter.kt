@@ -4,8 +4,8 @@
 
 package com.nigtime.weatherapplication.ui.screens.search
 
-import com.nigtime.weatherapplication.domain.database.SearchCity
-import com.nigtime.weatherapplication.domain.repository.database.PagedSearchRepository
+import com.nigtime.weatherapplication.domain.cities.SearchCity
+import com.nigtime.weatherapplication.domain.repository.cities.PagedSearchRepository
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
 import com.nigtime.weatherapplication.ui.screens.search.paging.PagedListLoader
 import com.nigtime.weatherapplication.utility.rx.SchedulerProvider

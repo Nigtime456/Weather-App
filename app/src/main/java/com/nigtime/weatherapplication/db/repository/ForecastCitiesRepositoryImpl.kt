@@ -4,10 +4,10 @@
 
 package com.nigtime.weatherapplication.db.repository
 
-import com.nigtime.weatherapplication.domain.database.CityForForecast
+import com.nigtime.weatherapplication.domain.cities.CityForForecast
 import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.db.service.WishCityDao
-import com.nigtime.weatherapplication.domain.repository.database.ForecastCitiesRepository
+import com.nigtime.weatherapplication.domain.repository.cities.ForecastCitiesRepository
 import io.reactivex.Single
 
 class ForecastCitiesRepositoryImpl constructor(
@@ -15,7 +15,7 @@ class ForecastCitiesRepositoryImpl constructor(
     private val wishCityDao: WishCityDao
 ) : ForecastCitiesRepository {
 
-    override fun getListCityForForecast(): Single<List<CityForForecast>> {
+    override fun getListCities(): Single<List<CityForForecast>> {
         return Single.fromCallable { wishCityDao.getAllIds() }
             .map { ids -> ids.map(this::mapCity) }
     }

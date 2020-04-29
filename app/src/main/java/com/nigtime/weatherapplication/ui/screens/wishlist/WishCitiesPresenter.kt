@@ -5,8 +5,8 @@
 package com.nigtime.weatherapplication.ui.screens.wishlist
 
 import android.annotation.SuppressLint
-import com.nigtime.weatherapplication.domain.database.WishCity
-import com.nigtime.weatherapplication.domain.repository.database.WishCitiesRepository
+import com.nigtime.weatherapplication.domain.cities.WishCity
+import com.nigtime.weatherapplication.domain.repository.cities.WishCitiesRepository
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
 import com.nigtime.weatherapplication.utility.log.CustomLogger
 import com.nigtime.weatherapplication.utility.rx.RxDelayedMessageDispatcher
@@ -92,7 +92,7 @@ class WishCitiesPresenter constructor(
     fun provideCities() {
         getView()?.showProgressBar()
 
-        wishCitiesRepository.getWishCitiesList()
+        wishCitiesRepository.getCitiesList()
             .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
             .subscribeAndHandleError(false) { list ->

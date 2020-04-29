@@ -23,7 +23,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun wishCityDao(): WishCityDao
 
     companion object {
-        fun get(context: Context): AppDatabase {
+        fun getInstance(context: Context): AppDatabase {
             return Room.databaseBuilder(
                 context,
                 AppDatabase::class.java,
