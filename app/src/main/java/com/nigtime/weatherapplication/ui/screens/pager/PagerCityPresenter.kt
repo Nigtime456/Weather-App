@@ -4,7 +4,7 @@
 
 package com.nigtime.weatherapplication.ui.screens.pager
 
-import com.nigtime.weatherapplication.domain.repository.cities.ForecastCitiesRepository
+import com.nigtime.weatherapplication.domain.repository.ForecastCitiesRepository
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
 import com.nigtime.weatherapplication.utility.rx.SchedulerProvider
 

@@ -8,9 +8,9 @@
 
 package com.nigtime.weatherapplication.net.service
 
-import com.nigtime.weatherapplication.net.jsons.JsonCurrentForecast
-import com.nigtime.weatherapplication.net.jsons.JsonDailyForecast
-import com.nigtime.weatherapplication.net.jsons.JsonHourlyForecast
+import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
+import com.nigtime.weatherapplication.net.json.JsonDailyForecast
+import com.nigtime.weatherapplication.net.json.JsonHourlyForecast
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.QueryMap

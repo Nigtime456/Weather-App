@@ -7,7 +7,7 @@ package com.nigtime.weatherapplication.db.service
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.nigtime.weatherapplication.db.tables.ReferenceCityTable
+import com.nigtime.weatherapplication.db.table.ReferenceCityTable
 import io.reactivex.Single
 
 @Dao
@@ -20,9 +20,6 @@ interface ReferenceCityDao {
 
     @Query("SELECT * FROM reference_city WHERE city_id = :cityId")
     fun getById(cityId: Long): ReferenceCityTable
-
-    @Query("SELECT city_name FROM reference_city WHERE city_id = :cityId")
-    fun getNameById(cityId: Long): String
 
     //TODO удалить в будущем
     @Insert

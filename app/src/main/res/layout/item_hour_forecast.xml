@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/5/2
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="@dimen/margin_medium"
+    tools:background="?attr/themeScreenBackground">
+
+    <TextView
+        android:id="@+id/itemHourTime"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        tools:text="21:00" />
+
+    <ImageView
+        android:id="@+id/itemHourWeatherIco"
+        android:layout_width="@dimen/icon_small"
+        android:layout_height="@dimen/icon_small"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_small"
+        tools:src="@drawable/_weather_stub" />
+
+    <TextView
+        android:id="@+id/itemHourTemp"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_small"
+        android:textColor="@color/white"
+        tools:text="10°" />
+
+</LinearLayout>

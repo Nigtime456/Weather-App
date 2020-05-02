@@ -5,8 +5,8 @@
 package com.nigtime.weatherapplication.ui.screens.wishlist
 
 import android.annotation.SuppressLint
-import com.nigtime.weatherapplication.domain.cities.WishCity
-import com.nigtime.weatherapplication.domain.repository.cities.WishCitiesRepository
+import com.nigtime.weatherapplication.domain.city.WishCity
+import com.nigtime.weatherapplication.domain.repository.WishCitiesRepository
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
 import com.nigtime.weatherapplication.utility.log.CustomLogger
 import com.nigtime.weatherapplication.utility.rx.RxDelayedMessageDispatcher
@@ -149,10 +149,10 @@ class WishCitiesPresenter constructor(
         override fun run() {
             repository.delete(item)
                 .subscribeOn(scheduler)
-                .subscribe {
-                    //nothing
-                    logger.d("delete obj $item , position = $position")
-                }
+                .subscribe({ //nothing
+                    logger.d("delete obj $item , position = $position")},{
+                    logger.e(it,"error on remove")
+                })
         }
 
     }

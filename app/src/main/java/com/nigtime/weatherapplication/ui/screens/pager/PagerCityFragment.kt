@@ -14,7 +14,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.domain.cities.CityForForecast
+import com.nigtime.weatherapplication.domain.city.CityForForecast
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle
 import com.nigtime.weatherapplication.ui.screens.common.NavigationController

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.domain.cities.WishCity
+import com.nigtime.weatherapplication.domain.city.WishCity
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle
 import com.nigtime.weatherapplication.ui.screens.common.NavigationController
@@ -147,7 +147,7 @@ class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(),
     }
 
     private fun getDivider(): ColorDividerDecoration {
-        val dividerColor = ThemeHelper.getColor(requireContext(), R.attr.themeDividerColor)
+        val dividerColor = ThemeHelper.getColor(requireContext(), R.attr.themePrimaryDividerColor)
         val dividerSize = resources.getDimensionPixelSize(R.dimen.divider_size)
         return ColorDividerDecoration(
             dividerColor,

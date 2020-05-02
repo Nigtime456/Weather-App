@@ -5,6 +5,9 @@
     <string name="content_description_start_drag">Начать перетаскивание</string>
     <string name="content_description_temp">Температура</string>
 
+    <string name="units_temp_f">%.0f°</string>
+    <string name="units_feels_like_temp_f">feels like %.0f°</string>
+
     <!--  Search city  -->
     <string name="search_title">Добавить город</string>
     <string name="search_input_hint">For example: Moscow</string>

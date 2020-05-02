@@ -7,7 +7,9 @@
     <attr name="themeNightColor" format="color" />
 
 
-    <attr name="themeDividerColor" format="color" />
+    <attr name="themePrimaryDividerColor" format="color" />
+    <!--   TODO remove ? -->
+    <attr name="themeSecondaryDividerColor" format="color" />
     <attr name="themeIconTintColor" format="color" />
 
     <attr name="themePrimaryTextColor" format="color" />
@@ -24,6 +26,16 @@
         <attr name="crossDisplayedChild" format="integer" />
         <attr name="crossStartDelay" format="integer" />
         <attr name="crossAnimationDuration" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="DashedDividerView">
+        <attr name="dividerGap" format="dimension" />
+        <attr name="dividerSize" format="dimension" />
+        <attr name="dividerColor" format="reference|color" />
+        <attr name="dividerOrientation" format="enum">
+            <enum name="vertical" value="0" />
+            <enum name="horizontal" value="1" />
+        </attr>
     </declare-styleable>
 
 </resources>

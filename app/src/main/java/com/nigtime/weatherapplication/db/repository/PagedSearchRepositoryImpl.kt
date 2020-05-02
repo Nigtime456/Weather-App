@@ -4,26 +4,32 @@
 
 package com.nigtime.weatherapplication.db.repository
 
-import com.nigtime.weatherapplication.domain.cities.SearchCity
-import com.nigtime.weatherapplication.db.tables.ReferenceCityTable
-import com.nigtime.weatherapplication.db.tables.WishCityTable
+import com.nigtime.weatherapplication.db.mapper.SearchCityMapper
 import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.db.service.WishCityDao
-import com.nigtime.weatherapplication.domain.repository.cities.PagedSearchRepository
+import com.nigtime.weatherapplication.db.table.ReferenceCityTable
+import com.nigtime.weatherapplication.db.table.WishCityTable
+import com.nigtime.weatherapplication.domain.city.SearchCity
+import com.nigtime.weatherapplication.domain.repository.PagedSearchRepository
 import io.reactivex.Single
 
 class PagedSearchRepositoryImpl(
     private val referenceCityDao: ReferenceCityDao,
-    private val wishCityDao: WishCityDao
+    private val wishCityDao: WishCityDao,
+    private val cityMapper: SearchCityMapper
 ) : PagedSearchRepository {
     private var wishIds: Set<Long>? = null
 
     override fun insert(searchCity: SearchCity): Single<Int> {
         return Single.fromCallable { getMaxListIndex() }
             .map { maxListIndex ->
-                wishCityDao.insert(searchCity.toWishCityEntity(maxListIndex))
+                wishCityDao.insert(mapSearchCity(searchCity, maxListIndex))
                 maxListIndex
             }
+    }
+
+    private fun mapSearchCity(searchCity: SearchCity, maxListIndex: Int): WishCityTable {
+        return cityMapper.mapEntity(searchCity, maxListIndex)
     }
 
     override fun loadPage(query: String, position: Int, count: Int): Single<List<SearchCity>> {
@@ -31,7 +37,7 @@ class PagedSearchRepositoryImpl(
             .map { noIds -> if (noIds) loadIds() }
             .map { referenceCityDao.queryByName(getSQLPatternQuery(query), position, count) }
             .map { list ->
-                mapEntityListToData(list, query)
+                list.map { cityTable -> mapReferenceCityToData(cityTable, query) }
             }
     }
 
@@ -52,23 +58,9 @@ class PagedSearchRepositoryImpl(
         return if (listWithIndex.isEmpty()) 0 else listWithIndex.first().inc()
     }
 
-    //TODO mapper
-    private fun mapEntityListToData(
-        list: List<ReferenceCityTable>,
-        query: String
-    ): List<SearchCity> {
-        return list.map { cityTable ->
-            val isWish = wishIds!!.contains(cityTable.cityId)
-            cityTable.toSearchCityData(isWish, query)
-        }
+    private fun mapReferenceCityToData(rawRow: ReferenceCityTable, query: String): SearchCity {
+        val isWish = wishIds?.contains(rawRow.cityId) ?: false
+        return cityMapper.mapDomain(rawRow, isWish, query)
     }
 
-    private fun ReferenceCityTable.toSearchCityData(isWish: Boolean, query: String): SearchCity {
-        return SearchCity(cityId, name, stateName, countryName, isWish, query)
-    }
-
-
-    private fun SearchCity.toWishCityEntity(listIndex: Int): WishCityTable {
-        return WishCityTable(cityId, listIndex)
-    }
 }

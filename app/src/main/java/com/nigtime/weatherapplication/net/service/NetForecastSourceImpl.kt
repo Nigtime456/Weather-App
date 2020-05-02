@@ -4,31 +4,30 @@
 
 package com.nigtime.weatherapplication.net.service
 
-import com.nigtime.weatherapplication.domain.params.RequestParams
-import com.nigtime.weatherapplication.net.jsons.JsonCurrentForecast
-import com.nigtime.weatherapplication.net.jsons.JsonDailyForecast
-import com.nigtime.weatherapplication.net.jsons.JsonHourlyForecast
+import com.nigtime.weatherapplication.domain.param.RequestParams
+import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
+import com.nigtime.weatherapplication.net.json.JsonDailyForecast
+import com.nigtime.weatherapplication.net.json.JsonHourlyForecast
 import io.reactivex.Single
 
 class NetForecastSourceImpl constructor(
     private val weatherApi: WeatherApi
 ) : ForecastSource {
 
-    override fun getCurrentForecastJson(requestParams: RequestParams): Single<JsonCurrentForecast> {
+    override fun getJsonCurrentForecast(requestParams: RequestParams): Single<JsonCurrentForecast> {
         return weatherApi.currentForecast(makeQueryParams(requestParams))
     }
 
-    override fun getHourlyForecastJson(requestParams: RequestParams): Single<JsonHourlyForecast> {
+    override fun getJsonHourlyForecast(requestParams: RequestParams): Single<JsonHourlyForecast> {
         return weatherApi.hourlyForecast(makeQueryParams(requestParams))
     }
 
-    override fun getDailyForecastJson(requestParams: RequestParams): Single<JsonDailyForecast> {
+    override fun getJsonDailyForecast(requestParams: RequestParams): Single<JsonDailyForecast> {
         return weatherApi.dailyForecast(makeQueryParams(requestParams))
     }
 
     private fun makeQueryParams(requestParams: RequestParams): Map<String, String> {
         val queryParams = mutableMapOf<String, String>()
-        queryParams["lang"] = requestParams.lang.name
         //TODO вынести в конфиг
         queryParams["key"] = "e22b24a04735440fa35f60a070808e21"
         when (requestParams) {

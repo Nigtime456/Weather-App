@@ -8,9 +8,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.nigtime.weatherapplication.db.tables.ReferenceCityTable
-import com.nigtime.weatherapplication.db.tables.TableConstants
-import com.nigtime.weatherapplication.db.tables.WishCityTable
+import com.nigtime.weatherapplication.db.table.ReferenceCityTable
+import com.nigtime.weatherapplication.db.table.TableConstants
+import com.nigtime.weatherapplication.db.table.WishCityTable
 
 @Database(
     entities = [ReferenceCityTable::class, WishCityTable::class],

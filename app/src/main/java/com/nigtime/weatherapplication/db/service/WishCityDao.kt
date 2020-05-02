@@ -5,7 +5,7 @@
 package com.nigtime.weatherapplication.db.service
 
 import androidx.room.*
-import com.nigtime.weatherapplication.db.tables.WishCityTable
+import com.nigtime.weatherapplication.db.table.WishCityTable
 
 
 @Dao
@@ -16,6 +16,9 @@ interface WishCityDao {
 
     @Query("SELECT city_id FROM wish_list")
     fun getAllIds(): List<Long>
+
+    @Query("SELECT city_name FROM reference_city WHERE city_id == :id")
+    fun getCityName(id: Long): String
 
     @Insert
     fun insert(city: WishCityTable)
@@ -35,5 +38,4 @@ interface WishCityDao {
 
     @Query("SELECT * FROM wish_list LIMIT 1")
     fun getOneRow(): List<WishCityTable>
-
 }

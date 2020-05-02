@@ -5,25 +5,30 @@
 package com.nigtime.weatherapplication.utility.di
 
 import com.nigtime.weatherapplication.App
-import com.nigtime.weatherapplication.db.repository.*
+import com.nigtime.weatherapplication.db.mapper.CityForForecastMapper
+import com.nigtime.weatherapplication.db.mapper.SearchCityMapper
+import com.nigtime.weatherapplication.db.mapper.WishCityMapper
+import com.nigtime.weatherapplication.db.repository.ForecastCitiesRepositoryImpl
+import com.nigtime.weatherapplication.db.repository.PagedSearchRepositoryImpl
+import com.nigtime.weatherapplication.db.repository.WishCitiesRepositoryImpl
 import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.db.service.WishCityDao
-import com.nigtime.weatherapplication.domain.repository.cities.ForecastCitiesRepository
-import com.nigtime.weatherapplication.domain.repository.cities.PagedSearchRepository
-import com.nigtime.weatherapplication.domain.repository.cities.WishCitiesRepository
+import com.nigtime.weatherapplication.domain.repository.ForecastCitiesRepository
+import com.nigtime.weatherapplication.domain.repository.PagedSearchRepository
+import com.nigtime.weatherapplication.domain.repository.WishCitiesRepository
 
 object CitiesRepositoryFactory {
 
     fun getForecastCitiesRepository(): ForecastCitiesRepository {
-        return ForecastCitiesRepositoryImpl(getReferenceCityDao(), geWishCityDao())
+        return ForecastCitiesRepositoryImpl(geWishCityDao(), CityForForecastMapper())
     }
 
     fun getPagedSearchRepository(): PagedSearchRepository {
-        return PagedSearchRepositoryImpl(getReferenceCityDao(), geWishCityDao())
+        return PagedSearchRepositoryImpl(getReferenceCityDao(), geWishCityDao(), SearchCityMapper())
     }
 
     fun getWishCitiesRepository(): WishCitiesRepository {
-        return WishCitiesRepositoryImpl(getReferenceCityDao(), geWishCityDao())
+        return WishCitiesRepositoryImpl(getReferenceCityDao(), geWishCityDao(), WishCityMapper())
     }
 
     private fun geWishCityDao(): WishCityDao {

@@ -22,7 +22,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_size"
-        android:background="?attr/themeDividerColor" />
+        style="@style/PrimaryDividerViewStyle" />
 </LinearLayout>
 
         

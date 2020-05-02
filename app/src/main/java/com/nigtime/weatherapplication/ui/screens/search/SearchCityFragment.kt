@@ -17,7 +17,7 @@ import android.widget.EditText
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.domain.cities.SearchCity
+import com.nigtime.weatherapplication.domain.city.SearchCity
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle
 import com.nigtime.weatherapplication.ui.screens.common.NavigationController
@@ -133,7 +133,7 @@ class SearchCityFragment : BaseFragment<SearchCityFragment.Listener>(), SearchCi
     }
 
     private fun getDivider(): ColorDividerDecoration {
-        val dividerColor = ThemeHelper.getColor(requireContext(), R.attr.themeDividerColor)
+        val dividerColor = ThemeHelper.getColor(requireContext(), R.attr.themePrimaryDividerColor)
         val dividerSize = resources.getDimensionPixelSize(R.dimen.divider_size)
         return ColorDividerDecoration(
             dividerColor,

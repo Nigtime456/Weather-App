@@ -11,7 +11,7 @@ package com.nigtime.weatherapplication.trash
 
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonToken
-import com.nigtime.weatherapplication.db.tables.ReferenceCityTable
+import com.nigtime.weatherapplication.db.table.ReferenceCityTable
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import java.io.Reader

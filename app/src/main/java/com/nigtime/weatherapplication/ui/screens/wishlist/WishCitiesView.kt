@@ -5,7 +5,7 @@
 package com.nigtime.weatherapplication.ui.screens.wishlist
 
 
-import com.nigtime.weatherapplication.domain.cities.WishCity
+import com.nigtime.weatherapplication.domain.city.WishCity
 import com.nigtime.weatherapplication.ui.screens.common.MvpView
 
 

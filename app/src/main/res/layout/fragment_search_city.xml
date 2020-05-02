@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/divider_size"
                 android:layout_marginHorizontal="@dimen/margin_medium"
-                android:background="?attr/themeDividerColor" />
+                style="@style/PrimaryDividerViewStyle" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/searchCurrentLocation"

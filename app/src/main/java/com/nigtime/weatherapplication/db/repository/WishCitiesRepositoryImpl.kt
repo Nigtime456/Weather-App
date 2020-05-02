@@ -4,18 +4,19 @@
 
 package com.nigtime.weatherapplication.db.repository
 
-import com.nigtime.weatherapplication.domain.cities.WishCity
-import com.nigtime.weatherapplication.db.tables.ReferenceCityTable
-import com.nigtime.weatherapplication.db.tables.WishCityTable
+import com.nigtime.weatherapplication.db.mapper.WishCityMapper
 import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.db.service.WishCityDao
-import com.nigtime.weatherapplication.domain.repository.cities.WishCitiesRepository
+import com.nigtime.weatherapplication.db.table.WishCityTable
+import com.nigtime.weatherapplication.domain.city.WishCity
+import com.nigtime.weatherapplication.domain.repository.WishCitiesRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 
 class WishCitiesRepositoryImpl constructor(
     private val referenceCityDao: ReferenceCityDao,
-    private val wishCityDao: WishCityDao
+    private val wishCityDao: WishCityDao,
+    private val cityMapper: WishCityMapper
 ) : WishCitiesRepository {
 
     override fun getCitiesList(): Single<List<WishCity>> {
@@ -26,7 +27,7 @@ class WishCitiesRepositoryImpl constructor(
     private fun getWishListByIds(sourceList: List<WishCityTable>): List<WishCity> {
         return sourceList.map { wishCityEntity ->
             val referenceCityTable = referenceCityDao.getById(wishCityEntity.cityId)
-            referenceCityTable.toWishCityData(wishCityEntity.listIndex)
+            cityMapper.mapDomain(referenceCityTable, wishCityEntity)
         }
     }
 
@@ -36,25 +37,23 @@ class WishCitiesRepositoryImpl constructor(
     }
 
     override fun delete(item: WishCity): Completable {
-        return Completable.fromAction { wishCityDao.delete(item.toEntity()) }
+        return Completable.fromAction { wishCityDao.delete(cityMapper.mapEntity(item)) }
     }
 
     override fun replaceAll(items: List<WishCity>): Completable {
         return Single.just(items)
-            .map { list -> list.mapIndexed { index, wishCity -> wishCity.toEntity(index) } }
+            .map(mapListToEntity())
             .doOnSuccess(wishCityDao::insertAndReplaceAll)
             .ignoreElement()
     }
 
-    private fun ReferenceCityTable.toWishCityData(index: Int): WishCity {
-        return WishCity(cityId, index, name, stateName, countryName)
+    private fun mapListToEntity(): (List<WishCity>) -> List<WishCityTable> {
+        return { list ->
+            list.mapIndexed { index, wishCity ->
+                cityMapper.mapEntity(wishCity, index)
+            }
+        }
     }
 
-    private fun WishCity.toEntity(): WishCityTable {
-        return WishCityTable(cityId, listIndex)
-    }
 
-    private fun WishCity.toEntity(newIndex: Int): WishCityTable {
-        return WishCityTable(cityId, newIndex)
-    }
 }
