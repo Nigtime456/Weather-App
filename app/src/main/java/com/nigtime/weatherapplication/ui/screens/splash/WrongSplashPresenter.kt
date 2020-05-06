@@ -4,10 +4,10 @@
 
 package com.nigtime.weatherapplication.ui.screens.splash
 
-import com.nigtime.weatherapplication.App
+import com.nigtime.weatherapplication.common.App
 import com.nigtime.weatherapplication.trash.CitiesMarshallingHelper
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
-import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
+import com.nigtime.weatherapplication.common.rx.MainSchedulerProvider
 import com.nigtime.weatherbitapp.uselles.storage.room.repository.RoomDictionaryWriter
 import com.nigtime.weatherbitapp.uselles.storage.utils.AssetCityProvider
 import io.reactivex.Single

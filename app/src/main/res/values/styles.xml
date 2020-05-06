@@ -103,6 +103,7 @@
     <!--   Toolbar style  -->
     <style name="ToolbarMainStyle">
         <item name="titleTextColor">?attr/themePrimaryTextColorSelector</item>
+        <item name="subtitleTextColor">?attr/themePrimaryTextColorSelector</item>
     </style>
 
     <!--  Button's style   -->

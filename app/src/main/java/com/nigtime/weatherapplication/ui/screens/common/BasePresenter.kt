@@ -5,12 +5,9 @@
 package com.nigtime.weatherapplication.ui.screens.common
 
 import androidx.annotation.CallSuper
-import com.nigtime.weatherapplication.utility.log.CustomLogger
-import com.nigtime.weatherapplication.utility.rx.SchedulerProvider
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Observable
-import io.reactivex.Single
+import com.nigtime.weatherapplication.common.log.CustomLogger
+import com.nigtime.weatherapplication.common.rx.SchedulerProvider
+import io.reactivex.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import java.lang.ref.WeakReference
@@ -172,5 +169,14 @@ abstract class BasePresenter<V : MvpView> constructor(
         subscribe(onResult, { if (!ignoreError) rethrowError(it) })
             .disposeOnDetach()
     }
+
+
+    //TODO
+    fun <T> runAsyncResultOnUi(scheduler: Scheduler = schedulerProvider.io()): (Single<T>) -> Single<T> =
+        { single ->
+            single.subscribeOn(scheduler)
+            single.observeOn(schedulerProvider.ui())
+            single
+        }
 
 }

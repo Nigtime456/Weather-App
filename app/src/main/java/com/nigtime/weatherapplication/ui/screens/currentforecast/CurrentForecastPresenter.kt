@@ -4,17 +4,17 @@
 
 package com.nigtime.weatherapplication.ui.screens.currentforecast
 
+import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.city.CityForForecast
 import com.nigtime.weatherapplication.domain.param.RequestParams
 import com.nigtime.weatherapplication.domain.repository.ForecastManager
 import com.nigtime.weatherapplication.domain.weather.CurrentForecast
 import com.nigtime.weatherapplication.domain.weather.DailyForecast
 import com.nigtime.weatherapplication.domain.weather.HourlyForecast
-import com.nigtime.weatherapplication.ui.helpers.UnitFormatter
+import com.nigtime.weatherapplication.ui.helper.UnitFormatter
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
-import com.nigtime.weatherapplication.utility.rx.SchedulerProvider
-import io.reactivex.Single
-import io.reactivex.rxkotlin.Singles
+import io.reactivex.Observable
+import io.reactivex.rxkotlin.Observables
 
 class CurrentForecastPresenter(
     schedulerProvider: SchedulerProvider,
@@ -22,9 +22,14 @@ class CurrentForecastPresenter(
     private val unitFormatter: UnitFormatter
 ) :
     BasePresenter<CurrentForecastView>(
-        schedulerProvider
+        schedulerProvider, TAG
     ) {
 
+    private companion object {
+        const val TAG = "current_forecast"
+    }
+
+    private var startTime = 0L
 
     fun setUp(cityForForecast: CityForForecast) {
         getView()?.setCityName(cityForForecast.cityName)
@@ -34,7 +39,7 @@ class CurrentForecastPresenter(
 
     private fun loadWeather(cityForForecast: CityForForecast) {
         val cityParams = RequestParams.CityParams(cityForForecast.cityId)
-
+        startTime = System.currentTimeMillis()
         getForecastSingle(cityParams)
             .observeOn(schedulerProvider.ui())
             .subscribe(this::handleResult, this::onStreamError)
@@ -42,6 +47,7 @@ class CurrentForecastPresenter(
     }
 
     private fun handleResult(triple: Triple<CurrentForecast, HourlyForecast, DailyForecast>) {
+        logger.d("load time = ${System.currentTimeMillis() - startTime}")
         val currentForecast = triple.first
         getView()?.showMainLayout()
         getView()?.setCurrentTemp(unitFormatter.formatTemp(currentForecast.weatherInfo.temp))
@@ -58,7 +64,7 @@ class CurrentForecastPresenter(
         getView()?.showErrorMessage()
     }
 
-    private fun getForecastSingle(cityParams: RequestParams.CityParams): Single<Triple<CurrentForecast, HourlyForecast, DailyForecast>> {
+    private fun getForecastSingle(cityParams: RequestParams.CityParams): Observable<Triple<CurrentForecast, HourlyForecast, DailyForecast>> {
         val current = forecastManager.getCurrentForecast(cityParams)
             .subscribeOn(schedulerProvider.io())
         val hourly = forecastManager.getHourlyForecast(cityParams)
@@ -66,7 +72,7 @@ class CurrentForecastPresenter(
         val daily = forecastManager.getDailyForecast(cityParams)
             .subscribeOn(schedulerProvider.io())
 
-        return Singles.zip(current, hourly, daily, ::Triple)
+        return Observables.zip(current, hourly, daily, ::Triple)
     }
 
 }

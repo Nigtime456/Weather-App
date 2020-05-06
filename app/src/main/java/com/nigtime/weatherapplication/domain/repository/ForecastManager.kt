@@ -4,16 +4,16 @@
 
 package com.nigtime.weatherapplication.domain.repository
 
+import com.nigtime.weatherapplication.domain.param.RequestParams
 import com.nigtime.weatherapplication.domain.weather.CurrentForecast
 import com.nigtime.weatherapplication.domain.weather.DailyForecast
 import com.nigtime.weatherapplication.domain.weather.HourlyForecast
-import com.nigtime.weatherapplication.domain.param.RequestParams
-import io.reactivex.Single
+import io.reactivex.Observable
 
 interface ForecastManager {
-    fun getCurrentForecast(params: RequestParams): Single<CurrentForecast>
+    fun getCurrentForecast(params: RequestParams, forceNet: Boolean = false): Observable<CurrentForecast>
 
-    fun getHourlyForecast(params: RequestParams): Single<HourlyForecast>
+    fun getHourlyForecast(params: RequestParams, forceNet: Boolean = false): Observable<HourlyForecast>
 
-    fun getDailyForecast(params: RequestParams): Single<DailyForecast>
+    fun getDailyForecast(params: RequestParams, forceNet: Boolean = false): Observable<DailyForecast>
 }

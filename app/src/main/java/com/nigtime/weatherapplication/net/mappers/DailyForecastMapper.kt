@@ -4,13 +4,15 @@
 
 package com.nigtime.weatherapplication.net.mappers
 
+import com.nigtime.weatherapplication.domain.common.NetData
 import com.nigtime.weatherapplication.domain.weather.DailyForecast
 import com.nigtime.weatherapplication.net.json.JsonDailyForecast
 
 class DailyForecastMapper {
 
-    fun map(json: JsonDailyForecast): DailyForecast {
-        return DailyForecast()
+    fun map(json: NetData<JsonDailyForecast>): DailyForecast {
+        val dailyForecast = DailyForecast()
+        return dailyForecast
     }
 
 }

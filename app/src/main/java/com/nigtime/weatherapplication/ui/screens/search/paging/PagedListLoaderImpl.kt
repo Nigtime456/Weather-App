@@ -8,7 +8,7 @@ import androidx.paging.PagedList
 import androidx.paging.toObservable
 import com.nigtime.weatherapplication.domain.city.SearchCity
 import com.nigtime.weatherapplication.domain.repository.PagedSearchRepository
-import com.nigtime.weatherapplication.utility.rx.SchedulerProvider
+import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import io.reactivex.Observable
 
 /**

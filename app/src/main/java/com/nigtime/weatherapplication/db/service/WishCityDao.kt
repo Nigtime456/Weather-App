@@ -6,6 +6,7 @@ package com.nigtime.weatherapplication.db.service
 
 import androidx.room.*
 import com.nigtime.weatherapplication.db.table.WishCityTable
+import io.reactivex.Flowable
 
 
 @Dao
@@ -16,6 +17,9 @@ interface WishCityDao {
 
     @Query("SELECT city_id FROM wish_list")
     fun getAllIds(): List<Long>
+
+    @Query("SELECT city_id FROM wish_list")
+    fun getAllIdsFlow(): Flowable<List<Long>>
 
     @Query("SELECT city_name FROM reference_city WHERE city_id == :id")
     fun getCityName(id: Long): String

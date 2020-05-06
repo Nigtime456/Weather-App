@@ -4,6 +4,7 @@
 
 package com.nigtime.weatherapplication.net.mappers
 
+import com.nigtime.weatherapplication.domain.common.NetData
 import com.nigtime.weatherapplication.domain.weather.CurrentForecast
 import com.nigtime.weatherapplication.domain.weather.WeatherInfoHelper
 import com.nigtime.weatherapplication.net.json.JsonCurrentData
@@ -11,10 +12,11 @@ import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
 
 class CurrentForecastMapper {
 
-    fun map(json: JsonCurrentForecast): CurrentForecast {
-        val jsonCurrentData = json.forecastList[0]
+    fun map(json: NetData<JsonCurrentForecast>): CurrentForecast{
+        val jsonCurrentData = json.data.forecastList[0]
         val detailedForecast = jsonCurrentData.toDetailedForecast()
-        return CurrentForecast(detailedForecast)
+        val currentForecast = CurrentForecast(detailedForecast)
+        return currentForecast
     }
 
 

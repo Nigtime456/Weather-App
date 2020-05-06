@@ -9,16 +9,14 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.ui.animation.BackgroundColorProperty
+import com.nigtime.weatherapplication.ui.helper.ThemeHelper
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.ui.screens.common.NavigationController
 import com.nigtime.weatherapplication.ui.screens.common.Screen
-import com.nigtime.weatherapplication.ui.helpers.ThemeHelper
 import kotlinx.android.synthetic.main.fragment_splash.*
 
 /**
@@ -27,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_splash.*
  * не будет выполнена инициализация. (инициализация может продлиться долго)
  * Так же надо предусмотреть минимальный тайминг отображения.
  */
-class SplashFragment : BaseFragment<SplashFragment.Listener>(),
+class SplashFragment : BaseFragment<SplashFragment.Listener>(R.layout.fragment_splash),
     SplashView {
 
     interface Listener : NavigationController
@@ -36,12 +34,6 @@ class SplashFragment : BaseFragment<SplashFragment.Listener>(),
 
     override fun provideListenerClass(): Class<Listener>? = Listener::class.java
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_splash, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

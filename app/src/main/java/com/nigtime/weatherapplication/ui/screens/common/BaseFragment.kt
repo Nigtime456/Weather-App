@@ -5,6 +5,11 @@
 package com.nigtime.weatherapplication.ui.screens.common
 
 import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
@@ -17,7 +22,9 @@ import io.reactivex.subjects.Subject
  * @param L - parent listener class
  */
 @Suppress("MemberVisibilityCanBePrivate")
-abstract class BaseFragment<L> :
+abstract class BaseFragment<L> constructor(
+    @LayoutRes private val layoutRes: Int
+) :
     Fragment() {
     /**
      * Шина для уведомления презентера об событиях ЖЦ
@@ -41,6 +48,14 @@ abstract class BaseFragment<L> :
                 error("${context.javaClass.name} or $parentFragment must implement ${clazz.name}")
             }
         }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return layoutInflater.inflate(layoutRes, container, false)
     }
 
     override fun onDetach() {

@@ -6,14 +6,14 @@ package com.nigtime.weatherapplication.ui.screens.pager
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.nigtime.weatherapplication.R
+import com.nigtime.weatherapplication.common.di.CitiesRepositoryFactory
+import com.nigtime.weatherapplication.common.rx.MainSchedulerProvider
 import com.nigtime.weatherapplication.domain.city.CityForForecast
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle
@@ -21,12 +21,10 @@ import com.nigtime.weatherapplication.ui.screens.common.NavigationController
 import com.nigtime.weatherapplication.ui.screens.common.Screen
 import com.nigtime.weatherapplication.ui.screens.currentforecast.CurrentForecastFragment
 import com.nigtime.weatherapplication.ui.screens.search.SearchCityFragment
-import com.nigtime.weatherapplication.utility.di.CitiesRepositoryFactory
-import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
 import kotlinx.android.synthetic.main.fragment_pager.*
 
 
-class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
+class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(R.layout.fragment_pager),
     PagerCityView, CurrentForecastFragment.ParentListener, SearchCityFragment.TargetFragment {
 
     interface ActivityListener : NavigationController
@@ -68,15 +66,6 @@ class PagerCityFragment : BaseFragment<PagerCityFragment.ActivityListener>(),
         super.onCreate(savedInstanceState)
         presenter.handlePagerPosition(arguments?.getInt(EXTRA_PAGE) ?: 0)
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pager, container, false)
-    }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -4,6 +4,7 @@
 
 package com.nigtime.weatherapplication.db.repository
 
+import android.util.Log
 import com.nigtime.weatherapplication.db.mapper.SearchCityMapper
 import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.db.service.WishCityDao
@@ -11,7 +12,9 @@ import com.nigtime.weatherapplication.db.table.ReferenceCityTable
 import com.nigtime.weatherapplication.db.table.WishCityTable
 import com.nigtime.weatherapplication.domain.city.SearchCity
 import com.nigtime.weatherapplication.domain.repository.PagedSearchRepository
+import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.rxkotlin.flatMapIterable
 
 class PagedSearchRepositoryImpl(
     private val referenceCityDao: ReferenceCityDao,
@@ -21,11 +24,9 @@ class PagedSearchRepositoryImpl(
     private var wishIds: Set<Long>? = null
 
     override fun insert(searchCity: SearchCity): Single<Int> {
-        return Single.fromCallable { getMaxListIndex() }
-            .map { maxListIndex ->
-                wishCityDao.insert(mapSearchCity(searchCity, maxListIndex))
-                maxListIndex
-            }
+        return Single.fromCallable(this::getMaxListIndex)
+            .doOnSuccess { maxIndex ->
+                wishCityDao.insert(mapSearchCity(searchCity, maxIndex)) }
     }
 
     private fun mapSearchCity(searchCity: SearchCity, maxListIndex: Int): WishCityTable {
@@ -33,16 +34,22 @@ class PagedSearchRepositoryImpl(
     }
 
     override fun loadPage(query: String, position: Int, count: Int): Single<List<SearchCity>> {
-        return Single.just(wishIds == null)
-            .map { noIds -> if (noIds) loadIds() }
-            .map { referenceCityDao.queryByName(getSQLPatternQuery(query), position, count) }
-            .map { list ->
-                list.map { cityTable -> mapReferenceCityToData(cityTable, query) }
-            }
+        return Observable.fromCallable {
+            referenceCityDao.queryByName(
+                getSQLPatternQuery(query),
+                position,
+                count
+            )
+        }
+            .doOnSubscribe { loadIds() }
+            .flatMapIterable()
+            .map { item -> mapReferenceCityToData(item, query) }
+            .toList()
     }
 
     private fun loadIds() {
-        wishIds = wishCityDao.getAllIds().toSet()
+        if (wishIds == null)
+            wishIds = wishCityDao.getAllIds().toSet()
     }
 
     private fun getSQLPatternQuery(query: String): String {

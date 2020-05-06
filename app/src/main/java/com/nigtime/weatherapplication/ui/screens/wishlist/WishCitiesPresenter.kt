@@ -8,9 +8,9 @@ import android.annotation.SuppressLint
 import com.nigtime.weatherapplication.domain.city.WishCity
 import com.nigtime.weatherapplication.domain.repository.WishCitiesRepository
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
-import com.nigtime.weatherapplication.utility.log.CustomLogger
-import com.nigtime.weatherapplication.utility.rx.RxDelayedMessageDispatcher
-import com.nigtime.weatherapplication.utility.rx.SchedulerProvider
+import com.nigtime.weatherapplication.common.log.CustomLogger
+import com.nigtime.weatherapplication.common.rx.RxDelayedMessageDispatcher
+import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import io.reactivex.Scheduler
 
 
@@ -82,8 +82,6 @@ class WishCitiesPresenter constructor(
             getView()?.showList()
             getView()?.insertItemToList(message.item, message.position)
             getView()?.scrollListToPosition(message.position)
-        } else {
-            error("unknown message type = $message")
         }
         messageDispatcher.clearMessage()
     }

@@ -20,7 +20,7 @@ class WishCitiesRepositoryImpl constructor(
 ) : WishCitiesRepository {
 
     override fun getCitiesList(): Single<List<WishCity>> {
-        return Single.fromCallable { wishCityDao.getAll() }
+        return Single.fromCallable(wishCityDao::getAll)
             .map(this::getWishListByIds)
     }
 
@@ -32,7 +32,7 @@ class WishCitiesRepositoryImpl constructor(
     }
 
     override fun hasCities(): Single<Boolean> {
-        return Single.fromCallable { wishCityDao.getOneRow() }
+        return Single.fromCallable(wishCityDao::getOneRow)
             .map { list -> list.isNotEmpty() }
     }
 

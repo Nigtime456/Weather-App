@@ -23,13 +23,13 @@ import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle
 import com.nigtime.weatherapplication.ui.screens.common.NavigationController
 import com.nigtime.weatherapplication.ui.screens.search.paging.PagedListLoaderImpl
 import com.nigtime.weatherapplication.ui.screens.search.paging.PagedSearchAdapter
-import com.nigtime.weatherapplication.ui.helpers.ColorSpanHelper
-import com.nigtime.weatherapplication.ui.helpers.ThemeHelper
-import com.nigtime.weatherapplication.ui.helpers.ToastController
-import com.nigtime.weatherapplication.ui.helpers.list.ColorDividerDecoration
-import com.nigtime.weatherapplication.ui.helpers.list.LiftOnScrollListener
-import com.nigtime.weatherapplication.utility.di.CitiesRepositoryFactory
-import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
+import com.nigtime.weatherapplication.ui.helper.ColorSpanHelper
+import com.nigtime.weatherapplication.ui.helper.ThemeHelper
+import com.nigtime.weatherapplication.ui.helper.ToastController
+import com.nigtime.weatherapplication.ui.helper.list.ColorDividerDecoration
+import com.nigtime.weatherapplication.ui.helper.list.LiftOnScrollListener
+import com.nigtime.weatherapplication.common.di.CitiesRepositoryFactory
+import com.nigtime.weatherapplication.common.rx.MainSchedulerProvider
 import kotlinx.android.synthetic.main.fragment_search_city.*
 
 /**
@@ -38,7 +38,7 @@ import kotlinx.android.synthetic.main.fragment_search_city.*
  * Исправить анимацию: удалить анимацию ViewAnimator, написать свою crossfade.
  * Если не поможет поменять ViewAnimator на FrameLayout
  */
-class SearchCityFragment : BaseFragment<SearchCityFragment.Listener>(), SearchCityView {
+class SearchCityFragment : BaseFragment<SearchCityFragment.Listener>(R.layout.fragment_search_city), SearchCityView {
 
     interface Listener : NavigationController
 
@@ -66,12 +66,6 @@ class SearchCityFragment : BaseFragment<SearchCityFragment.Listener>(), SearchCi
         presenter = SearchCityPresenter(schedulerProvider, pagedSearchRepository, pagedListLoader)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_search_city, container, false)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

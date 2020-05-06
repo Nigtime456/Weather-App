@@ -4,11 +4,11 @@
 
 package com.nigtime.weatherapplication.ui.screens.search
 
+import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.city.SearchCity
 import com.nigtime.weatherapplication.domain.repository.PagedSearchRepository
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
 import com.nigtime.weatherapplication.ui.screens.search.paging.PagedListLoader
-import com.nigtime.weatherapplication.utility.rx.SchedulerProvider
 
 
 class SearchCityPresenter constructor(

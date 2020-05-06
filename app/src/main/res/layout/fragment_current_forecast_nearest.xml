@@ -80,7 +80,7 @@
 
         </LinearLayout>
 
-        <com.nigtime.weatherapplication.ui.customviews.DashedDividerView
+        <com.nigtime.weatherapplication.ui.customview.DashedDividerView
             style="@style/DashedDividerStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_size"
@@ -136,7 +136,7 @@
 
         </LinearLayout>
 
-        <com.nigtime.weatherapplication.ui.customviews.DashedDividerView
+        <com.nigtime.weatherapplication.ui.customview.DashedDividerView
             style="@style/DashedDividerStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_size"
@@ -195,7 +195,7 @@
 
         </LinearLayout>
 
-        <com.nigtime.weatherapplication.ui.customviews.DashedDividerView
+        <com.nigtime.weatherapplication.ui.customview.DashedDividerView
             style="@style/DashedDividerStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_size"

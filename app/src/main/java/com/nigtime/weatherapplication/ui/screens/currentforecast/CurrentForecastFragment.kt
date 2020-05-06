@@ -6,26 +6,25 @@ package com.nigtime.weatherapplication.ui.screens.currentforecast
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.nigtime.weatherapplication.R
+import com.nigtime.weatherapplication.common.di.ForecastManagerFactory
+import com.nigtime.weatherapplication.common.rx.MainSchedulerProvider
+import com.nigtime.weatherapplication.common.testing.FakeSettingManager
 import com.nigtime.weatherapplication.domain.city.CityForForecast
 import com.nigtime.weatherapplication.domain.weather.HourlyForecast
-import com.nigtime.weatherapplication.ui.helpers.UnitFormatter
+import com.nigtime.weatherapplication.ui.helper.UnitFormatter
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
-import com.nigtime.weatherapplication.utility.di.ForecastManagerFactory
-import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
-import com.nigtime.weatherapplication.utility.testing.FakeSettingManager
 import kotlinx.android.synthetic.main.fragment_current_forecast.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class CurrentForecastFragment : BaseFragment<CurrentForecastFragment.ParentListener>(),
+class CurrentForecastFragment :
+    BaseFragment<CurrentForecastFragment.ParentListener>(R.layout.fragment_current_forecast),
     CurrentForecastView {
 
     interface ParentListener {
@@ -58,13 +57,6 @@ class CurrentForecastFragment : BaseFragment<CurrentForecastFragment.ParentListe
         presenter.attach(this, lifecycleBus)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_current_forecast, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -102,7 +94,7 @@ class CurrentForecastFragment : BaseFragment<CurrentForecastFragment.ParentListe
     }
 
     override fun showLoadAnimation() {
-        currentForecastViewSwitcher.switchTo(1, true)
+        currentForecastViewSwitcher.switchTo(1, false)
     }
 
     override fun showErrorView() {

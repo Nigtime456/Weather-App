@@ -11,6 +11,7 @@ package com.nigtime.weatherapplication.net.service
 import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
 import com.nigtime.weatherapplication.net.json.JsonDailyForecast
 import com.nigtime.weatherapplication.net.json.JsonHourlyForecast
+import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.QueryMap
@@ -21,11 +22,11 @@ import retrofit2.http.QueryMap
 
 interface WeatherApi {
     @GET("/v2.0/current")
-    fun currentForecast(@QueryMap params: Map<String, String>): Single<JsonCurrentForecast>
+    fun currentForecast(@QueryMap params: Map<String, String>): Observable<JsonCurrentForecast>
 
     @GET("/v2.0/forecast/daily")
-    fun dailyForecast(@QueryMap params: Map<String, String>): Single<JsonDailyForecast>
+    fun dailyForecast(@QueryMap params: Map<String, String>): Observable<JsonDailyForecast>
 
     @GET("/v2.0/forecast/hourly")
-    fun hourlyForecast(@QueryMap params: Map<String, String>): Single<JsonHourlyForecast>
+    fun hourlyForecast(@QueryMap params: Map<String, String>): Observable<JsonHourlyForecast>
 }

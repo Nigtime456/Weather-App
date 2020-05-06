@@ -6,7 +6,7 @@ package com.nigtime.weatherapplication.ui.screens.pager
 
 import com.nigtime.weatherapplication.domain.repository.ForecastCitiesRepository
 import com.nigtime.weatherapplication.ui.screens.common.BasePresenter
-import com.nigtime.weatherapplication.utility.rx.SchedulerProvider
+import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 
 class PagerCityPresenter(
     schedulerProvider: SchedulerProvider,
@@ -25,7 +25,7 @@ class PagerCityPresenter(
             .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
             .subscribeAndHandleError(false) { list ->
-                require(list.isNotEmpty()) { "pager screen must not get empty cities list!" }
+                require(list.isNotEmpty()) { "pager screen must not receive empty cities list!" }
                 getView()?.submitList(list)
                 getView()?.setPage(currentPage)
             }

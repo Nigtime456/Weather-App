@@ -4,6 +4,7 @@
 
 package com.nigtime.weatherapplication.net.mappers
 
+import com.nigtime.weatherapplication.domain.common.NetData
 import com.nigtime.weatherapplication.domain.weather.HourlyForecast
 import com.nigtime.weatherapplication.domain.weather.WeatherInfoHelper
 import com.nigtime.weatherapplication.net.json.JsonHourlyData
@@ -11,9 +12,10 @@ import com.nigtime.weatherapplication.net.json.JsonHourlyForecast
 
 class HourlyForecastMapper {
 
-    fun map(json: JsonHourlyForecast): HourlyForecast {
-        val hourlyWeatherList = json.forecastList.map { it.toHourlyForecast() }
-        return HourlyForecast(hourlyWeatherList)
+    fun map(json: NetData<JsonHourlyForecast>): HourlyForecast {
+        val hourlyWeatherList = json.data.forecastList.map { it.toHourlyForecast() }
+        val hourlyForecast =  HourlyForecast(hourlyWeatherList)
+        return hourlyForecast
     }
 
     fun JsonHourlyData.toHourlyForecast(): HourlyForecast.HourlyWeather {

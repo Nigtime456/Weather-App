@@ -37,7 +37,8 @@ class CitiesMarshallingHelper {
 
                 emitter.onComplete()
             } catch (e: Exception) {
-                emitter.onError(e)
+                if (emitter.isCancelled)
+                    emitter.onError(e)
             } finally {
                 reader.close()
             }

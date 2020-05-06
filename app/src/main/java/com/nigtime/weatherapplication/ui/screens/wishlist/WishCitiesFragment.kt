@@ -6,31 +6,29 @@ package com.nigtime.weatherapplication.ui.screens.wishlist
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.nigtime.weatherapplication.R
+import com.nigtime.weatherapplication.common.di.CitiesRepositoryFactory
+import com.nigtime.weatherapplication.common.rx.MainSchedulerProvider
+import com.nigtime.weatherapplication.common.rx.RxDelayedMessageDispatcher
 import com.nigtime.weatherapplication.domain.city.WishCity
+import com.nigtime.weatherapplication.ui.helper.ThemeHelper
+import com.nigtime.weatherapplication.ui.helper.list.ColorDividerDecoration
+import com.nigtime.weatherapplication.ui.helper.list.LiftOnScrollListener
 import com.nigtime.weatherapplication.ui.screens.common.BaseFragment
 import com.nigtime.weatherapplication.ui.screens.common.ExtendLifecycle
 import com.nigtime.weatherapplication.ui.screens.common.NavigationController
 import com.nigtime.weatherapplication.ui.screens.common.Screen
 import com.nigtime.weatherapplication.ui.screens.search.SearchCityFragment
-import com.nigtime.weatherapplication.ui.helpers.ThemeHelper
-import com.nigtime.weatherapplication.ui.helpers.list.ColorDividerDecoration
-import com.nigtime.weatherapplication.ui.helpers.list.LiftOnScrollListener
-import com.nigtime.weatherapplication.utility.di.CitiesRepositoryFactory
-import com.nigtime.weatherapplication.utility.rx.MainSchedulerProvider
-import com.nigtime.weatherapplication.utility.rx.RxDelayedMessageDispatcher
 import kotlinx.android.synthetic.main.fragmet_wish_list.*
 
 
-class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(),
+class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(R.layout.fragmet_wish_list),
     WishCitiesView, SearchCityFragment.TargetFragment {
 
     interface Listener : NavigationController
@@ -74,13 +72,6 @@ class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(),
             RxDelayedMessageDispatcher(getRemoveDuration(), schedulerProvider)
         presenter =
             WishCitiesPresenter(schedulerProvider, repository, messageDispatcher)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragmet_wish_list, container, false)
     }
 
 
@@ -160,16 +151,16 @@ class WishCitiesFragment : BaseFragment<WishCitiesFragment.Listener>(),
     }
 
     override fun showProgressBar() {
-        wishViewSwitcher.switchTo(0,true)
+        wishViewSwitcher.switchTo(0, true)
     }
 
     override fun showList() {
-        wishViewSwitcher.switchTo(1,false)
+        wishViewSwitcher.switchTo(1, false)
 
     }
 
     override fun showMessageEmpty() {
-        wishViewSwitcher.switchTo(2,true)
+        wishViewSwitcher.switchTo(2, true)
 
     }
 
