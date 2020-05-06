@@ -16,7 +16,7 @@
         android:layout_height="@dimen/height_item_normal"
         android:layout_gravity="center"
         android:gravity="center"
-        android:paddingHorizontal="@dimen/padding_medium"
+        android:paddingHorizontal="@dimen/medium_padding"
         android:text="@string/app_name" />
 
     <View

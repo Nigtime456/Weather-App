@@ -9,7 +9,7 @@ import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.db.service.WishCityDao
 import com.nigtime.weatherapplication.db.table.WishCityTable
 import com.nigtime.weatherapplication.domain.city.WishCity
-import com.nigtime.weatherapplication.domain.repository.WishCitiesRepository
+import com.nigtime.weatherapplication.domain.city.WishCitiesRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 

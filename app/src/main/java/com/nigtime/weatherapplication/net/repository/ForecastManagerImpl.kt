@@ -7,10 +7,10 @@ package com.nigtime.weatherapplication.net.repository
 import android.util.Log
 import com.nigtime.weatherapplication.domain.common.NetData
 import com.nigtime.weatherapplication.domain.param.RequestParams
-import com.nigtime.weatherapplication.domain.repository.ForecastManager
-import com.nigtime.weatherapplication.domain.weather.CurrentForecast
-import com.nigtime.weatherapplication.domain.weather.DailyForecast
-import com.nigtime.weatherapplication.domain.weather.HourlyForecast
+import com.nigtime.weatherapplication.domain.forecast.ForecastManager
+import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
+import com.nigtime.weatherapplication.domain.forecast.DailyForecast
+import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
 import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
 import com.nigtime.weatherapplication.net.mappers.CurrentForecastMapper
 import com.nigtime.weatherapplication.net.mappers.DailyForecastMapper

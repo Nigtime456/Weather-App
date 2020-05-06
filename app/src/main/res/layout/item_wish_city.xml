@@ -8,7 +8,7 @@
     android:clickable="true"
     android:elevation="@dimen/elevation_list_item"
     android:focusable="true"
-    android:paddingHorizontal="@dimen/padding_medium"
+    android:paddingHorizontal="@dimen/medium_padding"
     android:stateListAnimator="@animator/selector_drag_n_drop">
 
     <FrameLayout
@@ -33,7 +33,7 @@
         style="@style/PrimaryText.Lowest"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginStart="@dimen/small_margin"
         app:layout_constraintBottom_toTopOf="@id/itemWishStateAndCountry"
         app:layout_constraintEnd_toStartOf="@+id/itemWishTempIco"
         app:layout_constraintStart_toEndOf="@id/itemWishDragArea"
@@ -57,7 +57,7 @@
         android:id="@+id/itemWishTempIco"
         android:layout_width="@dimen/icon_small"
         android:layout_height="@dimen/icon_small"
-        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/small_margin"
         android:contentDescription="@string/content_description_temp"
         android:src="@drawable/_weather_stub"
         app:layout_constraintBottom_toBottomOf="@id/itemWishTemp"

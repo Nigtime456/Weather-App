@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.nigtime.weatherapplication.ui.screens.main.MainActivity"
+            android:name="com.nigtime.weatherapplication.screens.main.MainActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

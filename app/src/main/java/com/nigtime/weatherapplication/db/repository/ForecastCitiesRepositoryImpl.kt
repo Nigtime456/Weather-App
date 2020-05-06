@@ -7,7 +7,7 @@ package com.nigtime.weatherapplication.db.repository
 import com.nigtime.weatherapplication.db.mapper.CityForForecastMapper
 import com.nigtime.weatherapplication.db.service.WishCityDao
 import com.nigtime.weatherapplication.domain.city.CityForForecast
-import com.nigtime.weatherapplication.domain.repository.ForecastCitiesRepository
+import com.nigtime.weatherapplication.domain.city.ForecastCitiesRepository
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.rxkotlin.flatMapIterable

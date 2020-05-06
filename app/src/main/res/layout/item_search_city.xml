@@ -7,7 +7,7 @@
     android:clickable="true"
     android:elevation="@dimen/elevation_list_item"
     android:focusable="true"
-    android:paddingHorizontal="@dimen/padding_medium">
+    android:paddingHorizontal="@dimen/medium_padding">
 
     <LinearLayout
         android:layout_width="match_parent"

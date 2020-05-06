@@ -5,7 +5,7 @@
 package com.nigtime.weatherapplication.net.mappers
 
 import com.nigtime.weatherapplication.domain.common.NetData
-import com.nigtime.weatherapplication.domain.weather.DailyForecast
+import com.nigtime.weatherapplication.domain.forecast.DailyForecast
 import com.nigtime.weatherapplication.net.json.JsonDailyForecast
 
 class DailyForecastMapper {

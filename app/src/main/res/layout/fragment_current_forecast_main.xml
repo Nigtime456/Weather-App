@@ -5,13 +5,13 @@
   ~ Сreated by Igor Pokrovsky. 2020/5/6
   -->
 
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.screens.currentforecast.CurrentForecastFragment"
+    tools:context=".screens.currentforecast.CurrentForecastFragment"
     tools:showIn="@layout/fragment_current_forecast">
 
     <androidx.cardview.widget.CardView
@@ -27,98 +27,92 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.nigtime.weatherapplication.ui.customview.CenteredTitleToolbar
+            <com.nigtime.weatherapplication.common.customview.CenteredTitleToolbar
                 android:id="@+id/currentForecastToolbar"
                 style="@style/ToolbarMainStyle"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:menu="@menu/current_forecast"
-                app:subtitle="10:00"
                 app:navigationIcon="@drawable/ic_menu"
+                app:subtitle="10:00"
                 app:title="Test" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        app:cardBackgroundColor="?attr/themeScreenBackground"
-        app:cardElevation="4dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="80dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/currentForecastCurrentTemp"
+            style="@style/PrimaryText.Large"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="80dp">
+            android:layout_gravity="center"
+            android:elevation="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="4°" />
 
-            <TextView
-                android:id="@+id/currentForecastCurrentTemp"
-                style="@style/PrimaryText.Large"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:elevation="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="4°" />
+        <TextView
+            android:id="@+id/currentForecastCurrentDescription"
+            style="@style/PrimaryText.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layout_constraintEnd_toEndOf="@id/currentForecastCurrentTemp"
+            app:layout_constraintStart_toStartOf="@id/currentForecastCurrentTemp"
+            app:layout_constraintTop_toBottomOf="@id/currentForecastCurrentTemp"
+            tools:text="Overcast clouds" />
 
-            <TextView
-                android:id="@+id/currentForecastCurrentDescription"
-                style="@style/PrimaryText.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:layout_constraintEnd_toEndOf="@id/currentForecastCurrentTemp"
-                app:layout_constraintStart_toStartOf="@id/currentForecastCurrentTemp"
-                app:layout_constraintTop_toBottomOf="@id/currentForecastCurrentTemp"
-                tools:text="Overcast clouds" />
+        <ImageView
+            android:id="@+id/currentForecastCurrentIco"
+            android:layout_width="@dimen/icon_small"
+            android:layout_height="@dimen/icon_small"
+            android:layout_marginEnd="@dimen/small_margin"
+            app:layout_constraintBottom_toBottomOf="@id/currentForecastCurrentDescription"
+            app:layout_constraintEnd_toStartOf="@id/currentForecastCurrentDescription"
+            app:layout_constraintTop_toTopOf="@id/currentForecastCurrentDescription"
+            tools:src="@drawable/_weather_stub" />
 
-            <ImageView
-                android:id="@+id/currentForecastCurrentIco"
-                android:layout_width="@dimen/icon_small"
-                android:layout_height="@dimen/icon_small"
-                android:layout_marginEnd="@dimen/margin_small"
-                app:layout_constraintBottom_toBottomOf="@id/currentForecastCurrentDescription"
-                app:layout_constraintEnd_toStartOf="@id/currentForecastCurrentDescription"
-                app:layout_constraintTop_toTopOf="@id/currentForecastCurrentDescription"
-                tools:src="@drawable/_weather_stub" />
-
-            <TextView
-                android:id="@+id/currentForecastCurrentFeelsLikeTemp"
-                style="@style/PrimaryText.Lowest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:layout_constraintEnd_toEndOf="@id/currentForecastCurrentDescription"
-                app:layout_constraintStart_toStartOf="@id/currentForecastCurrentDescription"
-                app:layout_constraintTop_toBottomOf="@id/currentForecastCurrentDescription"
-                tools:text="Feels like 35°" />
+        <TextView
+            android:id="@+id/currentForecastCurrentFeelsLikeTemp"
+            style="@style/PrimaryText.Lowest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layout_constraintEnd_toEndOf="@id/currentForecastCurrentDescription"
+            app:layout_constraintStart_toStartOf="@id/currentForecastCurrentDescription"
+            app:layout_constraintTop_toBottomOf="@id/currentForecastCurrentDescription"
+            tools:text="Feels like 35°" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginVertical="8dp"
+        android:layout_height="@dimen/divider_size"
+        android:layout_marginHorizontal="@dimen/small_margin"
         android:background="?attr/themePrimaryDividerColor" />
 
-    <androidx.cardview.widget.CardView
+    <TextView
+        style="@style/SecondaryText.Lowest"
         android:layout_width="match_parent"
-        android:elevation="4dp"
-        app:cardBackgroundColor="?attr/themeScreenBackground"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/small_margin"
+        android:paddingHorizontal="@dimen/small_padding"
+        android:text="Прогноз на 24 часа" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/currentForecastHourlyList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_hour_forecast" />
-    </androidx.cardview.widget.CardView>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/currentForecastHourlyList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_hour_forecast" />
 
 </LinearLayout>

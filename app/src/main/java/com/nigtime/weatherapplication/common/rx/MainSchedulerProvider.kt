@@ -10,13 +10,10 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.Executors
 
 
-class MainSchedulerProvider private constructor() : SchedulerProvider {
+class MainSchedulerProvider : SchedulerProvider {
     override fun ui(): Scheduler = AndroidSchedulers.mainThread()
     override fun io(): Scheduler = Schedulers.from(Executors.newFixedThreadPool(3))
     override fun syncDatabase(): Scheduler = Schedulers.single()
 
-    companion object {
-        val INSTANCE = MainSchedulerProvider()
-    }
 }
 

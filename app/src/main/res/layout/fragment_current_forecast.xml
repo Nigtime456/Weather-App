@@ -2,7 +2,7 @@
   ~ Сreated by Igor Pokrovsky. 2020/4/27
   -->
 
-<com.nigtime.weatherapplication.ui.customview.CrossFadeAnimatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/currentForecastViewSwitcher"
     android:layout_width="match_parent"
@@ -18,5 +18,5 @@
 
     <include layout="@layout/fragment_current_forecast_error" />
 
-</com.nigtime.weatherapplication.ui.customview.CrossFadeAnimatorLayout>
+</com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout>
 

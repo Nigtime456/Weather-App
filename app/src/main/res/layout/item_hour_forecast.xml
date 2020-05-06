@@ -6,8 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/small_margin"
     android:orientation="vertical"
-    android:layout_marginHorizontal="@dimen/margin_medium"
     tools:background="?attr/themeScreenBackground">
 
     <TextView
@@ -24,7 +24,7 @@
         android:layout_width="@dimen/icon_small"
         android:layout_height="@dimen/icon_small"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginTop="@dimen/small_margin"
         tools:src="@drawable/_weather_stub" />
 
     <TextView
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginTop="@dimen/small_margin"
         android:textColor="@color/white"
         tools:text="10°" />
 

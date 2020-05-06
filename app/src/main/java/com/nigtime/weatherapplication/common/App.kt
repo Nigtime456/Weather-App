@@ -21,34 +21,23 @@
 package com.nigtime.weatherapplication.common
 
 import android.app.Application
-import com.nigtime.weatherapplication.common.cache.MemoryCacheForecastSource
+import android.content.Context
+import com.nigtime.weatherapplication.common.di.AppContainer
 import com.nigtime.weatherapplication.common.log.CustomLogger
-import com.nigtime.weatherapplication.db.service.AppDatabase
-import com.nigtime.weatherapplication.net.repository.CacheForecastSource
-import com.nigtime.weatherapplication.net.service.ApiFactory
 
 class App : Application() {
-    lateinit var database: AppDatabase
+    lateinit var appContainer: AppContainer
         private set
-    lateinit var apiFactory: ApiFactory
-        private set
-    lateinit var memoryCacheSource: CacheForecastSource
 
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
-        memoryCacheSource = MemoryCacheForecastSource()
+        appContainer = AppContainer(this)
         setLogger()
-        initDatabase()
-        initApiService()
-    }
+        getSharedPreferences("a", Context.MODE_PRIVATE)
+            .registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
 
-    private fun initDatabase() {
-        database = AppDatabase.getInstance(this)
-    }
-
-    private fun initApiService() {
-        apiFactory = ApiFactory.getInstance()
+            }
     }
 
     /**

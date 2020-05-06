@@ -5,8 +5,8 @@
 package com.nigtime.weatherapplication.net.mappers
 
 import com.nigtime.weatherapplication.domain.common.NetData
-import com.nigtime.weatherapplication.domain.weather.HourlyForecast
-import com.nigtime.weatherapplication.domain.weather.WeatherInfoHelper
+import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
+import com.nigtime.weatherapplication.domain.forecast.WeatherInfoHelper
 import com.nigtime.weatherapplication.net.json.JsonHourlyData
 import com.nigtime.weatherapplication.net.json.JsonHourlyForecast
 
