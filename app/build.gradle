@@ -39,6 +39,7 @@ dependencies {
     //Core
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation "androidx.fragment:fragment-ktx:1.3.0-alpha04"
     implementation 'androidx.core:core-ktx:1.2.0'
 
     //Retrofit, network
@@ -71,9 +72,15 @@ dependencies {
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
     implementation "androidx.paging:paging-rxjava2-ktx:$paging_version"
 
+    // ViewModel
+    def lifecycle_version = "2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+
     //testing
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.71"
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 }

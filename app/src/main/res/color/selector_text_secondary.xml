@@ -8,7 +8,5 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:alpha="0.38" android:color="?attr/themeSecondaryTextColor" android:state_enabled="false" />
-    <!-- это используется для выделения добавленных городов   -->
-    <item android:alpha="0.38" android:color="?attr/themeSecondaryTextColor" android:state_activated="true" />
     <item android:alpha="1.00" android:color="?attr/themeSecondaryTextColor" />
 </selector>

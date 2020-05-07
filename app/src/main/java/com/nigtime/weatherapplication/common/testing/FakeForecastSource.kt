@@ -4,15 +4,13 @@
 
 package com.nigtime.weatherapplication.common.testing
 
-import com.nigtime.weatherapplication.domain.common.NetData
+import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.domain.param.RequestParams
 import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
 import com.nigtime.weatherapplication.net.json.JsonDailyForecast
 import com.nigtime.weatherapplication.net.json.JsonHourlyForecast
 import com.nigtime.weatherapplication.net.repository.ForecastSource
 import io.reactivex.Observable
-import io.reactivex.Single
-import java.lang.Exception
 
 class FakeForecastSource :
     ForecastSource {
@@ -33,7 +31,12 @@ class FakeForecastSource :
             .map(mapToNetData())
     }
 
-    private fun <T> mapToNetData(): (T) -> NetData<T> = { data: T -> NetData(data, getTimestamp()) }
+    private fun <T> mapToNetData(): (T) -> NetData<T> = { data: T ->
+        NetData(
+            data,
+            getTimestamp()
+        )
+    }
 
     private fun getTimestamp(): Long {
         return System.currentTimeMillis()

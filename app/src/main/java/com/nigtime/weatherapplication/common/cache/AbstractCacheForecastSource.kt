@@ -4,7 +4,7 @@
 
 package com.nigtime.weatherapplication.common.cache
 
-import com.nigtime.weatherapplication.domain.common.NetData
+import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.domain.param.RequestParams
 import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
 import com.nigtime.weatherapplication.net.json.JsonDailyForecast

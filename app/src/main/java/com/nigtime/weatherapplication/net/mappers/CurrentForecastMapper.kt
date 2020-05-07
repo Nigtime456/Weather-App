@@ -4,7 +4,7 @@
 
 package com.nigtime.weatherapplication.net.mappers
 
-import com.nigtime.weatherapplication.domain.common.NetData
+import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
 import com.nigtime.weatherapplication.domain.forecast.WeatherInfoHelper
 import com.nigtime.weatherapplication.net.json.JsonCurrentData

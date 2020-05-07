@@ -19,10 +19,17 @@ open class WishCity constructor(
         const val NO_LIST_INDEX = -1
     }
 
-    fun hasState(): Boolean = stateName.isNotEmpty()
-
-    fun hasCountry(): Boolean = countryName.isNotEmpty()
-
+    fun getStateAndCounty(): CharSequence {
+        return if (stateName.isNotEmpty()) {
+            if (countryName.isNotEmpty()) {
+                "$countryName, $stateName"
+            } else {
+                stateName
+            }
+        } else {
+            countryName
+        }
+    }
 
     override fun toString(): String {
         return "SelectedCityData{cityId=$cityId, listIndex=$listIndex, name='$name', stateName='$stateName', countryName='$countryName'}"

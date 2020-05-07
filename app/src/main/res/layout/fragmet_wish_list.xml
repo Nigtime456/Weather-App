@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:crossAnimationDuration="@integer/cross_anim_duration"
-        app:crossDisplayedChild="0"
+        app:crossDisplayedChild="1"
         app:crossStartDelay="@integer/cross_start_delay">
 
         <LinearLayout

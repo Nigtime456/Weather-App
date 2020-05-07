@@ -35,11 +35,11 @@ import com.nigtime.weatherapplication.net.service.ApiFactory
 class AppContainer(context: Context) {
     //TODO должно быть private
     val referenceCityDao: ReferenceCityDao
-    private val wishCityDao: WishCityDao
+    val wishCityDao: WishCityDao
 
-    private val weatherApi = ApiFactory.getInstance().getApi()
-    private val netSource: ForecastSource = FakeForecastSource()
-    private val memoryCacheSource: CacheForecastSource = MemoryCacheForecastSource()
+    val weatherApi = ApiFactory.getInstance().getApi()
+    val netSource: ForecastSource = FakeForecastSource()
+    val memoryCacheSource: CacheForecastSource = MemoryCacheForecastSource()
 
     val schedulerProvider: SchedulerProvider = MainSchedulerProvider()
 
@@ -51,11 +51,7 @@ class AppContainer(context: Context) {
 
     val settingsManager: SettingsManager
 
-    val wishCitiesContainer: WishCitiesContainer
-    val pagerCityContainer: PagerCityContainer
-    val searchCityContainer: SearchCityContainer
-    val currentForecastContainer: CurrentForecastContainer
-    val splashContainer: SplashContainer
+
 
     init {
         val database = AppDatabase.getInstance(context)
@@ -80,11 +76,6 @@ class AppContainer(context: Context) {
 
         settingsManager = FakeSettingsManager(context)
 
-        wishCitiesContainer = WishCitiesContainer(context, this)
-        pagerCityContainer = PagerCityContainer(context, this)
-        searchCityContainer = SearchCityContainer(context, this)
-        currentForecastContainer = CurrentForecastContainer(context, this)
-        splashContainer = SplashContainer(context, this)
     }
 
 

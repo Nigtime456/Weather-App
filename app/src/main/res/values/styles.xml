@@ -20,8 +20,7 @@
         <item name="themeScreenBackground">@color/black</item>
 
 
-        <item name="themePrimaryDividerColor">@color/light_black</item>
-        <item name="themeSecondaryDividerColor">@color/white</item>
+        <item name="themeDividerColor">@color/light_black</item>
 
         <item name="themeHighlightColor">@color/light_black</item>
 
@@ -47,23 +46,13 @@
 
     <!--  Dividers  -->
 
-    <style name="DashedDividerStyle">
-        <item name="dividerGap">2dp</item>
-        <item name="dividerSize">2dp</item>
-        <item name="dividerColor">?attr/themeSecondaryDividerColor</item>
-    </style>
-
-    <style name="SecondaryDividerViewStyle">
-        <item name="android:background">?attr/themeSecondaryDividerColor</item>
-    </style>
-
     <style name="PrimaryDividerViewStyle">
-        <item name="android:background">?attr/themePrimaryDividerColor</item>
+        <item name="android:background">?attr/themeDividerColor</item>
     </style>
 
     <!--  NavigationViews  -->
     <style name="NavigationViewOverlay">
-        <item name="android:listDivider">?attr/themePrimaryDividerColor</item>
+        <item name="android:listDivider">?attr/themeDividerColor</item>
         <item name="android:textSize">17sp</item>
         <item name="android:textColorSecondary">?attr/themeSecondaryTextColorSelector</item>
     </style>

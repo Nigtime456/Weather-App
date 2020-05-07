@@ -5,7 +5,7 @@
 package com.nigtime.weatherapplication.net.repository
 
 import android.util.Log
-import com.nigtime.weatherapplication.domain.common.NetData
+import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.domain.param.RequestParams
 import com.nigtime.weatherapplication.domain.forecast.ForecastManager
 import com.nigtime.weatherapplication.domain.forecast.CurrentForecast

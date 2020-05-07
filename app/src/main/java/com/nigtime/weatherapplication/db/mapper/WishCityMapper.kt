@@ -26,7 +26,6 @@ class WishCityMapper {
         } else {
             wishCity.listIndex
         }
-        Log.d("sas", "in = $listIndex index = $newListIndex")
         return WishCityTable(wishCity.cityId, newListIndex)
     }
 }

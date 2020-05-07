@@ -7,9 +7,8 @@
     <attr name="themeNightColor" format="color" />
 
 
-    <attr name="themePrimaryDividerColor" format="color" />
-    <!--   TODO remove ? -->
-    <attr name="themeSecondaryDividerColor" format="color" />
+    <attr name="themeDividerColor" format="color" />
+
     <attr name="themeIconTintColor" format="color" />
 
     <attr name="themePrimaryTextColor" format="color" />

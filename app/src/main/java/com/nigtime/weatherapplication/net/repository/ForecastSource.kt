@@ -4,13 +4,12 @@
 
 package com.nigtime.weatherapplication.net.repository
 
-import com.nigtime.weatherapplication.domain.common.NetData
+import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.domain.param.RequestParams
 import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
 import com.nigtime.weatherapplication.net.json.JsonDailyForecast
 import com.nigtime.weatherapplication.net.json.JsonHourlyForecast
 import io.reactivex.Observable
-import io.reactivex.Single
 
 interface ForecastSource {
     fun getJsonCurrentForecast(requestParams: RequestParams): Observable<NetData<JsonCurrentForecast>>

@@ -10,7 +10,7 @@ package com.nigtime.weatherapplication.common.cache
 
 import android.util.Log
 import androidx.collection.LruCache
-import com.nigtime.weatherapplication.domain.common.NetData
+import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
 import com.nigtime.weatherapplication.net.json.JsonDailyForecast
 import com.nigtime.weatherapplication.net.json.JsonHourlyForecast

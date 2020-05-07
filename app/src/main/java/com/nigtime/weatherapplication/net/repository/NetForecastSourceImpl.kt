@@ -8,14 +8,13 @@
 
 package com.nigtime.weatherapplication.net.repository
 
-import com.nigtime.weatherapplication.domain.common.NetData
+import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.domain.param.RequestParams
 import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
 import com.nigtime.weatherapplication.net.json.JsonDailyForecast
 import com.nigtime.weatherapplication.net.json.JsonHourlyForecast
 import com.nigtime.weatherapplication.net.service.WeatherApi
 import io.reactivex.Observable
-import io.reactivex.Single
 
 class NetForecastSourceImpl constructor(
     private val weatherApi: WeatherApi
@@ -48,7 +47,12 @@ class NetForecastSourceImpl constructor(
         return queryParams
     }
 
-    private fun <T> mapToNetData(): (T) -> NetData<T> = { data: T -> NetData(data, getTimestamp()) }
+    private fun <T> mapToNetData(): (T) -> NetData<T> = { data: T ->
+        NetData(
+            data,
+            getTimestamp()
+        )
+    }
 
     private fun getTimestamp(): Long {
         return System.currentTimeMillis()

@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".screens.currentforecast.CurrentForecastFragment"
+    tools:context=".screen.currentforecast.CurrentForecastFragment"
     tools:showIn="@layout/fragment_current_forecast">
 
     <androidx.cardview.widget.CardView
@@ -95,15 +95,15 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_size"
-        android:layout_marginHorizontal="@dimen/small_margin"
-        android:background="?attr/themePrimaryDividerColor" />
+        android:layout_marginHorizontal="@dimen/medium_margin"
+        android:background="?attr/themeDividerColor" />
 
     <TextView
         style="@style/SecondaryText.Lowest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/small_margin"
-        android:paddingHorizontal="@dimen/small_padding"
+        android:paddingHorizontal="@dimen/medium_margin"
         android:text="Прогноз на 24 часа" />
 
 
