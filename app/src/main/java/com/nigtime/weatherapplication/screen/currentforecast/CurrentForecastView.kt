@@ -19,4 +19,5 @@ interface CurrentForecastView : MvpView {
     fun setCurrentForecast(currentForecast: CurrentForecast)
     fun setHourlyForecast(hourlyWeatherList: List<HourlyForecast.HourlyWeather>)
     fun setDailyForecast(dailyWeather: List<DailyForecast.DailyWeather>)
+    fun selectDaysSwitcherButton(buttonId: Int)
 }

@@ -84,17 +84,7 @@ class CurrentForecastFragment :
     private fun setupDaysSwitcher() {
         currentForecastDaysSwitcher.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (isChecked) {
-                when (checkedId) {
-                    R.id.currentForecastSwitcher5days -> {
-                        presenter.onSwitcher5days()
-                    }
-                    R.id.currentForecastSwitcher10days -> {
-                        presenter.onSwitcher10days()
-                    }
-                    R.id.currentForecastSwitcher16days -> {
-                        presenter.onSwitcher16days()
-                    }
-                }
+                presenter.onDisplayedDaysSwitched(checkedId)
             }
         }
     }
@@ -158,6 +148,10 @@ class CurrentForecastFragment :
 
     override fun setDailyForecast(dailyWeather: List<DailyForecast.DailyWeather>) {
         (currentForecastDailyList.adapter as DailyWeatherAdapter).submitList(dailyWeather)
+    }
+
+    override fun selectDaysSwitcherButton(buttonId: Int) {
+        currentForecastDaysSwitcher.check(buttonId)
     }
 
 

@@ -148,10 +148,12 @@ class PagerCityFragment :
     }
 
     override fun onCityInserted(position: Int) {
+        //TODO в этот момент презентер отсоеден
         presenter.setPagerPosition(position)
     }
 
     override fun onSelectCity(position: Int) {
+        //TODO в этот момент презентер отсоеден
         presenter.setPagerPosition(position)
     }
 }

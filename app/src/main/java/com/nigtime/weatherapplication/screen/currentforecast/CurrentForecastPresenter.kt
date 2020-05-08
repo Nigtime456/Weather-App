@@ -4,6 +4,7 @@
 
 package com.nigtime.weatherapplication.screen.currentforecast
 
+import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.city.CityForForecast
 import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
@@ -14,10 +15,13 @@ import com.nigtime.weatherapplication.domain.param.RequestParams
 import com.nigtime.weatherapplication.screen.common.BasePresenter
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.Observables
+import io.reactivex.subjects.Subject
+
 
 class CurrentForecastPresenter(
     schedulerProvider: SchedulerProvider,
-    private val forecastManager: ForecastManager
+    private val forecastManager: ForecastManager,
+    private val displayedDaysSwitchSubject: Subject<Int>
 ) :
     BasePresenter<CurrentForecastView>(
         schedulerProvider, TAG
@@ -25,18 +29,33 @@ class CurrentForecastPresenter(
 
     private companion object {
         const val TAG = "current_forecast"
+
+        const val SHOW_5_DAYS = R.id.currentForecastDisplay5days
+        const val SHOW_10_DAYS = R.id.currentForecastDisplay10days
+        const val SHOW_16_DAYS = R.id.currentForecastDisplay16days
     }
 
     private var dailyWeatherList = emptyList<DailyForecast.DailyWeather>()
+    private var currentDisplayedDays = SHOW_5_DAYS
 
     //TODO дебаг
     private var startTime = 0L
 
+    override fun onAttach() {
+        super.onAttach()
+        displayedDaysSwitchSubject.subscribe { newCount ->
+            currentDisplayedDays = newCount
+            showDailyForecast()
+        }
+            .disposeOnDetach()
+
+    }
 
     override fun onDetach() {
         super.onDetach()
         dailyWeatherList = emptyList()
     }
+
 
     fun provideForecast(cityForForecast: CityForForecast) {
         getView()?.setCityName(cityForForecast.cityName)
@@ -63,7 +82,28 @@ class CurrentForecastPresenter(
         getView()?.showMainLayout()
         getView()?.setCurrentForecast(triple.first)
         getView()?.setHourlyForecast(triple.second.hourlyWeather)
-        getView()?.setDailyForecast(dailyWeatherList.take(5))
+        showDailyForecast()
+    }
+
+    private fun showDailyForecast() {
+        //данные не загружены ещё.
+        if (dailyWeatherList.isEmpty())
+            return
+
+        when (currentDisplayedDays) {
+            SHOW_5_DAYS -> {
+                getView()?.setDailyForecast(dailyWeatherList.take(5))
+            }
+            SHOW_10_DAYS -> {
+                getView()?.setDailyForecast(dailyWeatherList.take(10))
+            }
+            SHOW_16_DAYS -> {
+                getView()?.setDailyForecast(dailyWeatherList.take(16))
+            }
+            else -> error("invalid switcher ID? = $currentDisplayedDays")
+        }
+        //выделить кнопку
+        getView()?.selectDaysSwitcherButton(currentDisplayedDays)
     }
 
     override fun onStreamError(throwable: Throwable) {
@@ -83,16 +123,8 @@ class CurrentForecastPresenter(
         return Observables.zip(current, hourly, daily, ::Triple)
     }
 
-    fun onSwitcher5days() {
-        getView()?.setDailyForecast(dailyWeatherList.take(5))
-    }
-
-    fun onSwitcher10days() {
-        getView()?.setDailyForecast(dailyWeatherList.take(10))
-    }
-
-    fun onSwitcher16days() {
-        getView()?.setDailyForecast(dailyWeatherList)
+    fun onDisplayedDaysSwitched(checkedId: Int) {
+        displayedDaysSwitchSubject.onNext(checkedId)
     }
 
 }

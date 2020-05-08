@@ -27,7 +27,8 @@ import kotlinx.android.synthetic.main.fragmet_wish_list.*
 
 class WishCitiesFragment :
     BaseFragment<WishCitiesView, WishCitiesPresenter, NavigationController>(R.layout.fragmet_wish_list),
-    WishCitiesView, SearchCityFragment.TargetFragment {
+    WishCitiesView,
+    SearchCityFragment.TargetFragment {
 
 
     /**
@@ -198,6 +199,8 @@ class WishCitiesFragment :
     }
 
     override fun onCityInserted(position: Int) {
+        //TODO странное поведение, в этот момент презентер отсоеденен
+        //нужно обдумать что с этим делать
         presenter.onCityInsertedAt(position)
     }
 
