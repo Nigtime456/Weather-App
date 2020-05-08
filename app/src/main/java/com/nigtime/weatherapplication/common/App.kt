@@ -16,6 +16,8 @@ class App : Application() {
         lateinit var INSTANCE: App
     }
 
+    val logger = CustomLogger("deb", true)
+
     lateinit var appContainer: AppContainer
         private set
 

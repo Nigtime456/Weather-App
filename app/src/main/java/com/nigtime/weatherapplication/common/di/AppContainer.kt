@@ -27,7 +27,7 @@ import com.nigtime.weatherapplication.domain.settings.SettingsManager
 import com.nigtime.weatherapplication.net.mappers.CurrentForecastMapper
 import com.nigtime.weatherapplication.net.mappers.DailyForecastMapper
 import com.nigtime.weatherapplication.net.mappers.HourlyForecastMapper
-import com.nigtime.weatherapplication.net.repository.CacheForecastSource
+import com.nigtime.weatherapplication.net.repository.AbstractCacheForecastSource
 import com.nigtime.weatherapplication.net.repository.ForecastManagerImpl
 import com.nigtime.weatherapplication.net.repository.ForecastSource
 import com.nigtime.weatherapplication.net.service.ApiFactory
@@ -45,13 +45,12 @@ class AppContainer(context: Context) {
 
     val weatherApi = ApiFactory.getInstance().getApi()
     val netSource: ForecastSource = FakeForecastSource()
-    val memoryCacheSource: CacheForecastSource = MemoryCacheForecastSource()
+    val memoryCacheSource: AbstractCacheForecastSource = MemoryCacheForecastSource()
 
     val schedulerProvider: SchedulerProvider = MainSchedulerProvider()
 
     val forecastCitiesRepository: ForecastCitiesRepository
     val wishCityRepository: WishCitiesRepository
-    val pagedSearchRepository: PagedSearchRepository
 
     val forecastManager: ForecastManager
 
@@ -66,10 +65,6 @@ class AppContainer(context: Context) {
             ForecastCitiesRepositoryImpl(wishCityDao, CityForForecastMapper())
         wishCityRepository =
             WishCitiesRepositoryImpl(referenceCityDao, wishCityDao, WishCityMapper())
-        pagedSearchRepository = PagedSearchRepositoryImpl(
-            referenceCityDao, wishCityDao,
-            SearchCityMapper()
-        )
 
         forecastManager = ForecastManagerImpl(
             netSource,
@@ -81,6 +76,14 @@ class AppContainer(context: Context) {
 
         settingsManager = FakeSettingsManager(context)
 
+    }
+
+
+    fun getPagedSearchRepository(): PagedSearchRepository {
+        return PagedSearchRepositoryImpl(
+            referenceCityDao, wishCityDao,
+            SearchCityMapper()
+        )
     }
 
 

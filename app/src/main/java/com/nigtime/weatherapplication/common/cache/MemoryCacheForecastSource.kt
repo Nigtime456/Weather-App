@@ -2,9 +2,6 @@
  * Сreated by Igor Pokrovsky. 2020/5/5
  */
 
-/*
- * Сreated by Igor Pokrovsky. 2020/5/5
- */
 
 package com.nigtime.weatherapplication.common.cache
 
@@ -14,8 +11,11 @@ import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
 import com.nigtime.weatherapplication.net.json.JsonDailyForecast
 import com.nigtime.weatherapplication.net.json.JsonHourlyForecast
+import com.nigtime.weatherapplication.net.repository.AbstractCacheForecastSource
 
-
+/**
+ * Хранит данные в памяти приложения.
+ */
 class MemoryCacheForecastSource : AbstractCacheForecastSource(CACHE_MAX_AGE) {
 
     companion object {
@@ -29,38 +29,29 @@ class MemoryCacheForecastSource : AbstractCacheForecastSource(CACHE_MAX_AGE) {
     private val dailyCache: LruCache<Long, NetData<JsonDailyForecast>> = LruCache(MAX_CACHE_SIZE)
 
     override fun storeCurrentData(key: Long, data: NetData<JsonCurrentForecast>) {
-        Log.d("cache", "current put = $key")
         currentCache.put(key, data)
     }
 
     override fun storeHourlyData(key: Long, data: NetData<JsonHourlyForecast>) {
-        Log.d("cache", "hourly put = $key")
         hourlyCache.put(key, data)
     }
 
     override fun storeDailyData(key: Long, data: NetData<JsonDailyForecast>) {
-        Log.d("cache", "daily put = $key")
         dailyCache.put(key, data)
     }
 
     /**
      * При извлечение из карты удаляется элемент
      */
-    override fun getCurrentData(key: Long): NetData<JsonCurrentForecast>? {
-        Log.d("cache", "current get = $key")
-        dumpMaps()
+    override fun getAndRemoveCurrentData(key: Long): NetData<JsonCurrentForecast>? {
         return currentCache.remove(key)
     }
 
-    override fun getHourlyData(key: Long): NetData<JsonHourlyForecast>? {
-        Log.d("cache", "hourly get = $key")
-        dumpMaps()
+    override fun getAndRemoveHourlyData(key: Long): NetData<JsonHourlyForecast>? {
         return hourlyCache.remove(key)
     }
 
-    override fun getDailyData(key: Long): NetData<JsonDailyForecast>? {
-        Log.d("cache", "daily get = $key")
-        dumpMaps()
+    override fun getAndRemoveDailyData(key: Long): NetData<JsonDailyForecast>? {
         return dailyCache.remove(key)
     }
 

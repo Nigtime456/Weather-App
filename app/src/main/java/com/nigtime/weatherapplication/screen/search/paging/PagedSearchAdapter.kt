@@ -73,6 +73,7 @@ class PagedSearchAdapter constructor(private val spannHelper: ColorSpanHelper) :
             itemView.itemSearchStateAndCountry.text = city.getStateAndCounty()
             //выключаем, что отключить рипл эффект
             itemView.isEnabled = !city.isWish
+            Log.d("sas", "city = ${city.name} isWish = ${city.isWish}")
         }
 
         fun release() {

@@ -10,6 +10,7 @@ import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.net.json.JsonCurrentData
 import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
 
+//TODO потокобезопастен ли этот маппер ?
 class CurrentForecastMapper {
 
     fun map(json: NetData<JsonCurrentForecast>): CurrentForecast {

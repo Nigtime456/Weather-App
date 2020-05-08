@@ -8,7 +8,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
-import androidx.core.view.get
 import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import com.nigtime.weatherapplication.R
@@ -26,7 +25,7 @@ class CrossFadeAnimatorLayout : FrameLayout {
 
     private companion object {
         const val NO_INDEX = -1
-        const val DEFAULT_DELAY = 500
+        const val DEFAULT_DELAY = 5050
         const val DEFAULT_DURATION = 500
     }
 
@@ -81,13 +80,15 @@ class CrossFadeAnimatorLayout : FrameLayout {
      * @param immediately - выполнить переключенеи немедленно, без ожидания
      */
     fun switchTo(childIndex: Int, immediately: Boolean) {
+
         //уже ожидает переключения
         if (childIndex == pendingDisplayedChild) {
             return
         }
 
-        removeCallbacks(pendingSwitch)
-        pendingDisplayedChild = NO_INDEX
+
+        removePendingSwitch()
+
         //уже отображается
         if (childIndex == currentDisplayedChild) {
             return
@@ -102,9 +103,39 @@ class CrossFadeAnimatorLayout : FrameLayout {
         }
     }
 
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        removePendingSwitch()
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        removePendingSwitch()
+    }
+
+    private fun removePendingSwitch() {
+        removeCallbacks(pendingSwitch)
+        pendingDisplayedChild = NO_INDEX
+    }
+
+
+
+
     private fun switch() {
+
+        //TODO костыль
+        /**
+         * Если в CurrentForecast перейти на несколько страниц, потом
+         * открыть SearchCity, то по нажатию кнопки назад, здесь ловим
+         * pendingDisplayedChild == -1
+         * Почему то коллбэки выполняются сразу
+         */
+        if (pendingDisplayedChild == NO_INDEX)
+            return
+
         val currentChild = getChildAt(currentDisplayedChild)
-        val nextChild = get(pendingDisplayedChild)
+        val nextChild = getChildAt(pendingDisplayedChild)
+
 
         val transition = Fade().apply { duration = animationDuration }
         TransitionManager.beginDelayedTransition(this, transition)
@@ -116,9 +147,7 @@ class CrossFadeAnimatorLayout : FrameLayout {
         pendingDisplayedChild = NO_INDEX
     }
 
-    private val pendingSwitch = Runnable {
-        switch()
-    }
+    private val pendingSwitch = Runnable { switch() }
 }
 
 

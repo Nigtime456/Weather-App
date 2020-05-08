@@ -10,7 +10,7 @@ import com.nigtime.weatherapplication.screen.search.paging.PagedListLoader
 class SearchCityPresenterFactory : BasePresenterFactory<SearchCityPresenter>() {
     private val presenter: SearchCityPresenter = SearchCityPresenter(
         appContainer.schedulerProvider,
-        appContainer.pagedSearchRepository,
+        appContainer.getPagedSearchRepository(),
         PagedListLoader(appContainer.schedulerProvider)
     )
 

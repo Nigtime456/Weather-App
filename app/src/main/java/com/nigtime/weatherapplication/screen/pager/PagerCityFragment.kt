@@ -26,12 +26,14 @@ import kotlinx.android.synthetic.main.fragment_pager.*
 
 class PagerCityFragment :
     BaseFragment<PagerCityView, PagerCityPresenter, NavigationController>(R.layout.fragment_pager),
-    PagerCityView, CurrentForecastFragment.ParentListener, SearchCityFragment.TargetFragment,
+    PagerCityView,
+    CurrentForecastFragment.ParentListener,
+    SearchCityFragment.TargetFragment,
     WishCitiesFragment.TargetFragment {
 
 
     companion object {
-        private const val PAGE_LIMIT = 1
+        private const val PAGE_LIMIT = -1
     }
 
     private val pagerScrollListener = object : ViewPager2.OnPageChangeCallback() {
@@ -54,6 +56,7 @@ class PagerCityFragment :
         presenter.provideCities()
     }
 
+
     override fun onStop() {
         super.onStop()
         presenter.setPagerPosition(pagerViewPager.currentItem)
@@ -63,6 +66,7 @@ class PagerCityFragment :
         super.onDestroyView()
         pagerViewPager.unregisterOnPageChangeCallback(pagerScrollListener)
         pagerViewPager.adapter = null
+
     }
 
     private fun initViews() {
@@ -94,7 +98,6 @@ class PagerCityFragment :
     @SuppressLint("WrongConstant")
     private fun setupViewPager() {
         pagerViewPager.apply {
-            adapter = PagerCityAdapter(childFragmentManager, lifecycle)
             offscreenPageLimit = PAGE_LIMIT
             registerOnPageChangeCallback(pagerScrollListener)
             setPageTransformer(MarginPageTransformer(resources.getDimensionPixelOffset(R.dimen.divider_size)))
@@ -110,7 +113,7 @@ class PagerCityFragment :
     }
 
     override fun submitPageList(items: List<CityForForecast>) {
-        (pagerViewPager.adapter as PagerCityAdapter).submitList(items)
+        pagerViewPager.adapter = PagerCityAdapter(this, items)
     }
 
     override fun submitNavigationList(items: List<Pair<Int, String>>) {
@@ -128,16 +131,16 @@ class PagerCityFragment :
         pagerViewPager.setCurrentItem(page, smoothScroll)
     }
 
-    override fun navigateToWishListScreen() {
-        parentListener?.navigateTo(Screen.Factory.wishList(this))
-    }
-
     override fun selectNavigationItem(index: Int) {
         pagerNavView.setCheckedItem(index)
     }
 
     override fun onClickAddCity() {
         parentListener?.navigateTo(Screen.Factory.searchCity(this))
+    }
+
+    override fun navigateToWishListScreen() {
+        parentListener?.navigateTo(Screen.Factory.wishList(this))
     }
 
     override fun onClickOpenDrawer() {

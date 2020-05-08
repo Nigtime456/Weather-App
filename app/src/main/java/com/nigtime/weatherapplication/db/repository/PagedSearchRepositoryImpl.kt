@@ -4,17 +4,22 @@
 
 package com.nigtime.weatherapplication.db.repository
 
+import android.util.Log
 import com.nigtime.weatherapplication.db.mapper.SearchCityMapper
 import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.db.service.WishCityDao
 import com.nigtime.weatherapplication.db.table.ReferenceCityTable
 import com.nigtime.weatherapplication.db.table.WishCityTable
-import com.nigtime.weatherapplication.domain.city.SearchCity
 import com.nigtime.weatherapplication.domain.city.PagedSearchRepository
+import com.nigtime.weatherapplication.domain.city.SearchCity
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.rxkotlin.flatMapIterable
 
+/**
+ * Репозиторий хранит состояние в вилде IDs сохраненных городов,
+ * поэтому должен содаваться по новому, для каждого поиска
+ */
 class PagedSearchRepositoryImpl(
     private val referenceCityDao: ReferenceCityDao,
     private val wishCityDao: WishCityDao,
@@ -66,6 +71,7 @@ class PagedSearchRepositoryImpl(
 
     private fun mapReferenceCityToData(rawRow: ReferenceCityTable, query: String): SearchCity {
         val isWish = wishIds?.contains(rawRow.cityId) ?: false
+        Log.d("sas", "rawRow = $rawRow, isWish = $isWish")
         return cityMapper.mapDomain(rawRow, isWish, query)
     }
 

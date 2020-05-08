@@ -5,5 +5,5 @@
 package com.nigtime.weatherapplication.domain.param
 
 sealed class RequestParams {
-    class CityParams(val cityId: Long) : RequestParams()
+    data class CityParams(val cityId: Long) : RequestParams()
 }

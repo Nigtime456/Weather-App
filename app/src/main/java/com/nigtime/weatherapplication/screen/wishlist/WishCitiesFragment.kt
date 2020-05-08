@@ -180,8 +180,8 @@ class WishCitiesFragment :
         })
     }
 
-    override fun showUndoDeleteSnack(duration: Int) {
-        undoSnackbar = Snackbar.make(wishRoot, R.string.wish_city_removed, duration).apply {
+    override fun showUndoDeleteSnack(durationMillis: Int) {
+        undoSnackbar = Snackbar.make(wishRoot, R.string.wish_city_removed, durationMillis).apply {
             setAction(R.string.wish_undo) { presenter.onClickUndoDelete() }
             show()
         }

@@ -12,6 +12,7 @@ import com.nigtime.weatherapplication.net.json.JsonDailyData
 import com.nigtime.weatherapplication.net.json.JsonDailyForecast
 import java.text.SimpleDateFormat
 
+//TODO потокобезопастен ли этот маппер ?
 class DailyForecastMapper {
     @SuppressLint("SimpleDateFormat")
     private val dateParser = SimpleDateFormat("yyyy-MM-dd")

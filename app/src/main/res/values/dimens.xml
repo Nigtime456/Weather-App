@@ -19,7 +19,7 @@
     <dimen name="height_item_small">50dp</dimen>
     <dimen name="height_item_normal">80dp</dimen>
 
-    <dimen name="width_drawer">300dp</dimen>
+    <dimen name="drawer_width">300dp</dimen>
 
 
     <dimen name="text_size_primary_large">90sp</dimen>

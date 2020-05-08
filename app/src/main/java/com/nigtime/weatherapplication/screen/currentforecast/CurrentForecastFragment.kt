@@ -5,7 +5,6 @@
 package com.nigtime.weatherapplication.screen.currentforecast
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
@@ -22,13 +21,12 @@ import kotlinx.android.synthetic.main.fragment_current_forecast.*
 import kotlinx.android.synthetic.main.fragment_current_forecast_main.*
 
 /**
- *
+ * Главный экран с погодой
  */
 class CurrentForecastFragment :
     BaseFragment<CurrentForecastView, CurrentForecastPresenter, CurrentForecastFragment.ParentListener>(
         R.layout.fragment_current_forecast
-    ),
-    CurrentForecastView {
+    ), CurrentForecastView {
 
     interface ParentListener {
         fun onClickAddCity()
@@ -48,22 +46,29 @@ class CurrentForecastFragment :
 
     private var unitFormatter: UnitFormatter? = null
 
+    private var currentCity = lazy { getCurrentCity() }
+
+    @Suppress("RemoveExplicitTypeArguments")
+    private fun getCurrentCity(): CityForForecast {
+        return arguments.let { args -> args?.getParcelable<CityForForecast>(EXTRA_CITY) }
+            ?: error("required CityForForecast")
+    }
+
     override fun getListenerClass(): Class<ParentListener> = ParentListener::class.java
 
     override fun getPresenterFactory(): PresenterFactory<CurrentForecastPresenter> {
-        return ViewModelProvider(this).get(CurrentForecastPresenterFactory::class.java)
+        val key = currentCity.value.cityId.toString()
+        return ViewModelProvider(this).get(key, CurrentForecastPresenterFactory::class.java)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(
-            "sas",
-            "frag = ${hashCode()} presenter [${presenter::class.simpleName}] = ${presenter.hashCode()}"
-        )
         unitFormatter = App.INSTANCE.appContainer.settingsManager.getUnitFormatter()
         initViews()
-        presenter.provideForecast(getCurrentCity())
+        presenter.provideForecast(currentCity.value)
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -77,7 +82,7 @@ class CurrentForecastFragment :
     }
 
     private fun setupDaysSwitcher() {
-        currentForecastDaysSwitcher.addOnButtonCheckedListener { group, checkedId, isChecked ->
+        currentForecastDaysSwitcher.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (isChecked) {
                 when (checkedId) {
                     R.id.currentForecastSwitcher5days -> {
@@ -117,11 +122,6 @@ class CurrentForecastFragment :
             }
         }
     }
-
-    private fun getCurrentCity(): CityForForecast = arguments.let {
-        it?.getParcelable(EXTRA_CITY) ?: error("required CityForForecast object")
-    }
-
 
     override fun setCityName(cityName: String) {
         currentForecastToolbar.title = cityName

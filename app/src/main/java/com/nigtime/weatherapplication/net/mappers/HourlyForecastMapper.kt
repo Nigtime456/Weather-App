@@ -4,12 +4,13 @@
 
 package com.nigtime.weatherapplication.net.mappers
 
-import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
 import com.nigtime.weatherapplication.domain.forecast.WeatherInfoHelper
+import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.net.json.JsonHourlyData
 import com.nigtime.weatherapplication.net.json.JsonHourlyForecast
 
+//TODO потокобезопастен ли этот маппер ?
 class HourlyForecastMapper {
 
     fun map(json: NetData<JsonHourlyForecast>): HourlyForecast {

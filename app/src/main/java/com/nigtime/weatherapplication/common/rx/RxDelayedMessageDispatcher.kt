@@ -17,11 +17,11 @@ import java.util.concurrent.TimeUnit
  * ожидает, будет немедленно выполнено, а новое будет так же
  * поставлено на ожидание.
  *
- * @param duration - время ожидания
+ * @param durationMillis - время ожидания
  * @param schedulerProvider - [SchedulerProvider]
  */
 class RxDelayedMessageDispatcher constructor(
-    val duration: Long,
+    val durationMillis: Long,
     private val schedulerProvider: SchedulerProvider
 ) {
 
@@ -72,7 +72,7 @@ class RxDelayedMessageDispatcher constructor(
     private fun delayInvoke() {
         //что бы была возможность выполнять принудительно сообщения, будем их отправлять
         //в main thread
-        dis = Single.timer(duration, TimeUnit.MILLISECONDS, schedulerProvider.syncDatabase())
+        dis = Single.timer(durationMillis, TimeUnit.MILLISECONDS, schedulerProvider.syncDatabase())
             .subscribeOn(schedulerProvider.ui())
             .subscribe(Consumer {
                 runCallback()

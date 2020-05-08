@@ -39,7 +39,7 @@ class WishCitiesPresenter constructor(
         //если уже что то стоит в очереди - удаляем
         messageDispatcher.forceRun()
         //оставляем возможность отмены
-        getView()?.showUndoDeleteSnack(messageDispatcher.duration.toInt())
+        getView()?.showUndoDeleteSnack(messageDispatcher.durationMillis.toInt())
         checkList(items, false)
         logger.d("delay delete obj = $item,pos = $position")
         //откладываем удаление из БД

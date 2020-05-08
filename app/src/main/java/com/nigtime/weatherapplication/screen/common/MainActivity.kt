@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), NavigationController {
     @SuppressLint("CheckResult")
     private fun test() {
         Single.fromCallable {
-
+            "d"
         }.subscribeOn(Schedulers.io())
             .subscribeOn(Schedulers.io()).subscribe()
     }
