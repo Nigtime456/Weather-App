@@ -47,7 +47,7 @@ class PagerCityFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        configureViews()
+        initViews()
         presenter.provideCities()
     }
 
@@ -60,12 +60,11 @@ class PagerCityFragment :
         super.onDestroyView()
         pagerViewPager.unregisterOnPageChangeCallback(pagerScrollListener)
         pagerViewPager.adapter = null
-        pagerViewPager.removeAllViews()
-        pagerNavView.removeAllViews()
+
     }
 
 
-    private fun configureViews() {
+    private fun initViews() {
         pagerNavView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menuAboutApp -> {
@@ -84,11 +83,12 @@ class PagerCityFragment :
             closeDrawer()
             true
         }
-        configureViewPager()
+
+        setupViewPager()
     }
 
 
-    private fun configureViewPager() {
+    private fun setupViewPager() {
         pagerViewPager.apply {
             adapter = PagerCityAdapter(childFragmentManager, lifecycle)
             registerOnPageChangeCallback(pagerScrollListener)

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_item_normal"
-    android:background="@drawable/selector_list_item"
+    android:background="@drawable/selector_ripple_with_background"
     android:clickable="true"
     android:elevation="@dimen/elevation_list_item"
     android:focusable="true"

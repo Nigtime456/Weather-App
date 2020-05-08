@@ -9,15 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
 import com.nigtime.weatherapplication.common.helper.list.BaseAdapter
-import kotlinx.android.synthetic.main.item_hour_forecast.view.*
+import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
+import com.nigtime.weatherapplication.domain.settings.UnitFormatter
+import kotlinx.android.synthetic.main.item_hourly_forecast.view.*
 
-class HourlyWeatherAdapter :
+class HourlyWeatherAdapter constructor(private val unitFormatter: UnitFormatter) :
     BaseAdapter<HourlyForecast.HourlyWeather, HourlyWeatherAdapter.ViewHolder>() {
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindItem(weather: HourlyForecast.HourlyWeather) {
-            itemView.itemHourTemp.text = weather.temp.toString()
+
+        fun bindItem(weather: HourlyForecast.HourlyWeather, unitFormatter: UnitFormatter) {
+            itemView.itemHourTemp.text = unitFormatter.formatTemp(weather.temp)
             itemView.itemHourWeatherIco.setImageResource(weather.ico)
             itemView.itemHourTime.text = weather.hour
         }
@@ -28,12 +31,15 @@ class HourlyWeatherAdapter :
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        return ViewHolder(inflater.inflate(R.layout.item_hour_forecast, parent, false))
+        return ViewHolder(inflater.inflate(R.layout.item_hourly_forecast, parent, false))
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(getItem(position))
+    override fun bindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+        item: HourlyForecast.HourlyWeather
+    ) {
+        holder.bindItem(item, unitFormatter)
     }
-
 
 }

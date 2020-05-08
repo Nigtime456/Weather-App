@@ -4,6 +4,13 @@
 
 package com.nigtime.weatherapplication.domain.forecast
 
-class DailyForecast {
-    class DailyWeather(temp: Double, ico: Int) : Weather(temp, ico)
+class DailyForecast(val dailyWeather: List<DailyWeather>) {
+
+    class DailyWeather(
+        val maxTemp: Double,
+        val minTemp: Double,
+        val ico: Int,
+        val index: Int,
+        val unixTime: Long
+    )
 }

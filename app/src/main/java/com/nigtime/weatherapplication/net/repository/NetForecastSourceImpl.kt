@@ -44,6 +44,7 @@ class NetForecastSourceImpl constructor(
                 queryParams["city_id"] = requestParams.cityId.toString()
             }
         }
+
         return queryParams
     }
 

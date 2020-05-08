@@ -4,6 +4,8 @@
 
 package com.nigtime.weatherapplication.screen.currentforecast
 
+import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
+import com.nigtime.weatherapplication.domain.forecast.DailyForecast
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
 import com.nigtime.weatherapplication.screen.common.MvpView
 
@@ -13,9 +15,7 @@ interface CurrentForecastView : MvpView {
     fun showErrorView()
     fun showErrorMessage()
     fun showMainLayout()
-    fun setCurrentTemp(temp: String)
-    fun setCurrentFeelsLikeTemp(temp: String)
-    fun setCurrentDescription(description: String)
-    fun setCurrentTempIco(ico: Int)
-    fun showHourlyForecast(hourlyWeatherList: List<HourlyForecast.HourlyWeather>)
+    fun setCurrentForecast(currentForecast: CurrentForecast)
+    fun setHourlyForecast(hourlyWeatherList: List<HourlyForecast.HourlyWeather>)
+    fun setDailyForecast(dailyWeather: List<DailyForecast.DailyWeather>)
 }

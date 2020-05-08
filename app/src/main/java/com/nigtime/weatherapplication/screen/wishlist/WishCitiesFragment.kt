@@ -5,7 +5,6 @@
 package com.nigtime.weatherapplication.screen.wishlist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.Toast
@@ -78,7 +77,7 @@ class WishCitiesFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        configureViews()
+        initViews()
         presenter.provideCities()
     }
 
@@ -99,12 +98,12 @@ class WishCitiesFragment :
         presenter.onViewStop()
     }
 
-    private fun configureViews() {
-        configureRecycler()
-        configureAppBar()
+    private fun initViews() {
+        setupRecycler()
+        setupAppBar()
     }
 
-    private fun configureAppBar() {
+    private fun setupAppBar() {
         wishToolbar.apply {
             setOnMenuItemClickListener { menuItem ->
                 if (menuItem.itemId == R.id.menuAdd) {
@@ -119,7 +118,7 @@ class WishCitiesFragment :
 
     }
 
-    private fun configureRecycler() {
+    private fun setupRecycler() {
         wishRecycler.apply {
             val listAdapter = WishCitiesListAdapter(adapterListener)
             adapter = listAdapter

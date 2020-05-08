@@ -4,12 +4,14 @@
 
 package com.nigtime.weatherapplication.domain.forecast
 
-class CurrentForecast constructor(val weatherInfo: DetailedWeather) {
+import androidx.annotation.StringRes
 
+class CurrentForecast constructor(val weatherInfo: DetailedWeather) {
+    //TODO он вообще нужен
     class DetailedWeather(
         temp: Double,
         ico: Int,
         val feelsLikeTemp: Double,
-        val description: String
+        @StringRes val description: Int
     ) : Weather(temp, ico)
 }

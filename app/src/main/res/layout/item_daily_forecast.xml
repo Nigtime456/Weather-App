@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/5/7
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_ripple_without_background"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/medium_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/small_margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/itemDayCurrentDate"
+            style="@style/PrimaryText.Lowest"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+            android:gravity="center_vertical"
+            tools:text="Monday" />
+
+        <ImageView
+            android:id="@+id/itemDayIco"
+            android:layout_width="@dimen/icon_small"
+            android:layout_height="@dimen/icon_small"
+            android:layout_gravity="center"
+            tools:src="@drawable/_weather_stub" />
+
+        <TextView
+            android:id="@+id/itemDayDTemp"
+            style="@style/PrimaryText.Lowest"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.4"
+            android:gravity="center|end"
+            tools:text="10°" />
+
+        <TextView
+            android:id="@+id/itemDayNTemp"
+            style="@style/PrimaryText.Lowest"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.4"
+            android:gravity="center|end"
+            android:textColor="#3F51B5"
+            tools:text="8°" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_size"
+        android:layout_marginTop="@dimen/small_margin"
+        android:background="?attr/themeDividerColor" />
+
+</LinearLayout>
+

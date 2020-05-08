@@ -66,7 +66,7 @@ class SearchCityFragment :
 
 
     private fun initViews() {
-        initRecycler()
+        setupRecycler()
 
         searchEditText.changeTextListener(presenter::processInput)
 
@@ -79,7 +79,7 @@ class SearchCityFragment :
         }
     }
 
-    private fun initRecycler() {
+    private fun setupRecycler() {
         searchRecycler.apply {
             adapter = PagedSearchAdapter(getSpanHelper())
             addItemDecoration(getDivider())

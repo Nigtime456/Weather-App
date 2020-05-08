@@ -8,27 +8,22 @@
     android:id="@+id/pagerDrawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".screen.pager.PagerCityFragment">
+
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pagerViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/themeDividerColor" />
+        android:background="?attr/themeHighlightColor" />
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/pagerNavView"
+        style="@style/NavigationView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="?attr/themeScreenBackground"
-        android:theme="@style/NavigationViewOverlay"
         app:headerLayout="@layout/fragment_pager_header"
-        app:itemBackground="@drawable/selector_list_item"
-        app:itemIconPadding="@dimen/small_padding"
-        app:itemIconSize="@dimen/icon_small"
-        app:itemIconTint="@color/selector_highlight_icon"
-        app:itemTextColor="@color/selector_text_primary"
         app:menu="@menu/pager_drawer" />
 </androidx.drawerlayout.widget.DrawerLayout>

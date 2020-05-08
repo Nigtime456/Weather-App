@@ -7,7 +7,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Instrumented selector_list_item, which will execute on an Android device.
+ * Instrumented selector_ripple_with_background, which will execute on an Android device.
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
@@ -15,7 +15,7 @@ import org.junit.runner.RunWith
 class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
-        // Context of the app under selector_list_item.
+        // Context of the app under selector_ripple_with_background.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("com.nigtime.weatherapplication", appContext.packageName)
     }

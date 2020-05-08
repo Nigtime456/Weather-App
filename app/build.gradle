@@ -14,7 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.selector_list_item.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.selector_ripple_with_background.runner.AndroidJUnitRunner"
     }
 
     buildTypes {

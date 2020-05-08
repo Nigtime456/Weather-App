@@ -52,7 +52,6 @@ class AppContainer(context: Context) {
     val settingsManager: SettingsManager
 
 
-
     init {
         val database = AppDatabase.getInstance(context)
         referenceCityDao = database.referenceCityDao()

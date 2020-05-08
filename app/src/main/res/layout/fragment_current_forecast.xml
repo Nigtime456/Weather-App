@@ -2,21 +2,66 @@
   ~ Сreated by Igor Pokrovsky. 2020/4/27
   -->
 
-<com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/currentForecastViewSwitcher"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/themeScreenBackground"
-    app:crossAnimationDuration="@integer/cross_anim_duration"
-    app:crossDisplayedChild="0"
-    app:crossStartDelay="@integer/cross_start_delay">
+    android:background="?attr/themeScreenBackground">
 
-    <include layout="@layout/fragment_current_forecast_main" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="@dimen/elevation_app_bar">
 
-    <include layout="@layout/fragment_current_forecast_load" />
+        <com.nigtime.weatherapplication.common.customview.CenteredTitleToolbar
+            android:id="@+id/currentForecastToolbar"
+            style="@style/ToolbarMainStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:menu="@menu/current_forecast"
+            app:navigationIcon="@drawable/ic_menu"
+            app:subtitle="10:00"
+            tools:title="Moscow" />
 
-    <include layout="@layout/fragment_current_forecast_error" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-</com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/currentForecastSwipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never">
+
+            <com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout
+                android:id="@+id/currentForecastViewSwitcher"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:crossAnimationDuration="@integer/cross_anim_duration"
+                app:crossDisplayedChild="0"
+                app:crossStartDelay="@integer/cross_start_delay">
+
+                <include layout="@layout/fragment_current_forecast_main" />
+
+                <include layout="@layout/fragment_current_forecast_load" />
+
+                <include layout="@layout/fragment_current_forecast_error" />
+
+            </com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
 

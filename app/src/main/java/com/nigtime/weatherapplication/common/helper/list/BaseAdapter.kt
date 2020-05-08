@@ -4,6 +4,7 @@
 
 package com.nigtime.weatherapplication.common.helper.list
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -15,6 +16,7 @@ abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> constructor(diffCall
 
     private var list = emptyList<T>()
     private var differ: AsyncListDiffer<T>? = null
+
 
     init {
         diffCallback?.let {
@@ -32,10 +34,15 @@ abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> constructor(diffCall
         return createViewHolder(inflater, parent, viewType)
     }
 
+    final override fun onBindViewHolder(holder: VH, position: Int) {
+        bindViewHolder(holder, position, getItem(position))
+    }
 
     final override fun getItemCount(): Int = list.size
 
     fun getItem(position: Int): T = list[position]
+
+    abstract fun bindViewHolder(holder: VH, position: Int, item: T)
 
     abstract fun createViewHolder(inflater: LayoutInflater, parent: ViewGroup, viewType: Int): VH
 

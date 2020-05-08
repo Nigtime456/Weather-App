@@ -6,28 +6,29 @@ package com.nigtime.weatherapplication.screen.currentforecast
 
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.city.CityForForecast
-import com.nigtime.weatherapplication.domain.param.RequestParams
-import com.nigtime.weatherapplication.domain.forecast.ForecastManager
 import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
 import com.nigtime.weatherapplication.domain.forecast.DailyForecast
+import com.nigtime.weatherapplication.domain.forecast.ForecastManager
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
-import com.nigtime.weatherapplication.domain.settings.SettingsManager
+import com.nigtime.weatherapplication.domain.param.RequestParams
 import com.nigtime.weatherapplication.screen.common.BasePresenter
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.Observables
 
 class CurrentForecastPresenter(
     schedulerProvider: SchedulerProvider,
-    private val forecastManager: ForecastManager,
-    private val settingsManager: SettingsManager
+    private val forecastManager: ForecastManager
 ) :
     BasePresenter<CurrentForecastView>(
         schedulerProvider, TAG
     ) {
 
+    private var dailyWeatherList = emptyList<DailyForecast.DailyWeather>()
+
     private companion object {
         const val TAG = "current_forecast"
     }
+
     //TODO дебаг
     private var startTime = 0L
 
@@ -48,16 +49,13 @@ class CurrentForecastPresenter(
 
     private fun handleResult(triple: Triple<CurrentForecast, HourlyForecast, DailyForecast>) {
         logger.d("load time = ${System.currentTimeMillis() - startTime}")
-        val currentForecast = triple.first
-        val unitFormatter = settingsManager.getUnitFormatter()
-        getView()?.showMainLayout()
-        getView()?.setCurrentTemp(unitFormatter.formatTemp(currentForecast.weatherInfo.temp))
-        getView()?.setCurrentFeelsLikeTemp(unitFormatter.formatFeelsLikeTemp(currentForecast.weatherInfo.feelsLikeTemp))
-        getView()?.setCurrentDescription(currentForecast.weatherInfo.description)
-        getView()?.setCurrentTempIco(currentForecast.weatherInfo.ico)
 
-        val hourly = triple.second
-        getView()?.showHourlyForecast(hourly.hourlyWeatherList)
+        dailyWeatherList = triple.third.dailyWeather
+
+        getView()?.showMainLayout()
+        getView()?.setCurrentForecast(triple.first)
+        getView()?.setHourlyForecast(triple.second.hourlyWeather)
+        getView()?.setDailyForecast(dailyWeatherList.take(5))
     }
 
     override fun onStreamError(throwable: Throwable) {
@@ -75,6 +73,18 @@ class CurrentForecastPresenter(
             .subscribeOn(schedulerProvider.io())
 
         return Observables.zip(current, hourly, daily, ::Triple)
+    }
+
+    fun onSwitcher5days() {
+        getView()?.setDailyForecast(dailyWeatherList.take(5))
+    }
+
+    fun onSwitcher10days() {
+        getView()?.setDailyForecast(dailyWeatherList.take(10))
+    }
+
+    fun onSwitcher16days() {
+        getView()?.setDailyForecast(dailyWeatherList)
     }
 
 }

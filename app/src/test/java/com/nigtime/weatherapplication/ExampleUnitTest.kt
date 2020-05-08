@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
- * Example local unit selector_list_item, which will execute on the development machine (host).
+ * Example local unit selector_ripple_with_background, which will execute on the development machine (host).
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */

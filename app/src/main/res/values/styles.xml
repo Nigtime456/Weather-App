@@ -51,7 +51,17 @@
     </style>
 
     <!--  NavigationViews  -->
-    <style name="NavigationViewOverlay">
+    <style name="NavigationView" parent="Widget.Design.NavigationView">
+        <item name="android:theme">@style/NavigationThemeOverlay</item>
+        <item name="itemBackground">@drawable/selector_ripple_without_background</item>
+        <item name="itemIconPadding">@dimen/small_padding</item>
+        <item name="itemIconSize">@dimen/icon_small</item>
+        <item name="itemIconTint">@color/selector_highlight_icon</item>
+        <item name="itemTextColor">@color/selector_text_primary</item>
+        <item name="android:background">?attr/themeScreenBackground</item>
+    </style>
+
+    <style name="NavigationThemeOverlay">
         <item name="android:listDivider">?attr/themeDividerColor</item>
         <item name="android:textSize">17sp</item>
         <item name="android:textColorSecondary">?attr/themeSecondaryTextColorSelector</item>
@@ -109,6 +119,11 @@
     <style name="TextButton.PrimaryLowest">
         <item name="android:textAppearance">@style/PrimaryText.Lowest</item>
         <item name="android:textColor">?attr/themePrimaryTextColorSelector</item>
+    </style>
+
+    <style name="TextButton.SecondaryLowest">
+        <item name="android:textAppearance">@style/SecondaryText.Lowest</item>
+        <item name="android:textColor">?attr/themeSecondaryTextColorSelector</item>
     </style>
 
     <!--  TextInputLayout style  -->

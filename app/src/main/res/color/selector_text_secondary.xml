@@ -7,6 +7,7 @@
   -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="?attr/themeIconTintColor" android:state_checked="true" />
     <item android:alpha="0.38" android:color="?attr/themeSecondaryTextColor" android:state_enabled="false" />
     <item android:alpha="1.00" android:color="?attr/themeSecondaryTextColor" />
 </selector>

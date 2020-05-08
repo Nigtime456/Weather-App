@@ -6,15 +6,17 @@ package com.nigtime.weatherapplication.screen.currentforecast
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.nigtime.weatherapplication.R
+import com.nigtime.weatherapplication.common.App
 import com.nigtime.weatherapplication.domain.city.CityForForecast
+import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
+import com.nigtime.weatherapplication.domain.forecast.DailyForecast
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
+import com.nigtime.weatherapplication.domain.settings.UnitFormatter
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.PresenterProvider
 import kotlinx.android.synthetic.main.fragment_current_forecast.*
@@ -45,6 +47,7 @@ class CurrentForecastFragment :
         }
     }
 
+    private var unitFormatter: UnitFormatter? = null
 
     override fun provideListenerClass(): Class<ParentListener> = ParentListener::class.java
 
@@ -54,37 +57,42 @@ class CurrentForecastFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("sas", "frag = ${hashCode()} presenter = ${presenter.hashCode()}")
+        unitFormatter = App.INSTANCE.appContainer.settingsManager.getUnitFormatter()
         initViews()
         presenter.provideForecast(getCurrentCity())
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        unitFormatter = null
+    }
+
     private fun initViews() {
-        configureAppBar()
+        currentForecastDaySwitcher.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            if (isChecked) {
+                when (checkedId) {
+                    R.id.currentForecastSwitcher5days -> {
+                        presenter.onSwitcher5days()
+                    }
+                    R.id.currentForecastSwitcher10days -> {
+                        presenter.onSwitcher10days()
+                    }
+                    R.id.currentForecastSwitcher16days -> {
+                        presenter.onSwitcher16days()
+                    }
+                }
+            }
+        }
+        currentForecastSwipeRefresh.setOnRefreshListener {
+            currentForecastSwipeRefresh.isRefreshing = false
+            showToast("TODO!!!")
+        }
+        setupAppBar()
         initLists()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d("sas","create vm = ${getPresenterHolder().hashCode()}")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d("sas","destroyView vm = ${getPresenterHolder().hashCode()}")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("sas","destroy")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d("sas","dettach")
-    }
-
-
-    private fun configureAppBar() {
+    private fun setupAppBar() {
         currentForecastToolbar.apply {
             setOnMenuItemClickListener {
                 if (it.itemId == R.id.menuAdd) {
@@ -99,7 +107,13 @@ class CurrentForecastFragment :
     }
 
     private fun initLists() {
-        currentForecastHourlyList.adapter = HourlyWeatherAdapter()
+        currentForecastHourlyList.adapter = HourlyWeatherAdapter(unitFormatter!!)
+        currentForecastDailyList.apply {
+            itemAnimator = null
+            adapter = DailyWeatherAdapter(unitFormatter!!) {
+                showToast("TODO = $it")
+            }
+        }
     }
 
     private fun getCurrentCity(): CityForForecast = arguments.let {
@@ -127,24 +141,22 @@ class CurrentForecastFragment :
         currentForecastViewSwitcher.switchTo(0, false)
     }
 
-    override fun setCurrentTemp(temp: String) {
-        currentForecastCurrentTemp.text = temp
+    override fun setCurrentForecast(currentForecast: CurrentForecast) {
+        currentForecastCurrentTemp.text =
+            unitFormatter!!.formatTemp(currentForecast.weatherInfo.temp)
+        currentForecastCurrentFeelsLikeTemp.text =
+            unitFormatter!!.formatFeelsLikeTemp(currentForecast.weatherInfo.feelsLikeTemp)
+        currentForecastCurrentDescription.setText(currentForecast.weatherInfo.description)
+        currentForecastCurrentIco.setImageResource(currentForecast.weatherInfo.ico)
     }
 
-    override fun setCurrentFeelsLikeTemp(temp: String) {
-        currentForecastCurrentFeelsLikeTemp.text = temp
-    }
-
-    override fun setCurrentDescription(description: String) {
-        currentForecastCurrentDescription.text = description
-    }
-
-    override fun setCurrentTempIco(ico: Int) {
-        currentForecastCurrentIco.setImageResource(ico)
-    }
-
-    override fun showHourlyForecast(hourlyWeatherList: List<HourlyForecast.HourlyWeather>) {
+    override fun setHourlyForecast(hourlyWeatherList: List<HourlyForecast.HourlyWeather>) {
         (currentForecastHourlyList.adapter as HourlyWeatherAdapter).submitList(hourlyWeatherList)
     }
+
+    override fun setDailyForecast(dailyWeather: List<DailyForecast.DailyWeather>) {
+        (currentForecastDailyList.adapter as DailyWeatherAdapter).submitList(dailyWeather)
+    }
+
 
 }
