@@ -10,11 +10,13 @@ import com.nigtime.weatherapplication.R
 
 object WeatherInfoHelper {
 
+    //TODO доделать: по коду выбирается описание
     @StringRes
     fun getDescriptionByCode(code: Int): Int {
         return R.string.hello_blank_fragment
     }
 
+    //TODO доделать: по коду выбирает икона
     @DrawableRes
     fun getIconByCode(code: Int): Int {
         return R.drawable._weather_stub

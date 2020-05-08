@@ -17,6 +17,8 @@
     <androidx.cardview.widget.CardView
         style="@style/LiftingToolbarCardStyle"
         android:layout_width="match_parent"
+        app:cardBackgroundColor="?attr/themeScreenBackground"
+        android:stateListAnimator="@animator/selector_lift_app_bar"
         android:layout_height="wrap_content">
 
         <com.nigtime.weatherapplication.common.customview.CenteredTitleToolbar
