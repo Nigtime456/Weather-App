@@ -7,7 +7,10 @@ package com.nigtime.weatherapplication.screen.common
 import androidx.annotation.CallSuper
 import com.nigtime.weatherapplication.common.log.CustomLogger
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
-import io.reactivex.*
+import io.reactivex.Completable
+import io.reactivex.Flowable
+import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import java.lang.ref.WeakReference
@@ -41,6 +44,14 @@ abstract class BasePresenter<V : MvpView> constructor(
     fun attach(view: V) {
         require(!isViewAttached()) { "view already attached!" }
         weakView = WeakReference(view)
+        onAttach()
+    }
+
+    /**
+     * Вызывается когда презентер присоденен
+     */
+    @CallSuper
+    protected open fun onAttach() {
         compositeDisposable = CompositeDisposable()
     }
 
@@ -58,22 +69,23 @@ abstract class BasePresenter<V : MvpView> constructor(
     @CallSuper
     protected open fun onDetach() {
         weakView?.clear()
-        weakView = null
         performDispose()
-    }
-
-    /**
-     * Выполнить отписку от потоков Rx
-     */
-    protected fun performDispose() {
-        compositeDisposable?.clear()
+        weakView = null
         compositeDisposable = null
     }
 
     /**
+     * Очистить все подписки и остановить потоки
+     */
+    protected fun performDispose() {
+        compositeDisposable?.clear()
+    }
+
+
+    /**
      * true - view присоеденно
      */
-    fun isViewAttached(): Boolean {
+    protected fun isViewAttached(): Boolean {
         return weakView != null && weakView!!.get() != null
     }
 
@@ -111,6 +123,7 @@ abstract class BasePresenter<V : MvpView> constructor(
     /**
      * Пробросить исключение полученное в потоке Rx
      * @param throwable - пробрасываемое исключения
+     * @param msg - сообщение
      */
     protected fun rethrowError(throwable: Throwable, msg: String) {
         logger.e(throwable)
@@ -119,9 +132,12 @@ abstract class BasePresenter<V : MvpView> constructor(
 
     /**
      * Расширение к [Completable], подписаться и обрабатывать ошибки и подписку.
+     *
+     * @param ignoreError - true - ошибка будет проигнорирована, false - проброшена дальше
+     * @param onComplete - коллбэк
      */
     protected fun Completable.subscribeAndHandleError(
-        ignoreError: Boolean,
+        ignoreError: Boolean = false,
         onComplete: () -> Unit
     ) {
         subscribe(onComplete, { if (!ignoreError) rethrowError(it) })
@@ -130,9 +146,12 @@ abstract class BasePresenter<V : MvpView> constructor(
 
     /**
      * Расширение к [Observable], подписаться и обрабатывать ошибки и подписку.
+     *
+     * @param ignoreError - true - ошибка будет проигнорирована, false - проброшена дальше
+     * @param onNext - коллбэк
      */
     protected fun <T> Observable<T>.subscribeAndHandleError(
-        ignoreError: Boolean,
+        ignoreError: Boolean = false,
         onNext: (T) -> Unit
     ) {
         subscribe(onNext, { if (!ignoreError) rethrowError(it) })
@@ -141,9 +160,12 @@ abstract class BasePresenter<V : MvpView> constructor(
 
     /**
      * Расширение к [Flowable], подписаться и обрабатывать ошибки и подписку.
+     *
+     * @param ignoreError - true - ошибка будет проигнорирована, false - проброшена дальше
+     * @param onNext - коллбэк
      */
     protected fun <T> Flowable<T>.subscribeAndHandleError(
-        ignoreError: Boolean,
+        ignoreError: Boolean = false,
         onNext: (T) -> Unit
     ) {
         subscribe(onNext, { if (!ignoreError) rethrowError(it) })
@@ -153,22 +175,16 @@ abstract class BasePresenter<V : MvpView> constructor(
 
     /**
      * Расширение к [Single], подписаться и обрабатывать ошибки и подписку.
+     *
+     * @param ignoreError - true - ошибка будет проигнорирована, false - проброшена дальше
+     * @param onResult - коллбэк
      */
     protected fun <T> Single<T>.subscribeAndHandleError(
-        ignoreError: Boolean,
+        ignoreError: Boolean = false,
         onResult: (T) -> Unit
     ) {
         subscribe(onResult, { if (!ignoreError) rethrowError(it) })
             .disposeOnDetach()
     }
-
-
-    //TODO
-    fun <T> runAsyncResultOnUi(scheduler: Scheduler = schedulerProvider.io()): (Single<T>) -> Single<T> =
-        { single ->
-            single.subscribeOn(scheduler)
-            single.observeOn(schedulerProvider.ui())
-            single
-        }
 
 }

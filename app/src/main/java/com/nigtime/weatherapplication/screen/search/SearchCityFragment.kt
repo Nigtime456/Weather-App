@@ -5,8 +5,6 @@
 package com.nigtime.weatherapplication.screen.search
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.EditText
@@ -14,21 +12,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.common.helper.ColorSpanHelper
+import com.nigtime.weatherapplication.common.helper.SimpleTextWatcher
 import com.nigtime.weatherapplication.common.helper.ThemeHelper
 import com.nigtime.weatherapplication.common.helper.list.ColorDividerDecoration
 import com.nigtime.weatherapplication.domain.city.SearchCity
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.NavigationController
-import com.nigtime.weatherapplication.screen.common.PresenterProvider
+import com.nigtime.weatherapplication.screen.common.PresenterFactory
 import com.nigtime.weatherapplication.screen.search.paging.PagedSearchAdapter
 import kotlinx.android.synthetic.main.fragment_search_city.*
 
 
 class SearchCityFragment :
-    BaseFragment<SearchCityView, SearchCityPresenter, SearchCityFragment.ParentListener>(R.layout.fragment_search_city),
+    BaseFragment<SearchCityView, SearchCityPresenter, NavigationController>(R.layout.fragment_search_city),
     SearchCityView {
-
-    interface ParentListener : NavigationController
 
     /**
      * Интерфейс слушателя, который получит позицию добавленого города.
@@ -42,16 +39,16 @@ class SearchCityFragment :
         liftAppBar(scrollOffset > 0)
     }
 
-    override fun provideListenerClass(): Class<ParentListener>? = ParentListener::class.java
+    override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 
-    override fun getPresenterHolder(): PresenterProvider<SearchCityPresenter> {
-        return ViewModelProvider(this).get(SearchCityViewModel::class.java)
+    override fun getPresenterFactory(): PresenterFactory<SearchCityPresenter> {
+        return ViewModelProvider(this).get(SearchCityPresenterFactory::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        presenter.onViewCreated()
+        presenter.onViewReady()
     }
 
     override fun onStart() {
@@ -64,19 +61,27 @@ class SearchCityFragment :
         searchRecycler.viewTreeObserver.removeOnScrollChangedListener(liftScrollListener)
     }
 
-
     private fun initViews() {
         setupRecycler()
+        setupInputField()
+        setupLocationButton()
+        setupAppBar()
+    }
 
-        searchEditText.changeTextListener(presenter::processInput)
-
-        searchCurrentLocation.setOnClickListener {
-            showToast("TODO")
-        }
-
+    private fun setupAppBar() {
         searchToolbar.setNavigationOnClickListener {
             presenter.onClickNavigationButton()
         }
+    }
+
+    private fun setupLocationButton() {
+        searchCurrentLocation.setOnClickListener {
+            showToast("TODO")
+        }
+    }
+
+    private fun setupInputField() {
+        searchEditText.changeTextListener(presenter::processInput)
     }
 
     private fun setupRecycler() {
@@ -108,7 +113,7 @@ class SearchCityFragment :
         (searchRecycler.adapter as PagedSearchAdapter).submitList(pagedList)
     }
 
-    override fun delayScrollListToPosition(position: Int) {
+    override fun delayScrollToPosition(position: Int) {
         //Т.к. из за DiffUtil список формирмуется с задержкой
         searchRecycler.viewTreeObserver.addOnPreDrawListener(object :
             ViewTreeObserver.OnPreDrawListener {
@@ -120,26 +125,26 @@ class SearchCityFragment :
         })
     }
 
-    override fun showHint() {
+    override fun showHintLayout() {
         liftAppBar(false)
         searchViewSwitcher.switchTo(0, true)
     }
 
-    override fun showProgressBar() {
+    override fun showProgressLayout() {
         liftAppBar(false)
         searchViewSwitcher.switchTo(1, true)
     }
 
-    override fun showList() {
+    override fun showListLayout() {
         searchViewSwitcher.switchTo(2, false)
     }
 
-    override fun showMessageEmpty() {
+    override fun showEmptyLayout() {
         liftAppBar(false)
         searchViewSwitcher.switchTo(3, false)
     }
 
-    override fun showMessageAlreadyWish() {
+    override fun showToastAlreadyWish() {
         showToast(R.string.search_already_selected)
     }
 
@@ -154,16 +159,10 @@ class SearchCityFragment :
     }
 
     private fun EditText.changeTextListener(block: (String) -> Unit) {
-        addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
+        addTextChangedListener(object : SimpleTextWatcher() {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 block(s.toString())
             }
         })
     }
-
-
 }

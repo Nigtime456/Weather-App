@@ -44,11 +44,6 @@
         <item name="snackbarButtonStyle">@style/SnackButton</item>
     </style>
 
-    <!--  Dividers  -->
-
-    <style name="PrimaryDividerViewStyle">
-        <item name="android:background">?attr/themeDividerColor</item>
-    </style>
 
     <!--  NavigationViews  -->
     <style name="NavigationView" parent="Widget.Design.NavigationView">
@@ -82,7 +77,6 @@
         <item name="android:textSize">14sp</item>
         <item name="rippleColor">?attr/colorAccent</item>
     </style>
-
 
     <!-- Card styles -->
     <style name="LiftingToolbarCardStyle">

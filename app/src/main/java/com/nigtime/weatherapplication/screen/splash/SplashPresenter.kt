@@ -5,8 +5,8 @@
 package com.nigtime.weatherapplication.screen.splash
 
 
-import com.nigtime.weatherapplication.screen.common.BasePresenter
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
+import com.nigtime.weatherapplication.screen.common.BasePresenter
 
 class SplashPresenter(schedulerProvider: SchedulerProvider) :
     BasePresenter<SplashView>(schedulerProvider, TAG) {
@@ -16,7 +16,7 @@ class SplashPresenter(schedulerProvider: SchedulerProvider) :
     }
 
     fun dispatchScreen() {
-        getView()?.playSplashAnimation()
+        getView()?.startSplashAnimation()
 
     }
 

@@ -10,7 +10,7 @@ import com.nigtime.weatherapplication.screen.common.MvpView
 interface PagerCityView : MvpView {
     fun submitPageList(items: List<CityForForecast>)
     fun submitNavigationList(items: List<Pair<Int,String>>)
-    fun setPage(page: Int, smoothScroll: Boolean)
-    fun setNavigationItem(index: Int)
+    fun setCurrentPage(page: Int, smoothScroll: Boolean)
+    fun selectNavigationItem(index: Int)
     fun navigateToWishListScreen()
 }

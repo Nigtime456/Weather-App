@@ -9,10 +9,11 @@ import com.nigtime.weatherapplication.domain.forecast.DailyForecast
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
 import com.nigtime.weatherapplication.screen.common.MvpView
 
+
 interface CurrentForecastView : MvpView {
     fun setCityName(cityName: String)
-    fun showLoadAnimation()
-    fun showErrorView()
+    fun showLoadLayout()
+    fun showErrorLayout()
     fun showErrorMessage()
     fun showMainLayout()
     fun setCurrentForecast(currentForecast: CurrentForecast)

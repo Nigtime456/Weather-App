@@ -31,7 +31,7 @@ class WishCitiesPresenter constructor(
 
     fun onClickItem(position: Int) {
         messageDispatcher.forceRun()
-        getView()?.setSelectCity(position)
+        getView()?.setSelectedCity(position)
         getView()?.navigateToPreviousScreen()
     }
 
@@ -79,16 +79,16 @@ class WishCitiesPresenter constructor(
         if (message is DeleteItemMessage) {
             logger.d("delete canceled obj = ${message.item},pos = ${message.position}")
             //отображаем элемент
-            getView()?.showList()
+            getView()?.showListLayout()
             getView()?.insertItemToList(message.item, message.position)
-            getView()?.scrollListToPosition(message.position)
+            getView()?.scrollToPosition(message.position)
         }
         messageDispatcher.clearMessage()
     }
 
 
     fun provideCities() {
-        getView()?.showProgressBar()
+        getView()?.showProgressLayout()
 
         wishCitiesRepository.getCitiesList()
             .subscribeOn(schedulerProvider.syncDatabase())
@@ -108,17 +108,17 @@ class WishCitiesPresenter constructor(
         isListEmpty = list.isEmpty()
         if (!isListEmpty && submit) {
             logger.d("submit list")
-            getView()?.showList()
+            getView()?.showListLayout()
             getView()?.submitList(list)
 
             //Из за DiffUtil список может отрсисываваться долго и проглотит
             //переданную позицию.
             if (insertedPosition != NO_POSITION)
-                getView()?.delayScrollListToPosition(insertedPosition)
+                getView()?.delayScrollToPosition(insertedPosition)
 
         } else if (isListEmpty) {
             logger.d("list empty")
-            getView()?.showMessageEmpty()
+            getView()?.showEmptyLayout()
         }
     }
 
@@ -126,10 +126,15 @@ class WishCitiesPresenter constructor(
         if (!isListEmpty) {
             getView()?.navigateToPreviousScreen()
         } else {
-            getView()?.showPopupMessageEmptyList()
+            getView()?.showDialogEmptyList()
         }
     }
 
+    /**
+     * Вызывается когда добавлен новый город, через поиск.
+     * В данном случае презентер выполняет скролл к
+     * добавленной позиции
+     */
     fun onCityInsertedAt(position: Int) {
         insertedPosition = position
     }

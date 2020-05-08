@@ -14,6 +14,23 @@
     tools:context=".screen.currentforecast.CurrentForecastFragment"
     tools:showIn="@layout/fragment_current_forecast">
 
+    <androidx.cardview.widget.CardView
+        style="@style/LiftingToolbarCardStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.nigtime.weatherapplication.common.customview.CenteredTitleToolbar
+            android:id="@+id/currentForecastToolbar"
+            style="@style/ToolbarMainStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            app:menu="@menu/current_forecast"
+            app:navigationIcon="@drawable/ic_menu"
+            app:subtitle="10:00"
+            tools:title="Moscow" />
+    </androidx.cardview.widget.CardView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -115,7 +132,7 @@
         tools:listitem="@layout/item_daily_forecast" />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/currentForecastDaySwitcher"
+        android:id="@+id/currentForecastDaysSwitcher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"

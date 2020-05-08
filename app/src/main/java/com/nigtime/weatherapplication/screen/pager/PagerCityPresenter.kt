@@ -26,12 +26,12 @@ class PagerCityPresenter(
             .subscribeOn(schedulerProvider.syncDatabase())
             .map { Pair(it, makeNavigationList(it)) }
             .observeOn(schedulerProvider.ui())
-            .subscribeAndHandleError(false) { pair ->
+            .subscribeAndHandleError() { pair ->
                 require(pair.first.isNotEmpty()) { "pager screen must not receive empty cities list!" }
 
                 getView()?.submitPageList(pair.first)
                 getView()?.submitNavigationList(pair.second)
-                getView()?.setPage(currentPage, false)
+                getView()?.setCurrentPage(currentPage, false)
             }
     }
 
@@ -44,11 +44,10 @@ class PagerCityPresenter(
     }
 
     fun onClickNavigationItem(index: Int) {
-        getView()?.setPage(index - 1000, true)
+        getView()?.setCurrentPage(index - 1000, true)
     }
 
     fun onPageScrolled(position: Int) {
-        getView()?.setNavigationItem(position + 1000)
+        getView()?.selectNavigationItem(position + 1000)
     }
-
 }

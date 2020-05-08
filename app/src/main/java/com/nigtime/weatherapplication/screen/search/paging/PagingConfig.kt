@@ -9,7 +9,7 @@ import androidx.paging.PagedList
 /**
  * Конфиг для подгружаемого спсика, управляет количеством подгружаемых элементов за раз.
  */
-object PagedConfig {
+object PagingConfig {
     private const val PAGE_SIZE = 80
     private const val PRE_FETCH = 40
     private const val MAX_SIZE = PAGE_SIZE + PRE_FETCH * 2

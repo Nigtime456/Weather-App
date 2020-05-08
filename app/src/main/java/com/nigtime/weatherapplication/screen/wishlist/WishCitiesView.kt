@@ -10,18 +10,17 @@ import com.nigtime.weatherapplication.screen.common.MvpView
 
 
 interface WishCitiesView : MvpView {
-
     fun submitList(items: List<WishCity>)
-    fun showProgressBar()
-    fun showMessageEmpty()
-    fun showList()
+    fun showProgressLayout()
+    fun showEmptyLayout()
+    fun showListLayout()
     fun insertItemToList(item: WishCity, position: Int)
-    fun scrollListToPosition(position: Int)
-    fun delayScrollListToPosition(position: Int)
+    fun scrollToPosition(position: Int)
+    fun delayScrollToPosition(position: Int)
     fun showUndoDeleteSnack(duration: Int)
     fun hideUndoDeleteSnack()
-    fun showPopupMessageEmptyList()
+    fun showDialogEmptyList()
+    fun setSelectedCity(position: Int)
     fun navigateToPreviousScreen()
     fun navigateToSearchCityScreen()
-    fun setSelectCity(position: Int)
 }

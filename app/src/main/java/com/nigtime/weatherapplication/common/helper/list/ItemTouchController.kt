@@ -43,7 +43,7 @@ class ItemTouchController<T : RecyclerView.ViewHolder>(
         fun onItemSwiped(swiped: T)
 
 
-        fun onItemStartMove(viewHolder: T)
+        fun onStartMoveItem(viewHolder: T)
         /**
          * Вызывается когда все перемещения завершены и
          * список прибывает в нормальном состоянии.
@@ -70,7 +70,7 @@ class ItemTouchController<T : RecyclerView.ViewHolder>(
         super.onSelectedChanged(viewHolder, actionState)
 
         if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
-            touchAdapter.onItemStartMove(viewHolder as T)
+            touchAdapter.onStartMoveItem(viewHolder as T)
         }
 
         if (actionState == ItemTouchHelper.ACTION_STATE_IDLE && hasDrag) {

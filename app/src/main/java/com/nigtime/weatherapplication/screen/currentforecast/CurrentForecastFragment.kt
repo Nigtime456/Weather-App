@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.common.App
@@ -18,12 +17,12 @@ import com.nigtime.weatherapplication.domain.forecast.DailyForecast
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
 import com.nigtime.weatherapplication.domain.settings.UnitFormatter
 import com.nigtime.weatherapplication.screen.common.BaseFragment
-import com.nigtime.weatherapplication.screen.common.PresenterProvider
+import com.nigtime.weatherapplication.screen.common.PresenterFactory
 import kotlinx.android.synthetic.main.fragment_current_forecast.*
 import kotlinx.android.synthetic.main.fragment_current_forecast_main.*
 
 /**
- * A simple [Fragment] subclass.
+ *
  */
 class CurrentForecastFragment :
     BaseFragment<CurrentForecastView, CurrentForecastPresenter, CurrentForecastFragment.ParentListener>(
@@ -49,15 +48,18 @@ class CurrentForecastFragment :
 
     private var unitFormatter: UnitFormatter? = null
 
-    override fun provideListenerClass(): Class<ParentListener> = ParentListener::class.java
+    override fun getListenerClass(): Class<ParentListener> = ParentListener::class.java
 
-    override fun getPresenterHolder(): PresenterProvider<CurrentForecastPresenter> {
-        return ViewModelProvider(this).get(CurrentForecastViewModel::class.java)
+    override fun getPresenterFactory(): PresenterFactory<CurrentForecastPresenter> {
+        return ViewModelProvider(this).get(CurrentForecastPresenterFactory::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("sas", "frag = ${hashCode()} presenter = ${presenter.hashCode()}")
+        Log.d(
+            "sas",
+            "frag = ${hashCode()} presenter [${presenter::class.simpleName}] = ${presenter.hashCode()}"
+        )
         unitFormatter = App.INSTANCE.appContainer.settingsManager.getUnitFormatter()
         initViews()
         presenter.provideForecast(getCurrentCity())
@@ -69,7 +71,13 @@ class CurrentForecastFragment :
     }
 
     private fun initViews() {
-        currentForecastDaySwitcher.addOnButtonCheckedListener { group, checkedId, isChecked ->
+        setupDaysSwitcher()
+        setupAppBar()
+        setupLists()
+    }
+
+    private fun setupDaysSwitcher() {
+        currentForecastDaysSwitcher.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (isChecked) {
                 when (checkedId) {
                     R.id.currentForecastSwitcher5days -> {
@@ -84,12 +92,6 @@ class CurrentForecastFragment :
                 }
             }
         }
-        currentForecastSwipeRefresh.setOnRefreshListener {
-            currentForecastSwipeRefresh.isRefreshing = false
-            showToast("TODO!!!")
-        }
-        setupAppBar()
-        initLists()
     }
 
     private fun setupAppBar() {
@@ -106,7 +108,7 @@ class CurrentForecastFragment :
         }
     }
 
-    private fun initLists() {
+    private fun setupLists() {
         currentForecastHourlyList.adapter = HourlyWeatherAdapter(unitFormatter!!)
         currentForecastDailyList.apply {
             itemAnimator = null
@@ -125,11 +127,11 @@ class CurrentForecastFragment :
         currentForecastToolbar.title = cityName
     }
 
-    override fun showLoadAnimation() {
+    override fun showLoadLayout() {
         currentForecastViewSwitcher.switchTo(1, false)
     }
 
-    override fun showErrorView() {
+    override fun showErrorLayout() {
         currentForecastViewSwitcher.switchTo(2, true)
     }
 

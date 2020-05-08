@@ -5,12 +5,12 @@
 package com.nigtime.weatherapplication.net.repository
 
 import android.util.Log
-import com.nigtime.weatherapplication.net.data.NetData
-import com.nigtime.weatherapplication.domain.param.RequestParams
-import com.nigtime.weatherapplication.domain.forecast.ForecastManager
 import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
 import com.nigtime.weatherapplication.domain.forecast.DailyForecast
+import com.nigtime.weatherapplication.domain.forecast.ForecastManager
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
+import com.nigtime.weatherapplication.domain.param.RequestParams
+import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
 import com.nigtime.weatherapplication.net.mappers.CurrentForecastMapper
 import com.nigtime.weatherapplication.net.mappers.DailyForecastMapper
@@ -30,17 +30,17 @@ class ForecastManagerImpl constructor(
         forceNet: Boolean
     ): Observable<CurrentForecast> {
         return getCachedCurrentSource(params)
-            .doOnNext { Log.d("sas", "out next") }
+            .doOnNext { Log.d("cache", "out next") }
             .doOnNext { memoryCacheSource.cacheCurrentForecast(it, params) }
             .map(currentDataMapper::map)
     }
 
     private fun getCachedCurrentSource(params: RequestParams): Observable<NetData<JsonCurrentForecast>> {
         return memoryCacheSource.getJsonCurrentForecast(params)
-            .doOnEach { Log.d("sas", "cache = ${it.value} , completed = ${it.isOnComplete}") }
+            .doOnEach { Log.d("cache", "cache = ${it.value} , completed = ${it.isOnComplete}") }
             .switchIfEmpty(netSource.getJsonCurrentForecast(params)
                 .doOnEach {
-                    Log.d("sas", "net result error = ${it.isOnError} er = ${it.error}")
+                    Log.d("cache", "net result error = ${it.isOnError} er = ${it.error}")
                 })
     }
 

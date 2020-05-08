@@ -4,7 +4,6 @@
 
 package com.nigtime.weatherapplication.screen.currentforecast
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,9 +17,8 @@ import kotlinx.android.synthetic.main.item_daily_forecast.view.*
 
 class DailyWeatherAdapter constructor(
     private val unitFormatter: UnitFormatter,
-    private val clickListener: (Int) -> Unit
-) :
-    BaseAdapter<DailyForecast.DailyWeather, DailyWeatherAdapter.VH>(DIFF_CALLBACK) {
+    private val onClickListener: (Int) -> Unit
+) : BaseAdapter<DailyForecast.DailyWeather, DailyWeatherAdapter.VH>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DailyForecast.DailyWeather>() {
@@ -54,7 +52,7 @@ class DailyWeatherAdapter constructor(
     override fun onViewAttachedToWindow(holder: VH) {
         super.onViewAttachedToWindow(holder)
         holder.itemView.setOnClickListener {
-            clickListener(getItem(holder.adapterPosition).index)
+            onClickListener(getItem(holder.adapterPosition).index)
         }
     }
 
@@ -68,8 +66,6 @@ class DailyWeatherAdapter constructor(
     }
 
     override fun bindViewHolder(holder: VH, position: Int, item: DailyForecast.DailyWeather) {
-        Log.d("bind", "bind = $position")
         holder.bindItem(item, unitFormatter)
     }
-
 }

@@ -39,9 +39,9 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>, L> constructor(@L
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        presenter = getPresenterHolder().providePresenter()
+        presenter = getPresenterFactory().createPresenter()
 
-        provideListenerClass()?.let { clazz ->
+        getListenerClass()?.let { clazz ->
             parentListener = if (clazz.isAssignableFrom(context.javaClass)) {
                 clazz.cast(context)
             } else if (parentFragment != null && clazz.isAssignableFrom(requireParentFragment().javaClass)) {
@@ -57,7 +57,7 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>, L> constructor(@L
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return layoutInflater.inflate(layoutRes, container, false)
+        return inflater.inflate(layoutRes, container, false)
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -97,8 +97,8 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>, L> constructor(@L
      * @return - activity or fragment class,
      * null - without listener
      */
-    protected open fun provideListenerClass(): Class<L>? = null
+    protected open fun getListenerClass(): Class<L>? = null
 
-    protected abstract fun getPresenterHolder(): PresenterProvider<P>
+    protected abstract fun getPresenterFactory(): PresenterFactory<P>
 
 }

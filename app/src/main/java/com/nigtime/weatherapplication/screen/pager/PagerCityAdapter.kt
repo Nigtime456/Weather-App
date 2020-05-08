@@ -26,5 +26,4 @@ class PagerCityAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     override fun createFragment(position: Int): Fragment =
         CurrentForecastFragment.newInstance(items[position])
 
-
 }

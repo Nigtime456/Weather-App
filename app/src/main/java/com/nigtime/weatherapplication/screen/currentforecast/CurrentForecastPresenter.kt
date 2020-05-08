@@ -23,25 +23,33 @@ class CurrentForecastPresenter(
         schedulerProvider, TAG
     ) {
 
-    private var dailyWeatherList = emptyList<DailyForecast.DailyWeather>()
-
     private companion object {
         const val TAG = "current_forecast"
     }
 
+    private var dailyWeatherList = emptyList<DailyForecast.DailyWeather>()
+
     //TODO дебаг
     private var startTime = 0L
 
+
+    override fun onDetach() {
+        super.onDetach()
+        dailyWeatherList = emptyList()
+    }
+
     fun provideForecast(cityForForecast: CityForForecast) {
         getView()?.setCityName(cityForForecast.cityName)
-        getView()?.showLoadAnimation()
+        getView()?.showLoadLayout()
         loadWeather(cityForForecast)
     }
 
     private fun loadWeather(cityForForecast: CityForForecast) {
-        val cityParams = RequestParams.CityParams(cityForForecast.cityId)
         startTime = System.currentTimeMillis()
-        getForecastSingle(cityParams)
+
+        val params = RequestParams.CityParams(cityForForecast.cityId)
+
+        getForecastAsSingle(params)
             .observeOn(schedulerProvider.ui())
             .subscribe(this::handleResult, this::onStreamError)
             .disposeOnDetach()
@@ -60,11 +68,11 @@ class CurrentForecastPresenter(
 
     override fun onStreamError(throwable: Throwable) {
         super.onStreamError(throwable)
-        getView()?.showErrorView()
+        getView()?.showErrorLayout()
         getView()?.showErrorMessage()
     }
 
-    private fun getForecastSingle(cityParams: RequestParams.CityParams): Observable<Triple<CurrentForecast, HourlyForecast, DailyForecast>> {
+    private fun getForecastAsSingle(cityParams: RequestParams.CityParams): Observable<Triple<CurrentForecast, HourlyForecast, DailyForecast>> {
         val current = forecastManager.getCurrentForecast(cityParams)
             .subscribeOn(schedulerProvider.io())
         val hourly = forecastManager.getHourlyForecast(cityParams)

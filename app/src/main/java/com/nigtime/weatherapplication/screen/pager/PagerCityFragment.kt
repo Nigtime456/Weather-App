@@ -4,6 +4,7 @@
 
 package com.nigtime.weatherapplication.screen.pager
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -15,7 +16,7 @@ import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.domain.city.CityForForecast
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.NavigationController
-import com.nigtime.weatherapplication.screen.common.PresenterProvider
+import com.nigtime.weatherapplication.screen.common.PresenterFactory
 import com.nigtime.weatherapplication.screen.common.Screen
 import com.nigtime.weatherapplication.screen.currentforecast.CurrentForecastFragment
 import com.nigtime.weatherapplication.screen.search.SearchCityFragment
@@ -24,12 +25,14 @@ import kotlinx.android.synthetic.main.fragment_pager.*
 
 
 class PagerCityFragment :
-    BaseFragment<PagerCityView, PagerCityPresenter, PagerCityFragment.ParentListener>(R.layout.fragment_pager),
+    BaseFragment<PagerCityView, PagerCityPresenter, NavigationController>(R.layout.fragment_pager),
     PagerCityView, CurrentForecastFragment.ParentListener, SearchCityFragment.TargetFragment,
     WishCitiesFragment.TargetFragment {
 
-    interface ParentListener : NavigationController
 
+    companion object {
+        private const val PAGE_LIMIT = 1
+    }
 
     private val pagerScrollListener = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
@@ -39,10 +42,10 @@ class PagerCityFragment :
 
     }
 
-    override fun provideListenerClass(): Class<ParentListener>? = ParentListener::class.java
+    override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 
-    override fun getPresenterHolder(): PresenterProvider<PagerCityPresenter> {
-        return ViewModelProvider(this).get(PagerCityViewModel::class.java)
+    override fun getPresenterFactory(): PresenterFactory<PagerCityPresenter> {
+        return ViewModelProvider(this).get(PagerCityPresenterFactory::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,11 +63,14 @@ class PagerCityFragment :
         super.onDestroyView()
         pagerViewPager.unregisterOnPageChangeCallback(pagerScrollListener)
         pagerViewPager.adapter = null
-
     }
 
-
     private fun initViews() {
+        setupNavView()
+        setupViewPager()
+    }
+
+    private fun setupNavView() {
         pagerNavView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menuAboutApp -> {
@@ -83,14 +89,13 @@ class PagerCityFragment :
             closeDrawer()
             true
         }
-
-        setupViewPager()
     }
 
-
+    @SuppressLint("WrongConstant")
     private fun setupViewPager() {
         pagerViewPager.apply {
             adapter = PagerCityAdapter(childFragmentManager, lifecycle)
+            offscreenPageLimit = PAGE_LIMIT
             registerOnPageChangeCallback(pagerScrollListener)
             setPageTransformer(MarginPageTransformer(resources.getDimensionPixelOffset(R.dimen.divider_size)))
         }
@@ -119,7 +124,7 @@ class PagerCityFragment :
         }
     }
 
-    override fun setPage(page: Int, smoothScroll: Boolean) {
+    override fun setCurrentPage(page: Int, smoothScroll: Boolean) {
         pagerViewPager.setCurrentItem(page, smoothScroll)
     }
 
@@ -127,8 +132,7 @@ class PagerCityFragment :
         parentListener?.navigateTo(Screen.Factory.wishList(this))
     }
 
-
-    override fun setNavigationItem(index: Int) {
+    override fun selectNavigationItem(index: Int) {
         pagerNavView.setCheckedItem(index)
     }
 

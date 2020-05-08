@@ -19,18 +19,20 @@ import com.nigtime.weatherapplication.common.helper.list.ItemTouchController
 import com.nigtime.weatherapplication.domain.city.WishCity
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.NavigationController
-import com.nigtime.weatherapplication.screen.common.PresenterProvider
+import com.nigtime.weatherapplication.screen.common.PresenterFactory
 import com.nigtime.weatherapplication.screen.common.Screen
 import com.nigtime.weatherapplication.screen.search.SearchCityFragment
 import kotlinx.android.synthetic.main.fragmet_wish_list.*
 
 
 class WishCitiesFragment :
-    BaseFragment<WishCitiesView, WishCitiesPresenter, WishCitiesFragment.ParentListener>(R.layout.fragmet_wish_list),
+    BaseFragment<WishCitiesView, WishCitiesPresenter, NavigationController>(R.layout.fragmet_wish_list),
     WishCitiesView, SearchCityFragment.TargetFragment {
 
-    interface ParentListener : NavigationController
 
+    /**
+     * Фрагмент, который
+     */
     interface TargetFragment {
         fun onSelectCity(position: Int)
     }
@@ -69,10 +71,10 @@ class WishCitiesFragment :
 
     }
 
-    override fun provideListenerClass(): Class<ParentListener>? = ParentListener::class.java
+    override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 
-    override fun getPresenterHolder(): PresenterProvider<WishCitiesPresenter> {
-        return ViewModelProvider(this).get(WishCitiesViewModel::class.java)
+    override fun getPresenterFactory(): PresenterFactory<WishCitiesPresenter> {
+        return ViewModelProvider(this).get(WishCitiesPresenterFactory::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -129,10 +131,7 @@ class WishCitiesFragment :
     }
 
     private fun initTouchGestures(listAdapter: WishCitiesListAdapter) {
-        val itemTouchController =
-            ItemTouchController(
-                listAdapter
-            )
+        val itemTouchController = ItemTouchController(listAdapter)
         itemTouchHelper = ItemTouchHelper(itemTouchController)
     }
 
@@ -149,30 +148,28 @@ class WishCitiesFragment :
         (wishRecycler.adapter as WishCitiesListAdapter).submitList(items)
     }
 
-    override fun showProgressBar() {
+    override fun showProgressLayout() {
         wishViewSwitcher.switchTo(0, false)
     }
 
-    override fun showList() {
+    override fun showListLayout() {
         wishViewSwitcher.switchTo(1, false)
 
     }
 
-    override fun showMessageEmpty() {
+    override fun showEmptyLayout() {
         wishViewSwitcher.switchTo(2, true)
-
     }
-
 
     override fun insertItemToList(item: WishCity, position: Int) {
         (wishRecycler.adapter as WishCitiesListAdapter).insertItemToList(item, position)
     }
 
-    override fun scrollListToPosition(position: Int) {
+    override fun scrollToPosition(position: Int) {
         wishRecycler.smoothScrollToPosition(position)
     }
 
-    override fun delayScrollListToPosition(position: Int) {
+    override fun delayScrollToPosition(position: Int) {
         wishRecycler.viewTreeObserver.addOnPreDrawListener(object :
             ViewTreeObserver.OnPreDrawListener {
             override fun onPreDraw(): Boolean {
@@ -195,13 +192,19 @@ class WishCitiesFragment :
         undoSnackbar = null
     }
 
-    override fun showPopupMessageEmptyList() {
+    override fun showDialogEmptyList() {
         //TODO должен диалог отображаться или типо того
         Toast.makeText(requireContext(), "Список не должен быть пустым!", Toast.LENGTH_LONG).show()
     }
 
     override fun onCityInserted(position: Int) {
         presenter.onCityInsertedAt(position)
+    }
+
+    override fun setSelectedCity(position: Int) {
+        if (targetFragment is TargetFragment) {
+            (targetFragment as TargetFragment).onSelectCity(position)
+        }
     }
 
     override fun navigateToPreviousScreen() {
@@ -212,10 +215,5 @@ class WishCitiesFragment :
         parentListener?.navigateTo(Screen.Factory.searchCity(this))
     }
 
-    override fun setSelectCity(position: Int) {
-        if (targetFragment is TargetFragment) {
-            (targetFragment as TargetFragment).onSelectCity(position)
-        }
-    }
 
 }

@@ -32,8 +32,14 @@ import com.nigtime.weatherapplication.net.repository.ForecastManagerImpl
 import com.nigtime.weatherapplication.net.repository.ForecastSource
 import com.nigtime.weatherapplication.net.service.ApiFactory
 
+/**
+ * Контейнер, который содержит ресурсы и объекты, необходимые всему приложению.
+ * Для простоты DI они вынесены в отдельный класс, который сохраняется
+ * на протяжение всей жизни приложения.
+ *
+ * @param context - контекст приложения.
+ */
 class AppContainer(context: Context) {
-    //TODO должно быть private
     val referenceCityDao: ReferenceCityDao
     val wishCityDao: WishCityDao
 

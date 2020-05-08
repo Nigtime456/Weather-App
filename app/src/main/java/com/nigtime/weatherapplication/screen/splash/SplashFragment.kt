@@ -17,7 +17,7 @@ import com.nigtime.weatherapplication.common.animation.BackgroundColorProperty
 import com.nigtime.weatherapplication.common.helper.ThemeHelper
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.NavigationController
-import com.nigtime.weatherapplication.screen.common.PresenterProvider
+import com.nigtime.weatherapplication.screen.common.PresenterFactory
 import com.nigtime.weatherapplication.screen.common.Screen
 import kotlinx.android.synthetic.main.fragment_splash.*
 
@@ -28,15 +28,13 @@ import kotlinx.android.synthetic.main.fragment_splash.*
  * Так же надо предусмотреть минимальный тайминг отображения.
  */
 class SplashFragment :
-    BaseFragment<SplashView, WrongSplashPresenter, SplashFragment.ParentListener>(R.layout.fragment_splash),
+    BaseFragment<SplashView, WrongSplashPresenter, NavigationController>(R.layout.fragment_splash),
     SplashView {
 
-    interface ParentListener : NavigationController
+    override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 
-    override fun provideListenerClass(): Class<ParentListener>? = ParentListener::class.java
-
-    override fun getPresenterHolder(): PresenterProvider<WrongSplashPresenter> {
-        return ViewModelProvider(this).get(SplashViewModel::class.java)
+    override fun getPresenterFactory(): PresenterFactory<WrongSplashPresenter> {
+        return ViewModelProvider(this).get(SplashPresenterFactory::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +42,7 @@ class SplashFragment :
         presenter.checkReferenceCities()
     }
 
-    override fun playSplashAnimation() {
+    override fun startSplashAnimation() {
         val backgroundAnimator = getBackgroundAnimator()
         val rotateAnimator = getRotateAnimator()
         AnimatorSet().apply {

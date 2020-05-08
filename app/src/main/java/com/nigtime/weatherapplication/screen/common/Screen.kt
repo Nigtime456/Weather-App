@@ -18,9 +18,7 @@ import com.nigtime.weatherapplication.screen.wishlist.WishCitiesFragment
  * TODO сделать на NavigationFramework
  */
 
-
 interface Screen {
-
     fun load(manager: FragmentManager, @IdRes container: Int, args: Bundle? = null)
 
     object Factory {
@@ -70,7 +68,7 @@ interface Screen {
                 val frag = findFrag(manager, PAGER) { PagerCityFragment() }
 
                 manager.beginTransaction()
-                    .replace(container,PagerCityFragment::class.java,null)
+                    .replace(container, PagerCityFragment::class.java, null)
                     .commit()
             }
         }
@@ -79,8 +77,6 @@ interface Screen {
         private fun <T> findFrag(manager: FragmentManager, tag: String, fallback: () -> T): T {
             return manager.findFragmentByTag(tag).let { frag -> frag as T } ?: fallback()
         }
-
-
     }
 }
 

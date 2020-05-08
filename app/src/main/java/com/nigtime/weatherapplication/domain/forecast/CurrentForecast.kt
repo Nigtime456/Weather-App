@@ -7,7 +7,7 @@ package com.nigtime.weatherapplication.domain.forecast
 import androidx.annotation.StringRes
 
 class CurrentForecast constructor(val weatherInfo: DetailedWeather) {
-    //TODO он вообще нужен
+    //TODO он вообще нужен (как вложенный класс)
     class DetailedWeather(
         temp: Double,
         ico: Int,

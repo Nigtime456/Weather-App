@@ -11,6 +11,7 @@ import leakcanary.AppWatcher
 import leakcanary.LeakCanary
 
 class App : Application() {
+
     companion object {
         lateinit var INSTANCE: App
     }
@@ -20,7 +21,6 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
         INSTANCE = this
         setCanary()
         setContainer()
@@ -31,6 +31,9 @@ class App : Application() {
         appContainer = AppContainer(this)
     }
 
+    /**
+     * Leak Canary отслеживает ЖЦ объектов и детектит утечки объектов
+     */
     private fun setCanary() {
         AppWatcher.config = AppWatcher.config.copy(
             enabled = true,

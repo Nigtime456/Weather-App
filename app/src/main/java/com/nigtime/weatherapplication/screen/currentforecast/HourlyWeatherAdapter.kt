@@ -18,7 +18,6 @@ class HourlyWeatherAdapter constructor(private val unitFormatter: UnitFormatter)
     BaseAdapter<HourlyForecast.HourlyWeather, HourlyWeatherAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         fun bindItem(weather: HourlyForecast.HourlyWeather, unitFormatter: UnitFormatter) {
             itemView.itemHourTemp.text = unitFormatter.formatTemp(weather.temp)
             itemView.itemHourWeatherIco.setImageResource(weather.ico)

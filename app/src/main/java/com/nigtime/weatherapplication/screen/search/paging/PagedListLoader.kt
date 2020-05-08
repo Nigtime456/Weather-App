@@ -5,11 +5,11 @@
 package com.nigtime.weatherapplication.screen.search.paging
 
 import androidx.paging.PagedList
-import androidx.paging.toObservable
+import androidx.paging.toFlowable
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.city.PagedSearchRepository
 import com.nigtime.weatherapplication.domain.city.SearchCity
-import io.reactivex.Observable
+import io.reactivex.Flowable
 
 /**
  * Вспомогательный класс, для ассихнронной загрузки списка городов
@@ -19,10 +19,10 @@ class PagedListLoader(private val schedulerProvider: SchedulerProvider) {
     fun loadList(
         pagedRepository: PagedSearchRepository,
         query: String
-    ): Observable<PagedList<SearchCity>> {
+    ): Flowable<PagedList<SearchCity>> {
         return SearchCitySourceFactory(pagedRepository, query)
-            .toObservable(
-                PagedConfig.default(),
+            .toFlowable(
+                PagingConfig.default(),
                 fetchScheduler = schedulerProvider.syncDatabase(),
                 notifyScheduler = schedulerProvider.ui()
             )

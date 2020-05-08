@@ -4,11 +4,13 @@
 
 package com.nigtime.weatherapplication.screen.search
 
+
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.city.PagedSearchRepository
 import com.nigtime.weatherapplication.domain.city.SearchCity
 import com.nigtime.weatherapplication.screen.common.BasePresenter
 import com.nigtime.weatherapplication.screen.search.paging.PagedListLoader
+import java.util.*
 
 
 class SearchCityPresenter constructor(
@@ -23,19 +25,19 @@ class SearchCityPresenter constructor(
         private const val MIN_QUERY_LENGTH = 1
     }
 
-    fun onViewCreated() {
-        getView()?.showHint()
+    fun onViewReady() {
+        getView()?.showHintLayout()
     }
 
     fun onClickItem(searchCity: SearchCity) {
         if (searchCity.isWish) {
-            getView()?.showMessageAlreadyWish()
+            getView()?.showToastAlreadyWish()
         } else {
             logger.d("insert, object = $searchCity")
             pagedSearchRepository.insert(searchCity)
                 .subscribeOn(schedulerProvider.syncDatabase())
                 .observeOn(schedulerProvider.ui())
-                .subscribeAndHandleError(false) { insertedPosition ->
+                .subscribeAndHandleError() { insertedPosition ->
                     getView()?.setInsertedResult(insertedPosition)
                     getView()?.navigateToPreviousScreen()
                     logger.d("insert = ok")
@@ -47,25 +49,26 @@ class SearchCityPresenter constructor(
         getView()?.navigateToPreviousScreen()
     }
 
-    fun processInput(text: String) {
-        if (text.length >= MIN_QUERY_LENGTH) {
-            loadListQuery(text.toLowerCase())
+    fun processInput(query: String) {
+        if (query.length >= MIN_QUERY_LENGTH) {
+            loadListQuery(query.toLowerCase(Locale.getDefault()))
         } else {
             performDispose()
-            getView()?.showHint()
+            getView()?.showHintLayout()
         }
     }
 
     private fun loadListQuery(query: String) {
-        getView()?.showProgressBar()
+        getView()?.showProgressLayout()
+
         pagedListLoader.loadList(pagedSearchRepository, query)
-            .subscribeAndHandleError(false) { pagedList ->
+            .subscribeAndHandleError() { pagedList ->
                 getView()?.submitList(pagedList)
                 if (pagedList.isNotEmpty()) {
-                    getView()?.delayScrollListToPosition(0)
-                    getView()?.showList()
+                    getView()?.delayScrollToPosition(0)
+                    getView()?.showListLayout()
                 } else {
-                    getView()?.showMessageEmpty()
+                    getView()?.showEmptyLayout()
                 }
             }
     }

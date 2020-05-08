@@ -3,12 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_item_normal"
-    android:background="@drawable/selector_ripple_without_background"
+    android:background="@drawable/selector_ripple_with_background"
     android:clickable="true"
     android:elevation="@dimen/elevation_list_item"
     android:focusable="true"
-    android:paddingHorizontal="@dimen/medium_padding"
-    tools:background="?attr/themeScreenBackground">
+    android:paddingHorizontal="@dimen/medium_padding">
 
     <LinearLayout
         android:layout_width="match_parent"

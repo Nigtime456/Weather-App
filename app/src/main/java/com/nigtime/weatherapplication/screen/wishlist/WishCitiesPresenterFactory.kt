@@ -7,10 +7,9 @@ package com.nigtime.weatherapplication.screen.wishlist
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.common.App
 import com.nigtime.weatherapplication.common.rx.RxDelayedMessageDispatcher
-import com.nigtime.weatherapplication.screen.common.BaseViewModel
-import com.nigtime.weatherapplication.screen.common.PresenterProvider
+import com.nigtime.weatherapplication.screen.common.BasePresenterFactory
 
-class WishCitiesViewModel : BaseViewModel(), PresenterProvider<WishCitiesPresenter> {
+class WishCitiesPresenterFactory : BasePresenterFactory<WishCitiesPresenter>() {
     private val presenter: WishCitiesPresenter
 
     init {
@@ -24,5 +23,5 @@ class WishCitiesViewModel : BaseViewModel(), PresenterProvider<WishCitiesPresent
         )
     }
 
-    override fun providePresenter(): WishCitiesPresenter = presenter
+    override fun createPresenter(): WishCitiesPresenter = presenter
 }

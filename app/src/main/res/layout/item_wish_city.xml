@@ -64,6 +64,8 @@
         app:layout_constraintEnd_toStartOf="@id/itemWishTemp"
         app:layout_constraintTop_toTopOf="@id/itemWishTemp" />
 
+    <!--  TODO погода должна загражатся  -->
+
     <TextView
         android:id="@+id/itemWishTemp"
         style="@style/SecondaryText.Lowest"

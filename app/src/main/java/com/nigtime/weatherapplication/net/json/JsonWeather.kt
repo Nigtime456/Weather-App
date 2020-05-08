@@ -15,6 +15,7 @@ data class JsonWeather(
     val icon: String,
     @SerializedName("code")
     val code: Int,
+    //TODO не нужен ?
     @SerializedName("description")
     val description: String
 )

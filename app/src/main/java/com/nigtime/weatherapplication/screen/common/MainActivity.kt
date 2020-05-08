@@ -8,10 +8,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.screen.pager.PagerCityFragment
-import com.nigtime.weatherapplication.screen.search.SearchCityFragment
-import com.nigtime.weatherapplication.screen.splash.SplashFragment
-import com.nigtime.weatherapplication.screen.wishlist.WishCitiesFragment
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import leakcanary.AppWatcher
@@ -19,10 +15,7 @@ import leakcanary.AppWatcher
 /**
  * Главная активити, управляет только фрагментами, не имеет собственной разметки.
  */
-//TODO возможно эти все интерфейсы и не потребуются
-class MainActivity : AppCompatActivity(), NavigationController,
-    SplashFragment.ParentListener, SearchCityFragment.ParentListener, WishCitiesFragment.ParentListener,
-    PagerCityFragment.ParentListener {
+class MainActivity : AppCompatActivity(), NavigationController {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +29,7 @@ class MainActivity : AppCompatActivity(), NavigationController,
     }
 
 
+    //TODO remove it
     @SuppressLint("CheckResult")
     private fun test() {
         Single.fromCallable {

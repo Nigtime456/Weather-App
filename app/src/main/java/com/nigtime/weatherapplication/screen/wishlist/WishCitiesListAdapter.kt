@@ -16,6 +16,15 @@ import com.nigtime.weatherapplication.common.helper.list.ItemTouchController
 import com.nigtime.weatherapplication.domain.city.WishCity
 import kotlinx.android.synthetic.main.item_wish_city.view.*
 
+/**
+ * TODO загрузка погоды + презентер для адаптера
+ *
+ * Как должна происходить загрузка данных:
+ * К каждому ViewHolder презентер, который сохраняется в VM
+ * получается так: ViewModelProvider.get(position,VM)
+ *
+ */
+
 //TODO может BaseAdapter сюда прикрутить
 class WishCitiesListAdapter constructor(private val listener: Listener) :
     RecyclerView.Adapter<WishCitiesListAdapter.ViewHolder>(),
@@ -87,45 +96,11 @@ class WishCitiesListAdapter constructor(private val listener: Listener) :
         }
     }
 
-
-    //TODO remove it
-    object DiffCallbackFactory {
-
-        fun newDiffCallback(
-            oldMap: List<WishCity>,
-            newMap: List<WishCity>
-        ): DiffUtil.Callback {
-            return DiffCallback(oldMap, newMap)
-        }
-
-        private class DiffCallback constructor(
-            private val old: List<WishCity>,
-            private val aNew: List<WishCity>
-        ) :
-            DiffUtil.Callback() {
-
-            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                val old = old[oldItemPosition]
-                val new = aNew[newItemPosition]
-                return old.cityId == new.cityId
-            }
-
-            override fun getOldListSize(): Int = old.size
-
-            override fun getNewListSize(): Int = aNew.size
-
-            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                val old = old[oldItemPosition]
-                val new = aNew[newItemPosition]
-                return old.cityId == new.cityId && old.listIndex == new.listIndex
-            }
-        }
-    }
-
     /**
      * [AsyncListDiffer] для вычисления изменений в списке
      */
     private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
+
     /**
      * Коллекция содержащая изменения в позициях и учитывающая удаляемые элементы
      */
@@ -195,6 +170,7 @@ class WishCitiesListAdapter constructor(private val listener: Listener) :
         mutableItems.removeAt(swipedPosition)
         //удаляем визуально
         notifyItemRemoved(swiped.adapterPosition)
+        //уведомляем слушатель
         listener.onItemSwiped(swipedItem, swipedPosition, mutableItems)
     }
 
@@ -206,7 +182,7 @@ class WishCitiesListAdapter constructor(private val listener: Listener) :
         listener.onItemsMoved(mutableItems)
     }
 
-    override fun onItemStartMove(viewHolder: ViewHolder) {
+    override fun onStartMoveItem(viewHolder: ViewHolder) {
         viewHolder.itemView.isSelected = true
     }
 }

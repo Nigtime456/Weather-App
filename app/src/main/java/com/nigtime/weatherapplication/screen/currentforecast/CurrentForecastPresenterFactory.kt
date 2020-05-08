@@ -4,17 +4,16 @@
 
 package com.nigtime.weatherapplication.screen.currentforecast
 
-import com.nigtime.weatherapplication.screen.common.BaseViewModel
-import com.nigtime.weatherapplication.screen.common.PresenterProvider
+import com.nigtime.weatherapplication.screen.common.BasePresenterFactory
 
-class CurrentForecastViewModel : BaseViewModel(), PresenterProvider<CurrentForecastPresenter> {
+class CurrentForecastPresenterFactory : BasePresenterFactory<CurrentForecastPresenter>() {
 
     val presenter: CurrentForecastPresenter = CurrentForecastPresenter(
         appContainer.schedulerProvider,
         appContainer.forecastManager
     )
 
-    override fun providePresenter(): CurrentForecastPresenter {
+    override fun createPresenter(): CurrentForecastPresenter {
         return presenter
     }
 }
