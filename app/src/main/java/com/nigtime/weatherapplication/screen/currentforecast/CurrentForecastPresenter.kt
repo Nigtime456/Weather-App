@@ -103,6 +103,12 @@ class CurrentForecastPresenter(
         getView()?.setWind(triple.first.wind)
         getView()?.setHumidity(triple.first.humidity)
         getView()?.setPressure(triple.first.pressure)
+        getView()?.setPrecipitation(triple.second.probabilityOfPrecipitation)
+        getView()?.setVisibility(triple.first.visibility)
+        getView()?.setAirQuality(triple.first.airQuality)
+        getView()?.setUvIndex(triple.first.uvIndex)
+        getView()?.setClouds(triple.first.clouds)
+        getView()?.setLargeWeatherIcon(triple.first.detailedWeather.ico)
     }
 
     private fun showDailyForecast() {

@@ -4,9 +4,7 @@
 
 package com.nigtime.weatherapplication.net.mappers
 
-import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
-import com.nigtime.weatherapplication.domain.forecast.WeatherInfoHelper
-import com.nigtime.weatherapplication.domain.forecast.Wind
+import com.nigtime.weatherapplication.domain.forecast.*
 import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.net.json.JsonCurrentData
 import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
@@ -18,11 +16,17 @@ class CurrentForecastMapper {
         val jsonCurrentData = json.data.forecastList[0]
         val detailedWeather = jsonCurrentData.toDetailedWeather()
         val wind = jsonCurrentData.toWind()
+        val airQuality = AirQuality(jsonCurrentData.airQualityIndex)
+        val uvIndex = UvIndex(jsonCurrentData.uvIndex)
         return CurrentForecast(
             detailedWeather,
             wind,
             jsonCurrentData.averageHumidity,
-            jsonCurrentData.pressure
+            jsonCurrentData.pressure,
+            jsonCurrentData.visibility,
+            airQuality,
+            uvIndex,
+            jsonCurrentData.cloudsCoverage
         )
     }
 

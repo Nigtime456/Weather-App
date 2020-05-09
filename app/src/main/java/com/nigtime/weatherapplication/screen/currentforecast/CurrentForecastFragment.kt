@@ -12,19 +12,17 @@ import androidx.lifecycle.ViewModelProvider
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.common.App
 import com.nigtime.weatherapplication.domain.city.CityForForecast
-import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
-import com.nigtime.weatherapplication.domain.forecast.DailyForecast
-import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
-import com.nigtime.weatherapplication.domain.forecast.Wind
+import com.nigtime.weatherapplication.domain.forecast.*
 import com.nigtime.weatherapplication.domain.settings.UnitFormatter
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.PresenterFactory
 import kotlinx.android.synthetic.main.fragment_current_forecast.*
-import kotlinx.android.synthetic.main.fragment_current_forecast_main.*
+import kotlinx.android.synthetic.main.fragment_current_forecast_environment.*
 import kotlinx.android.synthetic.main.fragment_current_forecast_main_current.*
 import kotlinx.android.synthetic.main.fragment_current_forecast_main_daily.*
 import kotlinx.android.synthetic.main.fragment_current_forecast_main_hourly.*
 import kotlinx.android.synthetic.main.fragment_current_forecast_main_more.*
+import kotlinx.android.synthetic.main.fragment_current_forecast_precipitation.*
 
 /**
  * Главный экран с погодой
@@ -197,5 +195,33 @@ class CurrentForecastFragment :
         currentForecastPressure.text = unitFormatter!!.formatPressure(pressure)
     }
 
+    override fun setPrecipitation(probabilityOfPrecipitation: HourlyForecast.ProbabilityOfPrecipitation) {
+        currentForecastPrecipitation3Hours.text =
+            unitFormatter!!.formatProbabilityOfPrecipitation(probabilityOfPrecipitation.next3Hours)
+        currentForecastPrecipitation6Hours.text =
+            unitFormatter!!.formatProbabilityOfPrecipitation(probabilityOfPrecipitation.next6Hours)
+        currentForecastPrecipitation12Hours.text =
+            unitFormatter!!.formatProbabilityOfPrecipitation(probabilityOfPrecipitation.next12Hours)
+    }
+
+    override fun setVisibility(visibility: Double) {
+        fragmentCurrentForecastVisibility.text = unitFormatter!!.formatVisibility(visibility)
+    }
+
+    override fun setAirQuality(airQuality: AirQuality) {
+        fragmentCurrentForecastAirQuality.text = unitFormatter!!.formatAirQuality(airQuality)
+    }
+
+    override fun setUvIndex(uvIndex: UvIndex) {
+        fragmentCurrentForecastUvIndex.text = unitFormatter!!.formatUvIndex(uvIndex)
+    }
+
+    override fun setClouds(clouds: Int) {
+        fragmentCurrentForecastClouds.text = unitFormatter!!.formatCloudsCoverage(clouds)
+    }
+
+    override fun setLargeWeatherIcon(ico: Int) {
+        currentForecastLargeWeatherIco.setImageResource(ico)
+    }
 
 }

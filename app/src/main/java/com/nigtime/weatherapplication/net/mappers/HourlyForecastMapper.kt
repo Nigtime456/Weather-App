@@ -15,8 +15,17 @@ class HourlyForecastMapper {
 
     fun map(json: NetData<JsonHourlyForecast>): HourlyForecast {
         val hourlyWeatherList = json.data.forecastList.map { it.toHourlyForecast() }
-        val hourlyForecast =  HourlyForecast(hourlyWeatherList)
-        return hourlyForecast
+        return HourlyForecast(hourlyWeatherList, json.data.toProbabilityOfPrecipitation())
+    }
+
+    fun JsonHourlyForecast.toProbabilityOfPrecipitation(): HourlyForecast.ProbabilityOfPrecipitation {
+        val next3Hours = forecastList.take(3)
+            .maxBy { jsonHourlyData -> jsonHourlyData.probabilityOfPrecipitation }!!.probabilityOfPrecipitation
+        val next6Hours = forecastList.take(6)
+            .maxBy { jsonHourlyData -> jsonHourlyData.probabilityOfPrecipitation }!!.probabilityOfPrecipitation
+        val next12Hours = forecastList.take(12)
+            .maxBy { jsonHourlyData -> jsonHourlyData.probabilityOfPrecipitation }!!.probabilityOfPrecipitation
+        return HourlyForecast.ProbabilityOfPrecipitation(next3Hours, next6Hours, next12Hours)
     }
 
     fun JsonHourlyData.toHourlyForecast(): HourlyForecast.HourlyWeather {

@@ -4,11 +4,8 @@
     <!--  Common  -->
     <string name="content_description_start_drag">Начать перетаскивание</string>
     <string name="content_description_temp">Температура</string>
-    <string name="content_description_weather_ico">Иконка погоды</string>
-    <string name="content_description_wind_dir">Направлние ветра</string>
-    <string name="content_description_wind">Ветер</string>
-    <string name="content_description_pressure">Давление</string>
-    <string name="content_description_humidity">Влажность</string>
+    <string name="content_description_weather_ico">Погода</string>
+
 
     <!--  units formatting  -->
     <string name="units_temp_f">%.0f°</string>
@@ -39,9 +36,25 @@
     <string name="units_kn_f">%.1f knot</string>
     <string name="units_mps_f">%.1f m/s</string>
 
-    <string name="units_humidity_f">%s %%</string>
+    <string name="units_km_f">%.1f km</string>
+    <string name="units_mi_f">%.1f mi</string>
+
+    <string name="units_percent_pattern_f">%s %%</string>
 
     <string name="units_mbar_f">%.0f mBar</string>
+
+    <string name="air_quality_good_f">Good (%s)</string>
+    <string name="air_quality_moderate_f">Moderate (%s)</string>
+    <string name="air_quality_unhealthy_sens_f">Unhealthy for sensitive (%s)</string>
+    <string name="air_quality_unhealthy_f">Unhealthy (%s)</string>
+    <string name="air_quality_very_unhealthy_f">Very Unhealthy (%s)</string>
+    <string name="air_quality_hazardous_f">Hazardous (%s)</string>
+
+    <string name="uv_index_low_f">Low (%s)</string>
+    <string name="uv_index_moderate_f">Moderate (%s)</string>
+    <string name="uv_index_high_f">High (%s)</string>
+    <string name="uv_index_very_high_f">Very high (%s)</string>
+    <string name="uv_index_extreme_f">Extreme (%s)</string>
 
     <!--  Search city  -->
     <string name="search_title">Добавить город</string>
@@ -77,6 +90,16 @@
     <string name="current_forecast_wind">Ветер</string>
     <string name="current_forecast_pressure">Давление</string>
     <string name="current_forecast_humidity">Влажность</string>
+    <string name="current_forecast_precipitation">Осадки</string>
+    <string name="current_forecast_next_3_hours">через 3 часа</string>
+    <string name="current_forecast_next_6_hours">через 6 часов</string>
+    <string name="current_forecast_next_12_hours">через 12 часов</string>
+    <string name="current_forecast_environment">Экология</string>
+    <string name="current_forecast_visibility">Видимость</string>
+    <string name="current_forecast_air_quality">Качество воздуха</string>
+    <string name="current_forecast_uv_index">УФ-индекс</string>
+    <string name="current_forecast_clouds">Облачность</string>
+
 
     <!--  Menu  -->
     <string name="menu_add_city">Add city</string>

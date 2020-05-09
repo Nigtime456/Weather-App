@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/5/9
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/medium_margin"
+    tools:background="?attr/themeScreenBackground">
+
+
+    <TextView
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/current_forecast_precipitation" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/currentForecastPrecipitation3Hours"
+                style="@style/PrimaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:text="10%" />
+
+            <TextView
+                style="@style/SecondaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/small_margin"
+                android:text="@string/current_forecast_next_3_hours" />
+        </LinearLayout>
+
+        <View
+            style="@style/DividerDefaultStyle"
+            android:layout_width="@dimen/divider_size"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/currentForecastPrecipitation6Hours"
+                style="@style/PrimaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:text="10%" />
+
+            <TextView
+                style="@style/SecondaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/small_margin"
+                android:text="@string/current_forecast_next_6_hours" />
+        </LinearLayout>
+
+        <View
+            style="@style/DividerDefaultStyle"
+            android:layout_width="@dimen/divider_size"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/currentForecastPrecipitation12Hours"
+                style="@style/PrimaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:text="10%" />
+
+            <TextView
+                style="@style/SecondaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/small_margin"
+                android:text="@string/current_forecast_next_12_hours" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

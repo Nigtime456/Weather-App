@@ -64,6 +64,9 @@
     </style>
 
     <style name="NavigationThemeOverlay">
+        <item name="android:scrollbarThumbVertical">?attr/colorAccent</item>
+        <item name="android:scrollbarStyle">insideInset</item>
+        <item name="android:scrollbarSize">3dp</item>
         <item name="android:listDivider">?attr/themeDividerColor</item>
         <item name="android:textSize">17sp</item>
         <item name="android:textColorSecondary">?attr/themeSecondaryTextColorSelector</item>

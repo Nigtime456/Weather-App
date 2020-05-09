@@ -4,10 +4,8 @@
 
 package com.nigtime.weatherapplication.screen.currentforecast
 
-import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
-import com.nigtime.weatherapplication.domain.forecast.DailyForecast
-import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
-import com.nigtime.weatherapplication.domain.forecast.Wind
+import androidx.annotation.DrawableRes
+import com.nigtime.weatherapplication.domain.forecast.*
 import com.nigtime.weatherapplication.screen.common.MvpView
 
 
@@ -25,4 +23,10 @@ interface CurrentForecastView : MvpView {
     fun setWind(wind: Wind)
     fun setHumidity(humidity: Int)
     fun setPressure(pressure: Double)
+    fun setPrecipitation(probabilityOfPrecipitation: HourlyForecast.ProbabilityOfPrecipitation)
+    fun setVisibility(visibility: Double)
+    fun setAirQuality(airQuality: AirQuality)
+    fun setUvIndex(uvIndex: UvIndex)
+    fun setClouds(clouds: Int)
+    fun setLargeWeatherIcon(@DrawableRes ico: Int)
 }

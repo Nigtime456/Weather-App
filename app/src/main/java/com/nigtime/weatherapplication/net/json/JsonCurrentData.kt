@@ -19,8 +19,6 @@ data class JsonCurrentData(
     val feelsLikeTemp: Double, // -2.4
     @SerializedName("pres")
     val pressure: Double, // 979
-    @SerializedName("clouds")
-    val clouds: String, // 100
     @SerializedName("wind_spd")
     val windSped: Double, // 8
     @SerializedName("wind_cdir_full")
@@ -40,11 +38,13 @@ data class JsonCurrentData(
     @SerializedName("snow")
     val snow: String, // 0
     @SerializedName("uv")
-    val uvIndex: Double, // 0
+    val uvIndex: Int, // 0
     @SerializedName("precip")
     val precipitationRate: String, // 4.57895
     @SerializedName("aqi")
     val airQualityIndex: Int, // 13
+    @SerializedName("clouds")
+    val cloudsCoverage: Int,
     @SerializedName("weather")
     val weather: JsonWeather,
     @SerializedName("timezone")

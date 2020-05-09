@@ -11,7 +11,11 @@ data class CurrentForecast constructor(
     val detailedWeather: DetailedWeather,
     val wind: Wind,
     val humidity: Int,
-    val pressure: Double
+    val pressure: Double,
+    val visibility: Double,
+    val airQuality: AirQuality,
+    val uvIndex: UvIndex,
+    val clouds: Int
 ) {
 
 

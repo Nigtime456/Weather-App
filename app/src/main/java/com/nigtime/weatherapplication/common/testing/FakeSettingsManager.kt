@@ -14,8 +14,9 @@ class FakeSettingsManager constructor(private val context: Context) :
         return UnitFormatter(
             context,
             UnitOfTemp.Fahrenheit,
-            UnitOfSpeed.MetrePerSeconds,
-            UnitOfPressure.MBar
+            UnitOfSpeed.KilometrePerHour,
+            UnitOfPressure.MBar,
+            UnitOfLength.Kilometre
         )
     }
 }

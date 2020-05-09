@@ -7,8 +7,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/medium_margin"
-    android:background="?attr/themeScreenBackground">
+    android:background="?attr/themeScreenBackground"
+    android:paddingHorizontal="@dimen/medium_margin">
 
     <TextView
         android:id="@+id/title_more"
@@ -46,7 +46,7 @@
             android:layout_width="@dimen/icon_small"
             android:layout_height="@dimen/icon_small"
             android:layout_margin="8dp"
-            android:contentDescription="@string/content_description_wind_dir"
+            android:contentDescription="@string/current_forecast_wind"
             android:src="@drawable/ic_navigation" />
     </FrameLayout>
 
@@ -55,7 +55,7 @@
         android:id="@+id/wind_ico"
         android:layout_width="@dimen/icon_small"
         android:layout_height="@dimen/icon_small"
-        android:contentDescription="@string/content_description_wind"
+        android:contentDescription="@string/current_forecast_wind"
         android:src="@drawable/ic_wind"
         app:layout_constraintBottom_toTopOf="@id/divider1"
         app:layout_constraintStart_toStartOf="@+id/divider1"
@@ -99,7 +99,7 @@
         android:id="@+id/pressure_ico"
         android:layout_width="@dimen/icon_small"
         android:layout_height="@dimen/icon_small"
-        android:contentDescription="@string/content_description_pressure"
+        android:contentDescription="@string/current_forecast_pressure"
         android:src="@drawable/ic_pressure"
         app:layout_constraintBottom_toTopOf="@id/divider2"
         app:layout_constraintStart_toStartOf="@+id/divider1"
@@ -141,7 +141,7 @@
         android:id="@+id/humidity_ico"
         android:layout_width="@dimen/icon_small"
         android:layout_height="@dimen/icon_small"
-        android:contentDescription="@string/content_description_humidity"
+        android:contentDescription="@string/current_forecast_humidity"
         android:src="@drawable/ic_humidity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/divider2"
