@@ -21,7 +21,8 @@ import io.reactivex.subjects.Subject
 class CurrentForecastPresenter(
     schedulerProvider: SchedulerProvider,
     private val forecastManager: ForecastManager,
-    private val displayedDaysSwitchSubject: Subject<Int>
+    private val displayedDaysSwitchSubject: Subject<Int>,
+    private val verticalScrollSubject: Subject<Int>
 ) :
     BasePresenter<CurrentForecastView>(
         schedulerProvider, TAG
@@ -35,25 +36,40 @@ class CurrentForecastPresenter(
         const val SHOW_16_DAYS = R.id.currentForecastDisplay16days
     }
 
+
+    private lateinit var currentCity: CityForForecast
     private var dailyWeatherList = emptyList<DailyForecast.DailyWeather>()
+
     private var currentDisplayedDays = SHOW_5_DAYS
+
+    private var isDataLoaded = false
 
     //TODO дебаг
     private var startTime = 0L
 
     override fun onAttach() {
         super.onAttach()
+        observeDisplayedDaysChanges()
+        observeScrollChanges()
+    }
+
+    private fun observeScrollChanges() {
+        verticalScrollSubject.subscribe { scrollY ->
+            getView()?.setVerticalScroll(scrollY)
+        }.disposeOnDetach()
+    }
+
+    private fun observeDisplayedDaysChanges() {
         displayedDaysSwitchSubject.subscribe { newCount ->
             currentDisplayedDays = newCount
             showDailyForecast()
-        }
-            .disposeOnDetach()
-
+        }.disposeOnDetach()
     }
 
     override fun onDetach() {
         super.onDetach()
         dailyWeatherList = emptyList()
+        isDataLoaded = false
     }
 
 
@@ -65,7 +81,7 @@ class CurrentForecastPresenter(
 
     private fun loadWeather(cityForForecast: CityForForecast) {
         startTime = System.currentTimeMillis()
-
+        currentCity = cityForForecast
         val params = RequestParams.CityParams(cityForForecast.cityId)
 
         getForecastAsSingle(params)
@@ -75,8 +91,9 @@ class CurrentForecastPresenter(
     }
 
     private fun handleResult(triple: Triple<CurrentForecast, HourlyForecast, DailyForecast>) {
+        logger.d("handleResult = ${currentCity.cityName}")
         logger.d("load time = ${System.currentTimeMillis() - startTime}")
-
+        isDataLoaded = true
         dailyWeatherList = triple.third.dailyWeather
 
         getView()?.showMainLayout()
@@ -87,7 +104,7 @@ class CurrentForecastPresenter(
 
     private fun showDailyForecast() {
         //данные не загружены ещё.
-        if (dailyWeatherList.isEmpty())
+        if (!isDataLoaded)
             return
 
         when (currentDisplayedDays) {
@@ -103,8 +120,9 @@ class CurrentForecastPresenter(
             else -> error("invalid switcher ID? = $currentDisplayedDays")
         }
         //выделить кнопку
-        getView()?.selectDaysSwitcherButton(currentDisplayedDays)
+        getView()?.selectDaysSwitchButton(currentDisplayedDays)
     }
+
 
     override fun onStreamError(throwable: Throwable) {
         super.onStreamError(throwable)
@@ -127,4 +145,7 @@ class CurrentForecastPresenter(
         displayedDaysSwitchSubject.onNext(checkedId)
     }
 
+    fun onScrollChanged(scrollY: Int) {
+        verticalScrollSubject.onNext(scrollY)
+    }
 }

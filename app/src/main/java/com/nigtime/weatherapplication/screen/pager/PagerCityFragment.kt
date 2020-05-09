@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.GravityCompat
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
@@ -21,6 +22,8 @@ import com.nigtime.weatherapplication.screen.common.Screen
 import com.nigtime.weatherapplication.screen.currentforecast.CurrentForecastFragment
 import com.nigtime.weatherapplication.screen.search.SearchCityFragment
 import com.nigtime.weatherapplication.screen.wishlist.WishCitiesFragment
+import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.fragment_pager.*
 
 
@@ -33,7 +36,8 @@ class PagerCityFragment :
 
 
     companion object {
-        private const val PAGE_LIMIT = -1
+        private const val PAGE_LIMIT = 1
+
     }
 
     private val pagerScrollListener = object : ViewPager2.OnPageChangeCallback() {
@@ -66,7 +70,6 @@ class PagerCityFragment :
         super.onDestroyView()
         pagerViewPager.unregisterOnPageChangeCallback(pagerScrollListener)
         pagerViewPager.adapter = null
-
     }
 
     private fun initViews() {

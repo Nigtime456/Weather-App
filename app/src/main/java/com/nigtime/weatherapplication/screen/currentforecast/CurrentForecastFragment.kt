@@ -7,6 +7,7 @@ package com.nigtime.weatherapplication.screen.currentforecast
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.common.App
@@ -45,8 +46,8 @@ class CurrentForecastFragment :
     }
 
     private var unitFormatter: UnitFormatter? = null
-
     private var currentCity = lazy { getCurrentCity() }
+    private val nullScrollListener: NestedScrollView.OnScrollChangeListener? = null
 
     @Suppress("RemoveExplicitTypeArguments")
     private fun getCurrentCity(): CityForForecast {
@@ -61,7 +62,6 @@ class CurrentForecastFragment :
         return ViewModelProvider(this).get(key, CurrentForecastPresenterFactory::class.java)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         unitFormatter = App.INSTANCE.appContainer.settingsManager.getUnitFormatter()
@@ -69,16 +69,25 @@ class CurrentForecastFragment :
         presenter.provideForecast(currentCity.value)
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         unitFormatter = null
+        currentForecastScrollView.setOnScrollChangeListener(nullScrollListener)
     }
 
     private fun initViews() {
         setupDaysSwitcher()
         setupAppBar()
         setupLists()
+        setupScrollView()
+        setupSwipeToRefresh()
+    }
+
+    private fun setupSwipeToRefresh() {
+        currentForecastSwipeRefresh.setOnRefreshListener {
+            currentForecastSwipeRefresh.isRefreshing = false
+            showToast("TODO!!")
+        }
     }
 
     private fun setupDaysSwitcher() {
@@ -110,6 +119,12 @@ class CurrentForecastFragment :
             adapter = DailyWeatherAdapter(unitFormatter!!) {
                 showToast("TODO = $it")
             }
+        }
+    }
+
+    private fun setupScrollView() {
+        currentForecastScrollView.setOnScrollChangeListener { _: NestedScrollView?, _: Int, scrollY: Int, _: Int, _: Int ->
+            presenter.onScrollChanged(scrollY)
         }
     }
 
@@ -150,8 +165,17 @@ class CurrentForecastFragment :
         (currentForecastDailyList.adapter as DailyWeatherAdapter).submitList(dailyWeather)
     }
 
-    override fun selectDaysSwitcherButton(buttonId: Int) {
+    override fun selectDaysSwitchButton(buttonId: Int) {
         currentForecastDaysSwitcher.check(buttonId)
+    }
+
+    override fun setVerticalScroll(scrollY: Int) {
+        currentForecastScrollView.delayScrollY(scrollY)
+        liftAppBar(scrollY > 0)
+    }
+
+    private fun liftAppBar(doLift: Boolean) {
+        currentForecastAppBar.isSelected = doLift
     }
 
 

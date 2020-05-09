@@ -5,190 +5,178 @@
   ~ Сreated by Igor Pokrovsky. 2020/5/6
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.nigtime.weatherapplication.screen.currentforecast.FixedNestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/currentForecastScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".screen.currentforecast.CurrentForecastFragment"
-    tools:showIn="@layout/fragment_current_forecast">
+    android:fillViewport="true"
+    tools:context=".screen.currentforecast.CurrentForecastFragment">
 
-    <androidx.cardview.widget.CardView
-        style="@style/LiftingToolbarCardStyle"
+    <LinearLayout
         android:layout_width="match_parent"
-        app:cardBackgroundColor="?attr/themeScreenBackground"
-        android:stateListAnimator="@animator/selector_lift_app_bar"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.nigtime.weatherapplication.common.customview.CenteredTitleToolbar
-            android:id="@+id/currentForecastToolbar"
-            style="@style/ToolbarMainStyle"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="80dp">
 
-            app:menu="@menu/current_forecast"
-            app:navigationIcon="@drawable/ic_menu"
-            app:subtitle="10:00"
-            tools:title="Moscow" />
-    </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/currentForecastCurrentTemp"
+                style="@style/PrimaryText.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:elevation="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="4°" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="80dp">
+            <TextView
+                android:id="@+id/currentForecastCurrentDescription"
+                style="@style/PrimaryText.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="@id/currentForecastCurrentTemp"
+                app:layout_constraintStart_toStartOf="@id/currentForecastCurrentTemp"
+                app:layout_constraintTop_toBottomOf="@id/currentForecastCurrentTemp"
+                tools:text="Overcast clouds" />
+
+            <ImageView
+                android:id="@+id/currentForecastCurrentIco"
+                android:layout_width="@dimen/icon_small"
+                android:layout_height="@dimen/icon_small"
+                android:layout_marginEnd="@dimen/small_margin"
+                app:layout_constraintBottom_toBottomOf="@id/currentForecastCurrentDescription"
+                app:layout_constraintEnd_toStartOf="@id/currentForecastCurrentDescription"
+                app:layout_constraintTop_toTopOf="@id/currentForecastCurrentDescription"
+                tools:src="@drawable/_weather_stub" />
+
+            <TextView
+                android:id="@+id/currentForecastCurrentFeelsLikeTemp"
+                style="@style/PrimaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="@id/currentForecastCurrentDescription"
+                app:layout_constraintStart_toStartOf="@id/currentForecastCurrentDescription"
+                app:layout_constraintTop_toBottomOf="@id/currentForecastCurrentDescription"
+                tools:text="Feels like 35°" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_size"
+            android:layout_marginHorizontal="@dimen/medium_margin"
+            android:background="?attr/themeDividerColor" />
 
         <TextView
-            android:id="@+id/currentForecastCurrentTemp"
-            style="@style/PrimaryText.Large"
-            android:layout_width="wrap_content"
+            style="@style/SecondaryText.Lowest"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:elevation="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="4°" />
+            android:layout_marginVertical="@dimen/small_margin"
+            android:paddingHorizontal="@dimen/medium_margin"
+            android:text="Прогноз на 24 часа" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/currentForecastHourlyList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_hourly_forecast" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_size"
+            android:layout_marginHorizontal="@dimen/medium_margin"
+            android:layout_marginVertical="@dimen/small_margin"
+            android:background="?attr/themeDividerColor" />
 
         <TextView
-            android:id="@+id/currentForecastCurrentDescription"
-            style="@style/PrimaryText.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:layout_constraintEnd_toEndOf="@id/currentForecastCurrentTemp"
-            app:layout_constraintStart_toStartOf="@id/currentForecastCurrentTemp"
-            app:layout_constraintTop_toBottomOf="@id/currentForecastCurrentTemp"
-            tools:text="Overcast clouds" />
-
-        <ImageView
-            android:id="@+id/currentForecastCurrentIco"
-            android:layout_width="@dimen/icon_small"
-            android:layout_height="@dimen/icon_small"
-            android:layout_marginEnd="@dimen/small_margin"
-            app:layout_constraintBottom_toBottomOf="@id/currentForecastCurrentDescription"
-            app:layout_constraintEnd_toStartOf="@id/currentForecastCurrentDescription"
-            app:layout_constraintTop_toTopOf="@id/currentForecastCurrentDescription"
-            tools:src="@drawable/_weather_stub" />
-
-        <TextView
-            android:id="@+id/currentForecastCurrentFeelsLikeTemp"
-            style="@style/PrimaryText.Lowest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:layout_constraintEnd_toEndOf="@id/currentForecastCurrentDescription"
-            app:layout_constraintStart_toStartOf="@id/currentForecastCurrentDescription"
-            app:layout_constraintTop_toBottomOf="@id/currentForecastCurrentDescription"
-            tools:text="Feels like 35°" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_size"
-        android:layout_marginHorizontal="@dimen/medium_margin"
-        android:background="?attr/themeDividerColor" />
-
-    <TextView
-        style="@style/SecondaryText.Lowest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/small_margin"
-        android:paddingHorizontal="@dimen/medium_margin"
-        android:text="Прогноз на 24 часа" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/currentForecastHourlyList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_hourly_forecast" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_size"
-        android:layout_marginHorizontal="@dimen/medium_margin"
-        android:layout_marginVertical="@dimen/small_margin"
-        android:background="?attr/themeDividerColor" />
-
-    <TextView
-        style="@style/SecondaryText.Lowest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/small_margin"
-        android:paddingHorizontal="@dimen/medium_margin"
-        android:text="Прогноз по дням" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/currentForecastDailyList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="1"
-        tools:listitem="@layout/item_daily_forecast" />
-
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/currentForecastDaysSwitcher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginHorizontal="@dimen/small_margin"
-        android:layout_marginTop="@dimen/small_margin"
-        app:checkedButton="@id/currentForecastDisplay5days"
-        app:selectionRequired="true"
-        app:singleSelection="true">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/currentForecastDisplay5days"
-            style="@style/TextButton.SecondaryLowest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5 дн." />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/TextButton.SecondaryLowest"
+            style="@style/SecondaryText.Lowest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checkable="false"
-            android:clickable="false"
-            android:insetLeft="@dimen/small_margin"
-            android:insetRight="@dimen/small_margin"
-            android:text="|" />
+            android:layout_marginBottom="@dimen/small_margin"
+            android:paddingHorizontal="@dimen/medium_margin"
+            android:text="Прогноз по дням" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/currentForecastDisplay10days"
-            style="@style/TextButton.SecondaryLowest"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/currentForecastDailyList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_daily_forecast" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/currentForecastDaysSwitcher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10 дн." />
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="@dimen/small_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            app:checkedButton="@id/currentForecastDisplay5days"
+            app:selectionRequired="true"
+            app:singleSelection="true">
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/TextButton.SecondaryLowest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checkable="false"
-            android:clickable="false"
-            android:insetLeft="@dimen/small_margin"
-            android:insetRight="@dimen/small_margin"
-            android:text="|" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/currentForecastDisplay5days"
+                style="@style/TextButton.SecondaryLowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5 дн." />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/currentForecastDisplay16days"
-            style="@style/TextButton.SecondaryLowest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:insetLeft="@dimen/small_margin"
-            android:insetRight="@dimen/small_margin"
-            android:text="16 д" />
+            <com.google.android.material.button.MaterialButton
+                style="@style/TextButton.SecondaryLowest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkable="false"
+                android:clickable="false"
+                android:insetLeft="@dimen/small_margin"
+                android:insetRight="@dimen/small_margin"
+                android:text="|" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/currentForecastDisplay10days"
+                style="@style/TextButton.SecondaryLowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10 дн." />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/TextButton.SecondaryLowest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkable="false"
+                android:clickable="false"
+                android:insetLeft="@dimen/small_margin"
+                android:insetRight="@dimen/small_margin"
+                android:text="|" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/currentForecastDisplay16days"
+                style="@style/TextButton.SecondaryLowest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:insetLeft="@dimen/small_margin"
+                android:insetRight="@dimen/small_margin"
+                android:text="16 д" />
 
 
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+        </com.google.android.material.button.MaterialButtonToggleGroup>
 
+    </LinearLayout>
+</com.nigtime.weatherapplication.screen.currentforecast.FixedNestedScrollView>
 
-</LinearLayout>

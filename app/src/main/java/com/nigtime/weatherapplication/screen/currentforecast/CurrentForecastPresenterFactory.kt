@@ -13,20 +13,18 @@ class CurrentForecastPresenterFactory : BasePresenterFactory<CurrentForecastPres
 
     companion object {
         private val daysSwitchSubject: Subject<Int> = BehaviorSubject.create()
+        private val verticalScrollSubject: Subject<Int> = BehaviorSubject.create()
     }
 
     val presenter: CurrentForecastPresenter = CurrentForecastPresenter(
         appContainer.schedulerProvider,
         appContainer.forecastManager,
-        daysSwitchSubject
+        daysSwitchSubject,
+        verticalScrollSubject
     )
 
     override fun createPresenter(): CurrentForecastPresenter {
         return presenter
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("sas", "cleared ${hashCode()}")
-    }
 }
