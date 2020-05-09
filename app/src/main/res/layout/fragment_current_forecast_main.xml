@@ -5,50 +5,42 @@
   ~ Сreated by Igor Pokrovsky. 2020/5/6
   -->
 
-<com.nigtime.weatherapplication.common.customview.FixedNestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/currentForecastScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:background="?attr/themeScreenBackground"
-    tools:context=".screen.currentforecast.CurrentForecastFragment">
+    android:orientation="vertical"
+    tools:background="?attr/themeScreenBackground">
 
-    <LinearLayout
+
+    <include layout="@layout/fragment_current_forecast_main_current" />
+
+    <View
+        style="@style/DividerDefaultStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="@dimen/divider_size"
+        android:layout_marginHorizontal="@dimen/medium_margin" />
 
+    <include layout="@layout/fragment_current_forecast_main_hourly" />
 
-        <include layout="@layout/fragment_current_forecast_main_current" />
+    <View
+        style="@style/DividerDefaultStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_size"
+        android:layout_marginHorizontal="@dimen/medium_margin"
+        android:layout_marginVertical="@dimen/small_margin" />
 
-        <View
-            style="@style/DividerDefaultStyle"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_size"
-            android:layout_marginHorizontal="@dimen/medium_margin" />
+    <include layout="@layout/fragment_current_forecast_main_daily" />
 
-        <include layout="@layout/fragment_current_forecast_main_hourly" />
+    <View
+        style="@style/DividerDefaultStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_size"
+        android:layout_marginHorizontal="@dimen/medium_margin"
+        android:layout_marginVertical="@dimen/small_margin" />
 
-        <View
-            style="@style/DividerDefaultStyle"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_size"
-            android:layout_marginHorizontal="@dimen/medium_margin"
-            android:layout_marginVertical="@dimen/small_margin" />
+    <include layout="@layout/fragment_current_forecast_main_more" />
 
-        <include layout="@layout/fragment_current_forecast_main_daily" />
+</LinearLayout>
 
-        <View
-            style="@style/DividerDefaultStyle"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_size"
-            android:layout_marginHorizontal="@dimen/medium_margin"
-            android:layout_marginVertical="@dimen/small_margin" />
-
-        <include
-            layout="@layout/fragment_current_forecast_main_more" />
-
-    </LinearLayout>
-</com.nigtime.weatherapplication.common.customview.FixedNestedScrollView>
 

@@ -31,20 +31,32 @@
         android:layout_height="match_parent"
         android:background="?attr/themeScreenBackground">
 
-        <com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout
-            android:id="@+id/currentForecastViewSwitcher"
-            style="@style/CrossFadeDefaultStyle"
+
+        <com.nigtime.weatherapplication.common.customview.FixedNestedScrollView
+            android:id="@+id/currentForecastScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:crossDisplayedChild="0">
+            android:fillViewport="true"
+            tools:context=".screen.currentforecast.CurrentForecastFragment">
 
-            <include layout="@layout/fragment_current_forecast_main" />
+            <com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout
+                android:id="@+id/currentForecastViewSwitcher"
+                style="@style/CrossFadeDefaultStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:crossDisplayedChild="0">
 
-            <include layout="@layout/fragment_current_forecast_load" />
+                <include layout="@layout/fragment_current_forecast_main" />
 
-            <include layout="@layout/fragment_current_forecast_error" />
+                <include layout="@layout/fragment_current_forecast_load" />
 
-        </com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout>
+                <include layout="@layout/fragment_current_forecast_error" />
+
+            </com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout>
+
+        </com.nigtime.weatherapplication.common.customview.FixedNestedScrollView>
+
+
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>
 
