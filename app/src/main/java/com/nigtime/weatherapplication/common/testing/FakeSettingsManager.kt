@@ -5,14 +5,17 @@
 package com.nigtime.weatherapplication.common.testing
 
 import android.content.Context
-import com.nigtime.weatherapplication.domain.settings.SettingsManager
-import com.nigtime.weatherapplication.domain.settings.TempUnit
-import com.nigtime.weatherapplication.domain.settings.UnitFormatter
+import com.nigtime.weatherapplication.domain.settings.*
 
 class FakeSettingsManager constructor(private val context: Context) :
     SettingsManager {
 
     override fun getUnitFormatter(): UnitFormatter {
-        return UnitFormatter(context, TempUnit.Celsius)
+        return UnitFormatter(
+            context,
+            UnitOfTemp.Fahrenheit,
+            UnitOfSpeed.MetrePerSeconds,
+            UnitOfPressure.MBar
+        )
     }
 }

@@ -15,11 +15,16 @@ import com.nigtime.weatherapplication.domain.city.CityForForecast
 import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
 import com.nigtime.weatherapplication.domain.forecast.DailyForecast
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
+import com.nigtime.weatherapplication.domain.forecast.Wind
 import com.nigtime.weatherapplication.domain.settings.UnitFormatter
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.PresenterFactory
 import kotlinx.android.synthetic.main.fragment_current_forecast.*
 import kotlinx.android.synthetic.main.fragment_current_forecast_main.*
+import kotlinx.android.synthetic.main.fragment_current_forecast_main_current.*
+import kotlinx.android.synthetic.main.fragment_current_forecast_main_daily.*
+import kotlinx.android.synthetic.main.fragment_current_forecast_main_hourly.*
+import kotlinx.android.synthetic.main.fragment_current_forecast_main_more.*
 
 /**
  * Главный экран с погодой
@@ -148,13 +153,12 @@ class CurrentForecastFragment :
         currentForecastViewSwitcher.switchTo(0, false)
     }
 
-    override fun setCurrentForecast(currentForecast: CurrentForecast) {
-        currentForecastCurrentTemp.text =
-            unitFormatter!!.formatTemp(currentForecast.weatherInfo.temp)
+    override fun setDetailedWeather(detailedWeather: CurrentForecast.DetailedWeather) {
+        currentForecastCurrentTemp.text = unitFormatter!!.formatTemp(detailedWeather.temp)
         currentForecastCurrentFeelsLikeTemp.text =
-            unitFormatter!!.formatFeelsLikeTemp(currentForecast.weatherInfo.feelsLikeTemp)
-        currentForecastCurrentDescription.setText(currentForecast.weatherInfo.description)
-        currentForecastCurrentIco.setImageResource(currentForecast.weatherInfo.ico)
+            unitFormatter!!.formatFeelsLikeTemp(detailedWeather.feelsLikeTemp)
+        currentForecastCurrentDescription.setText(detailedWeather.description)
+        currentForecastCurrentIco.setImageResource(detailedWeather.ico)
     }
 
     override fun setHourlyForecast(hourlyWeatherList: List<HourlyForecast.HourlyWeather>) {
@@ -176,6 +180,21 @@ class CurrentForecastFragment :
 
     private fun liftAppBar(doLift: Boolean) {
         currentForecastAppBar.isSelected = doLift
+    }
+
+    override fun setWind(wind: Wind) {
+        currentForecastWindIndicator.rotation = wind.degrees.toFloat()
+        currentForecastWindSpeed.text = unitFormatter!!.formatSpeed(wind.speed)
+        currentForecastWindDirChars.setText(wind.cardinalDirection.getAbbreviatedName())
+    }
+
+    override fun setHumidity(humidity: Int) {
+        currentForecastHumidity.text = unitFormatter!!.formatHumidity(humidity)
+    }
+
+
+    override fun setPressure(pressure: Double) {
+        currentForecastPressure.text = unitFormatter!!.formatPressure(pressure)
     }
 
 

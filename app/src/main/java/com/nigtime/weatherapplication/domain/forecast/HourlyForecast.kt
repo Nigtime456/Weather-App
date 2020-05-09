@@ -4,6 +4,8 @@
 
 package com.nigtime.weatherapplication.domain.forecast
 
-class HourlyForecast constructor(val hourlyWeather: List<HourlyWeather>) {
-    class HourlyWeather(temp: Double, ico: Int,val hour: String) : Weather(temp, ico)
+import androidx.annotation.DrawableRes
+
+data class HourlyForecast constructor(val hourlyWeather: List<HourlyWeather>) {
+    data class HourlyWeather(val temp: Double, @DrawableRes val ico: Int, val hour: String)
 }

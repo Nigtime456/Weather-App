@@ -25,6 +25,7 @@
         android:layout_height="@dimen/icon_small"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/small_margin"
+        android:contentDescription="@string/content_description_weather_ico"
         tools:src="@drawable/_weather_stub" />
 
     <TextView

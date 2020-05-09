@@ -12,8 +12,7 @@
         android:id="@+id/wishAppbar"
         style="@style/LiftingToolbarCardStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stateListAnimator="@animator/selector_lift_app_bar">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,9 +35,7 @@
         android:id="@+id/wishViewSwitcher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:crossAnimationDuration="@integer/cross_anim_duration"
-        app:crossDisplayedChild="1"
-        app:crossStartDelay="@integer/cross_start_delay">
+        app:crossDisplayedChild="1">
 
         <LinearLayout
             android:layout_width="wrap_content"

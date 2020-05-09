@@ -12,9 +12,7 @@
         android:id="@+id/currentForecastAppBar"
         style="@style/LiftingToolbarCardStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stateListAnimator="@animator/selector_lift_app_bar"
-        app:cardBackgroundColor="?attr/themeScreenBackground">
+        android:layout_height="wrap_content">
 
         <com.nigtime.weatherapplication.common.customview.CenteredTitleToolbar
             android:id="@+id/currentForecastToolbar"
@@ -35,11 +33,10 @@
 
         <com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout
             android:id="@+id/currentForecastViewSwitcher"
+            style="@style/CrossFadeDefaultStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:crossAnimationDuration="@integer/cross_anim_duration"
-            app:crossDisplayedChild="0"
-            app:crossStartDelay="@integer/cross_start_delay">
+            app:crossDisplayedChild="0">
 
             <include layout="@layout/fragment_current_forecast_main" />
 

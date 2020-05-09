@@ -97,9 +97,12 @@ class CurrentForecastPresenter(
         dailyWeatherList = triple.third.dailyWeather
 
         getView()?.showMainLayout()
-        getView()?.setCurrentForecast(triple.first)
-        getView()?.setHourlyForecast(triple.second.hourlyWeather)
+        getView()?.setDetailedWeather(triple.first.detailedWeather)
         showDailyForecast()
+        getView()?.setHourlyForecast(triple.second.hourlyWeather)
+        getView()?.setWind(triple.first.wind)
+        getView()?.setHumidity(triple.first.humidity)
+        getView()?.setPressure(triple.first.pressure)
     }
 
     private fun showDailyForecast() {

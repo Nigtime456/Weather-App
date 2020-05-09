@@ -4,8 +4,15 @@
 
 package com.nigtime.weatherapplication.domain.forecast
 
-class Wind constructor(speed: Double, dirDegree: Int, dirAbbreviated: Int) {
+import androidx.annotation.StringRes
+import com.nigtime.weatherapplication.R
 
+data class Wind constructor(val speed: Double, val degrees: Int) {
+    val cardinalDirection: CardinalDirection
+
+    init {
+        cardinalDirection = CardinalDirection.fromDegrees(degrees)
+    }
 
     enum class CardinalDirection {
         N, NNE, NE, ENE,
@@ -32,6 +39,28 @@ class Wind constructor(speed: Double, dirDegree: Int, dirAbbreviated: Int) {
         NW  -> 303.75 - 326.25
         NNW -> 326.25 - 348.75
          */
+
+        @StringRes
+        fun getAbbreviatedName(): Int {
+            return when (this) {
+                N -> R.string.units_dir_n
+                NNE -> R.string.units_dir_nne
+                NE -> R.string.units_dir_ne
+                ENE -> R.string.units_dir_ene
+                E -> R.string.units_dir_e
+                ESE -> R.string.units_dir_ese
+                SE -> R.string.units_dir_se
+                SSE -> R.string.units_dir_sse
+                S -> R.string.units_dir_s
+                SSW -> R.string.units_dir_ssw
+                SW -> R.string.units_dir_sw
+                WSW -> R.string.units_dir_wsw
+                W -> R.string.units_dir_w
+                WNW -> R.string.units_dir_wnw
+                NW -> R.string.units_dir_nw
+                NNW -> R.string.units_dir_nnw
+            }
+        }
 
         companion object {
             fun fromDegrees(degrees: Int): CardinalDirection {

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/5/9
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/medium_margin"
+    android:background="?attr/themeScreenBackground">
+
+    <TextView
+        android:id="@+id/title_more"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/current_forecast_more"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/currentForecastWindDirChars"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/wind_ico"
+        app:layout_constraintEnd_toEndOf="@id/ic_location"
+        app:layout_constraintStart_toStartOf="@id/ic_location"
+        app:layout_constraintTop_toTopOf="@+id/wind_ico"
+        tools:text="AB" />
+
+    <FrameLayout
+        android:id="@+id/ic_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/shape_circle_outline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/divider2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/currentForecastWindDirChars">
+
+        <ImageView
+            android:id="@+id/currentForecastWindIndicator"
+            android:layout_width="@dimen/icon_small"
+            android:layout_height="@dimen/icon_small"
+            android:layout_margin="8dp"
+            android:contentDescription="@string/content_description_wind_dir"
+            android:src="@drawable/ic_navigation" />
+    </FrameLayout>
+
+
+    <ImageView
+        android:id="@+id/wind_ico"
+        android:layout_width="@dimen/icon_small"
+        android:layout_height="@dimen/icon_small"
+        android:contentDescription="@string/content_description_wind"
+        android:src="@drawable/ic_wind"
+        app:layout_constraintBottom_toTopOf="@id/divider1"
+        app:layout_constraintStart_toStartOf="@+id/divider1"
+        app:layout_constraintTop_toBottomOf="@id/title_more"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/title_wind"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_margin"
+        android:text="@string/current_forecast_wind"
+        app:layout_constraintBottom_toBottomOf="@id/wind_ico"
+        app:layout_constraintStart_toEndOf="@id/wind_ico"
+        app:layout_constraintTop_toTopOf="@id/wind_ico" />
+
+    <TextView
+        android:id="@+id/currentForecastWindSpeed"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/title_wind"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title_wind"
+        tools:text="14 m/s" />
+
+
+    <View
+        android:id="@+id/divider1"
+        style="@style/DividerDefaultStyle"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/small_margin"
+        app:layout_constraintBottom_toTopOf="@id/pressure_ico"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/title_more"
+        app:layout_constraintTop_toBottomOf="@id/wind_ico" />
+
+    <ImageView
+        android:id="@+id/pressure_ico"
+        android:layout_width="@dimen/icon_small"
+        android:layout_height="@dimen/icon_small"
+        android:contentDescription="@string/content_description_pressure"
+        android:src="@drawable/ic_pressure"
+        app:layout_constraintBottom_toTopOf="@id/divider2"
+        app:layout_constraintStart_toStartOf="@+id/divider1"
+        app:layout_constraintTop_toTopOf="@id/divider1" />
+
+    <TextView
+        android:id="@+id/currentForecastPressure"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/title_pressure"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title_pressure"
+        tools:text="998 mm" />
+
+    <TextView
+        android:id="@+id/title_pressure"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_margin"
+        android:text="@string/current_forecast_pressure"
+        app:layout_constraintBottom_toBottomOf="@id/pressure_ico"
+        app:layout_constraintStart_toEndOf="@id/pressure_ico"
+        app:layout_constraintTop_toTopOf="@id/pressure_ico" />
+
+    <View
+        android:id="@+id/divider2"
+        style="@style/DividerDefaultStyle"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/small_margin"
+        app:layout_constraintBottom_toTopOf="@id/humidity_ico"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/divider1"
+        app:layout_constraintTop_toBottomOf="@id/pressure_ico" />
+
+    <ImageView
+        android:id="@+id/humidity_ico"
+        android:layout_width="@dimen/icon_small"
+        android:layout_height="@dimen/icon_small"
+        android:contentDescription="@string/content_description_humidity"
+        android:src="@drawable/ic_humidity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/divider2"
+        app:layout_constraintTop_toTopOf="@id/divider2" />
+
+    <TextView
+        android:id="@+id/title_humidity"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_margin"
+        android:text="@string/current_forecast_humidity"
+        app:layout_constraintBottom_toBottomOf="@id/humidity_ico"
+        app:layout_constraintStart_toEndOf="@id/humidity_ico"
+        app:layout_constraintTop_toTopOf="@id/humidity_ico" />
+
+    <TextView
+        android:id="@+id/currentForecastHumidity"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/title_humidity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title_humidity"
+        tools:text="90%" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

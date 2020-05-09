@@ -4,13 +4,15 @@
 
 package com.nigtime.weatherapplication.domain.forecast
 
-class DailyForecast(val dailyWeather: List<DailyWeather>) {
+import androidx.annotation.DrawableRes
+
+data class DailyForecast(val dailyWeather: List<DailyWeather>) {
 
     class DailyWeather(
         val maxTemp: Double,
         val minTemp: Double,
-        val ico: Int,
+        @DrawableRes val ico: Int,
         val index: Int,
-        val unixTime: Long
+        val unixTimestamp: Long
     )
 }

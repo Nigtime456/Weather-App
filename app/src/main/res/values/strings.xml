@@ -4,9 +4,44 @@
     <!--  Common  -->
     <string name="content_description_start_drag">Начать перетаскивание</string>
     <string name="content_description_temp">Температура</string>
+    <string name="content_description_weather_ico">Иконка погоды</string>
+    <string name="content_description_wind_dir">Направлние ветра</string>
+    <string name="content_description_wind">Ветер</string>
+    <string name="content_description_pressure">Давление</string>
+    <string name="content_description_humidity">Влажность</string>
 
+    <!--  units formatting  -->
     <string name="units_temp_f">%.0f°</string>
     <string name="units_feels_like_temp_f">feels like %.0f°</string>
+
+    <string name="units_today">Сегодня</string>
+    <string name="units_tomorrow">Завтра</string>
+
+    <string name="units_dir_n">N</string>
+    <string name="units_dir_nne">NNE</string>
+    <string name="units_dir_ne">NE</string>
+    <string name="units_dir_ene">ENE</string>
+    <string name="units_dir_e">E</string>
+    <string name="units_dir_ese">ESE</string>
+    <string name="units_dir_se">SE</string>
+    <string name="units_dir_sse">SSE</string>
+    <string name="units_dir_s">S</string>
+    <string name="units_dir_ssw">SSW</string>
+    <string name="units_dir_sw">SW</string>
+    <string name="units_dir_wsw">WSW</string>
+    <string name="units_dir_w">W</string>
+    <string name="units_dir_wnw">WNW</string>
+    <string name="units_dir_nw">NW</string>
+    <string name="units_dir_nnw">NNW</string>
+
+    <string name="units_kph_f">%.1f km/h</string>
+    <string name="units_mph_f">%.1f mi/h</string>
+    <string name="units_kn_f">%.1f knot</string>
+    <string name="units_mps_f">%.1f m/s</string>
+
+    <string name="units_humidity_f">%s %%</string>
+
+    <string name="units_mbar_f">%.0f mBar</string>
 
     <!--  Search city  -->
     <string name="search_title">Добавить город</string>
@@ -30,6 +65,18 @@
     <string name="pager_other">Прочее</string>
     <string name="pager_settings">Настройки</string>
     <string name="pager_about_app">О приложение</string>
+
+    <!--  Current forecast  -->
+    <string name="current_forecast_hourly_forecast">Прогноз на 24 часа</string>
+    <string name="current_forecast_daily_forecast">Прогноз по дням</string>
+    <string name="current_forecast_5_days">5 дн.</string>
+    <string name="current_forecast_10_days">10 дн.</string>
+    <string name="current_forecast_16_days">16 дн.</string>
+    <string name="current_forecast_char_separator">|</string>
+    <string name="current_forecast_more">Подробнее</string>
+    <string name="current_forecast_wind">Ветер</string>
+    <string name="current_forecast_pressure">Давление</string>
+    <string name="current_forecast_humidity">Влажность</string>
 
     <!--  Menu  -->
     <string name="menu_add_city">Add city</string>

@@ -28,7 +28,7 @@ data class JsonCurrentData(
     @SerializedName("wind_cdir")
     val windDirection: String, // З
     @SerializedName("wind_dir")
-    val windDirectionAngle: Int, // 270
+    val windDirectionDegrees: Int, // 270
     @SerializedName("rh")
     val averageHumidity: Int, // 100
     @SerializedName("vis")

@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/5/9
  */
 
-package com.nigtime.weatherapplication.screen.currentforecast
+package com.nigtime.weatherapplication.common.customview
 
 import android.content.Context
 import android.util.AttributeSet

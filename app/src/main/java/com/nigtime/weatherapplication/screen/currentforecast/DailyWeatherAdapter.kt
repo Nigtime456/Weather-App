@@ -26,14 +26,14 @@ class DailyWeatherAdapter constructor(
                 oldItem: DailyForecast.DailyWeather,
                 newItem: DailyForecast.DailyWeather
             ): Boolean {
-                return oldItem.unixTime == newItem.unixTime
+                return oldItem.unixTimestamp == newItem.unixTimestamp
             }
 
             override fun areContentsTheSame(
                 oldItem: DailyForecast.DailyWeather,
                 newItem: DailyForecast.DailyWeather
             ): Boolean {
-                return oldItem.unixTime == newItem.unixTime
+                return oldItem.unixTimestamp == newItem.unixTimestamp
             }
 
         }
