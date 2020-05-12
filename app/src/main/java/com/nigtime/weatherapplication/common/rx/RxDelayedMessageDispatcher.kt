@@ -44,29 +44,24 @@ class RxDelayedMessageDispatcher constructor(
      * Немедленно выполнить сообщение
      */
     fun forceRun() {
-        runCallback()
-    }
-
-    /**
-     * отменить ожижадающее сообщение
-     */
-    fun cancelMessage() {
         dis?.dispose()
         dis = null
+        runCallback()
     }
 
     fun getMessage(): Runnable? {
         return pendingMessage
     }
 
-    fun clearMessage() {
+    fun cancelMessage() {
+        dis?.dispose()
+        dis = null
         pendingMessage = null
     }
 
     private fun runCallback() {
-        cancelMessage()
         pendingMessage?.run()
-        clearMessage()
+        pendingMessage = null
     }
 
     private fun delayInvoke() {

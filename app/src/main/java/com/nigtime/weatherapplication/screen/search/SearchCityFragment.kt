@@ -20,6 +20,9 @@ import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.NavigationController
 import com.nigtime.weatherapplication.screen.common.PresenterFactory
 import com.nigtime.weatherapplication.screen.search.paging.PagedSearchAdapter
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.fragment_search_city.*
 
 
@@ -27,11 +30,16 @@ class SearchCityFragment :
     BaseFragment<SearchCityView, SearchCityPresenter, NavigationController>(R.layout.fragment_search_city),
     SearchCityView {
 
-    /**
-     * Интерфейс слушателя, который получит позицию добавленого города.
-     */
-    interface TargetFragment {
-        fun onCityInserted(position: Int)
+    companion object {
+        private val insertSubject: Subject<Int> = PublishSubject.create()
+
+        /**
+         * [Observable] который вернет позицию нового гороад,
+         * если он добавлен.
+         * Другие фрагменты могут использовать это для координации
+         * списка/страниц.
+         */
+        fun observeInsert(): Observable<Int> = insertSubject
     }
 
     private val liftScrollListener = ViewTreeObserver.OnScrollChangedListener {
@@ -81,7 +89,7 @@ class SearchCityFragment :
     }
 
     private fun setupInputField() {
-        searchEditText.changeTextListener(presenter::processInput)
+        searchEditText.changeTextListener(presenter::processTextInput)
     }
 
     private fun setupRecycler() {
@@ -144,14 +152,12 @@ class SearchCityFragment :
         searchViewSwitcher.switchTo(3, false)
     }
 
-    override fun showToastAlreadyWish() {
+    override fun showToastAlreadyAdded() {
         showToast(R.string.search_already_selected)
     }
 
     override fun setInsertedResult(position: Int) {
-        if (targetFragment is TargetFragment) {
-            (targetFragment as TargetFragment).onCityInserted(position)
-        }
+        insertSubject.onNext(position)
     }
 
     override fun navigateToPreviousScreen() {

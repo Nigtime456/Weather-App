@@ -31,52 +31,55 @@ interface Screen {
         fun splash() = object : Screen {
             override fun load(manager: FragmentManager, @IdRes container: Int, args: Bundle?) {
                 manager.beginTransaction()
-                    .replace(container, SplashFragment())
+                    .add(container, SplashFragment::class.java, null)
                     .commit()
             }
         }
 
-        fun searchCity(targetFragment: Fragment) = object : Screen {
+        fun searchCity() = object : Screen {
             override fun load(manager: FragmentManager, @IdRes container: Int, args: Bundle?) {
-                val frag = findFrag(manager, SEARCH) { SearchCityFragment() }
-                frag.setTargetFragment(targetFragment, 0)
+                val transaction = manager.beginTransaction()
+                val currentlyVisible = findCurrentlyVisibleFrag(manager)
 
-                manager.beginTransaction()
-                    .addToBackStack(null)
-                    .replace(container, frag, SEARCH)
+                currentlyVisible?.let {
+                    transaction.hide(currentlyVisible)
+                }
+                transaction
+                    .add(container, SearchCityFragment::class.java, null)
+                    .addToBackStack(SEARCH)
                     .commit()
             }
         }
 
-        fun wishList(targetFragment: Fragment? = null) = object : Screen {
+        fun wishList() = object : Screen {
             override fun load(manager: FragmentManager, @IdRes container: Int, args: Bundle?) {
-                val frag = findFrag(manager, WISH_LIST) { WishCitiesFragment() }
+                val transaction = manager.beginTransaction()
+                val currentlyVisible = findCurrentlyVisibleFrag(manager)
 
-                targetFragment?.let { targetFrag ->
-                    frag.setTargetFragment(targetFrag, 0)
+                currentlyVisible?.let {
+                    transaction.hide(currentlyVisible)
                 }
 
-                manager.beginTransaction()
+                transaction
+                    .add(container, WishCitiesFragment::class.java, null)
                     .addToBackStack(WISH_LIST)
-                    .replace(container, frag, WISH_LIST)
                     .commit()
+
             }
         }
 
         fun pager() = object : Screen {
             override fun load(manager: FragmentManager, @IdRes container: Int, args: Bundle?) {
-                val frag = findFrag(manager, PAGER) { PagerCityFragment() }
-
                 manager.beginTransaction()
                     .replace(container, PagerCityFragment::class.java, null)
                     .commit()
             }
         }
 
-        @Suppress("UNCHECKED_CAST")
-        private fun <T> findFrag(manager: FragmentManager, tag: String, fallback: () -> T): T {
-            return manager.findFragmentByTag(tag).let { frag -> frag as T } ?: fallback()
+        fun findCurrentlyVisibleFrag(fragmentManager: FragmentManager): Fragment? {
+            return fragmentManager.fragments.last()
         }
+
     }
 }
 

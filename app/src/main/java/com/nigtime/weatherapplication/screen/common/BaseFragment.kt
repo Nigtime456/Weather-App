@@ -6,6 +6,7 @@ package com.nigtime.weatherapplication.screen.common
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,6 +79,15 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>, L> constructor(@L
         previousToast = null
     }
 
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        Log.d("sas","frag ${javaClass.simpleName} hidden = $hidden")
+        if (hidden) {
+            presenter.onHideView()
+        } else {
+            presenter.onShowView()
+        }
+    }
 
     fun showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
         previousToast?.cancel()

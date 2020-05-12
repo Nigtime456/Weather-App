@@ -9,6 +9,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.lifecycle.ViewModelProvider
@@ -53,6 +54,11 @@ class SplashFragment :
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("sas","destroy splash")
+    }
+
     override fun navigateToPagerScreen() {
         parentListener?.navigateTo(Screen.Factory.pager())
     }
@@ -79,6 +85,4 @@ class SplashFragment :
             endColor
         )
     }
-
-
 }

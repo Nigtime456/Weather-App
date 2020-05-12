@@ -6,6 +6,7 @@ package com.nigtime.weatherapplication.common.utility
 
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import java.util.*
 
 /**
  * Вспомогательный класс для выделения части текста, с помощью SpannableString
@@ -24,7 +25,10 @@ class ColorSpanHelper constructor(private val color: Int) {
      */
     fun highlightText(source: String, substring: String): SpannableString {
 
-        var startIndex = source.toLowerCase().indexOf(substring.toLowerCase())
+        val sourceStr = source.toLowerCase(Locale.getDefault())
+        val substringStr = substring.toLowerCase(Locale.getDefault())
+
+        var startIndex = sourceStr.indexOf(substringStr)
         var endIndex = startIndex + substring.length
 
         if (startIndex == -1)

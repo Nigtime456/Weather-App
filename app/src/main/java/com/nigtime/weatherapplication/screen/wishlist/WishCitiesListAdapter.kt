@@ -53,7 +53,7 @@ class WishCitiesListAdapter constructor(private val listener: Listener) :
 
         fun getCurrentItem() = currentItem ?: error("current item == null")
 
-        fun release() {
+        fun recycle() {
             currentItem = null
         }
 
@@ -134,7 +134,7 @@ class WishCitiesListAdapter constructor(private val listener: Listener) :
 
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
-        holder.release()
+        holder.recycle()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

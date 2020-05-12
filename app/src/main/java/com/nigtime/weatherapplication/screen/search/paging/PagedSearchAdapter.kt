@@ -20,6 +20,24 @@ import kotlinx.android.synthetic.main.item_search_city.view.*
 class PagedSearchAdapter constructor(private val spannHelper: ColorSpanHelper) :
     PagedListAdapter<SearchCity, PagedSearchAdapter.CityViewHolder>(DIFF_CALLBACK) {
 
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<SearchCity>() {
+            override fun areItemsTheSame(
+                oldItem: SearchCity,
+                newItem: SearchCity
+            ): Boolean {
+                return oldItem.cityId == newItem.cityId
+            }
+
+            override fun areContentsTheSame(
+                oldItem: SearchCity,
+                newItem: SearchCity
+            ): Boolean {
+                return oldItem.cityId == newItem.cityId && oldItem.query == newItem.query
+            }
+        }
+    }
+
     /**
      * Оптимизированная обработка кликов: не создается OnClickListener на каждый элемент
      */
@@ -71,35 +89,17 @@ class PagedSearchAdapter constructor(private val spannHelper: ColorSpanHelper) :
             currentCity = city
             itemView.itemSearchName.text = spannHelper.highlightText(city.name, city.query)
             itemView.itemSearchStateAndCountry.text = city.getStateAndCounty()
-            //выключаем, что отключить рипл эффект
+            //уже добавлен
             itemView.isEnabled = !city.isWish
             Log.d("sas", "city = ${city.name} isWish = ${city.isWish}")
         }
 
-        fun release() {
+        fun recycle() {
             currentCity = null
         }
 
         fun getCurrentCity(): SearchCity {
             return currentCity ?: error("currentCity == null")
-        }
-    }
-
-    companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<SearchCity>() {
-            override fun areItemsTheSame(
-                oldItem: SearchCity,
-                newItem: SearchCity
-            ): Boolean {
-                return oldItem.cityId == newItem.cityId
-            }
-
-            override fun areContentsTheSame(
-                oldItem: SearchCity,
-                newItem: SearchCity
-            ): Boolean {
-                return oldItem.cityId == newItem.cityId && oldItem.query == newItem.query
-            }
         }
     }
 
@@ -115,7 +115,6 @@ class PagedSearchAdapter constructor(private val spannHelper: ColorSpanHelper) :
 
     override fun onViewRecycled(holder: CityViewHolder) {
         super.onViewRecycled(holder)
-        holder.release()
+        holder.recycle()
     }
-
 }

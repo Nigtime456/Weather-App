@@ -11,6 +11,7 @@ import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.city.WishCitiesRepository
 import com.nigtime.weatherapplication.domain.city.WishCity
 import com.nigtime.weatherapplication.screen.common.BasePresenter
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 
 
@@ -29,10 +30,16 @@ class WishCitiesPresenter constructor(
     private var insertedPosition = NO_POSITION
     private var isListEmpty: Boolean = false
 
-    fun onClickItem(position: Int) {
+    override fun onHideView() {
+        super.onHideView()
+        getView()?.hideUndoDeleteSnack()
+        //выполняем отложенное удаление
         messageDispatcher.forceRun()
-        getView()?.setSelectedCity(position)
-        getView()?.navigateToPreviousScreen()
+    }
+
+    override fun onShowView() {
+        super.onShowView()
+        provideCities()
     }
 
     fun onItemSwiped(item: WishCity, position: Int, items: MutableList<WishCity>) {
@@ -54,12 +61,6 @@ class WishCitiesPresenter constructor(
         )
     }
 
-    fun onViewStop() {
-        getView()?.hideUndoDeleteSnack()
-        //выполняем отложенное удаление
-        messageDispatcher.forceRun()
-    }
-
     fun onItemsMoved(items: List<WishCity>) {
         logger.d("do replace")
 
@@ -72,6 +73,13 @@ class WishCitiesPresenter constructor(
             }
     }
 
+    fun onClickItem(position: Int) {
+        messageDispatcher.forceRun()
+        getView()?.setSelectedResult(position)
+        getView()?.navigateToPreviousScreen()
+    }
+
+
     fun onClickUndoDelete() {
         //отменяем удаление
         messageDispatcher.cancelMessage()
@@ -83,9 +91,7 @@ class WishCitiesPresenter constructor(
             getView()?.insertItemToList(message.item, message.position)
             getView()?.scrollToPosition(message.position)
         }
-        messageDispatcher.clearMessage()
     }
-
 
     fun provideCities() {
         getView()?.showProgressLayout()
@@ -96,6 +102,24 @@ class WishCitiesPresenter constructor(
             .subscribeAndHandleError(false) { list ->
                 checkList(list, true)
             }
+    }
+
+
+    fun onClickNavigationButton() {
+        if (!isListEmpty) {
+            getView()?.navigateToPreviousScreen()
+        } else {
+            getView()?.showDialogEmptyList()
+        }
+    }
+
+    fun onClickMenuAdd() {
+        getView()?.navigateToSearchCityScreen()
+    }
+
+    fun observeInsertNewCity(insertObservable: Observable<Int>) {
+        insertObservable.subscribe { position -> insertedPosition = position }
+            .disposeOnDetach()
     }
 
     /**
@@ -121,28 +145,6 @@ class WishCitiesPresenter constructor(
             getView()?.showEmptyLayout()
         }
     }
-
-    fun onClickNavigationButton() {
-        if (!isListEmpty) {
-            getView()?.navigateToPreviousScreen()
-        } else {
-            getView()?.showDialogEmptyList()
-        }
-    }
-
-    /**
-     * Вызывается когда добавлен новый город, через поиск.
-     * В данном случае презентер выполняет скролл к
-     * добавленной позиции
-     */
-    fun onCityInsertedAt(position: Int) {
-        insertedPosition = position
-    }
-
-    fun onClickMenuAdd() {
-        getView()?.navigateToSearchCityScreen()
-    }
-
 
     private class DeleteItemMessage(
         val item: WishCity,

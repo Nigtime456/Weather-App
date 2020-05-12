@@ -20,7 +20,7 @@ interface WishCitiesView : MvpView {
     fun showUndoDeleteSnack(durationMillis: Int)
     fun hideUndoDeleteSnack()
     fun showDialogEmptyList()
-    fun setSelectedCity(position: Int)
+    fun setSelectedResult(position: Int)
     fun navigateToPreviousScreen()
     fun navigateToSearchCityScreen()
 }

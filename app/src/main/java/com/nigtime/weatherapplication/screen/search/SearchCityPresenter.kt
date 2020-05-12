@@ -31,9 +31,8 @@ class SearchCityPresenter constructor(
 
     fun onClickItem(searchCity: SearchCity) {
         if (searchCity.isWish) {
-            getView()?.showToastAlreadyWish()
+            getView()?.showToastAlreadyAdded()
         } else {
-            logger.d("insert, object = $searchCity")
             pagedSearchRepository.insert(searchCity)
                 .subscribeOn(schedulerProvider.syncDatabase())
                 .observeOn(schedulerProvider.ui())
@@ -49,16 +48,16 @@ class SearchCityPresenter constructor(
         getView()?.navigateToPreviousScreen()
     }
 
-    fun processInput(query: String) {
+    fun processTextInput(query: String) {
         if (query.length >= MIN_QUERY_LENGTH) {
-            loadListQuery(query.toLowerCase(Locale.getDefault()))
+            loadQueryList(query.toLowerCase(Locale.getDefault()))
         } else {
             performDispose()
             getView()?.showHintLayout()
         }
     }
 
-    private fun loadListQuery(query: String) {
+    private fun loadQueryList(query: String) {
         getView()?.showProgressLayout()
 
         pagedListLoader.loadList(pagedSearchRepository, query)
@@ -72,6 +71,7 @@ class SearchCityPresenter constructor(
                 }
             }
     }
+
 }
 
 

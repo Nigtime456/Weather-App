@@ -22,25 +22,28 @@ import com.nigtime.weatherapplication.screen.common.NavigationController
 import com.nigtime.weatherapplication.screen.common.PresenterFactory
 import com.nigtime.weatherapplication.screen.common.Screen
 import com.nigtime.weatherapplication.screen.search.SearchCityFragment
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.fragmet_wish_list.*
 
 
 class WishCitiesFragment :
     BaseFragment<WishCitiesView, WishCitiesPresenter, NavigationController>(R.layout.fragmet_wish_list),
-    WishCitiesView,
-    SearchCityFragment.TargetFragment {
+    WishCitiesView {
 
+    companion object {
+        private val selectSubject: Subject<Int> = PublishSubject.create()
 
-    /**
-     * Фрагмент, который
-     */
-    interface TargetFragment {
-        fun onSelectCity(position: Int)
+        /**
+         * Передает позицию, элемента, по которому соверншен клик
+         */
+        fun observeItemClicks(): Observable<Int> = selectSubject
     }
-
 
     private var itemTouchHelper: ItemTouchHelper? = null
     private var undoSnackbar: Snackbar? = null
+
     private val liftScrollListener = ViewTreeObserver.OnScrollChangedListener {
         wishRecycler?.let { recyclerView ->
             val scrollOffset = recyclerView.computeVerticalScrollOffset()
@@ -82,6 +85,7 @@ class WishCitiesFragment :
         super.onViewCreated(view, savedInstanceState)
         initViews()
         presenter.provideCities()
+        presenter.observeInsertNewCity(SearchCityFragment.observeInsert())
     }
 
     override fun onDestroyView() {
@@ -98,7 +102,6 @@ class WishCitiesFragment :
     override fun onStop() {
         super.onStop()
         wishRecycler.viewTreeObserver.removeOnScrollChangedListener(liftScrollListener)
-        presenter.onViewStop()
     }
 
     private fun initViews() {
@@ -198,16 +201,8 @@ class WishCitiesFragment :
         Toast.makeText(requireContext(), "Список не должен быть пустым!", Toast.LENGTH_LONG).show()
     }
 
-    override fun onCityInserted(position: Int) {
-        //TODO странное поведение, в этот момент презентер отсоеденен
-        //нужно обдумать что с этим делать
-        presenter.onCityInsertedAt(position)
-    }
-
-    override fun setSelectedCity(position: Int) {
-        if (targetFragment is TargetFragment) {
-            (targetFragment as TargetFragment).onSelectCity(position)
-        }
+    override fun setSelectedResult(position: Int) {
+        selectSubject.onNext(position)
     }
 
     override fun navigateToPreviousScreen() {
@@ -215,8 +210,6 @@ class WishCitiesFragment :
     }
 
     override fun navigateToSearchCityScreen() {
-        parentListener?.navigateTo(Screen.Factory.searchCity(this))
+        parentListener?.navigateTo(Screen.Factory.searchCity())
     }
-
-
 }

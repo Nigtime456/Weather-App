@@ -30,9 +30,7 @@ import kotlinx.android.synthetic.main.fragment_pager.*
 class PagerCityFragment :
     BaseFragment<PagerCityView, PagerCityPresenter, NavigationController>(R.layout.fragment_pager),
     PagerCityView,
-    CurrentForecastFragment.ParentListener,
-    SearchCityFragment.TargetFragment,
-    WishCitiesFragment.TargetFragment {
+    CurrentForecastFragment.ParentListener{
 
 
     companion object {
@@ -139,23 +137,26 @@ class PagerCityFragment :
     }
 
     override fun onClickAddCity() {
-        parentListener?.navigateTo(Screen.Factory.searchCity(this))
+        parentListener?.navigateTo(Screen.Factory.searchCity())
     }
 
     override fun navigateToWishListScreen() {
-        parentListener?.navigateTo(Screen.Factory.wishList(this))
+        parentListener?.navigateTo(Screen.Factory.wishList())
     }
 
     override fun onClickOpenDrawer() {
         openDrawer()
     }
 
-    override fun onCityInserted(position: Int) {
+
+    //TODO исправь
+     fun onCityInserted(position: Int) {
         //TODO в этот момент презентер отсоеден
         presenter.setPagerPosition(position)
     }
 
-    override fun onSelectCity(position: Int) {
+    //TODO исправь
+    fun onSelectCity(position: Int) {
         //TODO в этот момент презентер отсоеден
         presenter.setPagerPosition(position)
     }
