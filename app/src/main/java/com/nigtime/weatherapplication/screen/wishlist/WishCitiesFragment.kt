@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.common.helper.ThemeHelper
-import com.nigtime.weatherapplication.common.helper.list.ColorDividerDecoration
-import com.nigtime.weatherapplication.common.helper.list.ItemTouchController
+import com.nigtime.weatherapplication.common.utility.ThemeHelper
+import com.nigtime.weatherapplication.common.utility.list.ColorDividerDecoration
+import com.nigtime.weatherapplication.common.utility.list.ItemTouchController
 import com.nigtime.weatherapplication.domain.city.WishCity
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.NavigationController

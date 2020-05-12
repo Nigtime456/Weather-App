@@ -38,7 +38,7 @@ data class JsonCurrentData(
     @SerializedName("snow")
     val snow: String, // 0
     @SerializedName("uv")
-    val uvIndex: Int, // 0
+    val uvIndex: Double, // 0
     @SerializedName("precip")
     val precipitationRate: String, // 4.57895
     @SerializedName("aqi")

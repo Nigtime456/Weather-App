@@ -4,43 +4,46 @@
 
 package com.nigtime.weatherapplication.net.mappers
 
-import com.nigtime.weatherapplication.domain.forecast.*
+import android.annotation.SuppressLint
+import com.nigtime.weatherapplication.domain.forecast.AirQuality
+import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
+import com.nigtime.weatherapplication.domain.forecast.UvIndex
+import com.nigtime.weatherapplication.domain.forecast.Wind
+import com.nigtime.weatherapplication.domain.utility.WeatherConditionHelper
 import com.nigtime.weatherapplication.net.data.NetData
-import com.nigtime.weatherapplication.net.json.JsonCurrentData
 import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
+import java.text.SimpleDateFormat
 
-//TODO потокобезопастен ли этот маппер ?
-class CurrentForecastMapper {
+
+class CurrentForecastMapper constructor(
+    private val sunInfoMapper: SunInfoMapper
+) {
 
     fun map(json: NetData<JsonCurrentForecast>): CurrentForecast {
         val jsonCurrentData = json.data.forecastList[0]
-        val detailedWeather = jsonCurrentData.toDetailedWeather()
-        val wind = jsonCurrentData.toWind()
+        val wind = Wind(jsonCurrentData.windSped, jsonCurrentData.windDirectionDegrees)
         val airQuality = AirQuality(jsonCurrentData.airQualityIndex)
-        val uvIndex = UvIndex(jsonCurrentData.uvIndex)
+        val uvIndex = UvIndex(jsonCurrentData.uvIndex.toInt())
+        val icon = WeatherConditionHelper.getIconByCode(jsonCurrentData.weather.code)
+        val description = WeatherConditionHelper.getDescriptionByCode(jsonCurrentData.weather.code)
+        val sunInfo = sunInfoMapper.map(jsonCurrentData)
+
         return CurrentForecast(
-            detailedWeather,
+            jsonCurrentData.temp,
+            icon,
+            jsonCurrentData.feelsLikeTemp,
+            description,
             wind,
             jsonCurrentData.averageHumidity,
             jsonCurrentData.pressure,
             jsonCurrentData.visibility,
             airQuality,
             uvIndex,
-            jsonCurrentData.cloudsCoverage
+            jsonCurrentData.cloudsCoverage,
+            jsonCurrentData.timezone,
+            sunInfo
         )
     }
 
-
-    private fun JsonCurrentData.toWind(): Wind {
-        return Wind(windSped, windDirectionDegrees)
-    }
-
-    private fun JsonCurrentData.toDetailedWeather(): CurrentForecast.DetailedWeather {
-        val ico = WeatherInfoHelper.getIconByCode(weather.code)
-        val temp = temp
-        val feelsLikeTemp = feelsLikeTemp
-        val description = WeatherInfoHelper.getDescriptionByCode(weather.code)
-        return CurrentForecast.DetailedWeather(temp, ico, feelsLikeTemp, description)
-    }
 
 }

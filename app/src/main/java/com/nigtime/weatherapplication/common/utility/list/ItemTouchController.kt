@@ -6,7 +6,7 @@
  * Сreated by Igor Pokrovsky. 2020/4/24
  */
 
-package com.nigtime.weatherapplication.common.helper.list
+package com.nigtime.weatherapplication.common.utility.list
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

@@ -11,10 +11,10 @@ import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.common.helper.ColorSpanHelper
-import com.nigtime.weatherapplication.common.helper.SimpleTextWatcher
-import com.nigtime.weatherapplication.common.helper.ThemeHelper
-import com.nigtime.weatherapplication.common.helper.list.ColorDividerDecoration
+import com.nigtime.weatherapplication.common.utility.ColorSpanHelper
+import com.nigtime.weatherapplication.common.utility.SimpleTextWatcher
+import com.nigtime.weatherapplication.common.utility.ThemeHelper
+import com.nigtime.weatherapplication.common.utility.list.ColorDividerDecoration
 import com.nigtime.weatherapplication.domain.city.SearchCity
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.NavigationController

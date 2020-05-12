@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.common.helper.list.BaseAdapter
+import com.nigtime.weatherapplication.common.utility.list.BaseAdapter
 import com.nigtime.weatherapplication.domain.forecast.DailyForecast
 import com.nigtime.weatherapplication.domain.settings.UnitFormatter
 import kotlinx.android.synthetic.main.item_daily_forecast.view.*

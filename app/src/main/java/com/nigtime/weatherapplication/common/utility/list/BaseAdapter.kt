@@ -2,9 +2,8 @@
  * Сreated by Igor Pokrovsky. 2020/5/2
  */
 
-package com.nigtime.weatherapplication.common.helper.list
+package com.nigtime.weatherapplication.common.utility.list
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer

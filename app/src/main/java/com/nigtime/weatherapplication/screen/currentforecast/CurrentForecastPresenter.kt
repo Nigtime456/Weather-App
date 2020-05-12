@@ -62,7 +62,7 @@ class CurrentForecastPresenter(
     private fun observeDisplayedDaysChanges() {
         displayedDaysSwitchSubject.subscribe { newCount ->
             currentDisplayedDays = newCount
-            showDailyForecast()
+            showDailyWeather()
         }.disposeOnDetach()
     }
 
@@ -94,24 +94,32 @@ class CurrentForecastPresenter(
         logger.d("handleResult = ${currentCity.cityName}")
         logger.d("load time = ${System.currentTimeMillis() - startTime}")
         isDataLoaded = true
+        val currentForecast = triple.first
+        val hourlyForecast = triple.second
+        val dailyForecast = triple.third
         dailyWeatherList = triple.third.dailyWeather
 
         getView()?.showMainLayout()
-        getView()?.setDetailedWeather(triple.first.detailedWeather)
-        showDailyForecast()
-        getView()?.setHourlyForecast(triple.second.hourlyWeather)
-        getView()?.setWind(triple.first.wind)
-        getView()?.setHumidity(triple.first.humidity)
-        getView()?.setPressure(triple.first.pressure)
-        getView()?.setPrecipitation(triple.second.probabilityOfPrecipitation)
-        getView()?.setVisibility(triple.first.visibility)
-        getView()?.setAirQuality(triple.first.airQuality)
-        getView()?.setUvIndex(triple.first.uvIndex)
-        getView()?.setClouds(triple.first.clouds)
-        getView()?.setLargeWeatherIcon(triple.first.detailedWeather.ico)
+        getView()?.setCurrentTemp(currentForecast.temp)
+        getView()?.setCurrentFeelsLikeTemp(currentForecast.feelsLikeTemp)
+        getView()?.setCurrentIco(currentForecast.ico)
+        getView()?.setCurrentWeatherDescription(currentForecast.description)
+        showDailyWeather()
+        getView()?.setHourlyForecast(hourlyForecast.hourlyWeather)
+        getView()?.setWind(currentForecast.wind)
+        getView()?.setHumidity(currentForecast.humidity)
+        getView()?.setPressure(currentForecast.pressure)
+        getView()?.setPrecipitation(hourlyForecast.probabilityOfPrecipitation)
+        getView()?.setVisibility(currentForecast.visibility)
+        getView()?.setAirQuality(currentForecast.airQuality)
+        getView()?.setUvIndex(currentForecast.uvIndex)
+        getView()?.setClouds(currentForecast.cloudsCoverage)
+        getView()?.showClockWidget()
+        getView()?.setTimezone(currentForecast.timeZone)
+        getView()?.setSunInfo(currentForecast.sunInfo)
     }
 
-    private fun showDailyForecast() {
+    private fun showDailyWeather() {
         //данные не загружены ещё.
         if (!isDataLoaded)
             return

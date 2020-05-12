@@ -5,7 +5,11 @@
 package com.nigtime.weatherapplication.screen.currentforecast
 
 import android.os.Bundle
+import android.transition.TransitionManager
+import android.util.Log
 import android.view.View
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.core.os.bundleOf
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
@@ -17,9 +21,9 @@ import com.nigtime.weatherapplication.domain.settings.UnitFormatter
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.PresenterFactory
 import kotlinx.android.synthetic.main.fragment_current_forecast.*
-import kotlinx.android.synthetic.main.fragment_current_forecast_environment.*
 import kotlinx.android.synthetic.main.fragment_current_forecast_main_current.*
 import kotlinx.android.synthetic.main.fragment_current_forecast_main_daily.*
+import kotlinx.android.synthetic.main.fragment_current_forecast_main_environment.*
 import kotlinx.android.synthetic.main.fragment_current_forecast_main_hourly.*
 import kotlinx.android.synthetic.main.fragment_current_forecast_main_more.*
 import kotlinx.android.synthetic.main.fragment_current_forecast_precipitation.*
@@ -132,7 +136,7 @@ class CurrentForecastFragment :
     }
 
     override fun setCityName(cityName: String) {
-        currentForecastToolbar.title = cityName
+        currentForecastCityName.text = cityName
     }
 
     override fun showLoadLayout() {
@@ -151,12 +155,20 @@ class CurrentForecastFragment :
         currentForecastViewSwitcher.switchTo(0, false)
     }
 
-    override fun setDetailedWeather(detailedWeather: CurrentForecast.DetailedWeather) {
-        currentForecastCurrentTemp.text = unitFormatter!!.formatTemp(detailedWeather.temp)
-        currentForecastCurrentFeelsLikeTemp.text =
-            unitFormatter!!.formatFeelsLikeTemp(detailedWeather.feelsLikeTemp)
-        currentForecastCurrentDescription.setText(detailedWeather.description)
-        currentForecastCurrentIco.setImageResource(detailedWeather.ico)
+    override fun setCurrentTemp(temp: Double) {
+        currentForecastCurrentTemp.text = unitFormatter!!.formatTemp(temp)
+    }
+
+    override fun setCurrentFeelsLikeTemp(temp: Double) {
+        currentForecastCurrentFeelsLikeTemp.text = unitFormatter!!.formatFeelsLikeTemp(temp)
+    }
+
+    override fun setCurrentIco(@DrawableRes ico: Int) {
+        currentForecastCurrentIco.setImageResource(ico)
+    }
+
+    override fun setCurrentWeatherDescription(@StringRes description: Int) {
+        currentForecastCurrentDescription.setText(description)
     }
 
     override fun setHourlyForecast(hourlyWeatherList: List<HourlyForecast.HourlyWeather>) {
@@ -173,6 +185,7 @@ class CurrentForecastFragment :
 
     override fun setVerticalScroll(scrollY: Int) {
         currentForecastScrollView.delayScrollY(scrollY)
+        //TODO может вынести в презентер ?
         liftAppBar(scrollY > 0)
     }
 
@@ -220,8 +233,19 @@ class CurrentForecastFragment :
         fragmentCurrentForecastClouds.text = unitFormatter!!.formatCloudsCoverage(clouds)
     }
 
-    override fun setLargeWeatherIcon(ico: Int) {
-        currentForecastLargeWeatherIco.setImageResource(ico)
+
+    override fun showClockWidget() {
+        TransitionManager.beginDelayedTransition(currentForecastCityInfoLayout)
+        currentForecastLocalClock.visibility = View.VISIBLE
     }
+
+    override fun setTimezone(timeZone: String) {
+        currentForecastLocalClock.timeZone = timeZone
+    }
+
+    override fun setSunInfo(sunInfo: SunInfo) {
+        Log.d("sas", "sunInfo = $sunInfo")
+    }
+
 
 }

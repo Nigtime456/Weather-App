@@ -6,16 +6,19 @@ package com.nigtime.weatherapplication.net.mappers
 
 import android.annotation.SuppressLint
 import com.nigtime.weatherapplication.domain.forecast.DailyForecast
-import com.nigtime.weatherapplication.domain.forecast.WeatherInfoHelper
+import com.nigtime.weatherapplication.domain.forecast.SunInfo
+import com.nigtime.weatherapplication.domain.utility.WeatherConditionHelper
 import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.net.json.JsonDailyData
 import com.nigtime.weatherapplication.net.json.JsonDailyForecast
 import java.text.SimpleDateFormat
 
-//TODO потокобезопастен ли этот маппер ?
+@SuppressLint("SimpleDateFormat")
 class DailyForecastMapper {
-    @SuppressLint("SimpleDateFormat")
-    private val dateParser = SimpleDateFormat("yyyy-MM-dd")
+
+    companion object {
+        private const val DATE_PATTERN = "yyyy-MM-dd"
+    }
 
     fun map(json: NetData<JsonDailyForecast>): DailyForecast {
         val dailyWeatherList = json.data.forecastList.mapIndexed { index, jsonDailyData ->
@@ -25,8 +28,9 @@ class DailyForecastMapper {
     }
 
     private fun JsonDailyData.toDailyWeather(index: Int): DailyForecast.DailyWeather {
-        val ico = WeatherInfoHelper.getIconByCode(weather.code)
-        val unixTime = dateParser.parse(date)?.time ?: 0
+        val ico = WeatherConditionHelper.getIconByCode(weather.code)
+        val dateFormatter = SimpleDateFormat(DATE_PATTERN)
+        val unixTime = dateFormatter.parse(date)?.time ?: 0
         return DailyForecast.DailyWeather(maxTemp, minTemp, ico, index, unixTime)
     }
 

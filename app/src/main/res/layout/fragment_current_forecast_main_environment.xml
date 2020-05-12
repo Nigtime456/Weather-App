@@ -19,26 +19,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:contentDescription="@string/content_description_weather_ico"
-        android:id="@+id/currentForecastLargeWeatherIco"
-        android:layout_width="@dimen/icon_medium"
-        android:layout_height="@dimen/icon_medium"
-        android:layout_marginTop="@dimen/small_margin"
-        android:src="@drawable/_weather_stub"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/environment_title" />
 
     <ImageView
-        android:contentDescription="@string/current_forecast_visibility"
         android:id="@+id/ic_visibility"
         android:layout_width="@dimen/icon_small"
         android:layout_height="@dimen/icon_small"
-        android:layout_marginStart="@dimen/medium_margin"
         android:layout_marginTop="@dimen/small_margin"
+        android:contentDescription="@string/current_forecast_visibility"
         android:src="@drawable/ic_visibility"
-        app:layout_constraintStart_toEndOf="@id/currentForecastLargeWeatherIco"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/environment_title" />
 
     <TextView
@@ -73,14 +62,13 @@
         app:layout_constraintTop_toBottomOf="@id/ic_visibility" />
 
     <ImageView
-        android:contentDescription="@string/current_forecast_air_quality"
         android:id="@+id/ic_air_quality"
         android:layout_width="@dimen/icon_small"
         android:layout_height="@dimen/icon_small"
-        android:layout_marginStart="@dimen/medium_margin"
         android:layout_marginTop="@dimen/small_margin"
+        android:contentDescription="@string/current_forecast_air_quality"
         android:src="@drawable/ic_pollution"
-        app:layout_constraintStart_toEndOf="@id/currentForecastLargeWeatherIco"
+        app:layout_constraintStart_toStartOf="@id/ic_visibility"
         app:layout_constraintTop_toBottomOf="@id/divider3" />
 
     <TextView
@@ -111,18 +99,17 @@
         android:layout_height="@dimen/divider_size"
         android:layout_marginTop="@dimen/small_margin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/title_air_quality"
-        app:layout_constraintTop_toBottomOf="@id/title_air_quality" />
+        app:layout_constraintStart_toStartOf="@id/ic_air_quality"
+        app:layout_constraintTop_toBottomOf="@id/ic_air_quality" />
 
     <ImageView
-        android:contentDescription="@string/current_forecast_uv_index"
         android:id="@+id/ic_uv_index"
         android:layout_width="@dimen/icon_small"
         android:layout_height="@dimen/icon_small"
-        android:layout_marginStart="@dimen/medium_margin"
         android:layout_marginTop="@dimen/small_margin"
+        android:contentDescription="@string/current_forecast_uv_index"
         android:src="@drawable/ic_uv_index"
-        app:layout_constraintStart_toEndOf="@id/currentForecastLargeWeatherIco"
+        app:layout_constraintStart_toStartOf="@id/ic_air_quality"
         app:layout_constraintTop_toBottomOf="@id/divider4" />
 
     <TextView
@@ -157,14 +144,13 @@
         app:layout_constraintTop_toBottomOf="@id/ic_uv_index" />
 
     <ImageView
-        android:contentDescription="@string/current_forecast_clouds"
         android:id="@+id/ic_clouds"
         android:layout_width="@dimen/icon_small"
         android:layout_height="@dimen/icon_small"
-        android:layout_marginStart="@dimen/medium_margin"
         android:layout_marginTop="@dimen/small_margin"
+        android:contentDescription="@string/current_forecast_clouds"
         android:src="@drawable/ic_clouds"
-        app:layout_constraintStart_toEndOf="@id/currentForecastLargeWeatherIco"
+        app:layout_constraintStart_toStartOf="@id/ic_uv_index"
         app:layout_constraintTop_toBottomOf="@id/divider5" />
 
     <TextView

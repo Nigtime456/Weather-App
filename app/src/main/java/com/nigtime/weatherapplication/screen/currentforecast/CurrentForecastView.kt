@@ -5,6 +5,7 @@
 package com.nigtime.weatherapplication.screen.currentforecast
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.nigtime.weatherapplication.domain.forecast.*
 import com.nigtime.weatherapplication.screen.common.MvpView
 
@@ -15,7 +16,10 @@ interface CurrentForecastView : MvpView {
     fun showErrorLayout()
     fun showErrorMessage()
     fun showMainLayout()
-    fun setDetailedWeather(detailedWeather: CurrentForecast.DetailedWeather)
+    fun setCurrentTemp(temp: Double)
+    fun setCurrentFeelsLikeTemp(temp: Double)
+    fun setCurrentIco(@DrawableRes ico: Int)
+    fun setCurrentWeatherDescription(@StringRes description: Int)
     fun setHourlyForecast(hourlyWeatherList: List<HourlyForecast.HourlyWeather>)
     fun setDailyForecast(dailyWeather: List<DailyForecast.DailyWeather>)
     fun selectDaysSwitchButton(buttonId: Int)
@@ -28,5 +32,7 @@ interface CurrentForecastView : MvpView {
     fun setAirQuality(airQuality: AirQuality)
     fun setUvIndex(uvIndex: UvIndex)
     fun setClouds(clouds: Int)
-    fun setLargeWeatherIcon(@DrawableRes ico: Int)
+    fun setTimezone(timeZone: String)
+    fun setSunInfo(sunInfo: SunInfo)
+    fun showClockWidget()
 }

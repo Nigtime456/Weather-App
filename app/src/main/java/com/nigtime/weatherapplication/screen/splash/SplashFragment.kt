@@ -14,7 +14,7 @@ import android.view.animation.LinearInterpolator
 import androidx.lifecycle.ViewModelProvider
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.common.animation.BackgroundColorProperty
-import com.nigtime.weatherapplication.common.helper.ThemeHelper
+import com.nigtime.weatherapplication.common.utility.ThemeHelper
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.NavigationController
 import com.nigtime.weatherapplication.screen.common.PresenterFactory

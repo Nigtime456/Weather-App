@@ -27,6 +27,7 @@ import com.nigtime.weatherapplication.domain.settings.SettingsManager
 import com.nigtime.weatherapplication.net.mappers.CurrentForecastMapper
 import com.nigtime.weatherapplication.net.mappers.DailyForecastMapper
 import com.nigtime.weatherapplication.net.mappers.HourlyForecastMapper
+import com.nigtime.weatherapplication.net.mappers.SunInfoMapper
 import com.nigtime.weatherapplication.net.repository.AbstractCacheForecastSource
 import com.nigtime.weatherapplication.net.repository.ForecastManagerImpl
 import com.nigtime.weatherapplication.net.repository.ForecastSource
@@ -69,7 +70,7 @@ class AppContainer(context: Context) {
         forecastManager = ForecastManagerImpl(
             netSource,
             memoryCacheSource,
-            CurrentForecastMapper(),
+            CurrentForecastMapper(SunInfoMapper()),
             HourlyForecastMapper(),
             DailyForecastMapper()
         )

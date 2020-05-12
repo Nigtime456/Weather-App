@@ -13,7 +13,7 @@ class FakeSettingsManager constructor(private val context: Context) :
     override fun getUnitFormatter(): UnitFormatter {
         return UnitFormatter(
             context,
-            UnitOfTemp.Fahrenheit,
+            UnitOfTemp.Celsius,
             UnitOfSpeed.KilometrePerHour,
             UnitOfPressure.MBar,
             UnitOfLength.Kilometre

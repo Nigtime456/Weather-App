@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.common.helper.list.BaseAdapter
+import com.nigtime.weatherapplication.common.utility.list.BaseAdapter
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
 import com.nigtime.weatherapplication.domain.settings.UnitFormatter
 import kotlinx.android.synthetic.main.item_hourly_forecast.view.*

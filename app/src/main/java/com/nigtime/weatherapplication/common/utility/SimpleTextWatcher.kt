@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/5/8
  */
 
-package com.nigtime.weatherapplication.common.helper
+package com.nigtime.weatherapplication.common.utility
 
 import android.text.Editable
 import android.text.TextWatcher

@@ -43,6 +43,7 @@
 
     <string name="units_mbar_f">%.0f mBar</string>
 
+    <!--  weather info  -->
     <string name="air_quality_good_f">Good (%s)</string>
     <string name="air_quality_moderate_f">Moderate (%s)</string>
     <string name="air_quality_unhealthy_sens_f">Unhealthy for sensitive (%s)</string>
@@ -55,6 +56,56 @@
     <string name="uv_index_high_f">High (%s)</string>
     <string name="uv_index_very_high_f">Very high (%s)</string>
     <string name="uv_index_extreme_f">Extreme (%s)</string>
+    
+    <string name="weather_description_200">Thunderstorm with light rain</string>
+    <string name="weather_description_201">Thunderstorm with rain</string>
+    <string name="weather_description_202">Thunderstorm with heavy rain</string>
+
+    <string name="weather_description_230">Thunderstorm with light drizzle</string>
+    <string name="weather_description_231">Thunderstorm with drizzle</string>
+    <string name="weather_description_232">Thunderstorm with heavy drizzle</string>
+    <string name="weather_description_233">Thunderstorm with Hail</string>
+
+    <string name="weather_description_300">Light Drizzle</string>
+    <string name="weather_description_301">Drizzle</string>
+    <string name="weather_description_302">Heavy Drizzle</string>
+
+    <string name="weather_description_500">Light Rain</string>
+    <string name="weather_description_501">Moderate Rain</string>
+    <string name="weather_description_502">Heavy Rain</string>
+    <string name="weather_description_511">Freezing Rain</string>
+    <string name="weather_description_520">Light shower rain</string>
+    <string name="weather_description_521">Shower rain</string>
+    <string name="weather_description_522">Heavy shower rain</string>
+
+    <string name="weather_description_600">Light snow</string>
+    <string name="weather_description_601">Snow</string>
+    <string name="weather_description_602">Heavy Snow</string>
+    <string name="weather_description_610">Mix snow/rain</string>
+    <string name="weather_description_611">Sleet</string>
+    <string name="weather_description_612">Heavy sleet</string>
+    <string name="weather_description_621">Snow shower</string>
+    <string name="weather_description_622">Heavy snow shower</string>
+    <string name="weather_description_623">Flurries</string>
+
+    <string name="weather_description_700">Mist</string>
+    <string name="weather_description_711">Smoke</string>
+    <string name="weather_description_721">Haze</string>
+    <string name="weather_description_731">Sand/dust</string>
+    <string name="weather_description_741">Fog</string>
+    <string name="weather_description_751">Freezing Fog</string>
+
+
+    <string name="weather_description_800">Clear sky</string>
+    <string name="weather_description_801">Few clouds</string>
+    <string name="weather_description_802">Scattered clouds</string>
+    <string name="weather_description_803">Broken clouds</string>
+    <string name="weather_description_804">Overcast clouds</string>
+
+    <string name="weather_description_900">Unknown Precipitation</string>
+
+
+
 
     <!--  Search city  -->
     <string name="search_title">Добавить город</string>
@@ -99,8 +150,7 @@
     <string name="current_forecast_air_quality">Качество воздуха</string>
     <string name="current_forecast_uv_index">УФ-индекс</string>
     <string name="current_forecast_clouds">Облачность</string>
-
-
+    
     <!--  Menu  -->
     <string name="menu_add_city">Add city</string>
 
