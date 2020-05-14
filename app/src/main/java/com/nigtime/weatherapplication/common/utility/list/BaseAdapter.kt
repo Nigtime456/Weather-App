@@ -6,26 +6,26 @@ package com.nigtime.weatherapplication.common.utility.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.nigtime.weatherapplication.common.App
+import com.nigtime.weatherapplication.common.rx.RxAsyncDiffer
 
-abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> constructor(diffCallback: DiffUtil.ItemCallback<T>? = null) :
+abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> constructor(
+    private val diffCallback: SimpleDiffCallback<T>,
+    private val detectMoves: Boolean = false,
+    private val rxAsyncDiffer: RxAsyncDiffer = App.INSTANCE.appContainer.getRxAsyncDiffer()
+) :
     RecyclerView.Adapter<VH>() {
 
-    private var list = emptyList<T>()
-    private var differ: AsyncListDiffer<T>? = null
 
-
-    init {
-        diffCallback?.let {
-            differ = AsyncListDiffer(this, diffCallback)
-        }
-    }
+    private var currentList = emptyList<T>()
 
     fun submitList(newList: List<T>) {
-        list = newList
-        differ?.submitList(newList) ?: notifyDataSetChanged()
+        val genericCallback = GenericCallback(currentList, newList, diffCallback)
+        rxAsyncDiffer.submitList(genericCallback, detectMoves) { diffResult ->
+            currentList = newList
+            diffResult.dispatchUpdatesTo(this)
+        }
     }
 
     final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
@@ -37,12 +37,11 @@ abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> constructor(diffCall
         bindViewHolder(holder, position, getItem(position))
     }
 
-    final override fun getItemCount(): Int = list.size
+    final override fun getItemCount(): Int = currentList.size
 
-    fun getItem(position: Int): T = list[position]
+    fun getItem(position: Int): T = currentList[position]
 
     abstract fun bindViewHolder(holder: VH, position: Int, item: T)
 
     abstract fun createViewHolder(inflater: LayoutInflater, parent: ViewGroup, viewType: Int): VH
-
 }

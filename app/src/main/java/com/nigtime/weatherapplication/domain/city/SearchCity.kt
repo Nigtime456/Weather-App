@@ -20,6 +20,6 @@ class SearchCity constructor(
 ) : WishCity(cityId, NO_LIST_INDEX, name, stateName, countryName) {
 
     override fun toString(): String {
-        return "SearchCityData{cityId=$cityId, listIndex=$listIndex, name='$name', stateName='$stateName', countryName='$countryName', isWish='$isWish', query='$query'}"
+        return "SearchCity{cityId=$cityId, listIndex=$listIndex, name='$name', stateName='$stateName', countryName='$countryName', isWish='$isWish', query='$query'}"
     }
 }

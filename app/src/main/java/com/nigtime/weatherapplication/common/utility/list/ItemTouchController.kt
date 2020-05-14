@@ -42,13 +42,21 @@ class ItemTouchController<T : RecyclerView.ViewHolder>(
          */
         fun onItemSwiped(swiped: T)
 
+        /**
+         * Включен ли drag по лонгклику.
+         */
+        fun isLongPressDragEnabled(): Boolean
 
-        fun onStartMoveItem(viewHolder: T)
+        /**
+         * вызывается когда начинается drag элемента
+         */
+        fun onStartDragItem(viewHolder: T)
+
         /**
          * Вызывается когда все перемещения завершены и
          * список прибывает в нормальном состоянии.
          */
-        fun allMovementCompleted()
+        fun onMovementCompleted()
 
         /**
          * Вызывается когда элемент может быть очищена
@@ -70,12 +78,12 @@ class ItemTouchController<T : RecyclerView.ViewHolder>(
         super.onSelectedChanged(viewHolder, actionState)
 
         if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
-            touchAdapter.onStartMoveItem(viewHolder as T)
+            touchAdapter.onStartDragItem(viewHolder as T)
         }
 
         if (actionState == ItemTouchHelper.ACTION_STATE_IDLE && hasDrag) {
             hasDrag = false
-            touchAdapter.allMovementCompleted()
+            touchAdapter.onMovementCompleted()
         }
     }
 
@@ -93,7 +101,7 @@ class ItemTouchController<T : RecyclerView.ViewHolder>(
         return makeMovementFlags(dragFlags, swipeFlags)
     }
 
-    override fun isLongPressDragEnabled(): Boolean = false
+    override fun isLongPressDragEnabled(): Boolean = touchAdapter.isLongPressDragEnabled()
 
 
     override fun onMove(

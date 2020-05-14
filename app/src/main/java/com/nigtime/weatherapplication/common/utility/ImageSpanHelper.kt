@@ -17,6 +17,7 @@ import androidx.annotation.DrawableRes
  * Вспомогательный класс для добавления изображений в текст, с помощью SpannableString
  *
  */
+//TODO useless
 class ImageSpanHelper {
 
     companion object {

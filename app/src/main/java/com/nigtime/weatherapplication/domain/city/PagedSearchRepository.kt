@@ -12,7 +12,6 @@
 
 package com.nigtime.weatherapplication.domain.city
 
-import com.nigtime.weatherapplication.domain.city.SearchCity
 import io.reactivex.Single
 
 interface PagedSearchRepository {

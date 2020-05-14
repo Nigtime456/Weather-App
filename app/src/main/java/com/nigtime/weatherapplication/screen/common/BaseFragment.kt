@@ -81,7 +81,6 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>, L> constructor(@L
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        Log.d("sas","frag ${javaClass.simpleName} hidden = $hidden")
         if (hidden) {
             presenter.onHideView()
         } else {
@@ -93,7 +92,6 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>, L> constructor(@L
         previousToast?.cancel()
         previousToast = Toast.makeText(context, msg, duration)
         previousToast!!.show()
-
     }
 
     fun showToast(@StringRes msg: Int, duration: Int = Toast.LENGTH_SHORT) {

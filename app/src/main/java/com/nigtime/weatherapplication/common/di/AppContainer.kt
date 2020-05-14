@@ -7,6 +7,7 @@ package com.nigtime.weatherapplication.common.di
 import android.content.Context
 import com.nigtime.weatherapplication.common.cache.MemoryCacheForecastSource
 import com.nigtime.weatherapplication.common.rx.MainSchedulerProvider
+import com.nigtime.weatherapplication.common.rx.RxAsyncDiffer
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.common.testing.FakeForecastSource
 import com.nigtime.weatherapplication.common.testing.FakeSettingsManager
@@ -44,9 +45,9 @@ class AppContainer(context: Context) {
     val referenceCityDao: ReferenceCityDao
     val wishCityDao: WishCityDao
 
-    val weatherApi = ApiFactory.getInstance().getApi()
-    val netSource: ForecastSource = FakeForecastSource()
-    val memoryCacheSource: AbstractCacheForecastSource = MemoryCacheForecastSource()
+    private val weatherApi = ApiFactory.getInstance().getApi()
+    private val netSource: ForecastSource = FakeForecastSource()
+    private val memoryCacheSource: AbstractCacheForecastSource = MemoryCacheForecastSource()
 
     val schedulerProvider: SchedulerProvider = MainSchedulerProvider()
 
@@ -77,8 +78,10 @@ class AppContainer(context: Context) {
 
         settingsManager = FakeSettingsManager(context)
 
+
     }
 
+    fun getRxAsyncDiffer() = RxAsyncDiffer(schedulerProvider)
 
     fun getPagedSearchRepository(): PagedSearchRepository {
         return PagedSearchRepositoryImpl(

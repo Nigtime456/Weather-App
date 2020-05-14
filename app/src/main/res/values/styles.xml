@@ -30,6 +30,8 @@
         <item name="themeDayColor">#2477bb</item>
         <item name="themeNightColor">#202745</item>
 
+        <item name="themeSplashColor">#8BC34A</item>
+        <item name="android:windowBackground">@drawable/drawable_splash</item>
 
         <!--   Action Mode     -->
         <item name="windowActionModeOverlay">true</item>

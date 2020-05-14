@@ -8,17 +8,17 @@ import androidx.recyclerview.widget.DiffUtil
 import io.reactivex.Single
 
 class RxAsyncDiffer constructor(
-    private val schedulerProvider: MainSchedulerProvider
+    private val schedulerProvider: SchedulerProvider
 ) {
     fun submitList(
-        callback: DiffUtil.Callback,
-        detectMoves: Boolean = true,
-        finishCallback: (DiffUtil.DiffResult) -> Unit
+        diffCallback: DiffUtil.Callback,
+        detectMoves: Boolean = false,
+        resultCallback: (DiffUtil.DiffResult) -> Unit
     ) {
-        Single.fromCallable { DiffUtil.calculateDiff(callback, detectMoves) }
+        Single.fromCallable { DiffUtil.calculateDiff(diffCallback, detectMoves) }
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())
-            .doOnSuccess(finishCallback)
+            .doOnSuccess(resultCallback)
             .ignoreElement()
             .subscribe()
     }

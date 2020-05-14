@@ -19,7 +19,7 @@ class WishCitiesRepositoryImpl constructor(
     private val cityMapper: WishCityMapper
 ) : WishCitiesRepository {
 
-    override fun getCitiesList(): Single<List<WishCity>> {
+    override fun getListCities(): Single<List<WishCity>> {
         return Single.fromCallable(wishCityDao::getAll)
             .map(this::getWishListByIds)
     }

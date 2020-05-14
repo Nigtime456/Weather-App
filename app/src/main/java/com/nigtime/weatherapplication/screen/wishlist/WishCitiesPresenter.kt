@@ -5,7 +5,7 @@
 package com.nigtime.weatherapplication.screen.wishlist
 
 import android.annotation.SuppressLint
-import com.nigtime.weatherapplication.common.log.CustomLogger
+import android.util.Log
 import com.nigtime.weatherapplication.common.rx.RxDelayedMessageDispatcher
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.city.WishCitiesRepository
@@ -24,89 +24,119 @@ class WishCitiesPresenter constructor(
 
     companion object {
         private const val TAG = "wish_list"
-        private val NO_POSITION = -1
     }
 
-    private var insertedPosition = NO_POSITION
-    private var isListEmpty: Boolean = false
-
-    override fun onHideView() {
-        super.onHideView()
-        getView()?.hideUndoDeleteSnack()
-        //выполняем отложенное удаление
-        messageDispatcher.forceRun()
-    }
+    private var insertedPosition = 0
+    private var mutableItems = mutableListOf<WishCity>()
+    private var hasDrag = false
 
     override fun onShowView() {
         super.onShowView()
         provideCities()
     }
 
-    fun onItemSwiped(item: WishCity, position: Int, items: MutableList<WishCity>) {
-        //если уже что то стоит в очереди - удаляем
+    override fun onHideView() {
+        super.onHideView()
+        removePendingMessage()
+    }
+
+    fun onViewStop() {
+        removePendingMessage()
+    }
+
+    private fun removePendingMessage() {
         messageDispatcher.forceRun()
+        getView()?.hideUndoDeleteSnack()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        messageDispatcher.forceRun()
+        getView()?.hideUndoDeleteSnack()
+    }
+
+    fun onItemSwiped(swiped: WishCity, position: Int) {
+        //если есть ожидающиее удаляения сообщения, удаляем
+        messageDispatcher.forceRun()
+
+
+        mutableItems.removeAt(position)
+
+        if (mutableItems.isEmpty()) {
+            getView()?.showEmptyLayout()
+        }
+
         //оставляем возможность отмены
         getView()?.showUndoDeleteSnack(messageDispatcher.durationMillis.toInt())
-        checkList(items, false)
-        logger.d("delay delete obj = $item,pos = $position")
+
         //откладываем удаление из БД
         messageDispatcher.delayNextMessage(
             DeleteItemMessage(
-                item,
+                swiped,
                 position,
                 wishCitiesRepository,
-                schedulerProvider.syncDatabase(),
-                logger
+                schedulerProvider.syncDatabase()
             )
         )
     }
 
-    fun onItemsMoved(items: List<WishCity>) {
-        logger.d("do replace")
-
-        checkList(items, false)
-        wishCitiesRepository.replaceAll(items)
-            .subscribeOn(schedulerProvider.syncDatabase())
-            .subscribeAndHandleError(false) {
-                logger.d("items replaced")
-                //nothing
-            }
+    fun saveListChanges() {
+        if (mutableItems.isNotEmpty()) {
+            wishCitiesRepository.replaceAll(mutableItems)
+                .subscribeOn(schedulerProvider.syncDatabase())
+                .subscribeAndHandleError(false) {
+                    logger.d("items replaced")
+                    //nothing
+                }
+        }
     }
 
+    fun onItemsMoved(moved: WishCity, movedPosition: Int, target: WishCity, targetPosition: Int) {
+        hasDrag = true
+        //перезаписываем индексы
+        mutableItems[targetPosition] = moved
+        mutableItems[movedPosition] = target
+    }
+
+
     fun onClickItem(position: Int) {
-        messageDispatcher.forceRun()
         getView()?.setSelectedResult(position)
         getView()?.navigateToPreviousScreen()
     }
 
-
     fun onClickUndoDelete() {
-        //отменяем удаление
-        messageDispatcher.cancelMessage()
-        val message = messageDispatcher.getMessage()
-        if (message is DeleteItemMessage) {
-            logger.d("delete canceled obj = ${message.item},pos = ${message.position}")
-            //отображаем элемент
+        val pendingMessage = messageDispatcher.cancelMessage()
+
+        if (pendingMessage is DeleteItemMessage) {
+            Log.d("sas","restore , pos = ${pendingMessage.position}")
+            mutableItems.add(pendingMessage.position, pendingMessage.item)
             getView()?.showListLayout()
-            getView()?.insertItemToList(message.item, message.position)
-            getView()?.scrollToPosition(message.position)
+            getView()?.notifyItemInserted(pendingMessage.position)
+            getView()?.scrollToPosition(pendingMessage.position)
+        }
+
+        //если между удаление и востановлением были движения,то
+        //этот элемент не сохранится
+        if (hasDrag) {
+            hasDrag = false
+            saveListChanges()
         }
     }
 
     fun provideCities() {
         getView()?.showProgressLayout()
 
-        wishCitiesRepository.getCitiesList()
+        wishCitiesRepository.getListCities()
             .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
             .subscribeAndHandleError(false) { list ->
-                checkList(list, true)
+                checkList(list)
             }
     }
 
 
     fun onClickNavigationButton() {
-        if (!isListEmpty) {
+        if (mutableItems.isNotEmpty()) {
             getView()?.navigateToPreviousScreen()
         } else {
             getView()?.showDialogEmptyList()
@@ -122,47 +152,36 @@ class WishCitiesPresenter constructor(
             .disposeOnDetach()
     }
 
-    /**
-     * Проверить лист и отобразить оотвествующие сообщения, если лист пустой
-     *
-     * @param submit - уведомить адаптер
-     */
-    private fun checkList(list: List<WishCity>, submit: Boolean) {
-        logger.d("check list $list submit = $submit")
-        isListEmpty = list.isEmpty()
-        if (!isListEmpty && submit) {
-            logger.d("submit list")
-            getView()?.showListLayout()
-            getView()?.submitList(list)
+    private fun checkList(list: List<WishCity>) {
+        mutableItems = list.toMutableList()
 
+        if (mutableItems.isNotEmpty()) {
+
+            getView()?.showListLayout()
+            getView()?.submitList(mutableItems)
             //Из за DiffUtil список может отрсисываваться долго и проглотит
             //переданную позицию.
-            if (insertedPosition != NO_POSITION)
-                getView()?.delayScrollToPosition(insertedPosition)
-
-        } else if (isListEmpty) {
-            logger.d("list empty")
+            getView()?.delayScrollToPosition(insertedPosition)
+        } else {
             getView()?.showEmptyLayout()
         }
     }
+
 
     private class DeleteItemMessage(
         val item: WishCity,
         val position: Int,
         val repository: WishCitiesRepository,
-        val scheduler: Scheduler,
-        val logger: CustomLogger
+        val scheduler: Scheduler
     ) : Runnable {
 
         @SuppressLint("CheckResult")
         override fun run() {
             repository.delete(item)
                 .subscribeOn(scheduler)
-                .subscribe({ //nothing
-                    logger.d("delete obj $item , position = $position")
-                }, {
-                    logger.e(it, "error on remove")
-                })
+                .subscribe {
+                    //nothing
+                }
         }
 
     }

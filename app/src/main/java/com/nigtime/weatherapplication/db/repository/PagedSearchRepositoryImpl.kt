@@ -71,7 +71,6 @@ class PagedSearchRepositoryImpl(
 
     private fun mapReferenceCityToData(rawRow: ReferenceCityTable, query: String): SearchCity {
         val isWish = wishIds?.contains(rawRow.cityId) ?: false
-        Log.d("sas", "rawRow = $rawRow, isWish = $isWish")
         return cityMapper.mapDomain(rawRow, isWish, query)
     }
 

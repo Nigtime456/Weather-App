@@ -71,6 +71,7 @@ class CurrentForecastFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("sas","create = ${hashCode()} ${currentCity.value.cityName}")
         unitFormatter = App.INSTANCE.appContainer.settingsManager.getUnitFormatter()
         initViews()
         presenter.provideForecast(currentCity.value)

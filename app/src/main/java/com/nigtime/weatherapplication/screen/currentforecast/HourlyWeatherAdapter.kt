@@ -10,12 +10,32 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.common.utility.list.BaseAdapter
+import com.nigtime.weatherapplication.common.utility.list.SimpleDiffCallback
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
 import com.nigtime.weatherapplication.domain.settings.UnitFormatter
 import kotlinx.android.synthetic.main.item_hourly_forecast.view.*
 
 class HourlyWeatherAdapter constructor(private val unitFormatter: UnitFormatter) :
-    BaseAdapter<HourlyForecast.HourlyWeather, HourlyWeatherAdapter.ViewHolder>() {
+    BaseAdapter<HourlyForecast.HourlyWeather, HourlyWeatherAdapter.ViewHolder>(DIFF_CALLBACK) {
+
+    companion object {
+        val DIFF_CALLBACK = object : SimpleDiffCallback<HourlyForecast.HourlyWeather>() {
+            override fun areItemsTheSame(
+                old: HourlyForecast.HourlyWeather,
+                new: HourlyForecast.HourlyWeather
+            ): Boolean {
+                return old.hour == new.hour
+            }
+
+            override fun areContentsTheSame(
+                old: HourlyForecast.HourlyWeather,
+                new: HourlyForecast.HourlyWeather
+            ): Boolean {
+                return old == new
+            }
+        }
+    }
+
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItem(weather: HourlyForecast.HourlyWeather, unitFormatter: UnitFormatter) {

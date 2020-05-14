@@ -14,6 +14,5 @@ class MainSchedulerProvider : SchedulerProvider {
     override fun ui(): Scheduler = AndroidSchedulers.mainThread()
     override fun io(): Scheduler = Schedulers.from(Executors.newFixedThreadPool(3))
     override fun syncDatabase(): Scheduler = Schedulers.single()
-
 }
 

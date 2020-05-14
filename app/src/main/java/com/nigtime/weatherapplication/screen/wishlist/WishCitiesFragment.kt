@@ -22,6 +22,7 @@ import com.nigtime.weatherapplication.screen.common.NavigationController
 import com.nigtime.weatherapplication.screen.common.PresenterFactory
 import com.nigtime.weatherapplication.screen.common.Screen
 import com.nigtime.weatherapplication.screen.search.SearchCityFragment
+import com.nigtime.weatherapplication.screen.wishlist.list.WishCitiesListAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
@@ -51,27 +52,32 @@ class WishCitiesFragment :
         }
     }
 
-
     private val adapterListener = object : WishCitiesListAdapter.Listener {
-        override fun onRequestDrag(viewHolder: RecyclerView.ViewHolder) {
+        override fun startDragItem(viewHolder: RecyclerView.ViewHolder) {
             itemTouchHelper?.startDrag(viewHolder)
         }
 
-        override fun onItemSwiped(
-            item: WishCity,
-            position: Int,
-            items: MutableList<WishCity>
-        ) {
-            presenter.onItemSwiped(item, position, items)
+        override fun onItemSwiped(swiped: WishCity, position: Int) {
+            presenter.onItemSwiped(swiped, position)
         }
 
-        override fun onItemsMoved(items: List<WishCity>) {
-            presenter.onItemsMoved(items)
+        override fun onItemsMoved(
+            moved: WishCity,
+            movedPosition: Int,
+            target: WishCity,
+            targetPosition: Int
+        ) {
+            presenter.onItemsMoved(moved, movedPosition, target, targetPosition)
+        }
+
+        override fun onMovementComplete() {
+            presenter.saveListChanges()
         }
 
         override fun onItemClick(position: Int) {
             presenter.onClickItem(position)
         }
+
 
     }
 
@@ -102,6 +108,7 @@ class WishCitiesFragment :
     override fun onStop() {
         super.onStop()
         wishRecycler.viewTreeObserver.removeOnScrollChangedListener(liftScrollListener)
+        presenter.onViewStop()
     }
 
     private fun initViews() {
@@ -150,14 +157,14 @@ class WishCitiesFragment :
 
     override fun submitList(items: List<WishCity>) {
         (wishRecycler.adapter as WishCitiesListAdapter).submitList(items)
-    }
+}
 
     override fun showProgressLayout() {
         wishViewSwitcher.switchTo(0, false)
     }
 
     override fun showListLayout() {
-        wishViewSwitcher.switchTo(1, false)
+        wishViewSwitcher.switchTo(1, true)
 
     }
 
@@ -165,8 +172,8 @@ class WishCitiesFragment :
         wishViewSwitcher.switchTo(2, true)
     }
 
-    override fun insertItemToList(item: WishCity, position: Int) {
-        (wishRecycler.adapter as WishCitiesListAdapter).insertItemToList(item, position)
+    override fun notifyItemInserted(position: Int) {
+        wishRecycler.adapter?.notifyItemInserted(position)
     }
 
     override fun scrollToPosition(position: Int) {
@@ -184,8 +191,8 @@ class WishCitiesFragment :
         })
     }
 
-    override fun showUndoDeleteSnack(durationMillis: Int) {
-        undoSnackbar = Snackbar.make(wishRoot, R.string.wish_city_removed, durationMillis).apply {
+    override fun showUndoDeleteSnack(duration: Int) {
+        undoSnackbar = Snackbar.make(wishRoot, R.string.wish_city_removed, duration).apply {
             setAction(R.string.wish_undo) { presenter.onClickUndoDelete() }
             show()
         }

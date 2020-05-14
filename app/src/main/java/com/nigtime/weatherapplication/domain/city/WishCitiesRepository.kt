@@ -8,7 +8,6 @@
 
 package com.nigtime.weatherapplication.domain.city
 
-import com.nigtime.weatherapplication.domain.city.WishCity
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -16,7 +15,7 @@ interface WishCitiesRepository {
     /**
      * Получить все добавленные города
      */
-    fun getCitiesList(): Single<List<WishCity>>
+    fun getListCities(): Single<List<WishCity>>
 
     fun hasCities(): Single<Boolean>
 

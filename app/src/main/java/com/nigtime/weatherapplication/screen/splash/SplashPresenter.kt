@@ -16,7 +16,6 @@ class SplashPresenter(schedulerProvider: SchedulerProvider) :
     }
 
     fun dispatchScreen() {
-        getView()?.startSplashAnimation()
 
     }
 

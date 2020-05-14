@@ -5,9 +5,9 @@
 package com.nigtime.weatherapplication.screen.pager
 
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
-import com.nigtime.weatherapplication.domain.city.CityForForecast
 import com.nigtime.weatherapplication.domain.city.ForecastCitiesRepository
 import com.nigtime.weatherapplication.screen.common.BasePresenter
+import io.reactivex.Observable
 
 class PagerCityPresenter(
     schedulerProvider: SchedulerProvider,
@@ -16,6 +16,12 @@ class PagerCityPresenter(
     schedulerProvider
 ) {
     private var currentPage = 0
+    private var expectInsert = false
+
+    override fun onShowView() {
+        super.onShowView()
+        provideCities()
+    }
 
     fun setPagerPosition(page: Int) {
         currentPage = page
@@ -24,30 +30,47 @@ class PagerCityPresenter(
     fun provideCities() {
         forecastCitiesRepository.getListCities()
             .subscribeOn(schedulerProvider.syncDatabase())
-            .map { Pair(it, makeNavigationList(it)) }
             .observeOn(schedulerProvider.ui())
-            .subscribeAndHandleError() { pair ->
-                require(pair.first.isNotEmpty()) { "pager screen must not receive empty cities list!" }
+            .subscribeAndHandleError() { list ->
+                require(list.isNotEmpty()) { "pager screen must not receive empty cities list!" }
 
-                getView()?.submitPageList(pair.first)
-                getView()?.submitNavigationList(pair.second)
-                getView()?.setCurrentPage(currentPage, false)
+                getView()?.submitListToPager(list)
+                getView()?.submitListToNavView(list)
+                getView()?.setCurrentPage(currentPage)
+                getView()?.setCurrentNavItem(currentPage)
             }
     }
 
-    private fun makeNavigationList(item: List<CityForForecast>): List<Pair<Int, String>> {
-        return item.mapIndexed { index, city -> Pair(index + 1000, city.cityName) }
-    }
 
     fun onClickChangeCityList() {
         getView()?.navigateToWishListScreen()
     }
 
     fun onClickNavigationItem(index: Int) {
-        getView()?.setCurrentPage(index - 1000, true)
+        getView()?.setCurrentPage(index)
     }
 
     fun onPageScrolled(position: Int) {
-        getView()?.selectNavigationItem(position + 1000)
+        currentPage = position
+        getView()?.setCurrentNavItem(currentPage)
+    }
+
+    fun observeItemClicks(observeItemClicks: Observable<Int>) {
+        observeItemClicks.subscribe { selectedPosition ->
+            currentPage = selectedPosition
+        }.disposeOnDetach()
+    }
+
+    fun observeInsertNewCity(observeInsert: Observable<Int>) {
+        observeInsert.subscribe { selectedPosition ->
+            if (expectInsert){
+                currentPage = selectedPosition
+            }
+        }.disposeOnDetach()
+    }
+
+    fun onClickAddCity() {
+        expectInsert = true
+        getView()?.navigateToSearchCityScreen()
     }
 }

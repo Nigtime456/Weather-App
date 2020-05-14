@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.Toolbar
 
+//TODO useless
 class CenteredTitleToolbar : Toolbar {
     private lateinit var titleTextView: AppCompatTextView
 

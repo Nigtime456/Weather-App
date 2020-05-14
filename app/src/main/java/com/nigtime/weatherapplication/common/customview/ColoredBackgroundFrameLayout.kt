@@ -12,6 +12,7 @@ import android.widget.FrameLayout
 /**
  * Позволяет менять цвет через XML разметку Animator'ov
  */
+//TODO useless
 class ColoredBackgroundFrameLayout : FrameLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)

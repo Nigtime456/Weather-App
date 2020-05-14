@@ -16,8 +16,7 @@ import java.util.*
 class ColorSpanHelper constructor(private val color: Int) {
 
     /**
-     * окрасить текст.
-     * Не учитывая регистр.
+     * окрасить текст. Не учитывая регистр.
      *
      * @param source - исходная строка
      * @param substring - подстрока, которую нужно выделить

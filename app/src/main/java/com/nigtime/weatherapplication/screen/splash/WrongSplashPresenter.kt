@@ -59,7 +59,7 @@ class WrongSplashPresenter constructor(
     }
 
     private fun onWrithingCompleted() {
-        getView()?.startSplashAnimation()
+        getView()?.finishSplash()
         getView()?.navigateToPagerScreen()
     }
 

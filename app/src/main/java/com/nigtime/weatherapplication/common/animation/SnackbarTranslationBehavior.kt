@@ -11,6 +11,7 @@ import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.snackbar.Snackbar
 
+//TODO useless
 class SnackbarTranslationBehavior constructor(context: Context, attributes: AttributeSet) :
     CoordinatorLayout.Behavior<View>() {
 

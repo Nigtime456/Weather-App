@@ -91,7 +91,6 @@ class PagedSearchAdapter constructor(private val spannHelper: ColorSpanHelper) :
             itemView.itemSearchStateAndCountry.text = city.getStateAndCounty()
             //уже добавлен
             itemView.isEnabled = !city.isWish
-            Log.d("sas", "city = ${city.name} isWish = ${city.isWish}")
         }
 
         fun recycle() {

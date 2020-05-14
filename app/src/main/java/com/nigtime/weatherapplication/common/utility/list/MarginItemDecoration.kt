@@ -10,6 +10,7 @@ import android.view.View
 import androidx.annotation.DimenRes
 import androidx.recyclerview.widget.RecyclerView
 
+//TODO useless
 class MarginItemDecoration constructor(
     context: Context,
     @DimenRes horizontalMargin: Int,

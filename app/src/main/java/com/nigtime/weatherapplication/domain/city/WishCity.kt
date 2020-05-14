@@ -32,6 +32,6 @@ open class WishCity constructor(
     }
 
     override fun toString(): String {
-        return "SelectedCityData{cityId=$cityId, listIndex=$listIndex, name='$name', stateName='$stateName', countryName='$countryName'}"
+        return "WishCity{cityId=$cityId, listIndex=$listIndex, name='$name', stateName='$stateName', countryName='$countryName'}"
     }
 }
