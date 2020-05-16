@@ -18,11 +18,8 @@ import com.nigtime.weatherapplication.common.utility.list.ColorDividerDecoration
 import com.nigtime.weatherapplication.domain.city.SearchCity
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.NavigationController
-import com.nigtime.weatherapplication.screen.common.PresenterFactory
+import com.nigtime.weatherapplication.screen.common.PresenterProvider
 import com.nigtime.weatherapplication.screen.search.paging.PagedSearchAdapter
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
-import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.fragment_search_city.*
 
 
@@ -30,16 +27,8 @@ class SearchCityFragment :
     BaseFragment<SearchCityView, SearchCityPresenter, NavigationController>(R.layout.fragment_search_city),
     SearchCityView {
 
-    companion object {
-        private val insertSubject: Subject<Int> = PublishSubject.create()
-
-        /**
-         * [Observable] который вернет позицию нового гороад,
-         * если он добавлен.
-         * Другие фрагменты могут использовать это для координации
-         * списка/страниц.
-         */
-        fun observeInsert(): Observable<Int> = insertSubject
+    interface TargetFragment {
+        fun onCityInserted(position: Int)
     }
 
     private val liftScrollListener = ViewTreeObserver.OnScrollChangedListener {
@@ -49,14 +38,13 @@ class SearchCityFragment :
 
     override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 
-    override fun getPresenterFactory(): PresenterFactory<SearchCityPresenter> {
-        return ViewModelProvider(this).get(SearchCityPresenterFactory::class.java)
+    override fun getPresenterProvider(): PresenterProvider<SearchCityPresenter> {
+        return ViewModelProvider(this).get(SearchCityPresenterProvider::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        presenter.onViewReady()
     }
 
     override fun onStart() {
@@ -72,19 +60,12 @@ class SearchCityFragment :
     private fun initViews() {
         setupRecycler()
         setupInputField()
-        setupLocationButton()
         setupAppBar()
     }
 
     private fun setupAppBar() {
         searchToolbar.setNavigationOnClickListener {
             presenter.onClickNavigationButton()
-        }
-    }
-
-    private fun setupLocationButton() {
-        searchCurrentLocation.setOnClickListener {
-            showToast("TODO")
         }
     }
 
@@ -97,7 +78,7 @@ class SearchCityFragment :
             adapter = PagedSearchAdapter(getSpanHelper())
             addItemDecoration(getDivider())
             itemAnimator = null
-            PagedSearchAdapter.ItemClickClickListener(this, presenter::onClickItem)
+            PagedSearchAdapter.ItemClickClickListener(this, presenter::onItemClick)
         }
     }
 
@@ -111,7 +92,7 @@ class SearchCityFragment :
     }
 
     private fun getDivider(): ColorDividerDecoration {
-        val dividerColor = ThemeHelper.getColor(requireContext(), R.attr.themeDividerColor)
+        val dividerColor = ThemeHelper.getColor(requireContext(), R.attr.colorControlHighlight)
         val dividerSize = resources.getDimensionPixelSize(R.dimen.divider_size)
         return ColorDividerDecoration(dividerColor, dividerSize)
     }
@@ -156,12 +137,14 @@ class SearchCityFragment :
         showToast(R.string.search_already_selected)
     }
 
-    override fun setInsertedResult(position: Int) {
-        insertSubject.onNext(position)
+    override fun setInsertionResult(position: Int) {
+        if (targetFragment is TargetFragment) {
+            (targetFragment as TargetFragment).onCityInserted(position)
+        }
     }
 
     override fun navigateToPreviousScreen() {
-        parentListener?.toBack()
+        parentListener?.toPreviousScreen()
     }
 
     private fun EditText.changeTextListener(block: (String) -> Unit) {

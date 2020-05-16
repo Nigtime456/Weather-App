@@ -6,7 +6,6 @@ package com.nigtime.weatherapplication.screen.pager
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.SubMenu
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.GravityCompat
@@ -17,7 +16,7 @@ import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.domain.city.CityForForecast
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.NavigationController
-import com.nigtime.weatherapplication.screen.common.PresenterFactory
+import com.nigtime.weatherapplication.screen.common.PresenterProvider
 import com.nigtime.weatherapplication.screen.common.Screen
 import com.nigtime.weatherapplication.screen.currentforecast.CurrentForecastFragment
 import com.nigtime.weatherapplication.screen.search.SearchCityFragment
@@ -27,13 +26,11 @@ import kotlinx.android.synthetic.main.fragment_pager.*
 
 class PagerCityFragment :
     BaseFragment<PagerCityView, PagerCityPresenter, NavigationController>(R.layout.fragment_pager),
-    PagerCityView,
-    CurrentForecastFragment.ParentListener {
-
+    PagerCityView, CurrentForecastFragment.ParentListener, SearchCityFragment.TargetFragment,
+    WishCitiesFragment.TargetFragment {
 
     companion object {
         private const val PAGE_LIMIT = 1
-
     }
 
     private val pagerScrollListener = object : ViewPager2.OnPageChangeCallback() {
@@ -41,33 +38,22 @@ class PagerCityFragment :
             super.onPageSelected(position)
             presenter.onPageScrolled(position)
         }
-
     }
 
     override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 
-    override fun getPresenterFactory(): PresenterFactory<PagerCityPresenter> {
-        return ViewModelProvider(this).get(PagerCityPresenterFactory::class.java)
+    override fun getPresenterProvider(): PresenterProvider<PagerCityPresenter> {
+        return ViewModelProvider(this).get(PagerCityPresenterProvider::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         initViews()
-        presenter.provideCities()
-        presenter.observeItemClicks(WishCitiesFragment.observeItemClicks())
-        presenter.observeInsertNewCity(SearchCityFragment.observeInsert())
-    }
-
-
-    override fun onStop() {
-        super.onStop()
-        presenter.setPagerPosition(pagerViewPager.currentItem)
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         pagerViewPager.unregisterOnPageChangeCallback(pagerScrollListener)
-        pagerViewPager.adapter = null
     }
 
     private fun initViews() {
@@ -99,7 +85,6 @@ class PagerCityFragment :
     @SuppressLint("WrongConstant")
     private fun setupViewPager() {
         pagerViewPager.apply {
-            pagerViewPager.adapter = PagerCityAdapter(this@PagerCityFragment)
             offscreenPageLimit = PAGE_LIMIT
             registerOnPageChangeCallback(pagerScrollListener)
             setPageTransformer(MarginPageTransformer(resources.getDimensionPixelOffset(R.dimen.divider_size)))
@@ -115,7 +100,11 @@ class PagerCityFragment :
     }
 
     override fun submitListToPager(items: List<CityForForecast>) {
-        (pagerViewPager.adapter as PagerCityAdapter).submitList(items)
+        if (pagerViewPager.adapter == null) {
+            pagerViewPager.adapter = PagerCityAdapter(this, items)
+        } else {
+            (pagerViewPager.adapter as PagerCityAdapter).submitList(items)
+        }
     }
 
     override fun submitListToNavView(items: List<CityForForecast>) {
@@ -129,7 +118,7 @@ class PagerCityFragment :
     }
 
     override fun setCurrentPage(page: Int) {
-        pagerViewPager.setCurrentItem(page,false)
+        pagerViewPager.setCurrentItem(page, false)
     }
 
     override fun setCurrentNavItem(index: Int) {
@@ -141,15 +130,22 @@ class PagerCityFragment :
     }
 
     override fun navigateToWishListScreen() {
-        parentListener?.navigateTo(Screen.Factory.wishList())
+        parentListener?.navigateTo(Screen.Factory.wishList(this))
     }
 
     override fun navigateToSearchCityScreen() {
-        parentListener?.navigateTo(Screen.Factory.searchCity())
+        parentListener?.navigateTo(Screen.Factory.searchCity(this))
     }
 
     override fun onClickOpenDrawer() {
         openDrawer()
     }
 
+    override fun onCityInserted(position: Int) {
+        presenter.onCityInserted(position)
+    }
+
+    override fun onCitySelected(position: Int) {
+        presenter.onCitySelected(position)
+    }
 }

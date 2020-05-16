@@ -10,7 +10,7 @@
                 <color android:color="?attr/themeScreenBackground" />
             </item>
             <item>
-                <ripple android:color="?attr/themeHighlightColor" />
+                <ripple android:color="?attr/colorControlHighlight" />
             </item>
         </layer-list>
     </item>

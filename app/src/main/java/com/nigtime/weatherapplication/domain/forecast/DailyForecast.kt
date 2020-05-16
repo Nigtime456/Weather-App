@@ -8,7 +8,7 @@ import androidx.annotation.DrawableRes
 
 data class DailyForecast(val dailyWeather: List<DailyWeather>) {
 
-    class DailyWeather(
+    data class DailyWeather(
         val maxTemp: Double,
         val minTemp: Double,
         @DrawableRes val ico: Int,

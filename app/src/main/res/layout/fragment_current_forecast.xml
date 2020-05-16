@@ -42,7 +42,6 @@
                 <TextClock
                     android:id="@+id/currentForecastLocalClock"
                     style="@style/PrimaryText.Lowest"
-                    android:textColor="@android:color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -50,6 +49,7 @@
                     android:format24Hour="HH:mm"
                     android:gravity="center"
                     android:maxLines="1"
+                    android:textColor="@android:color/white"
                     android:visibility="gone"
                     tools:text="17:30 MSK" />
 

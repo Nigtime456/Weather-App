@@ -1,37 +1,26 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/orange</item>
 
         <item name="android:colorEdgeEffect">?attr/colorAccent</item>
+        <item name="android:colorControlActivated">?attr/colorAccent</item>
+        <item name="android:windowBackground">@drawable/drawable_splash</item>
+        <item name="colorControlHighlight">@color/light_black</item>
+
+        <item name="iconTint">?attr/colorAccent</item>
 
         <!--    Custom color attributes     -->
         <item name="themePrimaryTextColor">@color/white</item>
-
         <item name="themeSecondaryTextColor">@color/light_gray</item>
 
-        <item name="themePrimaryTextColorSelector">@color/selector_text_primary</item>
-        <item name="themeSecondaryTextColorSelector">@color/selector_text_secondary</item>
-
         <item name="themeScreenBackground">@color/black</item>
-
-        <item name="themeSecondaryTempColor">#3F51B5</item>
-
-        <item name="themeDividerColor">@color/light_black</item>
-
-        <item name="themeHighlightColor">@color/light_black</item>
-
-        <item name="themeIconTintColor">?attr/colorAccent</item>
-
-        <item name="themeDayColor">#2477bb</item>
-        <item name="themeNightColor">#202745</item>
-
+        <item name="themeNightTempColor">#3F51B5</item>
         <item name="themeSplashColor">#8BC34A</item>
-        <item name="android:windowBackground">@drawable/drawable_splash</item>
 
         <!--   Action Mode     -->
         <item name="windowActionModeOverlay">true</item>
@@ -57,11 +46,10 @@
     <!--  NavigationViews  -->
     <style name="NavigationView" parent="Widget.Design.NavigationView">
         <item name="android:theme">@style/NavigationThemeOverlay</item>
-        <item name="itemBackground">@drawable/selector_ripple_without_background</item>
-        <item name="itemIconPadding">@dimen/small_padding</item>
+        <item name="itemIconPadding">@dimen/medium_padding</item>
         <item name="itemIconSize">@dimen/icon_small</item>
-        <item name="itemIconTint">@color/selector_highlight_icon</item>
-        <item name="itemTextColor">@color/selector_text_primary</item>
+        <item name="itemIconTint">@color/selector_checked_icon</item>
+        <item name="itemTextColor">@color/selector_primary_text</item>
         <item name="android:background">?attr/themeScreenBackground</item>
     </style>
 
@@ -69,9 +57,9 @@
         <item name="android:scrollbarThumbVertical">?attr/colorAccent</item>
         <item name="android:scrollbarStyle">insideInset</item>
         <item name="android:scrollbarSize">3dp</item>
-        <item name="android:listDivider">?attr/themeDividerColor</item>
+        <item name="android:listDivider">?attr/colorControlHighlight</item>
         <item name="android:textSize">17sp</item>
-        <item name="android:textColorSecondary">?attr/themeSecondaryTextColorSelector</item>
+        <item name="android:textColorSecondary">@color/selector_secondary_text</item>
     </style>
 
     <!--    Snackbar  styles  -->
@@ -85,9 +73,9 @@
     </style>
 
     <style name="SnackButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:textColor">?attr/iconTint</item>
+        <item name="rippleColor">?attr/colorControlHighlight</item>
         <item name="android:textSize">14sp</item>
-        <item name="rippleColor">?attr/colorAccent</item>
     </style>
 
     <!-- Card styles -->
@@ -98,18 +86,17 @@
         <item name="android:stateListAnimator">@animator/selector_lift_app_bar</item>
     </style>
 
-
     <!--   Toolbar style  -->
     <style name="ToolbarMainStyle">
-        <item name="titleTextColor">?attr/themePrimaryTextColorSelector</item>
-        <item name="subtitleTextColor">?attr/themePrimaryTextColorSelector</item>
+        <item name="titleTextColor">@color/selector_primary_text</item>
+        <item name="subtitleTextColor">@color/selector_primary_text</item>
     </style>
 
     <!--  Button's style   -->
     <style name="TextButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="iconPadding">@dimen/small_padding</item>
         <item name="iconSize">@dimen/icon_small</item>
-        <item name="iconTint">?attr/themeIconTintColor</item>
+        <item name="rippleColor">?attr/colorControlHighlight</item>
         <item name="android:insetLeft">0dp</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetRight">0dp</item>
@@ -120,17 +107,16 @@
         <item name="android:paddingTop">0dp</item>
         <item name="android:paddingRight">0dp</item>
         <item name="android:paddingBottom">0dp</item>
-        <item name="rippleColor">?attr/themeHighlightColor</item>
     </style>
 
     <style name="TextButton.PrimaryLowest">
         <item name="android:textAppearance">@style/PrimaryText.Lowest</item>
-        <item name="android:textColor">?attr/themePrimaryTextColorSelector</item>
+        <item name="android:textColor">@color/selector_primary_text</item>
     </style>
 
     <style name="TextButton.SecondaryLowest">
         <item name="android:textAppearance">@style/SecondaryText.Lowest</item>
-        <item name="android:textColor">?attr/themeSecondaryTextColorSelector</item>
+        <item name="android:textColor">@color/selector_secondary_text</item>
     </style>
 
     <!--  TextInputLayout style  -->
@@ -140,28 +126,25 @@
         <item name="boxStrokeColor">?attr/colorAccent</item>
         <item name="boxBackgroundColor">?attr/themeScreenBackground</item>
         <item name="endIconMode">clear_text</item>
+        <item name="endIconTint">?attr/iconTint</item>
         <item name="boxStrokeWidth">@dimen/divider_size</item>
         <item name="boxStrokeWidthFocused">@dimen/divider_size</item>
-        <item name="endIconTint">?attr/themeIconTintColor</item>
         <item name="hintEnabled">false</item>
     </style>
 
-
     <style name="TextInputEditMainStyle" parent="PrimaryText.Lowest">
-        <item name="android:textColor">?attr/themePrimaryTextColorSelector</item>
-        <item name="android:textColorHint">?attr/themeSecondaryTextColorSelector</item>
+        <item name="android:textColor">@color/selector_primary_text</item>
+        <item name="android:textColorHint">@color/selector_secondary_text</item>
     </style>
-
 
     <!--Text styles-->
     <style name="PrimaryText">
-        <item name="android:textColor">?attr/themePrimaryTextColorSelector</item>
+        <item name="android:textColor">@color/selector_primary_text</item>
     </style>
 
     <style name="SecondaryText">
-        <item name="android:textColor">?attr/themeSecondaryTextColorSelector</item>
+        <item name="android:textColor">@color/selector_secondary_text</item>
     </style>
-
 
     <style name="PrimaryText.Large">
         <item name="android:textSize">@dimen/text_size_primary_large</item>
@@ -184,8 +167,6 @@
     </style>
 
     <style name="DividerDefaultStyle">
-        <item name="android:background">?attr/themeDividerColor</item>
+        <item name="android:background">?attr/colorControlHighlight</item>
     </style>
-
-
 </resources>

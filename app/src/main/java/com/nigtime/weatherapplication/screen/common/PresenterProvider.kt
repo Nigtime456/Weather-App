@@ -8,8 +8,8 @@ package com.nigtime.weatherapplication.screen.common
  * Базовый интерфейс, для класса, который будет создавать презентеры.
  * Фабрика контролирует создание, сохранения при смене кофнигурации, уничтожение презентера
  *
- * @see BasePresenterFactory
+ * @see BasePresenterProvider
  */
-interface PresenterFactory<T> {
-    fun createPresenter(): T
+interface PresenterProvider<T : BasePresenter<*>> {
+    fun getPresenter(): T
 }

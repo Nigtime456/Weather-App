@@ -119,8 +119,6 @@ class CrossFadeAnimatorLayout : FrameLayout {
     }
 
 
-
-
     private fun switch() {
 
         //TODO костыль

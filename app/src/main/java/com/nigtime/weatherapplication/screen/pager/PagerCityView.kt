@@ -5,9 +5,8 @@
 package com.nigtime.weatherapplication.screen.pager
 
 import com.nigtime.weatherapplication.domain.city.CityForForecast
-import com.nigtime.weatherapplication.screen.common.MvpView
 
-interface PagerCityView : MvpView {
+interface PagerCityView {
     fun submitListToPager(items: List<CityForForecast>)
     fun submitListToNavView(items: List<CityForForecast>)
     fun setCurrentPage(page: Int)

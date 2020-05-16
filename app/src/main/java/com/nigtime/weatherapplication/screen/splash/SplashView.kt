@@ -4,9 +4,7 @@
 
 package com.nigtime.weatherapplication.screen.splash
 
-import com.nigtime.weatherapplication.screen.common.MvpView
-
-interface SplashView : MvpView {
+interface SplashView {
     fun finishSplash()
     fun navigateToPagerScreen()
     fun navigateToWishListScreen()

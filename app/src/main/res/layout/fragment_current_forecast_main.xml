@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_size"
         android:layout_marginHorizontal="@dimen/medium_margin"
-        android:layout_marginVertical="@dimen/small_margin" />
+        android:layout_marginBottom="@dimen/small_margin" />
 
     <include layout="@layout/fragment_current_forecast_main_more" />
 

@@ -56,7 +56,7 @@
     <string name="uv_index_high_f">High (%s)</string>
     <string name="uv_index_very_high_f">Very high (%s)</string>
     <string name="uv_index_extreme_f">Extreme (%s)</string>
-    
+
     <string name="weather_description_200">Thunderstorm with light rain</string>
     <string name="weather_description_201">Thunderstorm with rain</string>
     <string name="weather_description_202">Thunderstorm with heavy rain</string>
@@ -105,8 +105,6 @@
     <string name="weather_description_900">Unknown Precipitation</string>
 
 
-
-
     <!--  Search city  -->
     <string name="search_title">Добавить город</string>
     <string name="search_input_hint">For example: Moscow</string>
@@ -150,7 +148,7 @@
     <string name="current_forecast_air_quality">Качество воздуха</string>
     <string name="current_forecast_uv_index">УФ-индекс</string>
     <string name="current_forecast_clouds">Облачность</string>
-    
+
     <!--  Menu  -->
     <string name="menu_add_city">Add city</string>
 

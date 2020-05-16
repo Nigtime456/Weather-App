@@ -24,7 +24,8 @@ class MemoryCacheForecastSource : AbstractCacheForecastSource(CACHE_MAX_AGE) {
         private const val MAX_CACHE_SIZE = 100
     }
 
-    private val currentCache: LruCache<Long, NetData<JsonCurrentForecast>> = LruCache(MAX_CACHE_SIZE)
+    private val currentCache: LruCache<Long, NetData<JsonCurrentForecast>> =
+        LruCache(MAX_CACHE_SIZE)
     private val hourlyCache: LruCache<Long, NetData<JsonHourlyForecast>> = LruCache(MAX_CACHE_SIZE)
     private val dailyCache: LruCache<Long, NetData<JsonDailyForecast>> = LruCache(MAX_CACHE_SIZE)
 

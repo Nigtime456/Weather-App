@@ -8,8 +8,8 @@ import com.nigtime.weatherapplication.db.mapper.WishCityMapper
 import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.db.service.WishCityDao
 import com.nigtime.weatherapplication.db.table.WishCityTable
-import com.nigtime.weatherapplication.domain.city.WishCity
 import com.nigtime.weatherapplication.domain.city.WishCitiesRepository
+import com.nigtime.weatherapplication.domain.city.WishCity
 import io.reactivex.Completable
 import io.reactivex.Single
 

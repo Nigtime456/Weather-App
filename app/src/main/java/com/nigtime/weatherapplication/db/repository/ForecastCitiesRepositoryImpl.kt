@@ -8,20 +8,18 @@ import com.nigtime.weatherapplication.db.mapper.CityForForecastMapper
 import com.nigtime.weatherapplication.db.service.WishCityDao
 import com.nigtime.weatherapplication.domain.city.CityForForecast
 import com.nigtime.weatherapplication.domain.city.ForecastCitiesRepository
-import io.reactivex.Observable
-import io.reactivex.Single
-import io.reactivex.rxkotlin.flatMapIterable
+import io.reactivex.Flowable
 
 class ForecastCitiesRepositoryImpl constructor(
     private val wishCityDao: WishCityDao,
     private val cityMapper: CityForForecastMapper
 ) : ForecastCitiesRepository {
 
-    override fun getListCities(): Single<List<CityForForecast>> {
-        return Observable.fromCallable(wishCityDao::getAllIds)
-            .flatMapIterable()
-            .map(this::mapCity)
-            .toList()
+    override fun getListCities(): Flowable<List<CityForForecast>> {
+        return wishCityDao.getAllIdsAsFlow()
+            .map { idList ->
+                idList.map(this::mapCity)
+            }
     }
 
     private fun mapCity(cityId: Long): CityForForecast {

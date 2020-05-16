@@ -14,7 +14,7 @@ object PagingConfig {
     private const val PRE_FETCH = 40
     private const val MAX_SIZE = PAGE_SIZE + PRE_FETCH * 2
 
-    fun default() = PagedList.Config.Builder().run {
+    val DEFAULT = PagedList.Config.Builder().run {
         setEnablePlaceholders(false)
         setPageSize(PAGE_SIZE)
         setPrefetchDistance(PRE_FETCH)

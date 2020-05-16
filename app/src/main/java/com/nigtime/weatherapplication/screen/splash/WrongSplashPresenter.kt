@@ -15,6 +15,7 @@ import io.reactivex.Single
 import java.util.zip.ZipInputStream
 
 //TODO Должен копировать базу данных
+//TODO нужно переписать, вынести в отдельный модуль
 class WrongSplashPresenter constructor(
     schedulerProvider: SchedulerProvider, private val referenceCityDao: ReferenceCityDao
 ) : BasePresenter<SplashView>(schedulerProvider, TAG) {
@@ -23,13 +24,18 @@ class WrongSplashPresenter constructor(
         private const val TAG = "wrong_splash"
     }
 
-    fun checkReferenceCities() {
+    override fun onAttach() {
+        super.onAttach()
+        checkReferenceCities()
+    }
+
+    private fun checkReferenceCities() {
         RoomDictionaryWriter(referenceCityDao)
             .isDictionaryWritten()
             .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
             .subscribe(this::onCheckSuccess, this::onStreamError)
-            .disposeOnDetach()
+            .disposeOnDestroy()
     }
 
     private fun onCheckSuccess(result: Boolean) {
@@ -55,7 +61,7 @@ class WrongSplashPresenter constructor(
             .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
             .subscribe(this::onWrithingCompleted, this::rethrowError)
-            .disposeOnDetach()
+            .disposeOnDestroy()
     }
 
     private fun onWrithingCompleted() {

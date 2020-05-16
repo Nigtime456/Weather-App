@@ -6,10 +6,9 @@ package com.nigtime.weatherapplication.screen.wishlist
 
 
 import com.nigtime.weatherapplication.domain.city.WishCity
-import com.nigtime.weatherapplication.screen.common.MvpView
 
 
-interface WishCitiesView : MvpView {
+interface WishCitiesView {
     fun submitList(items: List<WishCity>)
 
     fun showProgressLayout()
@@ -23,9 +22,9 @@ interface WishCitiesView : MvpView {
     fun showUndoDeleteSnack(duration: Int)
     fun hideUndoDeleteSnack()
 
-    fun showDialogEmptyList()
+    fun showDialogAboutEmptyList()
 
-    fun setSelectedResult(position: Int)
+    fun setSelectionResult(position: Int)
 
     fun navigateToPreviousScreen()
     fun navigateToSearchCityScreen()

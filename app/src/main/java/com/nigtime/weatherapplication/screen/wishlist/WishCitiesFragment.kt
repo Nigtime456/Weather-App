@@ -19,27 +19,19 @@ import com.nigtime.weatherapplication.common.utility.list.ItemTouchController
 import com.nigtime.weatherapplication.domain.city.WishCity
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.NavigationController
-import com.nigtime.weatherapplication.screen.common.PresenterFactory
+import com.nigtime.weatherapplication.screen.common.PresenterProvider
 import com.nigtime.weatherapplication.screen.common.Screen
 import com.nigtime.weatherapplication.screen.search.SearchCityFragment
 import com.nigtime.weatherapplication.screen.wishlist.list.WishCitiesListAdapter
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
-import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.fragmet_wish_list.*
 
 
 class WishCitiesFragment :
     BaseFragment<WishCitiesView, WishCitiesPresenter, NavigationController>(R.layout.fragmet_wish_list),
-    WishCitiesView {
+    WishCitiesView, SearchCityFragment.TargetFragment {
 
-    companion object {
-        private val selectSubject: Subject<Int> = PublishSubject.create()
-
-        /**
-         * Передает позицию, элемента, по которому соверншен клик
-         */
-        fun observeItemClicks(): Observable<Int> = selectSubject
+    interface TargetFragment {
+        fun onCitySelected(position: Int)
     }
 
     private var itemTouchHelper: ItemTouchHelper? = null
@@ -77,21 +69,17 @@ class WishCitiesFragment :
         override fun onItemClick(position: Int) {
             presenter.onClickItem(position)
         }
-
-
     }
 
     override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 
-    override fun getPresenterFactory(): PresenterFactory<WishCitiesPresenter> {
-        return ViewModelProvider(this).get(WishCitiesPresenterFactory::class.java)
+    override fun getPresenterProvider(): PresenterProvider<WishCitiesPresenter> {
+        return ViewModelProvider(this).get(WishCitiesPresenterProvider::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        presenter.provideCities()
-        presenter.observeInsertNewCity(SearchCityFragment.observeInsert())
     }
 
     override fun onDestroyView() {
@@ -104,11 +92,9 @@ class WishCitiesFragment :
         wishRecycler.viewTreeObserver.addOnScrollChangedListener(liftScrollListener)
     }
 
-
     override fun onStop() {
         super.onStop()
         wishRecycler.viewTreeObserver.removeOnScrollChangedListener(liftScrollListener)
-        presenter.onViewStop()
     }
 
     private fun initViews() {
@@ -147,7 +133,7 @@ class WishCitiesFragment :
     }
 
     private fun getDivider(): ColorDividerDecoration {
-        val dividerColor = ThemeHelper.getColor(requireContext(), R.attr.themeDividerColor)
+        val dividerColor = ThemeHelper.getColor(requireContext(), R.attr.colorControlHighlight)
         val dividerSize = resources.getDimensionPixelSize(R.dimen.divider_size)
         return ColorDividerDecoration(
             dividerColor,
@@ -157,7 +143,7 @@ class WishCitiesFragment :
 
     override fun submitList(items: List<WishCity>) {
         (wishRecycler.adapter as WishCitiesListAdapter).submitList(items)
-}
+    }
 
     override fun showProgressLayout() {
         wishViewSwitcher.switchTo(0, false)
@@ -165,7 +151,6 @@ class WishCitiesFragment :
 
     override fun showListLayout() {
         wishViewSwitcher.switchTo(1, true)
-
     }
 
     override fun showEmptyLayout() {
@@ -203,20 +188,26 @@ class WishCitiesFragment :
         undoSnackbar = null
     }
 
-    override fun showDialogEmptyList() {
+    override fun showDialogAboutEmptyList() {
         //TODO должен диалог отображаться или типо того
         Toast.makeText(requireContext(), "Список не должен быть пустым!", Toast.LENGTH_LONG).show()
     }
 
-    override fun setSelectedResult(position: Int) {
-        selectSubject.onNext(position)
+    override fun setSelectionResult(position: Int) {
+        if (targetFragment is TargetFragment) {
+            (targetFragment as TargetFragment).onCitySelected(position)
+        }
     }
 
     override fun navigateToPreviousScreen() {
-        parentListener?.toBack()
+        parentListener?.toPreviousScreen()
     }
 
     override fun navigateToSearchCityScreen() {
-        parentListener?.navigateTo(Screen.Factory.searchCity())
+        parentListener?.navigateTo(Screen.Factory.searchCity(this))
+    }
+
+    override fun onCityInserted(position: Int) {
+        presenter.onCityInserted(position)
     }
 }

@@ -9,7 +9,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_enabled="true" android:state_pressed="true">
-        <ripple android:color="?attr/themeHighlightColor" />
+        <ripple android:color="?attr/colorControlHighlight" />
     </item>
 
 </selector>

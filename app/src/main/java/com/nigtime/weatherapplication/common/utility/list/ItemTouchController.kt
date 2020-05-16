@@ -56,7 +56,7 @@ class ItemTouchController<T : RecyclerView.ViewHolder>(
          * Вызывается когда все перемещения завершены и
          * список прибывает в нормальном состоянии.
          */
-        fun onMovementCompleted()
+        fun onMovementComplete()
 
         /**
          * Вызывается когда элемент может быть очищена
@@ -83,7 +83,7 @@ class ItemTouchController<T : RecyclerView.ViewHolder>(
 
         if (actionState == ItemTouchHelper.ACTION_STATE_IDLE && hasDrag) {
             hasDrag = false
-            touchAdapter.onMovementCompleted()
+            touchAdapter.onMovementComplete()
         }
     }
 

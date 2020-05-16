@@ -13,8 +13,8 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pagerViewPager"
         android:layout_width="match_parent"
-        android:background="?attr/themeHighlightColor"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="?attr/colorControlHighlight" />
 
 
     <com.google.android.material.navigation.NavigationView

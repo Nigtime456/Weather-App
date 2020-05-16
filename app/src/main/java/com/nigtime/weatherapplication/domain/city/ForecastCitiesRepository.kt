@@ -8,13 +8,12 @@
 
 package com.nigtime.weatherapplication.domain.city
 
-import com.nigtime.weatherapplication.domain.city.CityForForecast
-import io.reactivex.Single
+import io.reactivex.Flowable
 
 interface ForecastCitiesRepository {
     /**
      * Получить города только с именем и идом.
      * [CityForForecast]
      */
-    fun getListCities(): Single<List<CityForForecast>>
+    fun getListCities(): Flowable<List<CityForForecast>>
 }

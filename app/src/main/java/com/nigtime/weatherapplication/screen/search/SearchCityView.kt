@@ -6,9 +6,8 @@ package com.nigtime.weatherapplication.screen.search
 
 import androidx.paging.PagedList
 import com.nigtime.weatherapplication.domain.city.SearchCity
-import com.nigtime.weatherapplication.screen.common.MvpView
 
-interface SearchCityView : MvpView {
+interface SearchCityView {
     fun submitList(pagedList: PagedList<SearchCity>)
 
     fun delayScrollToPosition(position: Int)
@@ -20,7 +19,7 @@ interface SearchCityView : MvpView {
 
     fun showToastAlreadyAdded()
 
-    fun setInsertedResult(position: Int)
+    fun setInsertionResult(position: Int)
 
     fun navigateToPreviousScreen()
 }

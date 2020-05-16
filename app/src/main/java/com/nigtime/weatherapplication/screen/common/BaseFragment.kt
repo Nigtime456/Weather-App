@@ -6,7 +6,6 @@ package com.nigtime.weatherapplication.screen.common
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +25,7 @@ import leakcanary.AppWatcher
  * @param L - parent listener class
  */
 @Suppress("MemberVisibilityCanBePrivate")
-abstract class BaseFragment<V : MvpView, P : BasePresenter<V>, L> constructor(@LayoutRes private val layoutRes: Int) :
+abstract class BaseFragment<V, P : BasePresenter<V>, L> constructor(@LayoutRes private val layoutRes: Int) :
     Fragment() {
 
     /**
@@ -40,7 +39,7 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>, L> constructor(@L
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        presenter = getPresenterFactory().createPresenter()
+        presenter = getPresenterProvider().getPresenter()
 
         getListenerClass()?.let { clazz ->
             parentListener = if (clazz.isAssignableFrom(context.javaClass)) {
@@ -48,9 +47,15 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>, L> constructor(@L
             } else if (parentFragment != null && clazz.isAssignableFrom(requireParentFragment().javaClass)) {
                 clazz.cast(parentFragment)
             } else {
-                error("${context.javaClass.name} or $parentFragment must implement ${clazz.name}")
+                error("Context = [${context.javaClass.name}] or ParenFragment [$parentFragment] must implement ${clazz.name}")
             }
         }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        parentListener = null
+        previousToast = null
     }
 
     override fun onCreateView(
@@ -61,37 +66,41 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>, L> constructor(@L
         return inflater.inflate(layoutRes, container, false)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        AppWatcher.objectWatcher.watch(this, "fragment ${this::class.java}  leak")
+    }
+
     @Suppress("UNCHECKED_CAST")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.attach(this as V)
+        val isNotHidden = !isHidden
+        if (isNotHidden) {
+            presenter.attach(this as V)
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        presenter.detach()
+        if (presenter.isViewAttached())
+            presenter.detach()
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        AppWatcher.objectWatcher.watch(this, "fragment ${this::class.java}  leak")
-        parentListener = null
-        previousToast = null
-    }
 
+    @Suppress("UNCHECKED_CAST")
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (hidden) {
-            presenter.onHideView()
+            presenter.detach()
         } else {
-            presenter.onShowView()
+            presenter.attach(this as V)
         }
     }
 
     fun showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
         previousToast?.cancel()
         previousToast = Toast.makeText(context, msg, duration)
-        previousToast!!.show()
+        previousToast?.show()
     }
 
     fun showToast(@StringRes msg: Int, duration: Int = Toast.LENGTH_SHORT) {
@@ -107,6 +116,5 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>, L> constructor(@L
      */
     protected open fun getListenerClass(): Class<L>? = null
 
-    protected abstract fun getPresenterFactory(): PresenterFactory<P>
-
+    protected abstract fun getPresenterProvider(): PresenterProvider<P>
 }

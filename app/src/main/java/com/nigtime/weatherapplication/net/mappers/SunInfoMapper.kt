@@ -8,7 +8,6 @@ import android.annotation.SuppressLint
 import com.nigtime.weatherapplication.domain.forecast.SunInfo
 import com.nigtime.weatherapplication.net.json.JsonCurrentData
 import java.text.SimpleDateFormat
-import java.util.*
 
 class SunInfoMapper {
     companion object {

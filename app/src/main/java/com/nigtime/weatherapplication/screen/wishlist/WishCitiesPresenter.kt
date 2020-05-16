@@ -11,7 +11,6 @@ import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.city.WishCitiesRepository
 import com.nigtime.weatherapplication.domain.city.WishCity
 import com.nigtime.weatherapplication.screen.common.BasePresenter
-import io.reactivex.Observable
 import io.reactivex.Scheduler
 
 
@@ -30,24 +29,12 @@ class WishCitiesPresenter constructor(
     private var mutableItems = mutableListOf<WishCity>()
     private var hasDrag = false
 
-    override fun onShowView() {
-        super.onShowView()
+
+    override fun onAttach() {
+        super.onAttach()
         provideCities()
     }
 
-    override fun onHideView() {
-        super.onHideView()
-        removePendingMessage()
-    }
-
-    fun onViewStop() {
-        removePendingMessage()
-    }
-
-    private fun removePendingMessage() {
-        messageDispatcher.forceRun()
-        getView()?.hideUndoDeleteSnack()
-    }
 
     override fun onDetach() {
         super.onDetach()
@@ -55,11 +42,35 @@ class WishCitiesPresenter constructor(
         getView()?.hideUndoDeleteSnack()
     }
 
+    private fun provideCities() {
+        getView()?.showProgressLayout()
+
+        wishCitiesRepository.getListCities()
+            .subscribeOn(schedulerProvider.syncDatabase())
+            .observeOn(schedulerProvider.ui())
+            .subscribeAndHandleError { list ->
+                checkList(list)
+            }
+    }
+
+    private fun checkList(list: List<WishCity>) {
+        mutableItems = list.toMutableList()
+
+        if (mutableItems.isNotEmpty()) {
+            getView()?.showListLayout()
+            getView()?.submitList(mutableItems)
+            //Из за DiffUtil список может отрсисываваться долго и проглотит
+            //переданную позицию.
+            getView()?.delayScrollToPosition(insertedPosition)
+        } else {
+            getView()?.showEmptyLayout()
+        }
+    }
+
     fun onItemSwiped(swiped: WishCity, position: Int) {
-        //если есть ожидающиее удаляения сообщения, удаляем
+        //если есть ожидающиее сообщения, удаляем
         messageDispatcher.forceRun()
-
-
+        //удаляем визуально
         mutableItems.removeAt(position)
 
         if (mutableItems.isEmpty()) {
@@ -84,7 +95,7 @@ class WishCitiesPresenter constructor(
         if (mutableItems.isNotEmpty()) {
             wishCitiesRepository.replaceAll(mutableItems)
                 .subscribeOn(schedulerProvider.syncDatabase())
-                .subscribeAndHandleError(false) {
+                .subscribeAndHandleError {
                     logger.d("items replaced")
                     //nothing
                 }
@@ -100,7 +111,7 @@ class WishCitiesPresenter constructor(
 
 
     fun onClickItem(position: Int) {
-        getView()?.setSelectedResult(position)
+        getView()?.setSelectionResult(position)
         getView()?.navigateToPreviousScreen()
     }
 
@@ -108,7 +119,7 @@ class WishCitiesPresenter constructor(
         val pendingMessage = messageDispatcher.cancelMessage()
 
         if (pendingMessage is DeleteItemMessage) {
-            Log.d("sas","restore , pos = ${pendingMessage.position}")
+            Log.d("sas", "restore , pos = ${pendingMessage.position}")
             mutableItems.add(pendingMessage.position, pendingMessage.item)
             getView()?.showListLayout()
             getView()?.notifyItemInserted(pendingMessage.position)
@@ -123,23 +134,11 @@ class WishCitiesPresenter constructor(
         }
     }
 
-    fun provideCities() {
-        getView()?.showProgressLayout()
-
-        wishCitiesRepository.getListCities()
-            .subscribeOn(schedulerProvider.syncDatabase())
-            .observeOn(schedulerProvider.ui())
-            .subscribeAndHandleError(false) { list ->
-                checkList(list)
-            }
-    }
-
-
     fun onClickNavigationButton() {
         if (mutableItems.isNotEmpty()) {
             getView()?.navigateToPreviousScreen()
         } else {
-            getView()?.showDialogEmptyList()
+            getView()?.showDialogAboutEmptyList()
         }
     }
 
@@ -147,24 +146,8 @@ class WishCitiesPresenter constructor(
         getView()?.navigateToSearchCityScreen()
     }
 
-    fun observeInsertNewCity(insertObservable: Observable<Int>) {
-        insertObservable.subscribe { position -> insertedPosition = position }
-            .disposeOnDetach()
-    }
-
-    private fun checkList(list: List<WishCity>) {
-        mutableItems = list.toMutableList()
-
-        if (mutableItems.isNotEmpty()) {
-
-            getView()?.showListLayout()
-            getView()?.submitList(mutableItems)
-            //Из за DiffUtil список может отрсисываваться долго и проглотит
-            //переданную позицию.
-            getView()?.delayScrollToPosition(insertedPosition)
-        } else {
-            getView()?.showEmptyLayout()
-        }
+    fun onCityInserted(position: Int) {
+        insertedPosition = position
     }
 
 
@@ -183,6 +166,5 @@ class WishCitiesPresenter constructor(
                     //nothing
                 }
         }
-
     }
 }

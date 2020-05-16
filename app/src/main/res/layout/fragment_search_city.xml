@@ -16,7 +16,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/small_margin">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/searchToolbar"
@@ -46,30 +47,13 @@
                 </com.google.android.material.textfield.TextInputEditText>
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/divider_size"
-                android:layout_marginHorizontal="@dimen/medium_margin"
-                style="@style/DividerDefaultStyle" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/searchCurrentLocation"
-                style="@style/TextButton.PrimaryLowest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:paddingHorizontal="@dimen/medium_padding"
-                android:paddingVertical="@dimen/small_padding"
-                android:text="@string/search_current_location"
-                app:icon="@drawable/ic_my_location" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout
         android:id="@+id/searchViewSwitcher"
-        android:layout_width="match_parent"
         style="@style/CrossFadeDefaultStyle"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:crossDisplayedChild="0">
 

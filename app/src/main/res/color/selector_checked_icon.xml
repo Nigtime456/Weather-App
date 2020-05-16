@@ -3,6 +3,6 @@
   -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="?attr/themeIconTintColor" android:state_checked="true" />
-    <item android:color="?attr/themeHighlightColor" />
+    <item android:color="?attr/iconTint" android:state_checked="true" />
+    <item android:color="?attr/colorControlHighlight" />
 </selector>

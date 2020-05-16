@@ -21,6 +21,6 @@ data class CurrentForecast constructor(
     val cloudsCoverage: Int,
     val timeZone: String,
     val sunInfo: SunInfo
-){
+) {
 
 }

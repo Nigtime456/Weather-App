@@ -4,9 +4,9 @@
 
 package com.nigtime.weatherapplication.screen.common
 
-import androidx.annotation.CallSuper
 import com.nigtime.weatherapplication.common.log.CustomLogger
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
+import com.nigtime.weatherapplication.common.utility.RetainedContainer
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -23,14 +23,14 @@ import java.lang.ref.WeakReference
  *
  */
 @Suppress("MemberVisibilityCanBePrivate")
-abstract class BasePresenter<V : MvpView> constructor(
+abstract class BasePresenter<V> constructor(
     protected val schedulerProvider: SchedulerProvider,
     tag: String = TAG
 ) {
-
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private var weakView: WeakReference<V>? = null
-    private var compositeDisposable: CompositeDisposable? = null
     protected val logger: CustomLogger = CustomLogger(tag, true)
+    protected val retainedContainer = RetainedContainer()
 
     companion object {
         private const val TAG = "BasePresenter"
@@ -42,17 +42,11 @@ abstract class BasePresenter<V : MvpView> constructor(
      *
      */
     fun attach(view: V) {
-        require(!isViewAttached()) { "view already attached!" }
+        require(isViewDetached()) { "view already attached!" }
         weakView = WeakReference(view)
         onAttach()
-    }
 
-    /**
-     * Вызывается когда презентер присоденен
-     */
-    @CallSuper
-    protected open fun onAttach() {
-        compositeDisposable = CompositeDisposable()
+        logger.d("attached")
     }
 
     /**
@@ -61,48 +55,54 @@ abstract class BasePresenter<V : MvpView> constructor(
     fun detach() {
         require(isViewAttached()) { "view already detached!" }
         onDetach()
-    }
-
-    /**
-     * Вызывается когда вью скрывается/становится невидимой с экрана
-     */
-    @CallSuper
-    open fun onHideView() {
-    }
-
-    /**
-     * Вызывается когда вью становится видимой/показывается.
-     * Этот метод вызывается только если вью было скрыто до этого,
-     * но не вызывается каждый раз при создании вью.
-     */
-    @CallSuper
-    open fun onShowView() {
-    }
-
-    /**
-     * Вызывается когда презентер отсоеден
-     */
-    @CallSuper
-    protected open fun onDetach() {
         weakView?.clear()
-        performDispose()
         weakView = null
-        compositeDisposable = null
+
+        logger.d("detached")
+    }
+
+    fun destroy() {
+        require(weakView == null) { "this method should be called after detach!" }
+        performDispose()
+        onDestroy()
+
+        logger.d("destroyed")
+    }
+
+    /**
+     * true - view присоеденно
+     */
+    fun isViewAttached(): Boolean {
+        return weakView != null && weakView!!.get() != null
+    }
+
+    fun isViewDetached(): Boolean {
+        return !isViewAttached()
+    }
+
+    /**
+     * Вызывается когда презентер присоденен
+     */
+    protected open fun onAttach() {
+
+    }
+
+    /**
+     * Вызывается когда вью будет отсоедено
+     */
+    protected open fun onDetach() {
+
+    }
+
+    protected open fun onDestroy() {
+
     }
 
     /**
      * Очистить все подписки и остановить потоки
      */
     protected fun performDispose() {
-        compositeDisposable?.clear()
-    }
-
-
-    /**
-     * true - view присоеденно
-     */
-    protected fun isViewAttached(): Boolean {
-        return weakView != null && weakView!!.get() != null
+        compositeDisposable.clear()
     }
 
     /**
@@ -114,8 +114,8 @@ abstract class BasePresenter<V : MvpView> constructor(
     /**
      * Расширение к Disposable для простой отписки
      */
-    protected open fun Disposable.disposeOnDetach() {
-        compositeDisposable!!.add(this)
+    protected open fun Disposable.disposeOnDestroy() {
+        compositeDisposable.add(this)
     }
 
     /**
@@ -123,7 +123,6 @@ abstract class BasePresenter<V : MvpView> constructor(
      * @param throwable - исключения, в базовой реализации оно будет
      * проигнорировано.
      */
-
     protected open fun onStreamError(throwable: Throwable) {
         logger.e(throwable)
     }
@@ -157,7 +156,7 @@ abstract class BasePresenter<V : MvpView> constructor(
         onComplete: () -> Unit
     ) {
         subscribe(onComplete, { if (!ignoreError) rethrowError(it) })
-            .disposeOnDetach()
+            .disposeOnDestroy()
     }
 
     /**
@@ -168,10 +167,11 @@ abstract class BasePresenter<V : MvpView> constructor(
      */
     protected fun <T> Observable<T>.subscribeAndHandleError(
         ignoreError: Boolean = false,
+        onComplete: () -> Unit = {},
         onNext: (T) -> Unit
     ) {
-        subscribe(onNext, { if (!ignoreError) rethrowError(it) })
-            .disposeOnDetach()
+        subscribe(onNext, { if (!ignoreError) rethrowError(it) }, onComplete)
+            .disposeOnDestroy()
     }
 
     /**
@@ -182,10 +182,11 @@ abstract class BasePresenter<V : MvpView> constructor(
      */
     protected fun <T> Flowable<T>.subscribeAndHandleError(
         ignoreError: Boolean = false,
+        onComplete: () -> Unit = {},
         onNext: (T) -> Unit
     ) {
-        subscribe(onNext, { if (!ignoreError) rethrowError(it) })
-            .disposeOnDetach()
+        subscribe(onNext, { if (!ignoreError) rethrowError(it) }, onComplete)
+            .disposeOnDestroy()
     }
 
 
@@ -200,7 +201,7 @@ abstract class BasePresenter<V : MvpView> constructor(
         onResult: (T) -> Unit
     ) {
         subscribe(onResult, { if (!ignoreError) rethrowError(it) })
-            .disposeOnDetach()
+            .disposeOnDestroy()
     }
 
 }

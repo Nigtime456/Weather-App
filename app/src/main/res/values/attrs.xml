@@ -3,26 +3,14 @@
 
 
     <!--  Theme attrs  -->
-    <attr name="themeDayColor" format="color" />
-    <attr name="themeNightColor" format="color" />
-
-
-    <attr name="themeSecondaryTempColor" format="color"/>
-
-    <attr name="themeDividerColor" format="color" />
-
-    <attr name="themeIconTintColor" format="color" />
+    <attr name="themeNightTempColor" format="color" />
 
     <attr name="themePrimaryTextColor" format="color" />
     <attr name="themeSecondaryTextColor" format="color" />
 
-    <attr name="themePrimaryTextColorSelector" format="color" />
-    <attr name="themeSecondaryTextColorSelector" format="color" />
-
     <attr name="themeScreenBackground" format="color" />
-    <attr name="themeHighlightColor" format="color" />
 
-    <attr name="themeSplashColor" format="color"/>
+    <attr name="themeSplashColor" format="color" />
 
 
     <declare-styleable name="CrossFadeAnimatorLayout">

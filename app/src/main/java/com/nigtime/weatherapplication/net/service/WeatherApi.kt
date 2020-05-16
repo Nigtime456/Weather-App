@@ -13,9 +13,7 @@ import com.nigtime.weatherapplication.net.json.JsonDailyForecast
 import com.nigtime.weatherapplication.net.json.JsonHourlyForecast
 import io.reactivex.Observable
 import retrofit2.http.GET
-import retrofit2.http.Query
 import retrofit2.http.QueryMap
-import retrofit2.http.QueryName
 
 /**
  * https://www.weatherbit.io/api

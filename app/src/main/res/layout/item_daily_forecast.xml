@@ -33,8 +33,8 @@
             android:layout_width="@dimen/icon_small"
             android:layout_height="@dimen/icon_small"
             android:layout_gravity="center"
-            tools:src="@drawable/_weather_stub"
-            android:contentDescription="@string/content_description_weather_ico" />
+            android:contentDescription="@string/content_description_weather_ico"
+            tools:src="@drawable/_weather_stub" />
 
         <TextView
             android:id="@+id/itemDayDTemp"
@@ -54,7 +54,7 @@
             android:layout_gravity="center"
             android:layout_weight="0.4"
             android:gravity="center|end"
-            android:textColor="?attr/themeSecondaryTempColor"
+            android:textColor="?attr/themeNightTempColor"
             tools:text="8°" />
 
     </LinearLayout>

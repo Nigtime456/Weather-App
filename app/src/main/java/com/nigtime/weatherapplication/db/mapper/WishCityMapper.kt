@@ -4,7 +4,6 @@
 
 package com.nigtime.weatherapplication.db.mapper
 
-import android.util.Log
 import com.nigtime.weatherapplication.db.table.ReferenceCityTable
 import com.nigtime.weatherapplication.db.table.WishCityTable
 import com.nigtime.weatherapplication.domain.city.WishCity

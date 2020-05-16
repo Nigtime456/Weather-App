@@ -4,42 +4,17 @@
 
 package com.nigtime.weatherapplication.screen.pager
 
-import android.util.Log
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DiffUtil
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.nigtime.weatherapplication.common.App
-import com.nigtime.weatherapplication.common.rx.RxAsyncDiffer
-import com.nigtime.weatherapplication.common.utility.list.GenericCallback
-import com.nigtime.weatherapplication.common.utility.list.SimpleDiffCallback
 import com.nigtime.weatherapplication.domain.city.CityForForecast
 import com.nigtime.weatherapplication.screen.currentforecast.CurrentForecastFragment
-import kotlin.system.measureTimeMillis
 
-class PagerCityAdapter(fragment: Fragment) :
+class PagerCityAdapter(fragment: Fragment, private var items: List<CityForForecast>) :
     FragmentStateAdapter(fragment) {
 
-    companion object {
-        val DIFF_CALLBACK = object : SimpleDiffCallback<CityForForecast>() {
-            override fun areItemsTheSame(old: CityForForecast, new: CityForForecast): Boolean {
-                return old.cityId == new.cityId
-            }
-
-            override fun areContentsTheSame(old: CityForForecast, new: CityForForecast): Boolean {
-                return old.cityId == new.cityId
-            }
-        }
-    }
-
-    private var items = emptyList<CityForForecast>()
-
-
     fun submitList(newList: List<CityForForecast>) {
-        val callback = GenericCallback(items, newList, DIFF_CALLBACK)
-        DiffUtil.calculateDiff(callback,false).apply {
-            items = newList
-            dispatchUpdatesTo(this@PagerCityAdapter)
-        }
+        items = newList
+        notifyDataSetChanged()
     }
 
     override fun getItemId(position: Int): Long {

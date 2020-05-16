@@ -39,9 +39,10 @@ import com.nigtime.weatherapplication.net.service.ApiFactory
  * Для простоты DI они вынесены в отдельный класс, который сохраняется
  * на протяжение всей жизни приложения.
  *
- * @param context - контекст приложения.
+ * @param appContext - контекст приложения.
  */
-class AppContainer(context: Context) {
+class AppContainer(val appContext: Context) {
+
     val referenceCityDao: ReferenceCityDao
     val wishCityDao: WishCityDao
 
@@ -60,7 +61,7 @@ class AppContainer(context: Context) {
 
 
     init {
-        val database = AppDatabase.getInstance(context)
+        val database = AppDatabase.getInstance(appContext)
         referenceCityDao = database.referenceCityDao()
         wishCityDao = database.wishCityDao()
         forecastCitiesRepository =
@@ -76,7 +77,7 @@ class AppContainer(context: Context) {
             DailyForecastMapper()
         )
 
-        settingsManager = FakeSettingsManager(context)
+        settingsManager = FakeSettingsManager(appContext)
 
 
     }

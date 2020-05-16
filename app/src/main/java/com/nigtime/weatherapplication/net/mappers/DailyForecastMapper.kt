@@ -6,7 +6,6 @@ package com.nigtime.weatherapplication.net.mappers
 
 import android.annotation.SuppressLint
 import com.nigtime.weatherapplication.domain.forecast.DailyForecast
-import com.nigtime.weatherapplication.domain.forecast.SunInfo
 import com.nigtime.weatherapplication.domain.utility.WeatherConditionHelper
 import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.net.json.JsonDailyData

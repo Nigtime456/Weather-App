@@ -84,6 +84,8 @@ class WishCitiesListAdapter constructor(private val listener: Listener) :
         return true
     }
 
+    override fun isLongPressDragEnabled(): Boolean = false
+
     override fun dispatchMove(moved: WishCityViewHolder, target: WishCityViewHolder): Boolean {
         listener.onItemsMoved(
             moved.getCurrentItem(),
@@ -100,13 +102,11 @@ class WishCitiesListAdapter constructor(private val listener: Listener) :
         notifyItemRemoved(swiped.adapterPosition)
     }
 
-    override fun isLongPressDragEnabled(): Boolean = false
-
     override fun clearItemView(viewHolder: WishCityViewHolder) {
         viewHolder.onDragEnd()
     }
 
-    override fun onMovementCompleted() {
+    override fun onMovementComplete() {
         listener.onMovementComplete()
     }
 

@@ -15,9 +15,8 @@ import com.nigtime.weatherapplication.domain.forecast.DailyForecast
 import com.nigtime.weatherapplication.domain.settings.UnitFormatter
 import kotlinx.android.synthetic.main.item_daily_forecast.view.*
 
-class DailyWeatherAdapter constructor(
-    private val unitFormatter: UnitFormatter, private val onClickListener: (Int) -> Unit
-) : BaseAdapter<DailyForecast.DailyWeather, DailyWeatherAdapter.VH>(DIFF_CALLBACK) {
+class DailyWeatherAdapter constructor(private val onClickListener: (Int) -> Unit) :
+    BaseAdapter<DailyForecast.DailyWeather, DailyWeatherAdapter.VH>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : SimpleDiffCallback<DailyForecast.DailyWeather>() {
@@ -32,7 +31,7 @@ class DailyWeatherAdapter constructor(
                 old: DailyForecast.DailyWeather,
                 new: DailyForecast.DailyWeather
             ): Boolean {
-                return old.unixTimestamp == new.unixTimestamp
+                return old == new
             }
 
         }
@@ -46,6 +45,12 @@ class DailyWeatherAdapter constructor(
             itemView.itemDayIco.setImageResource(item.ico)
             itemView.itemDayCurrentDate.text = unitFormatter.getCompactDateByDailyWeather(item)
         }
+    }
+
+    private lateinit var unitFormatter: UnitFormatter
+
+    fun setUnitFormatter(unitFormatter: UnitFormatter) {
+        this.unitFormatter = unitFormatter
     }
 
     override fun onViewAttachedToWindow(holder: VH) {

@@ -12,99 +12,115 @@ import com.nigtime.weatherapplication.domain.forecast.DailyForecast
 import com.nigtime.weatherapplication.domain.forecast.ForecastManager
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
 import com.nigtime.weatherapplication.domain.param.RequestParams
+import com.nigtime.weatherapplication.domain.settings.SettingsManager
 import com.nigtime.weatherapplication.screen.common.BasePresenter
 import io.reactivex.Observable
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.Observables
+import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.subjects.Subject
 
 
 class CurrentForecastPresenter(
     schedulerProvider: SchedulerProvider,
+    private val cityForForecast: CityForForecast,
     private val forecastManager: ForecastManager,
+    private val settingsManager: SettingsManager,
     private val displayedDaysSwitchSubject: Subject<Int>,
     private val verticalScrollSubject: Subject<Int>
-) :
-    BasePresenter<CurrentForecastView>(
-        schedulerProvider, TAG
-    ) {
+) : BasePresenter<CurrentForecastView>(schedulerProvider, TAG) {
 
     private companion object {
         const val TAG = "current_forecast"
+
+        const val FORECAST = "forecast data"
+        const val DAILY_WEATHER = "daily weather data"
+        const val UNIT_FORMATTER = "unit formatter"
 
         const val SHOW_5_DAYS = R.id.currentForecastDisplay5days
         const val SHOW_10_DAYS = R.id.currentForecastDisplay10days
         const val SHOW_16_DAYS = R.id.currentForecastDisplay16days
     }
 
-
-    private lateinit var currentCity: CityForForecast
-    private var dailyWeatherList = emptyList<DailyForecast.DailyWeather>()
-
+    private val detachDisposable = CompositeDisposable()
     private var currentDisplayedDays = SHOW_5_DAYS
 
-    private var isDataLoaded = false
-
-    //TODO дебаг
-    private var startTime = 0L
 
     override fun onAttach() {
         super.onAttach()
         observeDisplayedDaysChanges()
         observeScrollChanges()
-    }
-
-    private fun observeScrollChanges() {
-        verticalScrollSubject.subscribe { scrollY ->
-            getView()?.setVerticalScroll(scrollY)
-        }.disposeOnDetach()
-    }
-
-    private fun observeDisplayedDaysChanges() {
-        displayedDaysSwitchSubject.subscribe { newCount ->
-            currentDisplayedDays = newCount
-            showDailyWeather()
-        }.disposeOnDetach()
+        observeUnitSettingsChanges()
+        setupScreen()
     }
 
     override fun onDetach() {
         super.onDetach()
-        dailyWeatherList = emptyList()
-        isDataLoaded = false
+        detachDisposable.clear()
     }
 
+    private fun observeScrollChanges() {
+        detachDisposable += verticalScrollSubject.subscribe { scrollY ->
+            getView()?.setVerticalScroll(scrollY)
+        }
+    }
 
-    fun provideForecast(cityForForecast: CityForForecast) {
+    private fun observeDisplayedDaysChanges() {
+        detachDisposable += displayedDaysSwitchSubject.subscribe { newCount ->
+            currentDisplayedDays = newCount
+            if (retainedContainer.contains(DAILY_WEATHER)) {
+                //данные не загружены ещё
+                showDailyWeather(retainedContainer.getAs(DAILY_WEATHER))
+            }
+        }
+    }
+
+    private fun observeUnitSettingsChanges() {
+        settingsManager.getUnitFormatter().subscribe { unitFormatter ->
+            retainedContainer.put(UNIT_FORMATTER, unitFormatter)
+        }.disposeOnDestroy()
+    }
+
+    private fun setupScreen() {
         getView()?.setCityName(cityForForecast.cityName)
         getView()?.showLoadLayout()
-        loadWeather(cityForForecast)
+
+        getView()?.submitUnitFormatter(retainedContainer.getAs(UNIT_FORMATTER))
+
+        if (retainedContainer.contains(FORECAST)) {
+            logger.d("restore data")
+            handleResult(retainedContainer.getAs(FORECAST))
+        } else {
+            logger.d("load data")
+            retainedContainer.clear()
+            loadWeather()
+        }
     }
 
-    private fun loadWeather(cityForForecast: CityForForecast) {
-        startTime = System.currentTimeMillis()
-        currentCity = cityForForecast
+    private fun loadWeather() {
         val params = RequestParams.CityParams(cityForForecast.cityId)
 
         getForecastAsSingle(params)
             .observeOn(schedulerProvider.ui())
             .subscribe(this::handleResult, this::onStreamError)
-            .disposeOnDetach()
+            .disposeOnDestroy()
     }
 
     private fun handleResult(triple: Triple<CurrentForecast, HourlyForecast, DailyForecast>) {
-        logger.d("handleResult = ${currentCity.cityName}")
-        logger.d("load time = ${System.currentTimeMillis() - startTime}")
-        isDataLoaded = true
+
         val currentForecast = triple.first
         val hourlyForecast = triple.second
         val dailyForecast = triple.third
-        dailyWeatherList = triple.third.dailyWeather
+
+        retainedContainer.put(FORECAST, triple)
+        retainedContainer.put(DAILY_WEATHER, dailyForecast.dailyWeather)
 
         getView()?.showMainLayout()
         getView()?.setCurrentTemp(currentForecast.temp)
         getView()?.setCurrentFeelsLikeTemp(currentForecast.feelsLikeTemp)
         getView()?.setCurrentIco(currentForecast.ico)
         getView()?.setCurrentWeatherDescription(currentForecast.description)
-        showDailyWeather()
+        showDailyWeather(dailyForecast.dailyWeather)
         getView()?.setHourlyForecast(hourlyForecast.hourlyWeather)
         getView()?.setWind(currentForecast.wind)
         getView()?.setHumidity(currentForecast.humidity)
@@ -119,20 +135,16 @@ class CurrentForecastPresenter(
         getView()?.setSunInfo(currentForecast.sunInfo)
     }
 
-    private fun showDailyWeather() {
-        //данные не загружены ещё.
-        if (!isDataLoaded)
-            return
-
+    private fun showDailyWeather(dailyWeather: List<DailyForecast.DailyWeather>) {
         when (currentDisplayedDays) {
             SHOW_5_DAYS -> {
-                getView()?.setDailyForecast(dailyWeatherList.take(5))
+                getView()?.setDailyForecast(dailyWeather.take(5))
             }
             SHOW_10_DAYS -> {
-                getView()?.setDailyForecast(dailyWeatherList.take(10))
+                getView()?.setDailyForecast(dailyWeather.take(10))
             }
             SHOW_16_DAYS -> {
-                getView()?.setDailyForecast(dailyWeatherList.take(16))
+                getView()?.setDailyForecast(dailyWeather.take(16))
             }
             else -> error("invalid switcher ID? = $currentDisplayedDays")
         }

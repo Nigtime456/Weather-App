@@ -13,5 +13,5 @@ interface NavigationController {
      */
     fun navigateTo(screen: Screen)
 
-    fun toBack()
+    fun toPreviousScreen()
 }

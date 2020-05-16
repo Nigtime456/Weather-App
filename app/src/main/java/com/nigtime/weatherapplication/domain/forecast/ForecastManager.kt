@@ -12,9 +12,18 @@ import com.nigtime.weatherapplication.domain.param.RequestParams
 import io.reactivex.Observable
 
 interface ForecastManager {
-    fun getCurrentForecast(params: RequestParams, forceNet: Boolean = false): Observable<CurrentForecast>
+    fun getCurrentForecast(
+        params: RequestParams,
+        forceNet: Boolean = false
+    ): Observable<CurrentForecast>
 
-    fun getHourlyForecast(params: RequestParams, forceNet: Boolean = false): Observable<HourlyForecast>
+    fun getHourlyForecast(
+        params: RequestParams,
+        forceNet: Boolean = false
+    ): Observable<HourlyForecast>
 
-    fun getDailyForecast(params: RequestParams, forceNet: Boolean = false): Observable<DailyForecast>
+    fun getDailyForecast(
+        params: RequestParams,
+        forceNet: Boolean = false
+    ): Observable<DailyForecast>
 }

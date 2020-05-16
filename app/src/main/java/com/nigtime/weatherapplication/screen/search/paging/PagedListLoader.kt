@@ -22,7 +22,7 @@ class PagedListLoader(private val schedulerProvider: SchedulerProvider) {
     ): Flowable<PagedList<SearchCity>> {
         return SearchCitySourceFactory(pagedRepository, query)
             .toFlowable(
-                PagingConfig.default(),
+                PagingConfig.DEFAULT,
                 fetchScheduler = schedulerProvider.syncDatabase(),
                 notifyScheduler = schedulerProvider.ui()
             )

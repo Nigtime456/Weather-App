@@ -6,5 +6,5 @@
     android:shape="oval">
     <stroke
         android:width="@dimen/divider_size"
-        android:color="?attr/themeIconTintColor" />
+        android:color="?attr/iconTint" />
 </shape>

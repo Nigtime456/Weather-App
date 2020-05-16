@@ -4,7 +4,6 @@
 
 package com.nigtime.weatherapplication.screen.search.paging
 
-import android.util.Log
 import android.view.*
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -43,7 +42,7 @@ class PagedSearchAdapter constructor(private val spannHelper: ColorSpanHelper) :
      */
     class ItemClickClickListener constructor(
         private val recyclerView: RecyclerView,
-        private val onClick: (SearchCity) -> Unit
+        private val onItemClick: (SearchCity) -> Unit
     ) : RecyclerView.OnItemTouchListener {
 
         private val gestureDetector: GestureDetector
@@ -66,7 +65,7 @@ class PagedSearchAdapter constructor(private val spannHelper: ColorSpanHelper) :
                 if (gestureDetector.onTouchEvent(e)) {
                     val viewHolder = recyclerView.getChildViewHolder(child)
                     val cityViewHolder = viewHolder as CityViewHolder
-                    onClick(cityViewHolder.getCurrentCity())
+                    onItemClick(cityViewHolder.getCurrentCity())
                 }
             }
             return false

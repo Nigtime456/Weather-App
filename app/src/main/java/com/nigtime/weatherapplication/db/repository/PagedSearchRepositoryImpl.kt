@@ -4,7 +4,6 @@
 
 package com.nigtime.weatherapplication.db.repository
 
-import android.util.Log
 import com.nigtime.weatherapplication.db.mapper.SearchCityMapper
 import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.db.service.WishCityDao
@@ -30,7 +29,8 @@ class PagedSearchRepositoryImpl(
     override fun insert(searchCity: SearchCity): Single<Int> {
         return Single.fromCallable(this::getMaxListIndex)
             .doOnSuccess { maxIndex ->
-                wishCityDao.insert(mapSearchCity(searchCity, maxIndex)) }
+                wishCityDao.insert(mapSearchCity(searchCity, maxIndex))
+            }
     }
 
     private fun mapSearchCity(searchCity: SearchCity, maxListIndex: Int): WishCityTable {

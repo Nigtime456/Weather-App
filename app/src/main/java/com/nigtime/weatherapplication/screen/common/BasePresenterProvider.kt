@@ -7,20 +7,26 @@ package com.nigtime.weatherapplication.screen.common
 import androidx.annotation.CallSuper
 import androidx.lifecycle.ViewModel
 import com.nigtime.weatherapplication.common.App
+import com.nigtime.weatherapplication.common.di.AppContainer
 import leakcanary.AppWatcher
 
 /**
- * Реализация [PresenterFactory], сохраняет презентер в [ViewModel],
+ * Реализация [PresenterProvider], сохраняет презентер в [ViewModel],
  * позволя держать при смене конфигурации, но удалять когда фрагмент окончательно удаляется.
  *
  *
  */
-abstract class BasePresenterFactory<T> : ViewModel(), PresenterFactory<T> {
-    protected val appContainer = App.INSTANCE.appContainer
+abstract class BasePresenterProvider<T : BasePresenter<*>> : ViewModel(), PresenterProvider<T> {
+    private val presenter = lazy { createPresenter(App.INSTANCE.appContainer) }
+
+    final override fun getPresenter(): T = presenter.value
+
+    protected abstract fun createPresenter(appContainer: AppContainer): T
 
     @CallSuper
     override fun onCleared() {
         super.onCleared()
+        presenter.value.destroy()
         AppWatcher.objectWatcher.watch(this, "ViewModel should be cleared")
     }
 }

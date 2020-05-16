@@ -15,7 +15,7 @@ import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
 import com.nigtime.weatherapplication.domain.settings.UnitFormatter
 import kotlinx.android.synthetic.main.item_hourly_forecast.view.*
 
-class HourlyWeatherAdapter constructor(private val unitFormatter: UnitFormatter) :
+class HourlyWeatherAdapter :
     BaseAdapter<HourlyForecast.HourlyWeather, HourlyWeatherAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
@@ -43,6 +43,12 @@ class HourlyWeatherAdapter constructor(private val unitFormatter: UnitFormatter)
             itemView.itemHourWeatherIco.setImageResource(weather.ico)
             itemView.itemHourTime.text = weather.hour
         }
+    }
+
+    private lateinit var unitFormatter: UnitFormatter
+
+    fun setUnitFormatter(unitFormatter: UnitFormatter) {
+        this.unitFormatter = unitFormatter
     }
 
     override fun createViewHolder(

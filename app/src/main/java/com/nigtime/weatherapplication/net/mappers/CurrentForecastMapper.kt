@@ -4,7 +4,6 @@
 
 package com.nigtime.weatherapplication.net.mappers
 
-import android.annotation.SuppressLint
 import com.nigtime.weatherapplication.domain.forecast.AirQuality
 import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
 import com.nigtime.weatherapplication.domain.forecast.UvIndex
@@ -12,7 +11,6 @@ import com.nigtime.weatherapplication.domain.forecast.Wind
 import com.nigtime.weatherapplication.domain.utility.WeatherConditionHelper
 import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
-import java.text.SimpleDateFormat
 
 
 class CurrentForecastMapper constructor(

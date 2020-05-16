@@ -10,7 +10,12 @@ data class HourlyForecast constructor(
     val hourlyWeather: List<HourlyWeather>,
     val probabilityOfPrecipitation: ProbabilityOfPrecipitation
 ) {
-    data class HourlyWeather(val temp: Double, @DrawableRes val ico: Int, val hour: String)
+
+    data class HourlyWeather(
+        val temp: Double,
+        @DrawableRes val ico: Int,
+        val hour: String
+    )
 
     data class ProbabilityOfPrecipitation(
         val next3Hours: Int,
