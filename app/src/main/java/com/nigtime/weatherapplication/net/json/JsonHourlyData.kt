@@ -10,7 +10,7 @@ data class JsonHourlyData(
     @SerializedName("temp")
     val temp: Double, // 1.9
     @SerializedName("timestamp_local")
-    val timeStamp: String,
+    val timeStamp: String,  //"2020-02-22T21:00:00"
     @SerializedName("app_temp")
     val appTemp: String, // -2.6
     @SerializedName("pres")
@@ -22,7 +22,7 @@ data class JsonHourlyData(
     @SerializedName("rh")
     val rh: String, // 93
     @SerializedName("pop")
-    val probabilityOfPrecipitation: Int,
+    val probabilityOfPrecipitation: Int, //?
     @SerializedName("weather")
     val weather: JsonWeather
 )

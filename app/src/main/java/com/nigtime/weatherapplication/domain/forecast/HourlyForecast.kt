@@ -14,7 +14,7 @@ data class HourlyForecast constructor(
     data class HourlyWeather(
         val temp: Double,
         @DrawableRes val ico: Int,
-        val hour: String
+        val unixTimestamp: Long
     )
 
     data class ProbabilityOfPrecipitation(

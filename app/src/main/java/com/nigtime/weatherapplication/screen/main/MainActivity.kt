@@ -18,6 +18,7 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import leakcanary.AppWatcher
 
+
 /**
  * Главная активити, управляет только фрагментами, не имеет собственной разметки.
  */
@@ -37,7 +38,6 @@ class MainActivity : AppCompatActivity(),
     //TODO remove it
     @SuppressLint("CheckResult")
     private fun test() {
-
 
         Single.fromCallable {
             "d"

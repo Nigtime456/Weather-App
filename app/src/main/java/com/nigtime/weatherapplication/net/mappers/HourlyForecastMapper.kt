@@ -9,6 +9,8 @@ import com.nigtime.weatherapplication.domain.utility.WeatherConditionHelper
 import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.net.json.JsonHourlyData
 import com.nigtime.weatherapplication.net.json.JsonHourlyForecast
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class HourlyForecastMapper {
@@ -18,20 +20,26 @@ class HourlyForecastMapper {
         return HourlyForecast(hourlyWeatherList, json.data.toProbabilityOfPrecipitation())
     }
 
-    fun JsonHourlyForecast.toProbabilityOfPrecipitation(): HourlyForecast.ProbabilityOfPrecipitation {
-        val next3Hours = forecastList.take(3)
-            .maxBy { jsonHourlyData -> jsonHourlyData.probabilityOfPrecipitation }!!.probabilityOfPrecipitation
-        val next6Hours = forecastList.take(6)
-            .maxBy { jsonHourlyData -> jsonHourlyData.probabilityOfPrecipitation }!!.probabilityOfPrecipitation
-        val next12Hours = forecastList.take(12)
-            .maxBy { jsonHourlyData -> jsonHourlyData.probabilityOfPrecipitation }!!.probabilityOfPrecipitation
+    private fun JsonHourlyForecast.toProbabilityOfPrecipitation(): HourlyForecast.ProbabilityOfPrecipitation {
+        val next3Hours = getMaxPrecipitation(3)
+        val next6Hours = getMaxPrecipitation(6)
+        val next12Hours = getMaxPrecipitation(12)
         return HourlyForecast.ProbabilityOfPrecipitation(next3Hours, next6Hours, next12Hours)
     }
 
-    fun JsonHourlyData.toHourlyForecast(): HourlyForecast.HourlyWeather {
+    private fun JsonHourlyForecast.getMaxPrecipitation(hours: Int): Int {
+        return forecastList
+            .take(hours)
+            .maxBy { jsonHourlyData ->
+                jsonHourlyData.probabilityOfPrecipitation
+            }?.probabilityOfPrecipitation ?: 0
+    }
+
+    private fun JsonHourlyData.toHourlyForecast(): HourlyForecast.HourlyWeather {
+        //"2020-02-22T21:00:00"
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.ROOT)
         val ico = WeatherConditionHelper.getIconByCode(weather.code)
-        //"2020-02-22T21:00:00" -> 21:00:00 -> 21:00
-        val hour = timeStamp.takeLast(8).take(5)
-        return HourlyForecast.HourlyWeather(temp, ico, hour)
+        val unixHour = dateFormatter.parse(timeStamp)?.time ?: 0
+        return HourlyForecast.HourlyWeather(temp, ico, unixHour)
     }
 }

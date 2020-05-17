@@ -25,7 +25,7 @@ class HourlyWeatherAdapter :
                 old: HourlyForecast.HourlyWeather,
                 new: HourlyForecast.HourlyWeather
             ): Boolean {
-                return old.hour == new.hour
+                return old.unixTimestamp == new.unixTimestamp
             }
 
             override fun areContentsTheSame(
