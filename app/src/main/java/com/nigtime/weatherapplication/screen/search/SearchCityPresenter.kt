@@ -38,11 +38,11 @@ class SearchCityPresenter constructor(
             pagedSearchRepository.insert(searchCity)
                 .subscribeOn(schedulerProvider.syncDatabase())
                 .observeOn(schedulerProvider.ui())
-                .subscribeAndHandleError(onResult = this::handleInsertResult)
+                .subscribeAndHandleError(onResult = this::onInsertResult)
         }
     }
 
-    private fun handleInsertResult(insertedPosition: Int) {
+    private fun onInsertResult(insertedPosition: Int) {
         getView()?.setInsertionResult(insertedPosition)
         getView()?.navigateToPreviousScreen()
     }
@@ -63,10 +63,10 @@ class SearchCityPresenter constructor(
     private fun loadQueryList(query: String) {
         getView()?.showProgressLayout()
         pagedListLoader.loadList(pagedSearchRepository, query)
-            .subscribeAndHandleError(onNext = this::submitList)
+            .subscribeAndHandleError(onNext = this::onListLoaded)
     }
 
-    private fun submitList(pagedList: PagedList<SearchCity>) {
+    private fun onListLoaded(pagedList: PagedList<SearchCity>) {
         getView()?.submitList(pagedList)
         if (pagedList.isNotEmpty()) {
             getView()?.delayScrollToPosition(0)

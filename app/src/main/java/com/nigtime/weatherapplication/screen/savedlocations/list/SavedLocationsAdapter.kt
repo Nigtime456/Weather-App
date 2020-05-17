@@ -26,7 +26,10 @@ import com.nigtime.weatherapplication.domain.location.SavedLocation
  *
  */
 
-class SavedLocationsAdapter constructor(private val listener: Listener) :
+class SavedLocationsAdapter constructor(
+    private val listener: Listener,
+    private val presenterFactory: ItemPresenterFactory
+) :
     BaseAdapter<SavedLocation, SavedLocationViewHolder>(DIFF_CALLBACK, true),
     ItemTouchController.TouchAdapter<SavedLocationViewHolder> {
 
@@ -77,17 +80,20 @@ class SavedLocationsAdapter constructor(private val listener: Listener) :
         item: SavedLocation
     ) {
         holder.bindLocation(item)
+        holder.presenter = presenterFactory.getItemPresenter(item)
     }
 
     override fun onViewAttachedToWindow(holder: SavedLocationViewHolder) {
         super.onViewAttachedToWindow(holder)
         holder.attachOnClickListener(listener::onItemClick)
         holder.attachDragListener(listener::startDragItem)
+        holder.attachPresenter()
     }
 
     override fun onViewDetachedFromWindow(holder: SavedLocationViewHolder) {
         super.onViewDetachedFromWindow(holder)
         holder.removeListeners()
+        holder.detachPresenter()
     }
 
     override fun onViewRecycled(holder: SavedLocationViewHolder) {

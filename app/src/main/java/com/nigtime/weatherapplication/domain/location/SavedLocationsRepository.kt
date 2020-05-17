@@ -9,13 +9,16 @@
 package com.nigtime.weatherapplication.domain.location
 
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 
-interface SavedLocationRepository {
+interface SavedLocationsRepository {
     /**
      * Получить все добавленные города
      */
     fun getLocations(): Single<List<SavedLocation>>
+
+    fun getLocationsAsFlowable(): Flowable<List<SavedLocation>>
 
     fun hasLocations(): Single<Boolean>
 

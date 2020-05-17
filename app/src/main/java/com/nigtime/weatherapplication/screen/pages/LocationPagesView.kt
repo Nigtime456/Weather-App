@@ -4,14 +4,13 @@
 
 package com.nigtime.weatherapplication.screen.pages
 
-
-import com.nigtime.weatherapplication.domain.location.ForecastLocation
+import com.nigtime.weatherapplication.domain.location.SavedLocation
 
 interface LocationPagesView {
     fun showDrawer()
 
-    fun submitListToPager(items: List<ForecastLocation>)
-    fun submitListToNavView(items: List<ForecastLocation>)
+    fun submitListToPager(items: List<SavedLocation>)
+    fun submitListToNavView(items: List<SavedLocation>)
 
     fun setCurrentPage(page: Int)
     fun setCurrentNavItem(index: Int)

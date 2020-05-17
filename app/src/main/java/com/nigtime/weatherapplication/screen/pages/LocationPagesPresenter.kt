@@ -5,13 +5,13 @@
 package com.nigtime.weatherapplication.screen.pages
 
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
-import com.nigtime.weatherapplication.domain.location.ForecastLocation
-import com.nigtime.weatherapplication.domain.location.ForecastLocationsRepository
+import com.nigtime.weatherapplication.domain.location.SavedLocation
+import com.nigtime.weatherapplication.domain.location.SavedLocationsRepository
 import com.nigtime.weatherapplication.screen.common.BasePresenter
 
 class LocationPagesPresenter(
     schedulerProvider: SchedulerProvider,
-    private val forecastLocationsRepository: ForecastLocationsRepository
+    private val savedLocationsRepository: SavedLocationsRepository
 ) : BasePresenter<LocationPagesView>(
     schedulerProvider
 ) {
@@ -25,24 +25,24 @@ class LocationPagesPresenter(
     override fun onAttach() {
         super.onAttach()
         if (retainedContainer.contains(LIST_LOCATIONS)) {
-            submitList(retainedContainer.getAs(LIST_LOCATIONS))
+            onListLoaded(retainedContainer.getAs(LIST_LOCATIONS))
         } else {
             provideLocations()
         }
     }
 
     /**
-     * [ForecastLocationsRepository] передает новые данные, как только они изменятся, поэтому
+     * [SavedLocationsRepository.getLocationsAsFlowable] передает новые данные, как только они изменятся, поэтому
      * подписыватся нужно лишь раз.
      */
     private fun provideLocations() {
-        forecastLocationsRepository.getLocations()
+        savedLocationsRepository.getLocationsAsFlowable()
             .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
-            .subscribeAndHandleError(onNext = this::submitList)
+            .subscribeAndHandleError(onNext = this::onListLoaded)
     }
 
-    private fun submitList(list: List<ForecastLocation>) {
+    private fun onListLoaded(list: List<SavedLocation>) {
         retainedContainer.put(LIST_LOCATIONS, list)
 
         getView()?.submitListToPager(list)

@@ -15,14 +15,11 @@ interface SavedLocationsDao {
     @Query("SELECT *FROM saved_locations ORDER BY list_index ASC")
     fun getAll(): List<LocationTable>
 
+    @Query("SELECT *FROM saved_locations ORDER BY list_index ASC")
+    fun getAllAsFlowable(): Flowable<List<LocationTable>>
+
     @Query("SELECT city_id FROM saved_locations")
     fun getAllIds(): List<Long>
-
-    @Query("SELECT city_id FROM saved_locations")
-    fun getAllIdsAsFlow(): Flowable<List<Long>>
-
-    @Query("SELECT city_name FROM reference_cities WHERE city_id == :id")
-    fun getCityName(id: Long): String
 
     @Insert
     fun insert(item: LocationTable)

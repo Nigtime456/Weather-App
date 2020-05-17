@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.domain.location.ForecastLocation
+import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.NavigationController
 import com.nigtime.weatherapplication.screen.common.PresenterProvider
@@ -107,7 +107,7 @@ class LocationPagesFragment :
         locationPagesDrawer.openDrawer(GravityCompat.START)
     }
 
-    override fun submitListToPager(items: List<ForecastLocation>) {
+    override fun submitListToPager(items: List<SavedLocation>) {
         if (locationPagesViewPager.adapter == null) {
             locationPagesViewPager.adapter = LocationPagesAdapter(this, items)
         } else {
@@ -115,7 +115,7 @@ class LocationPagesFragment :
         }
     }
 
-    override fun submitListToNavView(items: List<ForecastLocation>) {
+    override fun submitListToNavView(items: List<SavedLocation>) {
         val subMenu = locationPagesNavView.menu.findItem(R.id.menuListLocations).subMenu
         subMenu.clear()
         items.forEachIndexed { index, cityForForecast ->

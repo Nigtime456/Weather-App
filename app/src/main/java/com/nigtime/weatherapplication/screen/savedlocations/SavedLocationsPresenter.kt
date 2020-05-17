@@ -8,14 +8,14 @@ import android.annotation.SuppressLint
 import com.nigtime.weatherapplication.common.rx.RxDelayedMessageDispatcher
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.location.SavedLocation
-import com.nigtime.weatherapplication.domain.location.SavedLocationRepository
+import com.nigtime.weatherapplication.domain.location.SavedLocationsRepository
 import com.nigtime.weatherapplication.screen.common.BasePresenter
 import io.reactivex.Scheduler
 
 
 class SavedLocationsPresenter constructor(
     schedulerProvider: SchedulerProvider,
-    private val savedLocationRepository: SavedLocationRepository,
+    private val savedLocationsRepository: SavedLocationsRepository,
     private val messageDispatcher: RxDelayedMessageDispatcher
 ) :
     BasePresenter<SavedLocationView>(schedulerProvider, TAG) {
@@ -44,13 +44,13 @@ class SavedLocationsPresenter constructor(
     private fun provideLocations() {
         getView()?.showProgressLayout()
 
-        savedLocationRepository.getLocations()
+        savedLocationsRepository.getLocations()
             .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
-            .subscribeAndHandleError(onResult = this::checkList)
+            .subscribeAndHandleError(onResult = this::onListLoaded)
     }
 
-    private fun checkList(list: List<SavedLocation>) {
+    private fun onListLoaded(list: List<SavedLocation>) {
         mutableItems = list.toMutableList()
 
         if (mutableItems.isNotEmpty()) {
@@ -82,7 +82,7 @@ class SavedLocationsPresenter constructor(
             DeleteItemMessage(
                 swiped,
                 position,
-                savedLocationRepository,
+                savedLocationsRepository,
                 schedulerProvider.syncDatabase()
             )
         )
@@ -90,7 +90,7 @@ class SavedLocationsPresenter constructor(
 
     fun saveListChanges() {
         if (mutableItems.isNotEmpty()) {
-            savedLocationRepository.replaceAll(mutableItems)
+            savedLocationsRepository.replaceAll(mutableItems)
                 .subscribeOn(schedulerProvider.syncDatabase())
                 .subscribeAndHandleError {
                     /*nothing */
@@ -154,7 +154,7 @@ class SavedLocationsPresenter constructor(
     private class DeleteItemMessage(
         val item: SavedLocation,
         val position: Int,
-        val repository: SavedLocationRepository,
+        val repository: SavedLocationsRepository,
         val scheduler: Scheduler
     ) : Runnable {
 

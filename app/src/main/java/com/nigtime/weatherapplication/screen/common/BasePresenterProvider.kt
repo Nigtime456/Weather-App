@@ -7,7 +7,6 @@ package com.nigtime.weatherapplication.screen.common
 import androidx.annotation.CallSuper
 import androidx.lifecycle.ViewModel
 import com.nigtime.weatherapplication.common.App
-import com.nigtime.weatherapplication.common.di.AppContainer
 import leakcanary.AppWatcher
 
 /**
@@ -16,11 +15,12 @@ import leakcanary.AppWatcher
  *
  */
 abstract class BasePresenterProvider<T : BasePresenter<*>> : ViewModel(), PresenterProvider<T> {
-    private val presenter = lazy { createPresenter(App.INSTANCE.appContainer) }
+    private val presenter = lazy { createPresenter() }
+    protected val appContainer = App.INSTANCE.appContainer
 
     final override fun getPresenter(): T = presenter.value
 
-    protected abstract fun createPresenter(appContainer: AppContainer): T
+    protected abstract fun createPresenter(): T
 
     @CallSuper
     override fun onCleared() {

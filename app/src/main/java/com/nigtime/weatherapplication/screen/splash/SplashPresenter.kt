@@ -6,12 +6,12 @@ package com.nigtime.weatherapplication.screen.splash
 
 
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
-import com.nigtime.weatherapplication.domain.location.SavedLocationRepository
+import com.nigtime.weatherapplication.domain.location.SavedLocationsRepository
 import com.nigtime.weatherapplication.screen.common.BasePresenter
 
 class SplashPresenter(
     schedulerProvider: SchedulerProvider,
-    private val savedLocationRepository: SavedLocationRepository
+    private val savedLocationsRepository: SavedLocationsRepository
 ) :
     BasePresenter<SplashView>(schedulerProvider, TAG) {
 
@@ -25,7 +25,7 @@ class SplashPresenter(
     }
 
     private fun dispatchScreen() {
-        savedLocationRepository.hasLocations()
+        savedLocationsRepository.hasLocations()
             .subscribeOn(schedulerProvider.syncDatabase())
             .observeOn(schedulerProvider.ui())
             .subscribeAndHandleError(onResult = this::dispatchResult)

@@ -7,13 +7,13 @@ package com.nigtime.weatherapplication.screen.pages
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.domain.location.ForecastLocation
+import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.screen.currentforecast.CurrentForecastFragment
 
-class LocationPagesAdapter(host: Fragment, private var items: List<ForecastLocation>) :
+class LocationPagesAdapter(host: Fragment, private var items: List<SavedLocation>) :
     FragmentStateAdapter(host) {
 
-    fun submitList(newList: List<ForecastLocation>) {
+    fun submitList(newList: List<SavedLocation>) {
         items = newList
         notifyDataSetChanged()
     }

@@ -4,13 +4,12 @@
 
 package com.nigtime.weatherapplication.screen.search
 
-import com.nigtime.weatherapplication.common.di.AppContainer
 import com.nigtime.weatherapplication.screen.common.BasePresenterProvider
 import com.nigtime.weatherapplication.screen.search.paging.PagedListLoader
 
 class SearchCityPresenterProvider : BasePresenterProvider<SearchCityPresenter>() {
 
-    override fun createPresenter(appContainer: AppContainer): SearchCityPresenter {
+    override fun createPresenter(): SearchCityPresenter {
         return SearchCityPresenter(
             appContainer.schedulerProvider,
             appContainer.getPagedSearchRepository(),

@@ -6,13 +6,12 @@ package com.nigtime.weatherapplication.screen.currentforecast
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.nigtime.weatherapplication.common.di.AppContainer
-import com.nigtime.weatherapplication.domain.location.ForecastLocation
+import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.screen.common.BasePresenterProvider
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.Subject
 
-class CurrentForecastPresenterProvider(private val location: ForecastLocation) :
+class CurrentForecastPresenterProvider(private val location: SavedLocation) :
     BasePresenterProvider<CurrentForecastPresenter>() {
 
     companion object {
@@ -20,7 +19,7 @@ class CurrentForecastPresenterProvider(private val location: ForecastLocation) :
         private val verticalScrollSubject: Subject<Int> = BehaviorSubject.create()
     }
 
-    override fun createPresenter(appContainer: AppContainer): CurrentForecastPresenter {
+    override fun createPresenter(): CurrentForecastPresenter {
         return CurrentForecastPresenter(
             appContainer.schedulerProvider,
             location,
@@ -32,7 +31,7 @@ class CurrentForecastPresenterProvider(private val location: ForecastLocation) :
     }
 
 
-    class Factory(private val location: ForecastLocation) :
+    class Factory(private val location: SavedLocation) :
         ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")

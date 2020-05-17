@@ -74,6 +74,10 @@ class SavedLocationsFragment :
     override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 
     override fun getPresenterProvider(): PresenterProvider<SavedLocationsPresenter> {
+        return getRelatedViewModel()
+    }
+
+    private fun getRelatedViewModel(): SavedLocationPresenterProvider {
         return ViewModelProvider(this).get(SavedLocationPresenterProvider::class.java)
     }
 
@@ -124,7 +128,7 @@ class SavedLocationsFragment :
 
     private fun setupRecycler() {
         savedLocationsRecycler.apply {
-            val listAdapter = SavedLocationsAdapter(adapterListener)
+            val listAdapter = SavedLocationsAdapter(adapterListener, getRelatedViewModel())
             adapter = listAdapter
             initTouchGestures(listAdapter)
             addItemDecoration(getDivider())

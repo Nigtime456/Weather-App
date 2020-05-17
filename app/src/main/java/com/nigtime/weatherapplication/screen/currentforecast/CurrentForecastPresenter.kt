@@ -11,7 +11,7 @@ import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
 import com.nigtime.weatherapplication.domain.forecast.DailyForecast
 import com.nigtime.weatherapplication.domain.forecast.ForecastManager
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
-import com.nigtime.weatherapplication.domain.location.ForecastLocation
+import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.domain.params.RequestParams
 import com.nigtime.weatherapplication.domain.settings.*
 import com.nigtime.weatherapplication.screen.common.BasePresenter
@@ -24,7 +24,7 @@ import io.reactivex.subjects.Subject
 
 class CurrentForecastPresenter(
     schedulerProvider: SchedulerProvider,
-    private val currentLocation: ForecastLocation,
+    private val currentLocation: SavedLocation,
     private val forecastManager: ForecastManager,
     private val settingsManager: SettingsManager,
     private val displayedDaysSwitchSubject: Subject<Int>,
@@ -130,9 +130,9 @@ class CurrentForecastPresenter(
     }
 
     private fun loadWeather() {
-        getForecastTriple(currentLocation.makeRequestParams(), false)
+        getForecastTriple(currentLocation.createRequestParams(), false)
             .observeOn(schedulerProvider.ui())
-            .subscribe(this::handleResult) {
+            .subscribe(this::onForecastResult) {
                 getView()?.showErrorLayout()
                 logger.e(it, "error on load data")
             }
@@ -140,10 +140,10 @@ class CurrentForecastPresenter(
     }
 
     fun onRequestRefresh() {
-        getForecastTriple(currentLocation.makeRequestParams(), true)
+        getForecastTriple(currentLocation.createRequestParams(), true)
             .observeOn(schedulerProvider.ui())
             .doFinally { getView()?.stopRefreshing() }
-            .subscribe(this::handleResult) {
+            .subscribe(this::onForecastResult) {
                 getView()?.showErrorMessage()
                 logger.e(it, "error on load data")
             }
@@ -164,7 +164,7 @@ class CurrentForecastPresenter(
         return Observables.zip(current, hourly, daily, ::Triple)
     }
 
-    private fun handleResult(triple: Triple<CurrentForecast, HourlyForecast, DailyForecast>) {
+    private fun onForecastResult(triple: Triple<CurrentForecast, HourlyForecast, DailyForecast>) {
         currentForecast = triple.first
         hourlyForecast = triple.second
         dailyForecast = triple.third

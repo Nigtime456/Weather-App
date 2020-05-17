@@ -10,9 +10,8 @@ import com.nigtime.weatherapplication.common.rx.MainSchedulerProvider
 import com.nigtime.weatherapplication.common.rx.RxAsyncDiffer
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.forecast.ForecastManager
-import com.nigtime.weatherapplication.domain.location.ForecastLocationsRepository
 import com.nigtime.weatherapplication.domain.location.PagedSearchRepository
-import com.nigtime.weatherapplication.domain.location.SavedLocationRepository
+import com.nigtime.weatherapplication.domain.location.SavedLocationsRepository
 import com.nigtime.weatherapplication.domain.settings.SettingsManager
 import com.nigtime.weatherapplication.net.mappers.CurrentForecastMapper
 import com.nigtime.weatherapplication.net.mappers.DailyForecastMapper
@@ -22,11 +21,9 @@ import com.nigtime.weatherapplication.net.repository.AbstractCacheForecastSource
 import com.nigtime.weatherapplication.net.repository.ForecastManagerImpl
 import com.nigtime.weatherapplication.net.repository.ForecastSource
 import com.nigtime.weatherapplication.net.service.ApiFactory
-import com.nigtime.weatherapplication.storage.mapper.ForecastLocationMapper
 import com.nigtime.weatherapplication.storage.mapper.SavedLocationMapper
 import com.nigtime.weatherapplication.storage.mapper.SearchCityMapper
 import com.nigtime.weatherapplication.storage.preference.SettingsManagerImpl
-import com.nigtime.weatherapplication.storage.repository.ForecastLocationsRepositoryImpl
 import com.nigtime.weatherapplication.storage.repository.PagedSearchRepositoryImpl
 import com.nigtime.weatherapplication.storage.repository.SavedLocationRepositoryImpl
 import com.nigtime.weatherapplication.storage.service.AppDatabase
@@ -52,8 +49,7 @@ class AppContainer(val appContext: Context) {
 
     val schedulerProvider: SchedulerProvider = MainSchedulerProvider()
 
-    val forecastLocationsRepository: ForecastLocationsRepository
-    val savedLocationsRepository: SavedLocationRepository
+    val savedLocationsRepository: SavedLocationsRepository
 
     val forecastManager: ForecastManager
 
@@ -64,8 +60,6 @@ class AppContainer(val appContext: Context) {
         referenceCitiesDao = database.referenceCitiesDao()
         savedLocationsDao = database.savedLocationsDao()
 
-        forecastLocationsRepository =
-            ForecastLocationsRepositoryImpl(savedLocationsDao, ForecastLocationMapper())
 
         savedLocationsRepository =
             SavedLocationRepositoryImpl(

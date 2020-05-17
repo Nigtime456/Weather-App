@@ -5,22 +5,28 @@
 package com.nigtime.weatherapplication.storage.repository
 
 import com.nigtime.weatherapplication.domain.location.SavedLocation
-import com.nigtime.weatherapplication.domain.location.SavedLocationRepository
+import com.nigtime.weatherapplication.domain.location.SavedLocationsRepository
 import com.nigtime.weatherapplication.storage.mapper.SavedLocationMapper
 import com.nigtime.weatherapplication.storage.service.ReferenceCitiesDao
 import com.nigtime.weatherapplication.storage.service.SavedLocationsDao
 import com.nigtime.weatherapplication.storage.table.LocationTable
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 class SavedLocationRepositoryImpl constructor(
     private val referenceCitiesDao: ReferenceCitiesDao,
     private val savedLocationsDao: SavedLocationsDao,
     private val mapper: SavedLocationMapper
-) : SavedLocationRepository {
+) : SavedLocationsRepository {
 
     override fun getLocations(): Single<List<SavedLocation>> {
         return Single.fromCallable(savedLocationsDao::getAll)
+            .map(this::getListCityByIds)
+    }
+
+    override fun getLocationsAsFlowable(): Flowable<List<SavedLocation>> {
+        return savedLocationsDao.getAllAsFlowable()
             .map(this::getListCityByIds)
     }
 

@@ -59,19 +59,17 @@
         android:layout_height="@dimen/icon_small"
         android:layout_marginEnd="@dimen/small_margin"
         android:contentDescription="@string/content_description_weather_ico"
-        android:src="@drawable/_weather_stub"
         app:layout_constraintBottom_toBottomOf="@id/itemSavedLocationTemp"
         app:layout_constraintEnd_toStartOf="@id/itemSavedLocationTemp"
-        app:layout_constraintTop_toTopOf="@id/itemSavedLocationTemp" />
-
-    <!--  TODO погода должна загружатся  -->
+        app:layout_constraintTop_toTopOf="@id/itemSavedLocationTemp"
+        tools:src="@drawable/_weather_stub" />
 
     <TextView
         android:id="@+id/itemSavedLocationTemp"
         style="@style/SecondaryText.Lowest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="25°"
+        android:text="--"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

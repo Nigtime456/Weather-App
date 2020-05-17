@@ -4,4 +4,10 @@
 
 package com.nigtime.weatherapplication.screen.savedlocations.list
 
-interface SavedLocationItemView
+import androidx.annotation.DrawableRes
+import com.nigtime.weatherapplication.domain.settings.UnitOfTemp
+
+interface SavedLocationItemView {
+    fun showCurrentTemp(temp: Double, unitOfTemp: UnitOfTemp)
+    fun showCurrentTempIco(@DrawableRes ico: Int)
+}

@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.transition.TransitionManager
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.domain.forecast.*
-import com.nigtime.weatherapplication.domain.location.ForecastLocation
+import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.domain.settings.UnitOfLength
 import com.nigtime.weatherapplication.domain.settings.UnitOfPressure
 import com.nigtime.weatherapplication.domain.settings.UnitOfSpeed
@@ -48,7 +48,7 @@ class CurrentForecastFragment :
     companion object {
         private const val EXTRA_LOCATION = "weatherapplication.screen.current_forecast.location"
 
-        fun newInstance(location: ForecastLocation): CurrentForecastFragment {
+        fun newInstance(location: SavedLocation): CurrentForecastFragment {
             return CurrentForecastFragment().apply {
                 arguments = bundleOf(EXTRA_LOCATION to location)
             }
@@ -61,8 +61,8 @@ class CurrentForecastFragment :
     override fun getListenerClass(): Class<ParentListener> = ParentListener::class.java
 
     override fun getPresenterProvider(): PresenterProvider<CurrentForecastPresenter> {
-        val location = arguments?.getParcelable<ForecastLocation>(EXTRA_LOCATION)
-            ?: error("require CityForForecast")
+        val location = arguments?.getParcelable<SavedLocation>(EXTRA_LOCATION)
+            ?: error("require SavedLocation")
 
         val vmProvider = ViewModelProvider(this, CurrentForecastPresenterProvider.Factory(location))
         return vmProvider.get(
