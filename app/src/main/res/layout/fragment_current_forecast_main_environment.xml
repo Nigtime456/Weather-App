@@ -7,8 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="@dimen/medium_margin"
-    tools:background="?attr/themeScreenBackground">
+    android:paddingHorizontal="@dimen/medium_margin">
 
     <TextView
         android:id="@+id/environment_title"
@@ -42,7 +41,7 @@
         app:layout_constraintTop_toTopOf="@id/ic_visibility" />
 
     <TextView
-        android:id="@+id/fragmentCurrentForecastVisibility"
+        android:id="@+id/currentForecastVisibility"
         style="@style/PrimaryText.Lowest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,7 +82,7 @@
         app:layout_constraintTop_toTopOf="@id/ic_air_quality" />
 
     <TextView
-        android:id="@+id/fragmentCurrentForecastAirQuality"
+        android:id="@+id/currentForecastAirQuality"
         style="@style/PrimaryText.Lowest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -124,7 +123,7 @@
         app:layout_constraintTop_toTopOf="@id/ic_uv_index" />
 
     <TextView
-        android:id="@+id/fragmentCurrentForecastUvIndex"
+        android:id="@+id/currentForecastUvIndex"
         style="@style/PrimaryText.Lowest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -165,7 +164,7 @@
         app:layout_constraintTop_toTopOf="@id/ic_clouds" />
 
     <TextView
-        android:id="@+id/fragmentCurrentForecastClouds"
+        android:id="@+id/currentForecastClouds"
         style="@style/PrimaryText.Lowest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

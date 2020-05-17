@@ -4,7 +4,7 @@
 
 package com.nigtime.weatherapplication.net.repository
 
-import com.nigtime.weatherapplication.domain.param.RequestParams
+import com.nigtime.weatherapplication.domain.params.RequestParams
 import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
 import com.nigtime.weatherapplication.net.json.JsonDailyForecast

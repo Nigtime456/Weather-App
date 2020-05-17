@@ -26,16 +26,16 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
-        setCanary()
         setupPreferences()
+        setCanary()
         setContainer()
         setLogger()
     }
 
     private fun setupPreferences() {
-        PreferenceManager.setDefaultValues(this, R.xml.main_preferences, false)
-        PreferenceManager.setDefaultValues(this, R.xml.data_preferences, false)
-        PreferenceManager.setDefaultValues(this, R.xml.unit_preferences, false)
+        PreferenceManager.setDefaultValues(this, R.xml.main_preferences, true)
+        PreferenceManager.setDefaultValues(this, R.xml.data_preferences, true)
+        PreferenceManager.setDefaultValues(this, R.xml.unit_preferences, true)
     }
 
     /**

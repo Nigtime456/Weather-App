@@ -8,11 +8,8 @@ import androidx.annotation.StringRes
 import com.nigtime.weatherapplication.R
 
 data class Wind constructor(val speed: Double, val degrees: Int) {
-    val cardinalDirection: CardinalDirection
+    val cardinalDirection: CardinalDirection = CardinalDirection.fromDegrees(degrees)
 
-    init {
-        cardinalDirection = CardinalDirection.fromDegrees(degrees)
-    }
 
     enum class CardinalDirection {
         N, NNE, NE, ENE,

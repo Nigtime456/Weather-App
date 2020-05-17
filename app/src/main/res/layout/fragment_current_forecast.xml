@@ -30,7 +30,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/currentForecastCityName"
+                    android:id="@+id/currentForecastLocationName"
                     style="@style/PrimaryText.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
         android:background="?attr/colorPrimary">
 
 
-        <com.nigtime.weatherapplication.common.customview.FixedNestedScrollView
+        <com.nigtime.weatherapplication.common.customview.PendingNestedScrollView
             android:id="@+id/currentForecastScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -88,7 +88,7 @@
 
             </com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout>
 
-        </com.nigtime.weatherapplication.common.customview.FixedNestedScrollView>
+        </com.nigtime.weatherapplication.common.customview.PendingNestedScrollView>
 
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -4,13 +4,12 @@
 
 package com.nigtime.weatherapplication.storage.repository
 
-import com.nigtime.weatherapplication.domain.city.PagedSearchRepository
-import com.nigtime.weatherapplication.domain.city.SearchCity
+import com.nigtime.weatherapplication.domain.location.PagedSearchRepository
+import com.nigtime.weatherapplication.domain.location.SearchCity
 import com.nigtime.weatherapplication.storage.mapper.SearchCityMapper
-import com.nigtime.weatherapplication.storage.service.ReferenceCityDao
-import com.nigtime.weatherapplication.storage.service.WishCityDao
-import com.nigtime.weatherapplication.storage.table.ReferenceCityTable
-import com.nigtime.weatherapplication.storage.table.WishCityTable
+import com.nigtime.weatherapplication.storage.service.ReferenceCitiesDao
+import com.nigtime.weatherapplication.storage.service.SavedLocationsDao
+import com.nigtime.weatherapplication.storage.table.ReferenceCitiesTable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.rxkotlin.flatMapIterable
@@ -20,26 +19,22 @@ import io.reactivex.rxkotlin.flatMapIterable
  * поэтому должен содаваться по новому, для каждого поиска
  */
 class PagedSearchRepositoryImpl(
-    private val referenceCityDao: ReferenceCityDao,
-    private val wishCityDao: WishCityDao,
-    private val cityMapper: SearchCityMapper
+    private val referenceCitiesDao: ReferenceCitiesDao,
+    private val savedLocationsDao: SavedLocationsDao,
+    private val mapper: SearchCityMapper
 ) : PagedSearchRepository {
-    private var wishIds: Set<Long>? = null
+    private var savedCitiesIds: Set<Long>? = null
 
     override fun insert(searchCity: SearchCity): Single<Int> {
         return Single.fromCallable(this::getMaxListIndex)
             .doOnSuccess { maxIndex ->
-                wishCityDao.insert(mapSearchCity(searchCity, maxIndex))
+                savedLocationsDao.insert(mapper.mapEntity(searchCity, maxIndex))
             }
-    }
-
-    private fun mapSearchCity(searchCity: SearchCity, maxListIndex: Int): WishCityTable {
-        return cityMapper.mapEntity(searchCity, maxListIndex)
     }
 
     override fun loadPage(query: String, position: Int, count: Int): Single<List<SearchCity>> {
         return Observable.fromCallable {
-            referenceCityDao.queryByName(
+            referenceCitiesDao.queryByName(
                 getSQLPatternQuery(query),
                 position,
                 count
@@ -52,8 +47,8 @@ class PagedSearchRepositoryImpl(
     }
 
     private fun loadIds() {
-        if (wishIds == null)
-            wishIds = wishCityDao.getAllIds().toSet()
+        if (savedCitiesIds == null)
+            savedCitiesIds = savedLocationsDao.getAllIds().toSet()
     }
 
     private fun getSQLPatternQuery(query: String): String {
@@ -61,7 +56,7 @@ class PagedSearchRepositoryImpl(
     }
 
     private fun getMaxListIndex(): Int {
-        return getNewIndexFromList(wishCityDao.getMaxListIndex())
+        return getNewIndexFromList(savedLocationsDao.getMaxListIndex())
     }
 
     private fun getNewIndexFromList(listWithIndex: List<Int>): Int {
@@ -69,9 +64,9 @@ class PagedSearchRepositoryImpl(
         return if (listWithIndex.isEmpty()) 0 else listWithIndex.first().inc()
     }
 
-    private fun mapReferenceCityToData(rawRow: ReferenceCityTable, query: String): SearchCity {
-        val isWish = wishIds?.contains(rawRow.cityId) ?: false
-        return cityMapper.mapDomain(rawRow, isWish, query)
+    private fun mapReferenceCityToData(rawRow: ReferenceCitiesTable, query: String): SearchCity {
+        val isSaved = savedCitiesIds?.contains(rawRow.cityId) ?: false
+        return mapper.mapDomain(rawRow, isSaved, query)
     }
 
 }

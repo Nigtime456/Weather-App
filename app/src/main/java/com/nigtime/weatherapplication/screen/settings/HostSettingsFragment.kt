@@ -16,15 +16,11 @@ import com.nigtime.weatherapplication.screen.common.FragmentWithListener
 import com.nigtime.weatherapplication.screen.common.NavigationController
 import kotlinx.android.synthetic.main.fragment_host_settings.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class HostSettingsFragment :
     FragmentWithListener<NavigationController>(R.layout.fragment_host_settings),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback, HostSettings {
 
     override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
-
 
     private val backPressedCallback = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {

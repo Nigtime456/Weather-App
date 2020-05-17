@@ -7,8 +7,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:background="?attr/colorPrimary"
-    android:paddingHorizontal="@dimen/medium_margin">
+    android:paddingHorizontal="@dimen/medium_margin"
+    tools:background="?attr/colorPrimary">
 
     <TextView
         android:id="@+id/title_more"
@@ -34,7 +34,7 @@
         android:id="@+id/ic_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_circle_outline"
+        android:background="@drawable/selector_circle_outline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/divider2"
         app:layout_constraintStart_toStartOf="parent"

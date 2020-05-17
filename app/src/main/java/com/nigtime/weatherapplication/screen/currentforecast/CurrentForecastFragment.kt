@@ -4,20 +4,26 @@
 
 package com.nigtime.weatherapplication.screen.currentforecast
 
+import android.content.Context
 import android.os.Bundle
-import android.transition.TransitionManager
+import android.util.Log
 import android.view.View
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.core.os.bundleOf
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.TransitionManager
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.domain.city.CityForForecast
 import com.nigtime.weatherapplication.domain.forecast.*
-import com.nigtime.weatherapplication.domain.settings.UnitFormatter
+import com.nigtime.weatherapplication.domain.location.ForecastLocation
+import com.nigtime.weatherapplication.domain.settings.UnitOfLength
+import com.nigtime.weatherapplication.domain.settings.UnitOfPressure
+import com.nigtime.weatherapplication.domain.settings.UnitOfSpeed
+import com.nigtime.weatherapplication.domain.settings.UnitOfTemp
+import com.nigtime.weatherapplication.domain.utility.UnitFormatHelper
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.PresenterProvider
+import com.nigtime.weatherapplication.screen.currentforecast.list.DailyWeatherAdapter
+import com.nigtime.weatherapplication.screen.currentforecast.list.HourlyWeatherAdapter
 import kotlinx.android.synthetic.main.fragment_current_forecast.*
 import kotlinx.android.synthetic.main.fragment_current_forecast_main_current.*
 import kotlinx.android.synthetic.main.fragment_current_forecast_main_daily.*
@@ -35,32 +41,44 @@ class CurrentForecastFragment :
     ), CurrentForecastView {
 
     interface ParentListener {
-        fun onClickAddCity()
-        fun onClickOpenDrawer()
+        fun onAddCityClick()
+        fun onOpenDrawerClick()
     }
 
     companion object {
-        //TODO constant
-        private const val EXTRA_CITY = "CITY"
+        private const val EXTRA_LOCATION = "weatherapplication.screen.current_forecast.location"
 
-        fun newInstance(cityForForecast: CityForForecast): CurrentForecastFragment {
+        fun newInstance(location: ForecastLocation): CurrentForecastFragment {
             return CurrentForecastFragment().apply {
-                arguments = bundleOf(EXTRA_CITY to cityForForecast)
+                arguments = bundleOf(EXTRA_LOCATION to location)
             }
         }
     }
 
-    private lateinit var unitFormatter: UnitFormatter
     private val nullScrollListener: NestedScrollView.OnScrollChangeListener? = null
+    private var unitFormatHelper: UnitFormatHelper? = null
 
     override fun getListenerClass(): Class<ParentListener> = ParentListener::class.java
 
     override fun getPresenterProvider(): PresenterProvider<CurrentForecastPresenter> {
-        val city = arguments?.getParcelable<CityForForecast>(EXTRA_CITY)
+        val location = arguments?.getParcelable<ForecastLocation>(EXTRA_LOCATION)
             ?: error("require CityForForecast")
-        val key = city.cityId.toString()
-        val vmProvider = ViewModelProvider(this, CurrentForecastPresenterProvider.Factory(city))
-        return vmProvider.get(key, CurrentForecastPresenterProvider::class.java)
+
+        val vmProvider = ViewModelProvider(this, CurrentForecastPresenterProvider.Factory(location))
+        return vmProvider.get(
+            location.getKey().toString(),
+            CurrentForecastPresenterProvider::class.java
+        )
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        unitFormatHelper = UnitFormatHelper(context)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        unitFormatHelper = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,6 +91,16 @@ class CurrentForecastFragment :
         currentForecastScrollView.setOnScrollChangeListener(nullScrollListener)
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d("sas", "onResume [${currentForecastLocationName.text}]")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("sas", "onPause [${currentForecastLocationName.text}]")
+    }
+
     private fun initViews() {
         setupDaysSwitcher()
         setupAppBar()
@@ -82,10 +110,7 @@ class CurrentForecastFragment :
     }
 
     private fun setupSwipeToRefresh() {
-        currentForecastSwipeRefresh.setOnRefreshListener {
-            currentForecastSwipeRefresh.isRefreshing = false
-            showToast("TODO!!")
-        }
+        currentForecastSwipeRefresh.setOnRefreshListener(presenter::onRequestRefresh)
     }
 
     private fun setupDaysSwitcher() {
@@ -100,23 +125,25 @@ class CurrentForecastFragment :
         currentForecastToolbar.apply {
             setOnMenuItemClickListener {
                 if (it.itemId == R.id.menuFindCity) {
-                    parentListener?.onClickAddCity()
+                    parentListener?.onAddCityClick()
                 }
                 true
             }
             setNavigationOnClickListener {
-                parentListener?.onClickOpenDrawer()
+                parentListener?.onOpenDrawerClick()
             }
         }
     }
 
     private fun setupLists() {
-        currentForecastHourlyList.adapter = HourlyWeatherAdapter()
+        currentForecastHourlyList.adapter =
+            HourlyWeatherAdapter()
         currentForecastDailyList.apply {
             itemAnimator = null
-            adapter = DailyWeatherAdapter {
-                showToast("TODO = $it")
-            }
+            adapter =
+                DailyWeatherAdapter {
+                    showToast("TODO = $it")
+                }
         }
     }
 
@@ -126,8 +153,12 @@ class CurrentForecastFragment :
         }
     }
 
-    override fun setCityName(cityName: String) {
-        currentForecastCityName.text = cityName
+    override fun setLocationName(name: String) {
+        currentForecastLocationName.text = name
+    }
+
+    override fun setTimezone(timeZone: String) {
+        currentForecastLocalClock.timeZone = timeZone
     }
 
     override fun showLoadLayout() {
@@ -139,41 +170,28 @@ class CurrentForecastFragment :
     }
 
     override fun showErrorMessage() {
-        showToast("Error!")
+        showToast(R.string.current_forecast_message_error)
     }
 
     override fun showMainLayout() {
         currentForecastViewSwitcher.switchTo(0, false)
     }
 
-    override fun submitUnitFormatter(unitFormatter: UnitFormatter) {
-        this.unitFormatter = unitFormatter
-        (currentForecastHourlyList.adapter as HourlyWeatherAdapter).setUnitFormatter(unitFormatter)
-        (currentForecastDailyList.adapter as DailyWeatherAdapter).setUnitFormatter(unitFormatter)
+    override fun showClockWidget() {
+        TransitionManager.beginDelayedTransition(currentForecastCityInfoLayout)
+        currentForecastLocalClock.visibility = View.VISIBLE
     }
 
-    override fun setCurrentTemp(temp: Double) {
-        currentForecastCurrentTemp.text = unitFormatter.formatTemp(temp)
+    override fun disableRefreshLayout() {
+        currentForecastSwipeRefresh.isEnabled = false
     }
 
-    override fun setCurrentFeelsLikeTemp(temp: Double) {
-        currentForecastCurrentFeelsLikeTemp.text = unitFormatter.formatFeelsLikeTemp(temp)
+    override fun enableRefreshLayout() {
+        currentForecastSwipeRefresh.isEnabled = true
     }
 
-    override fun setCurrentIco(@DrawableRes ico: Int) {
-        currentForecastCurrentIco.setImageResource(ico)
-    }
-
-    override fun setCurrentWeatherDescription(@StringRes description: Int) {
-        currentForecastCurrentDescription.setText(description)
-    }
-
-    override fun setHourlyForecast(hourlyWeatherList: List<HourlyForecast.HourlyWeather>) {
-        (currentForecastHourlyList.adapter as HourlyWeatherAdapter).submitList(hourlyWeatherList)
-    }
-
-    override fun setDailyForecast(dailyWeather: List<DailyForecast.DailyWeather>) {
-        (currentForecastDailyList.adapter as DailyWeatherAdapter).submitList(dailyWeather)
+    override fun stopRefreshing() {
+        currentForecastSwipeRefresh.isRefreshing = false
     }
 
     override fun selectDaysSwitchButton(buttonId: Int) {
@@ -189,57 +207,86 @@ class CurrentForecastFragment :
         currentForecastAppBar.isSelected = doLift
     }
 
-    override fun setWind(wind: Wind) {
+    override fun setCurrentTemp(temp: Double, unitOfTemp: UnitOfTemp) {
+        currentForecastCurrentTemp.text = unitFormatHelper?.formatTemp(unitOfTemp, temp)
+    }
+
+    override fun setCurrentFeelsLikeTemp(temp: Double, unitOfTemp: UnitOfTemp) {
+        currentForecastCurrentFeelsLikeTemp.text =
+            unitFormatHelper?.formatFeelsLikeTemp(unitOfTemp, temp)
+    }
+
+    override fun setCurrentIco(ico: Int) {
+        currentForecastCurrentIco.setImageResource(ico)
+    }
+
+    override fun setCurrentWeatherDescription(description: Int) {
+        currentForecastCurrentDescription.setText(description)
+    }
+
+    override fun setHourlyForecast(
+        hourlyWeatherList: List<HourlyForecast.HourlyWeather>,
+        unitOfTemp: UnitOfTemp,
+        calculateDiffs: Boolean
+    ) {
+        (currentForecastHourlyList.adapter as HourlyWeatherAdapter).apply {
+            setUnitOfTemp(unitOfTemp)
+            submitList(hourlyWeatherList, calculateDiffs)
+        }
+    }
+
+    override fun setDailyForecast(
+        dailyWeather: List<DailyForecast.DailyWeather>,
+        unitOfTemp: UnitOfTemp,
+        calculateDiffs: Boolean
+    ) {
+        (currentForecastDailyList.adapter as DailyWeatherAdapter).apply {
+            setUnitOfTemp(unitOfTemp)
+            submitList(dailyWeather, calculateDiffs)
+        }
+    }
+
+    override fun setWind(wind: Wind, unitOfSpeed: UnitOfSpeed) {
         currentForecastWindIndicator.rotation = wind.degrees.toFloat()
-        currentForecastWindSpeed.text = unitFormatter.formatSpeed(wind.speed)
+        currentForecastWindSpeed.text = unitFormatHelper?.formatSpeed(unitOfSpeed, wind.speed)
         currentForecastWindDirChars.setText(wind.cardinalDirection.getAbbreviatedName())
     }
 
     override fun setHumidity(humidity: Int) {
-        currentForecastHumidity.text = unitFormatter.formatHumidity(humidity)
+        currentForecastHumidity.text = unitFormatHelper?.formatHumidity(humidity)
     }
 
-
-    override fun setPressure(pressure: Double) {
-        currentForecastPressure.text = unitFormatter.formatPressure(pressure)
+    override fun setPressure(pressure: Double, unitOfPressure: UnitOfPressure) {
+        currentForecastPressure.text = unitFormatHelper?.formatPressure(unitOfPressure, pressure)
     }
 
     override fun setPrecipitation(probabilityOfPrecipitation: HourlyForecast.ProbabilityOfPrecipitation) {
         currentForecastPrecipitation3Hours.text =
-            unitFormatter.formatProbabilityOfPrecipitation(probabilityOfPrecipitation.next3Hours)
+            unitFormatHelper?.formatProbabilityOfPrecipitation(probabilityOfPrecipitation.next3Hours)
         currentForecastPrecipitation6Hours.text =
-            unitFormatter.formatProbabilityOfPrecipitation(probabilityOfPrecipitation.next6Hours)
+            unitFormatHelper?.formatProbabilityOfPrecipitation(probabilityOfPrecipitation.next6Hours)
         currentForecastPrecipitation12Hours.text =
-            unitFormatter.formatProbabilityOfPrecipitation(probabilityOfPrecipitation.next12Hours)
+            unitFormatHelper?.formatProbabilityOfPrecipitation(probabilityOfPrecipitation.next12Hours)
     }
 
-    override fun setVisibility(visibility: Double) {
-        fragmentCurrentForecastVisibility.text = unitFormatter.formatVisibility(visibility)
+    override fun setVisibility(visibility: Double, unitOfLength: UnitOfLength) {
+        currentForecastVisibility.text =
+            unitFormatHelper?.formatVisibility(unitOfLength, visibility)
     }
 
     override fun setAirQuality(airQuality: AirQuality) {
-        fragmentCurrentForecastAirQuality.text = unitFormatter.formatAirQuality(airQuality)
+        currentForecastAirQuality.text = unitFormatHelper?.formatAirQuality(airQuality)
     }
 
     override fun setUvIndex(uvIndex: UvIndex) {
-        fragmentCurrentForecastUvIndex.text = unitFormatter.formatUvIndex(uvIndex)
+        currentForecastUvIndex.text = unitFormatHelper?.formatUvIndex(uvIndex)
     }
 
     override fun setClouds(clouds: Int) {
-        fragmentCurrentForecastClouds.text = unitFormatter.formatCloudsCoverage(clouds)
-    }
-
-
-    override fun showClockWidget() {
-        TransitionManager.beginDelayedTransition(currentForecastCityInfoLayout)
-        currentForecastLocalClock.visibility = View.VISIBLE
-    }
-
-    override fun setTimezone(timeZone: String) {
-        currentForecastLocalClock.timeZone = timeZone
+        currentForecastClouds.text = unitFormatHelper?.formatCloudsCoverage(clouds)
     }
 
     override fun setSunInfo(sunInfo: SunInfo) {
-
+        //TODO сделать
     }
 }

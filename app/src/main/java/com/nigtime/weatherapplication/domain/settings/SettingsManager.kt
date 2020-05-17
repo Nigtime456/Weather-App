@@ -15,5 +15,9 @@ package com.nigtime.weatherapplication.domain.settings
 import io.reactivex.Observable
 
 interface SettingsManager {
-    fun getUnitFormatter(): Observable<UnitFormatter>
+    fun getUnitOfTemp(): UnitOfTemp
+    fun getUnitOfPressure(): UnitOfPressure
+    fun getUnitOfSpeed(): UnitOfSpeed
+    fun getUnitOfLength(): UnitOfLength
+    fun observeUnitChanges(): Observable<Any>
 }

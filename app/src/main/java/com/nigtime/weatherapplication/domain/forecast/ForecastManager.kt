@@ -8,7 +8,7 @@
 
 package com.nigtime.weatherapplication.domain.forecast
 
-import com.nigtime.weatherapplication.domain.param.RequestParams
+import com.nigtime.weatherapplication.domain.params.RequestParams
 import io.reactivex.Observable
 
 interface ForecastManager {

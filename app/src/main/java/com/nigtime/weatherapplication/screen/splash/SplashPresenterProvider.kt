@@ -7,10 +7,10 @@ package com.nigtime.weatherapplication.screen.splash
 import com.nigtime.weatherapplication.common.di.AppContainer
 import com.nigtime.weatherapplication.screen.common.BasePresenterProvider
 
-class SplashPresenterProvider : BasePresenterProvider<SplashPresenter>() {
+class SplashPresenterProvider : BasePresenterProvider<WrongSplashPresenter>() {
 
-    override fun createPresenter(appContainer: AppContainer): SplashPresenter {
-        return SplashPresenter(appContainer.schedulerProvider, appContainer.wishCityRepository)
+    override fun createPresenter(appContainer: AppContainer): WrongSplashPresenter {
+        return WrongSplashPresenter()
     }
 
 }

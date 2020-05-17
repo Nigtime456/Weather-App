@@ -8,7 +8,7 @@
 
 package com.nigtime.weatherapplication.net.repository
 
-import com.nigtime.weatherapplication.domain.param.RequestParams
+import com.nigtime.weatherapplication.domain.params.RequestParams
 import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
 import com.nigtime.weatherapplication.net.json.JsonDailyForecast
@@ -40,7 +40,7 @@ class NetForecastSourceImpl constructor(
         //TODO вынести в конфиг
         queryParams["key"] = "e22b24a04735440fa35f60a070808e21"
         when (requestParams) {
-            is RequestParams.CityParams -> {
+            is RequestParams.City -> {
                 queryParams["city_id"] = requestParams.cityId.toString()
             }
         }

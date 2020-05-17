@@ -8,19 +8,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.nigtime.weatherapplication.storage.table.ReferenceCityTable
+import com.nigtime.weatherapplication.storage.table.LocationTable
+import com.nigtime.weatherapplication.storage.table.ReferenceCitiesTable
 import com.nigtime.weatherapplication.storage.table.TableConstants
-import com.nigtime.weatherapplication.storage.table.WishCityTable
 
 @Database(
-    entities = [ReferenceCityTable::class, WishCityTable::class],
+    entities = [ReferenceCitiesTable::class, LocationTable::class],
     version = 1,
     exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun referenceCityDao(): ReferenceCityDao
-    abstract fun wishCityDao(): WishCityDao
+    abstract fun referenceCitiesDao(): ReferenceCitiesDao
+    abstract fun savedLocationsDao(): SavedLocationsDao
 
     companion object {
         fun getInstance(context: Context): AppDatabase {

@@ -2,14 +2,12 @@
  * Сreated by Igor Pokrovsky. 2020/5/7
  */
 
-/*
- * Сreated by Igor Pokrovsky. 2020/4/24
- */
 
 package com.nigtime.weatherapplication.common.utility.list
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+
 
 @Suppress("UNCHECKED_CAST")
 class ItemTouchController<T : RecyclerView.ViewHolder>(

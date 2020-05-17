@@ -6,30 +6,38 @@
 
     <ListPreference
         app:defaultValue="cel"
-        app:entries="@array/temp_units_entries"
-        app:entryValues="@array/temp_units_values"
+        app:entries="@array/units_of_temp_entries"
+        app:entryValues="@array/units_of_temp_values"
         app:icon="@drawable/ic_thermometer"
-        app:key="temp_unit"
+        app:key="unit_of_temp"
         app:title="@string/settings_temp"
         app:useSimpleSummaryProvider="true" />
 
     <ListPreference
         app:defaultValue="km"
-        app:entries="@array/length_units_entries"
-        app:entryValues="@array/length_units_values"
+        app:entries="@array/units_of_length_entries"
+        app:entryValues="@array/units_of_length_values"
         app:icon="@drawable/ic_thermometer"
-        app:key="length_unit"
+        app:key="unit_of_length"
         app:title="@string/settings_length"
         app:useSimpleSummaryProvider="true" />
 
     <ListPreference
         app:defaultValue="kph"
-        app:entries="@array/wind_speed_entries"
-        app:entryValues="@array/wind_speed_values"
+        app:entries="@array/units_of_speed_entries"
+        app:entryValues="@array/units_of_speed_values"
         app:icon="@drawable/ic_thermometer"
-        app:key="speed_unit"
+        app:key="unit_of_speed"
         app:title="@string/settings_speed"
         app:useSimpleSummaryProvider="true" />
 
+    <ListPreference
+        app:defaultValue="mbar"
+        app:entries="@array/units_of_pressure_entries"
+        app:entryValues="@array/units_of_pressure_values"
+        app:icon="@drawable/ic_pressure"
+        app:key="unit_of_pressure"
+        app:title="@string/settings_pressure"
+        app:useSimpleSummaryProvider="true" />
 
 </PreferenceScreen>

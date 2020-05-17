@@ -26,43 +26,54 @@
     </string-array>
 
     <!--  unit of temp -->
-    <string-array name="temp_units_entries">
+    <string-array name="units_of_temp_entries">
         <item>Цельсий - C°</item>
         <item>Фаренгейт - F°</item>
         <item>Кельвин - K°</item>
     </string-array>
 
-    <string-array name="temp_units_values">
+    <string-array name="units_of_temp_values">
         <item>cel</item>
         <item>fah</item>
         <item>kel</item>
     </string-array>
 
     <!--  unit of length  -->
-    <string-array name="length_units_entries">
+    <string-array name="units_of_length_entries">
         <item>Киллометры</item>
         <item>Милли</item>
     </string-array>
 
-    <string-array name="length_units_values">
+    <string-array name="units_of_length_values">
         <item>km</item>
         <item>mi</item>
     </string-array>
 
     <!--  unit of speed  -->
-    <string-array name="wind_speed_entries">
+    <string-array name="units_of_speed_entries">
         <item>Киллометры/час</item>
         <item>Милли/час</item>
         <item>Узлы</item>
         <item>Метр/секунду</item>
     </string-array>
 
-    <string-array name="wind_speed_values">
+    <string-array name="units_of_speed_values">
         <item>kph</item>
         <item>mph</item>
         <item>kn</item>
         <item>ms</item>
     </string-array>
 
+    <!--  unit of pressure  -->
+
+    <string-array name="units_of_pressure_entries">
+        <item>Мбар</item>
+        <item>Мм. рт. ст.</item>
+    </string-array>
+
+    <string-array name="units_of_pressure_values">
+        <item>mbar</item>
+        <item>mm_hg</item>
+    </string-array>
 
 </resources>

@@ -20,12 +20,25 @@ abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> constructor(
 
     private var currentList = emptyList<T>()
 
-    fun submitList(newList: List<T>) {
+    fun submitList(newList: List<T>, calculateDiffs: Boolean) {
+        if (calculateDiffs) {
+            calculateDiffs(newList)
+        } else {
+            commitImmediately(newList)
+        }
+    }
+
+    private fun calculateDiffs(newList: List<T>) {
         val genericCallback = GenericCallback(currentList, newList, diffCallback)
         rxAsyncDiffer.submitList(genericCallback, detectMoves) { diffResult ->
             currentList = newList
             diffResult.dispatchUpdatesTo(this)
         }
+    }
+
+    private fun commitImmediately(newList: List<T>) {
+        currentList = newList
+        notifyDataSetChanged()
     }
 
     final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {

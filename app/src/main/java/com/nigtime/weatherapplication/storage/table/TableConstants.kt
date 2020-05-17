@@ -6,11 +6,11 @@ package com.nigtime.weatherapplication.storage.table
 
 object TableConstants {
     const val DATABASE_NAME = "main.db"
-    const val TABLE_GEO_CITY = "reference_city"
-    const val TABLE_SELECTED_CITY = "wish_list"
-    const val COLUMN_CITY_ID = "city_id"
+    const val TABLE_REFERENCE_CITIES = "reference_cities"
+    const val TABLE_SAVED_LOCATION = "saved_locations"
+    const val COLUMN_ID = "city_id"
     const val COLUMN_LIST_INDEX = "list_index"
-    const val COLUMN_NAME = "city_name"
-    const val COLUMN_STATE_NAME = "state_name"
-    const val COLUMN_COUNTRY_NAME = "country_name"
+    const val COLUMN_CITY_NAME = "city_name"
+    const val COLUMN_STATE_NAME = "city_state_name"
+    const val COLUMN_COUNTRY_NAME = "city_country_name"
 }

@@ -25,7 +25,7 @@
             tools:text="CityName" />
 
         <TextView
-            android:id="@+id/itemSearchStateAndCountry"
+            android:id="@+id/itemSearchDescription"
             style="@style/SecondaryText.Lowest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

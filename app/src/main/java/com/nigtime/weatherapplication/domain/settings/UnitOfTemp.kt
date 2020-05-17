@@ -17,23 +17,22 @@ sealed class UnitOfTemp {
         }
     }
 
-    abstract fun convertJsonValue(celsius: Double): Double
-
+    abstract fun convert(celsius: Double): Double
 
     object Kelvin : UnitOfTemp() {
-        override fun convertJsonValue(celsius: Double): Double {
+        override fun convert(celsius: Double): Double {
             return celsius + 273.15
         }
     }
 
     object Fahrenheit : UnitOfTemp() {
-        override fun convertJsonValue(celsius: Double): Double {
+        override fun convert(celsius: Double): Double {
             return celsius * 1.8 + 32
         }
     }
 
     object Celsius : UnitOfTemp() {
-        override fun convertJsonValue(celsius: Double): Double {
+        override fun convert(celsius: Double): Double {
             //по умолчанию - цельсий
             return celsius
         }

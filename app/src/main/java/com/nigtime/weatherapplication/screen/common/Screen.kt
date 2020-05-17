@@ -9,11 +9,11 @@ import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.nigtime.weatherapplication.screen.pager.PagerCityFragment
+import com.nigtime.weatherapplication.screen.pages.LocationPagesFragment
+import com.nigtime.weatherapplication.screen.savedlocations.SavedLocationsFragment
 import com.nigtime.weatherapplication.screen.search.SearchCityFragment
 import com.nigtime.weatherapplication.screen.settings.HostSettingsFragment
 import com.nigtime.weatherapplication.screen.splash.SplashFragment
-import com.nigtime.weatherapplication.screen.wishlist.WishCitiesFragment
 
 /**
  * Представляет собой абстракцию для навигации
@@ -22,11 +22,11 @@ interface Screen {
     fun load(manager: FragmentManager, @IdRes container: Int, args: Bundle? = null)
 
     object Factory {
-        private const val WISH_LIST = "wish_list"
-        private const val SEARCH = "search"
-        private const val PAGER = "pager"
-        private const val SPLASH = "splash"
-        private const val SETTINGS = "settings"
+        private const val SAVED_LOCATIONS = "weatherapplication.screen.saved_locations"
+        private const val SEARCH_CITY = "weatherapplication.screen.search_city"
+        private const val LOCATION_PAGES = "weatherapplication.screen.location_pages"
+        private const val SPLASH = "weatherapplication.screen.splash"
+        private const val SETTINGS = "weatherapplication.screen.settings"
 
         fun settings() = object : Screen {
             override fun load(manager: FragmentManager, container: Int, args: Bundle?) {
@@ -47,34 +47,38 @@ interface Screen {
 
         fun searchCity(targetFragment: Fragment? = null) = object : Screen {
             override fun load(manager: FragmentManager, @IdRes container: Int, args: Bundle?) {
-                val frag = manager.findFrag(SEARCH, ::SearchCityFragment)
+                val frag = manager.findFrag(SEARCH_CITY, ::SearchCityFragment)
                 frag.setTargetFragment(targetFragment, 0)
 
                 manager.beginTransaction()
                     .hideCurrentVisible(manager.currentVisibleFrag())
-                    .add(container, frag, SEARCH)
-                    .addToBackStack(SEARCH)
+                    .add(container, frag, SEARCH_CITY)
+                    .addToBackStack(SEARCH_CITY)
                     .commit()
             }
         }
 
-        fun wishList(targetFragment: Fragment? = null) = object : Screen {
+        fun savedLocations(targetFragment: Fragment? = null) = object : Screen {
             override fun load(manager: FragmentManager, @IdRes container: Int, args: Bundle?) {
-                val frag = manager.findFrag(WISH_LIST, ::WishCitiesFragment)
+                val frag = manager.findFrag(SAVED_LOCATIONS, ::SavedLocationsFragment)
                 frag.setTargetFragment(targetFragment, 0)
 
                 manager.beginTransaction()
                     .hideCurrentVisible(manager.currentVisibleFrag())
-                    .add(container, frag, WISH_LIST)
-                    .addToBackStack(WISH_LIST)
+                    .add(container, frag, SAVED_LOCATIONS)
+                    .addToBackStack(SAVED_LOCATIONS)
                     .commit()
             }
         }
 
-        fun pager() = object : Screen {
+        fun locationPages() = object : Screen {
             override fun load(manager: FragmentManager, @IdRes container: Int, args: Bundle?) {
                 manager.beginTransaction()
-                    .replace(container, manager.findFrag(PAGER, ::PagerCityFragment), PAGER)
+                    .replace(
+                        container,
+                        manager.findFrag(LOCATION_PAGES, ::LocationPagesFragment),
+                        LOCATION_PAGES
+                    )
                     .commit()
             }
         }

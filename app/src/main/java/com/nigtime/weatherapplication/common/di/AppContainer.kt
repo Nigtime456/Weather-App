@@ -9,11 +9,10 @@ import com.nigtime.weatherapplication.common.cache.MemoryCacheForecastSource
 import com.nigtime.weatherapplication.common.rx.MainSchedulerProvider
 import com.nigtime.weatherapplication.common.rx.RxAsyncDiffer
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
-import com.nigtime.weatherapplication.common.testing.FakeForecastSource
-import com.nigtime.weatherapplication.domain.city.ForecastCitiesRepository
-import com.nigtime.weatherapplication.domain.city.PagedSearchRepository
-import com.nigtime.weatherapplication.domain.city.WishCitiesRepository
 import com.nigtime.weatherapplication.domain.forecast.ForecastManager
+import com.nigtime.weatherapplication.domain.location.ForecastLocationsRepository
+import com.nigtime.weatherapplication.domain.location.PagedSearchRepository
+import com.nigtime.weatherapplication.domain.location.SavedLocationRepository
 import com.nigtime.weatherapplication.domain.settings.SettingsManager
 import com.nigtime.weatherapplication.net.mappers.CurrentForecastMapper
 import com.nigtime.weatherapplication.net.mappers.DailyForecastMapper
@@ -23,16 +22,17 @@ import com.nigtime.weatherapplication.net.repository.AbstractCacheForecastSource
 import com.nigtime.weatherapplication.net.repository.ForecastManagerImpl
 import com.nigtime.weatherapplication.net.repository.ForecastSource
 import com.nigtime.weatherapplication.net.service.ApiFactory
-import com.nigtime.weatherapplication.storage.mapper.CityForForecastMapper
+import com.nigtime.weatherapplication.storage.mapper.ForecastLocationMapper
+import com.nigtime.weatherapplication.storage.mapper.SavedLocationMapper
 import com.nigtime.weatherapplication.storage.mapper.SearchCityMapper
-import com.nigtime.weatherapplication.storage.mapper.WishCityMapper
 import com.nigtime.weatherapplication.storage.preference.SettingsManagerImpl
-import com.nigtime.weatherapplication.storage.repository.ForecastCitiesRepositoryImpl
+import com.nigtime.weatherapplication.storage.repository.ForecastLocationsRepositoryImpl
 import com.nigtime.weatherapplication.storage.repository.PagedSearchRepositoryImpl
-import com.nigtime.weatherapplication.storage.repository.WishCitiesRepositoryImpl
+import com.nigtime.weatherapplication.storage.repository.SavedLocationRepositoryImpl
 import com.nigtime.weatherapplication.storage.service.AppDatabase
-import com.nigtime.weatherapplication.storage.service.ReferenceCityDao
-import com.nigtime.weatherapplication.storage.service.WishCityDao
+import com.nigtime.weatherapplication.storage.service.ReferenceCitiesDao
+import com.nigtime.weatherapplication.storage.service.SavedLocationsDao
+import com.nigtime.weatherapplication.testing.FakeForecastSource
 
 /**
  * Контейнер, который содержит ресурсы и объекты, необходимые всему приложению.
@@ -43,8 +43,8 @@ import com.nigtime.weatherapplication.storage.service.WishCityDao
  */
 class AppContainer(val appContext: Context) {
 
-    val referenceCityDao: ReferenceCityDao
-    private val wishCityDao: WishCityDao
+    val referenceCitiesDao: ReferenceCitiesDao
+    private val savedLocationsDao: SavedLocationsDao
 
     private val weatherApi = ApiFactory.getInstance().getApi()
     private val netSource: ForecastSource = FakeForecastSource()
@@ -52,22 +52,27 @@ class AppContainer(val appContext: Context) {
 
     val schedulerProvider: SchedulerProvider = MainSchedulerProvider()
 
-    val forecastCitiesRepository: ForecastCitiesRepository
-    val wishCityRepository: WishCitiesRepository
+    val forecastLocationsRepository: ForecastLocationsRepository
+    val savedLocationsRepository: SavedLocationRepository
 
     val forecastManager: ForecastManager
 
-    val settingsManager: SettingsManager
-
+    val settingsManager: SettingsManager = SettingsManagerImpl(appContext)
 
     init {
         val database = AppDatabase.getInstance(appContext)
-        referenceCityDao = database.referenceCityDao()
-        wishCityDao = database.wishCityDao()
-        forecastCitiesRepository =
-            ForecastCitiesRepositoryImpl(wishCityDao, CityForForecastMapper())
-        wishCityRepository =
-            WishCitiesRepositoryImpl(referenceCityDao, wishCityDao, WishCityMapper())
+        referenceCitiesDao = database.referenceCitiesDao()
+        savedLocationsDao = database.savedLocationsDao()
+
+        forecastLocationsRepository =
+            ForecastLocationsRepositoryImpl(savedLocationsDao, ForecastLocationMapper())
+
+        savedLocationsRepository =
+            SavedLocationRepositoryImpl(
+                referenceCitiesDao,
+                savedLocationsDao,
+                SavedLocationMapper()
+            )
 
         forecastManager = ForecastManagerImpl(
             netSource,
@@ -77,19 +82,14 @@ class AppContainer(val appContext: Context) {
             DailyForecastMapper()
         )
 
-        settingsManager = SettingsManagerImpl(appContext)
-
-
     }
 
-    fun getRxAsyncDiffer() = RxAsyncDiffer(schedulerProvider)
+    fun getRxAsyncDiffer(): RxAsyncDiffer = RxAsyncDiffer(schedulerProvider)
 
     fun getPagedSearchRepository(): PagedSearchRepository {
         return PagedSearchRepositoryImpl(
-            referenceCityDao, wishCityDao,
+            referenceCitiesDao, savedLocationsDao,
             SearchCityMapper()
         )
     }
-
-
 }

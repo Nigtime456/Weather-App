@@ -7,6 +7,7 @@ package com.nigtime.weatherapplication.net.service
 import okhttp3.Interceptor
 import okhttp3.Response
 
+//TODO зайдействовать
 class ApiKeyInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val url = chain.request()

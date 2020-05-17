@@ -7,8 +7,8 @@ package com.nigtime.weatherapplication.screen.search.paging
 import androidx.paging.PagedList
 import androidx.paging.toFlowable
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
-import com.nigtime.weatherapplication.domain.city.PagedSearchRepository
-import com.nigtime.weatherapplication.domain.city.SearchCity
+import com.nigtime.weatherapplication.domain.location.PagedSearchRepository
+import com.nigtime.weatherapplication.domain.location.SearchCity
 import io.reactivex.Flowable
 
 /**
@@ -22,7 +22,7 @@ class PagedListLoader(private val schedulerProvider: SchedulerProvider) {
     ): Flowable<PagedList<SearchCity>> {
         return SearchCitySourceFactory(pagedRepository, query)
             .toFlowable(
-                PagingConfig.DEFAULT,
+                PagingConfig().getDefault(),
                 fetchScheduler = schedulerProvider.syncDatabase(),
                 notifyScheduler = schedulerProvider.ui()
             )

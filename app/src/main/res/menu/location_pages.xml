@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/4/28
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/menuChangeListLocations"
+        android:checked="true"
+        android:icon="@drawable/ic_launch"
+        android:orderInCategory="0"
+        android:title="@string/location_pages_change_location" />
+
+    <item
+        android:id="@+id/menuListLocations"
+        android:title="@string/location_pages_cities">
+        <menu>
+            <!--     this is stub to be able to programmatically find this menu       -->
+            <item
+                android:title="Stub"
+                tools:ignore="HardcodedText" />
+        </menu>
+    </item>
+
+    <item
+        android:orderInCategory="2"
+        android:title="@string/location_pages_other">
+        <menu>
+            <item
+                android:id="@+id/menuSettings"
+                android:checked="true"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/location_pages_settings" />
+            <item
+                android:id="@+id/menuAboutApp"
+                android:checked="true"
+                android:icon="@drawable/ic_about_app"
+                android:title="@string/location_pages_about_app" />
+        </menu>
+    </item>
+</menu>

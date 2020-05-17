@@ -10,9 +10,14 @@ import com.nigtime.weatherapplication.R
 sealed class UnitOfPressure {
 
     companion object {
-        fun default(): UnitOfPressure = MBar
+        fun getByCode(code: String): UnitOfPressure {
+            return when (code) {
+                "mbar" -> MBar
+                "mm_hg" -> MillimeterOfMercury
+                else -> error("invalid code = $code")
+            }
+        }
     }
-
 
     abstract fun convert(mBar: Double): Double
 
@@ -24,7 +29,12 @@ sealed class UnitOfPressure {
         override fun convert(mBar: Double): Double = mBar
 
         override fun getFormattingPattern(): Int = R.string.units_mbar_f
-
     }
 
+    object MillimeterOfMercury : UnitOfPressure() {
+        override fun convert(mBar: Double): Double = mBar * 0.75
+
+        override fun getFormattingPattern(): Int = R.string.units_mm_hg_f
+
+    }
 }

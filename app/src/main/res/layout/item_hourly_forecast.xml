@@ -7,11 +7,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/medium_margin"
-    android:orientation="vertical"
-    tools:background="?attr/themeScreenBackground">
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/itemHourTime"
+        android:id="@+id/itemHourlyTime"
         style="@style/PrimaryText.Lowest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +19,7 @@
         tools:text="21:00" />
 
     <ImageView
-        android:id="@+id/itemHourWeatherIco"
+        android:id="@+id/itemHourlyWeatherIco"
         android:layout_width="@dimen/icon_small"
         android:layout_height="@dimen/icon_small"
         android:layout_gravity="center"
@@ -29,7 +28,7 @@
         tools:src="@drawable/_weather_stub" />
 
     <TextView
-        android:id="@+id/itemHourTemp"
+        android:id="@+id/itemHourlyTemp"
         style="@style/PrimaryText.Lowest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

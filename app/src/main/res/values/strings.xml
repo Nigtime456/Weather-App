@@ -1,7 +1,7 @@
 <resources>
+    <!--  Common  -->
     <string name="app_name">WeatherApplication</string>
 
-    <!--  Common  -->
     <string name="content_description_start_drag">Начать перетаскивание</string>
     <string name="content_description_temp">Температура</string>
     <string name="content_description_weather_ico">Погода</string>
@@ -39,9 +39,10 @@
     <string name="units_km_f">%.1f km</string>
     <string name="units_mi_f">%.1f mi</string>
 
-    <string name="units_percent_pattern_f">%s %%</string>
+    <string name="units_percent_pattern_f">%d %%</string>
 
     <string name="units_mbar_f">%.0f mBar</string>
+    <string name="units_mm_hg_f">%.0f mm hg</string>
 
     <!--  weather info  -->
     <string name="air_quality_good_f">Good (%s)</string>
@@ -56,6 +57,8 @@
     <string name="uv_index_high_f">High (%s)</string>
     <string name="uv_index_very_high_f">Very high (%s)</string>
     <string name="uv_index_extreme_f">Extreme (%s)</string>
+
+    <!--  Weather description  -->
 
     <string name="weather_description_200">Thunderstorm with light rain</string>
     <string name="weather_description_201">Thunderstorm with rain</string>
@@ -113,22 +116,22 @@
     <string name="search_city_not_found">No such city was found :(</string>
     <string name="search_already_selected">Этот город уже добавлен!</string>
 
-    <!--  List of cities  -->
-    <string name="wish_title">Список городов</string>
-    <string name="wish_wait">Секунду…</string>
-    <string name="wish_hint">Нет добавленных локаций.\nДобавьте город или включите погоду по местоположению.</string>
-    <string name="wish_cities">Городов добавлено: %s</string>
-    <string name="wish_city_removed">Город удален</string>
-    <string name="wish_undo">Отмена</string>
-    <string name="pager_change_list">Изменить местоположение</string>
+    <!--  Saved Locations  -->
+    <string name="saved_locations_title">Список городов</string>
+    <string name="saved_locations_wait">Секунду…</string>
+    <string name="saved_locations_hint">Нет добавленных локаций.\nДобавьте город или включите погоду по местоположению.</string>
+    <string name="saved_locations_removed">Удалено из списка</string>
+    <string name="saved_locations_undo">Отмена</string>
 
-    <!--  Pager  -->
-    <string name="pager_cities">Города</string>
-    <string name="pager_other">Прочее</string>
-    <string name="pager_settings">Настройки</string>
-    <string name="pager_about_app">О приложение</string>
+    <!--  Location Pages  -->
+    <string name="location_pages_cities">Города</string>
+    <string name="location_pages_other">Прочее</string>
+    <string name="location_pages_settings">Настройки</string>
+    <string name="location_pages_about_app">О приложение</string>
+    <string name="location_pages_change_location">Изменить местоположение</string>
 
     <!--  Current forecast  -->
+    <string name="current_forecast_message_error">Ошибка при обновлении данных!</string>
     <string name="current_forecast_hourly_forecast">Прогноз на 24 часа</string>
     <string name="current_forecast_daily_forecast">Прогноз по дням</string>
     <string name="current_forecast_5_days">5 дн.</string>
@@ -164,7 +167,8 @@
     <string name="settings_units">Единицы измерения</string>
     <string name="settings_temp">Температура</string>
     <string name="settings_length">Растояние</string>
-    <string name="settings_speed">Длина</string>
+    <string name="settings_speed">Скорость</string>
+    <string name="settings_pressure">Давление</string>
     <string name="settings_update_frequency">Частота обновлений в фоне</string>
     <string name="settings_update_frequency_summary">Обновление виджетов и уведомлений, в часах</string>
     <string name="settings_app_data">Данные приложения</string>
@@ -173,6 +177,5 @@
     <string name="settings_clear_cache">Очистить кэш</string>
     <string name="settings_clear_all_data">Удалить все данные</string>
     <string name="settings_clear_all_data_summary">Кэш, сохраненные города, настройки</string>
-
 
 </resources>

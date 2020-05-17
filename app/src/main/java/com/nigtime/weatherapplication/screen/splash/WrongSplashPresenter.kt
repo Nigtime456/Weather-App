@@ -15,7 +15,7 @@ import java.util.zip.ZipInputStream
 //TODO нужно переписать, вынести в отдельный модуль
 class WrongSplashPresenter :
     BasePresenter<SplashView>(App.INSTANCE.appContainer.schedulerProvider, TAG) {
-    private val referenceCityDao = App.INSTANCE.appContainer.referenceCityDao
+    private val referenceCityDao = App.INSTANCE.appContainer.referenceCitiesDao
 
     companion object {
         private const val TAG = "wrong_splash"
@@ -62,8 +62,16 @@ class WrongSplashPresenter :
     }
 
     private fun onWrithingCompleted() {
-        getView()?.finishSplash()
-        getView()?.navigateToPagerScreen()
+        App.INSTANCE.appContainer.savedLocationsRepository.hasLocations()
+            .subscribeOn(schedulerProvider.syncDatabase())
+            .observeOn(schedulerProvider.ui())
+            .subscribeAndHandleError {
+                getView()?.finishSplash()
+                if (it)
+                    getView()?.navigateToLocationPagesScreen()
+                else
+                    getView()?.navigateToSavedLocationsScreen()
+            }
     }
 
 }

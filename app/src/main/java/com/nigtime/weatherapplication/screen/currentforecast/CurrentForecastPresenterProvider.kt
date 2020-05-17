@@ -7,12 +7,12 @@ package com.nigtime.weatherapplication.screen.currentforecast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nigtime.weatherapplication.common.di.AppContainer
-import com.nigtime.weatherapplication.domain.city.CityForForecast
+import com.nigtime.weatherapplication.domain.location.ForecastLocation
 import com.nigtime.weatherapplication.screen.common.BasePresenterProvider
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.Subject
 
-class CurrentForecastPresenterProvider(private val cityForForecast: CityForForecast) :
+class CurrentForecastPresenterProvider(private val location: ForecastLocation) :
     BasePresenterProvider<CurrentForecastPresenter>() {
 
     companion object {
@@ -23,7 +23,7 @@ class CurrentForecastPresenterProvider(private val cityForForecast: CityForForec
     override fun createPresenter(appContainer: AppContainer): CurrentForecastPresenter {
         return CurrentForecastPresenter(
             appContainer.schedulerProvider,
-            cityForForecast,
+            location,
             appContainer.forecastManager,
             appContainer.settingsManager,
             daysSwitchSubject,
@@ -32,13 +32,13 @@ class CurrentForecastPresenterProvider(private val cityForForecast: CityForForec
     }
 
 
-    class Factory(private val cityForForecast: CityForForecast) :
+    class Factory(private val location: ForecastLocation) :
         ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(CurrentForecastPresenterProvider::class.java)) {
-                return CurrentForecastPresenterProvider(cityForForecast) as T
+                return CurrentForecastPresenterProvider(location) as T
             } else {
                 error("unknown view model class")
             }

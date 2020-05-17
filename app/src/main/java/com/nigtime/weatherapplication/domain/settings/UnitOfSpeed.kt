@@ -7,7 +7,6 @@ package com.nigtime.weatherapplication.domain.settings
 import androidx.annotation.StringRes
 import com.nigtime.weatherapplication.R
 
-//TODO fit/sec
 sealed class UnitOfSpeed {
 
     companion object {
@@ -21,7 +20,6 @@ sealed class UnitOfSpeed {
             }
         }
     }
-
 
     abstract fun convert(metrePerSeconds: Double): Double
 

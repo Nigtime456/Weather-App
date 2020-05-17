@@ -33,7 +33,7 @@ abstract class BasePresenter<V> constructor(
     protected val retainedContainer = RetainedContainer()
 
     companion object {
-        private const val TAG = "BasePresenter"
+        private const val TAG = "base_presenter"
     }
 
     /**

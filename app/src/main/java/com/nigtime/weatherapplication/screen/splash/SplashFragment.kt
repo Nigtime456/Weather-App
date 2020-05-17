@@ -16,27 +16,25 @@ import com.nigtime.weatherapplication.screen.common.Screen
  * Сплэш должен ждать пока загрузится Pager
  */
 class SplashFragment :
-    BaseFragment<SplashView, SplashPresenter, NavigationController>(R.layout.fragment_splash),
+    BaseFragment<SplashView, WrongSplashPresenter, NavigationController>(R.layout.fragment_splash),
     SplashView {
 
     override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 
-    override fun getPresenterProvider(): PresenterProvider<SplashPresenter> {
+    override fun getPresenterProvider(): PresenterProvider<WrongSplashPresenter> {
         return ViewModelProvider(this).get(SplashPresenterProvider::class.java)
     }
-
 
     override fun finishSplash() {
         //удаляем фон
         activity?.window?.setBackgroundDrawable(null)
     }
 
-    override fun navigateToPagerScreen() {
-        parentListener?.navigateTo(Screen.Factory.pager())
+    override fun navigateToLocationPagesScreen() {
+        parentListener?.navigateTo(Screen.Factory.locationPages())
     }
 
-    override fun navigateToWishListScreen() {
-        parentListener?.navigateTo(Screen.Factory.wishList())
+    override fun navigateToSavedLocationsScreen() {
+        parentListener?.navigateTo(Screen.Factory.savedLocations())
     }
-
 }

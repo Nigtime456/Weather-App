@@ -10,7 +10,7 @@ import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
 import com.nigtime.weatherapplication.domain.forecast.DailyForecast
 import com.nigtime.weatherapplication.domain.forecast.ForecastManager
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
-import com.nigtime.weatherapplication.domain.param.RequestParams
+import com.nigtime.weatherapplication.domain.params.RequestParams
 import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.net.json.JsonCurrentForecast
 import com.nigtime.weatherapplication.net.mappers.CurrentForecastMapper

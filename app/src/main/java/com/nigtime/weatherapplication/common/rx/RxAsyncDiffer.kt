@@ -7,6 +7,9 @@ package com.nigtime.weatherapplication.common.rx
 import androidx.recyclerview.widget.DiffUtil
 import io.reactivex.Single
 
+/**
+ * DiffUtil на потоках Rx
+ */
 class RxAsyncDiffer constructor(
     private val schedulerProvider: SchedulerProvider
 ) {

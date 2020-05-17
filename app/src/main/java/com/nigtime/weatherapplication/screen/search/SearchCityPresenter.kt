@@ -7,8 +7,8 @@ package com.nigtime.weatherapplication.screen.search
 
 import androidx.paging.PagedList
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
-import com.nigtime.weatherapplication.domain.city.PagedSearchRepository
-import com.nigtime.weatherapplication.domain.city.SearchCity
+import com.nigtime.weatherapplication.domain.location.PagedSearchRepository
+import com.nigtime.weatherapplication.domain.location.SearchCity
 import com.nigtime.weatherapplication.screen.common.BasePresenter
 import com.nigtime.weatherapplication.screen.search.paging.PagedListLoader
 import java.util.*
@@ -32,17 +32,19 @@ class SearchCityPresenter constructor(
     }
 
     fun onItemClick(searchCity: SearchCity) {
-        if (searchCity.isWish) {
+        if (searchCity.isSaved) {
             getView()?.showToastAlreadyAdded()
         } else {
             pagedSearchRepository.insert(searchCity)
                 .subscribeOn(schedulerProvider.syncDatabase())
                 .observeOn(schedulerProvider.ui())
-                .subscribeAndHandleError { insertedPosition ->
-                    getView()?.setInsertionResult(insertedPosition)
-                    getView()?.navigateToPreviousScreen()
-                }
+                .subscribeAndHandleError(onResult = this::handleInsertResult)
         }
+    }
+
+    private fun handleInsertResult(insertedPosition: Int) {
+        getView()?.setInsertionResult(insertedPosition)
+        getView()?.navigateToPreviousScreen()
     }
 
     fun onNavigationButtonClick() {

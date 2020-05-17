@@ -15,10 +15,11 @@ import com.nigtime.weatherapplication.common.utility.ColorSpanHelper
 import com.nigtime.weatherapplication.common.utility.SimpleTextWatcher
 import com.nigtime.weatherapplication.common.utility.ThemeHelper
 import com.nigtime.weatherapplication.common.utility.list.ColorDividerDecoration
-import com.nigtime.weatherapplication.domain.city.SearchCity
+import com.nigtime.weatherapplication.domain.location.SearchCity
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.NavigationController
 import com.nigtime.weatherapplication.screen.common.PresenterProvider
+import com.nigtime.weatherapplication.screen.search.paging.PagedListItemClickListener
 import com.nigtime.weatherapplication.screen.search.paging.PagedSearchAdapter
 import kotlinx.android.synthetic.main.fragment_search_city.*
 
@@ -78,8 +79,9 @@ class SearchCityFragment :
             adapter = PagedSearchAdapter(getSpanHelper())
             addItemDecoration(getDivider())
             itemAnimator = null
-            PagedSearchAdapter.ItemClickClickListener(this, presenter::onItemClick)
+            PagedListItemClickListener(this, presenter::onItemClick)
         }
+
     }
 
     private fun liftAppBar(lift: Boolean) {
@@ -98,18 +100,10 @@ class SearchCityFragment :
     }
 
 
-    override fun submitList(pagedList: PagedList<SearchCity>) {
-        (searchRecycler.adapter as PagedSearchAdapter).submitList(pagedList)
-    }
-
-    override fun delayScrollToPosition(position: Int) {
-        //Т.к. из за DiffUtil список формирмуется с задержкой
-        searchRecycler.viewTreeObserver.addOnPreDrawListener(object :
-            ViewTreeObserver.OnPreDrawListener {
-            override fun onPreDraw(): Boolean {
-                searchRecycler.scrollToPosition(position)
-                searchRecycler.viewTreeObserver.removeOnPreDrawListener(this)
-                return true
+    private fun EditText.changeTextListener(block: (String) -> Unit) {
+        addTextChangedListener(object : SimpleTextWatcher() {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                block(s.toString())
             }
         })
     }
@@ -137,6 +131,22 @@ class SearchCityFragment :
         showToast(R.string.search_already_selected)
     }
 
+    override fun submitList(pagedList: PagedList<SearchCity>) {
+        (searchRecycler.adapter as PagedSearchAdapter).submitList(pagedList)
+    }
+
+    override fun delayScrollToPosition(position: Int) {
+        //Т.к. из за DiffUtil список формирмуется с задержкой
+        searchRecycler.viewTreeObserver.addOnPreDrawListener(object :
+            ViewTreeObserver.OnPreDrawListener {
+            override fun onPreDraw(): Boolean {
+                searchRecycler.scrollToPosition(position)
+                searchRecycler.viewTreeObserver.removeOnPreDrawListener(this)
+                return true
+            }
+        })
+    }
+
     override fun setInsertionResult(position: Int) {
         if (targetFragment is TargetFragment) {
             (targetFragment as TargetFragment).onCityInserted(position)
@@ -147,11 +157,4 @@ class SearchCityFragment :
         parentListener?.toPreviousScreen()
     }
 
-    private fun EditText.changeTextListener(block: (String) -> Unit) {
-        addTextChangedListener(object : SimpleTextWatcher() {
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                block(s.toString())
-            }
-        })
-    }
 }

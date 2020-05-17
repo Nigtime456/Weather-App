@@ -12,8 +12,7 @@ import leakcanary.AppWatcher
 
 /**
  * Реализация [PresenterProvider], сохраняет презентер в [ViewModel],
- * позволя держать при смене конфигурации, но удалять когда фрагмент окончательно удаляется.
- *
+ * позволяя держать при смене конфигурации, но удалять когда фрагмент окончательно удаляется.
  *
  */
 abstract class BasePresenterProvider<T : BasePresenter<*>> : ViewModel(), PresenterProvider<T> {
