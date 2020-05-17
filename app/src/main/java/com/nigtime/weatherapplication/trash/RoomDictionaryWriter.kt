@@ -4,8 +4,8 @@
 
 package com.nigtime.weatherbitapp.uselles.storage.room.repository
 
-import com.nigtime.weatherapplication.db.service.ReferenceCityDao
-import com.nigtime.weatherapplication.db.table.ReferenceCityTable
+import com.nigtime.weatherapplication.storage.service.ReferenceCityDao
+import com.nigtime.weatherapplication.storage.table.ReferenceCityTable
 import io.reactivex.Single
 
 //TODO 1) это все должно происходить в транзакции

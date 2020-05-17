@@ -8,6 +8,12 @@ import androidx.annotation.StringRes
 import com.nigtime.weatherapplication.R
 
 sealed class UnitOfPressure {
+
+    companion object {
+        fun default(): UnitOfPressure = MBar
+    }
+
+
     abstract fun convert(mBar: Double): Double
 
     @StringRes

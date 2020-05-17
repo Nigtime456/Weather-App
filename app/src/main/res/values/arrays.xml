@@ -1,0 +1,68 @@
+<!--
+  ~ Сreated by Igor Pokrovsky. 2020/5/16
+  -->
+
+<resources>
+    <!-- theme -->
+    <string-array name="theme_entries">
+        <item>Day</item>
+        <item>Night</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>day</item>
+        <item>night</item>
+    </string-array>
+
+    <!--  lang  -->
+    <string-array name="lang_entries">
+        <item>English</item>
+        <item>Русский</item>
+    </string-array>
+
+    <string-array name="lang_values">
+        <item>en</item>
+        <item>ru</item>
+    </string-array>
+
+    <!--  unit of temp -->
+    <string-array name="temp_units_entries">
+        <item>Цельсий - C°</item>
+        <item>Фаренгейт - F°</item>
+        <item>Кельвин - K°</item>
+    </string-array>
+
+    <string-array name="temp_units_values">
+        <item>cel</item>
+        <item>fah</item>
+        <item>kel</item>
+    </string-array>
+
+    <!--  unit of length  -->
+    <string-array name="length_units_entries">
+        <item>Киллометры</item>
+        <item>Милли</item>
+    </string-array>
+
+    <string-array name="length_units_values">
+        <item>km</item>
+        <item>mi</item>
+    </string-array>
+
+    <!--  unit of speed  -->
+    <string-array name="wind_speed_entries">
+        <item>Киллометры/час</item>
+        <item>Милли/час</item>
+        <item>Узлы</item>
+        <item>Метр/секунду</item>
+    </string-array>
+
+    <string-array name="wind_speed_values">
+        <item>kph</item>
+        <item>mph</item>
+        <item>kn</item>
+        <item>ms</item>
+    </string-array>
+
+
+</resources>

@@ -2,12 +2,12 @@
  * Сreated by Igor Pokrovsky. 2020/4/28
  */
 
-package com.nigtime.weatherapplication.db.repository
+package com.nigtime.weatherapplication.storage.repository
 
-import com.nigtime.weatherapplication.db.mapper.CityForForecastMapper
-import com.nigtime.weatherapplication.db.service.WishCityDao
 import com.nigtime.weatherapplication.domain.city.CityForForecast
 import com.nigtime.weatherapplication.domain.city.ForecastCitiesRepository
+import com.nigtime.weatherapplication.storage.mapper.CityForForecastMapper
+import com.nigtime.weatherapplication.storage.service.WishCityDao
 import io.reactivex.Flowable
 
 class ForecastCitiesRepositoryImpl constructor(

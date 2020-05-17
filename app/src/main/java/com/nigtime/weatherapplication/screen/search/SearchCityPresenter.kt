@@ -45,7 +45,7 @@ class SearchCityPresenter constructor(
         }
     }
 
-    fun onClickNavigationButton() {
+    fun onNavigationButtonClick() {
         getView()?.navigateToPreviousScreen()
     }
 

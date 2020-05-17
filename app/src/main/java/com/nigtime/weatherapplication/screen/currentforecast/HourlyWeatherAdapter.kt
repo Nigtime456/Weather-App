@@ -49,6 +49,7 @@ class HourlyWeatherAdapter :
 
     fun setUnitFormatter(unitFormatter: UnitFormatter) {
         this.unitFormatter = unitFormatter
+        notifyDataSetChanged()
     }
 
     override fun createViewHolder(

@@ -7,7 +7,7 @@
     <item android:state_enabled="true" android:state_pressed="true">
         <layer-list>
             <item>
-                <color android:color="?attr/themeScreenBackground" />
+                <color android:color="?attr/colorPrimary" />
             </item>
             <item>
                 <ripple android:color="?attr/colorControlHighlight" />
@@ -16,6 +16,6 @@
     </item>
 
     <item>
-        <color android:color="?attr/themeScreenBackground" />
+        <color android:color="?attr/colorPrimary" />
     </item>
 </selector>

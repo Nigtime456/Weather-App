@@ -5,20 +5,17 @@
 package com.nigtime.weatherapplication.screen.splash
 
 import com.nigtime.weatherapplication.common.App
-import com.nigtime.weatherapplication.common.rx.SchedulerProvider
-import com.nigtime.weatherapplication.db.service.ReferenceCityDao
 import com.nigtime.weatherapplication.screen.common.BasePresenter
 import com.nigtime.weatherapplication.trash.CitiesMarshallingHelper
 import com.nigtime.weatherbitapp.uselles.storage.room.repository.RoomDictionaryWriter
-import com.nigtime.weatherbitapp.uselles.storage.utils.AssetCityProvider
 import io.reactivex.Single
 import java.util.zip.ZipInputStream
 
 //TODO Должен копировать базу данных
 //TODO нужно переписать, вынести в отдельный модуль
-class WrongSplashPresenter constructor(
-    schedulerProvider: SchedulerProvider, private val referenceCityDao: ReferenceCityDao
-) : BasePresenter<SplashView>(schedulerProvider, TAG) {
+class WrongSplashPresenter :
+    BasePresenter<SplashView>(App.INSTANCE.appContainer.schedulerProvider, TAG) {
+    private val referenceCityDao = App.INSTANCE.appContainer.referenceCityDao
 
     companion object {
         private const val TAG = "wrong_splash"
@@ -47,10 +44,10 @@ class WrongSplashPresenter constructor(
     }
 
     private fun writeCities() {
-        val citiesDictionaryProvider = AssetCityProvider(App.INSTANCE)
+        val context = App.INSTANCE
         val marshallingHelper = CitiesMarshallingHelper()
         val dictionaryWriter = RoomDictionaryWriter(referenceCityDao)
-        Single.just(citiesDictionaryProvider.getZippedCitiesDictionary())
+        Single.just(context.assets.open("cities_full.zip"))
             .map { ZipInputStream(it) }
             .doOnSuccess { it.nextEntry }
             .map { it.bufferedReader() }

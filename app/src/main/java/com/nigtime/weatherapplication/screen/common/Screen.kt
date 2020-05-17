@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.nigtime.weatherapplication.screen.pager.PagerCityFragment
 import com.nigtime.weatherapplication.screen.search.SearchCityFragment
+import com.nigtime.weatherapplication.screen.settings.HostSettingsFragment
 import com.nigtime.weatherapplication.screen.splash.SplashFragment
 import com.nigtime.weatherapplication.screen.wishlist.WishCitiesFragment
 
@@ -25,6 +26,16 @@ interface Screen {
         private const val SEARCH = "search"
         private const val PAGER = "pager"
         private const val SPLASH = "splash"
+        private const val SETTINGS = "settings"
+
+        fun settings() = object : Screen {
+            override fun load(manager: FragmentManager, container: Int, args: Bundle?) {
+                manager.beginTransaction()
+                    .add(container, manager.findFrag(SETTINGS, ::HostSettingsFragment))
+                    .addToBackStack(SETTINGS)
+                    .commit()
+            }
+        }
 
         fun splash() = object : Screen {
             override fun load(manager: FragmentManager, @IdRes container: Int, args: Bundle?) {
@@ -68,6 +79,7 @@ interface Screen {
             }
         }
 
+        @Suppress("UNCHECKED_CAST")
         private fun <T> FragmentManager.findFrag(tag: String, creator: () -> T): T {
             return findFragmentByTag(tag).let { frag -> frag as T } ?: creator()
         }

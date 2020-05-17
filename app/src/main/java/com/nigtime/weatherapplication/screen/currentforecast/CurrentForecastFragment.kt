@@ -41,7 +41,7 @@ class CurrentForecastFragment :
 
     companion object {
         //TODO constant
-        private const val EXTRA_CITY = "com.nigtime.weatherapplication.screens.currentforecast.CITY"
+        private const val EXTRA_CITY = "CITY"
 
         fun newInstance(cityForForecast: CityForForecast): CurrentForecastFragment {
             return CurrentForecastFragment().apply {
@@ -99,7 +99,7 @@ class CurrentForecastFragment :
     private fun setupAppBar() {
         currentForecastToolbar.apply {
             setOnMenuItemClickListener {
-                if (it.itemId == R.id.menuAdd) {
+                if (it.itemId == R.id.menuFindCity) {
                     parentListener?.onClickAddCity()
                 }
                 true

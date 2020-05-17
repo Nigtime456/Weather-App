@@ -10,16 +10,6 @@ import com.nigtime.weatherapplication.common.rx.MainSchedulerProvider
 import com.nigtime.weatherapplication.common.rx.RxAsyncDiffer
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.common.testing.FakeForecastSource
-import com.nigtime.weatherapplication.common.testing.FakeSettingsManager
-import com.nigtime.weatherapplication.db.mapper.CityForForecastMapper
-import com.nigtime.weatherapplication.db.mapper.SearchCityMapper
-import com.nigtime.weatherapplication.db.mapper.WishCityMapper
-import com.nigtime.weatherapplication.db.repository.ForecastCitiesRepositoryImpl
-import com.nigtime.weatherapplication.db.repository.PagedSearchRepositoryImpl
-import com.nigtime.weatherapplication.db.repository.WishCitiesRepositoryImpl
-import com.nigtime.weatherapplication.db.service.AppDatabase
-import com.nigtime.weatherapplication.db.service.ReferenceCityDao
-import com.nigtime.weatherapplication.db.service.WishCityDao
 import com.nigtime.weatherapplication.domain.city.ForecastCitiesRepository
 import com.nigtime.weatherapplication.domain.city.PagedSearchRepository
 import com.nigtime.weatherapplication.domain.city.WishCitiesRepository
@@ -33,6 +23,16 @@ import com.nigtime.weatherapplication.net.repository.AbstractCacheForecastSource
 import com.nigtime.weatherapplication.net.repository.ForecastManagerImpl
 import com.nigtime.weatherapplication.net.repository.ForecastSource
 import com.nigtime.weatherapplication.net.service.ApiFactory
+import com.nigtime.weatherapplication.storage.mapper.CityForForecastMapper
+import com.nigtime.weatherapplication.storage.mapper.SearchCityMapper
+import com.nigtime.weatherapplication.storage.mapper.WishCityMapper
+import com.nigtime.weatherapplication.storage.preference.SettingsManagerImpl
+import com.nigtime.weatherapplication.storage.repository.ForecastCitiesRepositoryImpl
+import com.nigtime.weatherapplication.storage.repository.PagedSearchRepositoryImpl
+import com.nigtime.weatherapplication.storage.repository.WishCitiesRepositoryImpl
+import com.nigtime.weatherapplication.storage.service.AppDatabase
+import com.nigtime.weatherapplication.storage.service.ReferenceCityDao
+import com.nigtime.weatherapplication.storage.service.WishCityDao
 
 /**
  * Контейнер, который содержит ресурсы и объекты, необходимые всему приложению.
@@ -44,7 +44,7 @@ import com.nigtime.weatherapplication.net.service.ApiFactory
 class AppContainer(val appContext: Context) {
 
     val referenceCityDao: ReferenceCityDao
-    val wishCityDao: WishCityDao
+    private val wishCityDao: WishCityDao
 
     private val weatherApi = ApiFactory.getInstance().getApi()
     private val netSource: ForecastSource = FakeForecastSource()
@@ -77,7 +77,7 @@ class AppContainer(val appContext: Context) {
             DailyForecastMapper()
         )
 
-        settingsManager = FakeSettingsManager(appContext)
+        settingsManager = SettingsManagerImpl(appContext)
 
 
     }

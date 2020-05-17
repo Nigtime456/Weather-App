@@ -65,7 +65,7 @@ class SearchCityFragment :
 
     private fun setupAppBar() {
         searchToolbar.setNavigationOnClickListener {
-            presenter.onClickNavigationButton()
+            presenter.onNavigationButtonClick()
         }
     }
 

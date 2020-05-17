@@ -4,6 +4,7 @@
 
 package com.nigtime.weatherapplication.screen.currentforecast
 
+import android.util.Log
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.city.CityForForecast
@@ -48,14 +49,16 @@ class CurrentForecastPresenter(
 
     override fun onAttach() {
         super.onAttach()
+        Log.d("sas", "onAttach")
         observeDisplayedDaysChanges()
         observeScrollChanges()
         observeUnitSettingsChanges()
-        setupScreen()
+        //setupScreen()
     }
 
     override fun onDetach() {
         super.onDetach()
+        Log.d("sas", "onDetach")
         detachDisposable.clear()
     }
 
@@ -77,7 +80,9 @@ class CurrentForecastPresenter(
 
     private fun observeUnitSettingsChanges() {
         settingsManager.getUnitFormatter().subscribe { unitFormatter ->
+            Log.d("sas", "unitFormatter ")
             retainedContainer.put(UNIT_FORMATTER, unitFormatter)
+            setupScreen()
         }.disposeOnDestroy()
     }
 

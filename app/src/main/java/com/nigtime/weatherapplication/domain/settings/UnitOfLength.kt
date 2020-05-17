@@ -8,6 +8,17 @@ import androidx.annotation.StringRes
 import com.nigtime.weatherapplication.R
 
 sealed class UnitOfLength {
+
+    companion object {
+        fun getByCode(code: String): UnitOfLength {
+            return when (code) {
+                "km" -> Kilometre
+                "mi" -> Miles
+                else -> error("invalid code = $code")
+            }
+        }
+    }
+
     abstract fun convert(km: Double): Double
 
     @StringRes
@@ -23,6 +34,5 @@ sealed class UnitOfLength {
         override fun convert(km: Double): Double = km / 1.61
 
         override fun getFormattingPattern(): Int = R.string.units_mi_f
-
     }
 }

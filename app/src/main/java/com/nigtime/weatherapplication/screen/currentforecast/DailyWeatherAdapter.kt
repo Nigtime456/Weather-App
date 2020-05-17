@@ -51,6 +51,7 @@ class DailyWeatherAdapter constructor(private val onClickListener: (Int) -> Unit
 
     fun setUnitFormatter(unitFormatter: UnitFormatter) {
         this.unitFormatter = unitFormatter
+        notifyDataSetChanged()
     }
 
     override fun onViewAttachedToWindow(holder: VH) {

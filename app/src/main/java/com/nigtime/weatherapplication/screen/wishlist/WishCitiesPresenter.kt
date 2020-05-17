@@ -5,7 +5,6 @@
 package com.nigtime.weatherapplication.screen.wishlist
 
 import android.annotation.SuppressLint
-import android.util.Log
 import com.nigtime.weatherapplication.common.rx.RxDelayedMessageDispatcher
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.city.WishCitiesRepository
@@ -110,16 +109,15 @@ class WishCitiesPresenter constructor(
     }
 
 
-    fun onClickItem(position: Int) {
+    fun onItemClick(position: Int) {
         getView()?.setSelectionResult(position)
         getView()?.navigateToPreviousScreen()
     }
 
-    fun onClickUndoDelete() {
+    fun onUndoDeleteClick() {
         val pendingMessage = messageDispatcher.cancelMessage()
 
         if (pendingMessage is DeleteItemMessage) {
-            Log.d("sas", "restore , pos = ${pendingMessage.position}")
             mutableItems.add(pendingMessage.position, pendingMessage.item)
             getView()?.showListLayout()
             getView()?.notifyItemInserted(pendingMessage.position)
@@ -134,7 +132,7 @@ class WishCitiesPresenter constructor(
         }
     }
 
-    fun onClickNavigationButton() {
+    fun onNavigationButtonClick() {
         if (mutableItems.isNotEmpty()) {
             getView()?.navigateToPreviousScreen()
         } else {
@@ -142,7 +140,7 @@ class WishCitiesPresenter constructor(
         }
     }
 
-    fun onClickMenuAdd() {
+    fun onMenuAddClick() {
         getView()?.navigateToSearchCityScreen()
     }
 

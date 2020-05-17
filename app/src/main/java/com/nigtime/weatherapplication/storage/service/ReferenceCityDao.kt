@@ -2,12 +2,12 @@
  * Сreated by Igor Pokrovsky. 2020/4/23
  */
 
-package com.nigtime.weatherapplication.db.service
+package com.nigtime.weatherapplication.storage.service
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.nigtime.weatherapplication.db.table.ReferenceCityTable
+import com.nigtime.weatherapplication.storage.table.ReferenceCityTable
 import io.reactivex.Single
 
 @Dao

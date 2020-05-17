@@ -2,15 +2,15 @@
  * Сreated by Igor Pokrovsky. 2020/4/23
  */
 
-package com.nigtime.weatherapplication.db.service
+package com.nigtime.weatherapplication.storage.service
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.nigtime.weatherapplication.db.table.ReferenceCityTable
-import com.nigtime.weatherapplication.db.table.TableConstants
-import com.nigtime.weatherapplication.db.table.WishCityTable
+import com.nigtime.weatherapplication.storage.table.ReferenceCityTable
+import com.nigtime.weatherapplication.storage.table.TableConstants
+import com.nigtime.weatherapplication.storage.table.WishCityTable
 
 @Database(
     entities = [ReferenceCityTable::class, WishCityTable::class],

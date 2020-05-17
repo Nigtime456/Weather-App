@@ -25,11 +25,15 @@ class CrossFadeAnimatorLayout : FrameLayout {
 
     private companion object {
         const val NO_INDEX = -1
-        const val DEFAULT_DELAY = 5050
+
+        //ms
+        const val DEFAULT_START_DELAY = 500
+
+        //ms
         const val DEFAULT_DURATION = 500
     }
 
-    private var startDelayDuration = DEFAULT_DELAY.toLong()
+    private var startDelayDuration = DEFAULT_START_DELAY.toLong()
     private var animationDuration = DEFAULT_DURATION.toLong()
 
     private var currentDisplayedChild = 0
@@ -52,7 +56,7 @@ class CrossFadeAnimatorLayout : FrameLayout {
         startDelayDuration =
             typedArray.getInteger(
                 R.styleable.CrossFadeAnimatorLayout_crossStartDelay,
-                DEFAULT_DELAY
+                DEFAULT_START_DELAY
             )
                 .toLong()
 

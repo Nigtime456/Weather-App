@@ -13,4 +13,5 @@ interface PagerCityView {
     fun setCurrentNavItem(index: Int)
     fun navigateToWishListScreen()
     fun navigateToSearchCityScreen()
+    fun navigateToSettingsScreen()
 }

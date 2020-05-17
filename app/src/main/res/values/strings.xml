@@ -116,7 +116,7 @@
     <!--  List of cities  -->
     <string name="wish_title">Список городов</string>
     <string name="wish_wait">Секунду…</string>
-    <string name="wish_hint">Нет добавленных городов\nНажмите \'+\' что бы добавить.</string>
+    <string name="wish_hint">Нет добавленных локаций.\nДобавьте город или включите погоду по местоположению.</string>
     <string name="wish_cities">Городов добавлено: %s</string>
     <string name="wish_city_removed">Город удален</string>
     <string name="wish_undo">Отмена</string>
@@ -151,9 +151,28 @@
 
     <!--  Menu  -->
     <string name="menu_add_city">Add city</string>
+    <string name="menu_add_location">Добавить местопложение</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Preference -->
+    <string name="settings_main_title">Настройки приложения</string>
+    <string name="settings_units_title">Единицы измерения</string>
+    <string name="settings_data_title">Данные приложения</string>
+
+    <string name="settings_common">Общее</string>
+    <string name="settings_theme">Тема</string>
+    <string name="settings_lang">Язык</string>
+    <string name="settings_units">Единицы измерения</string>
+    <string name="settings_temp">Температура</string>
+    <string name="settings_length">Растояние</string>
+    <string name="settings_speed">Длина</string>
+    <string name="settings_update_frequency">Частота обновлений в фоне</string>
+    <string name="settings_update_frequency_summary">Обновление виджетов и уведомлений, в часах</string>
+    <string name="settings_app_data">Данные приложения</string>
+    <string name="settings_keep_data_cache">Кэшировать погоду в кэше</string>
+    <string name="settings_keep_data_cache_summary">В днях</string>
+    <string name="settings_clear_cache">Очистить кэш</string>
+    <string name="settings_clear_all_data">Удалить все данные</string>
+    <string name="settings_clear_all_data_summary">Кэш, сохраненные города, настройки</string>
 
 
 </resources>

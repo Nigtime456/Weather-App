@@ -15,6 +15,7 @@
         android:id="@+id/menuListCities"
         android:title="@string/pager_cities">
         <menu>
+            <!--     this is stub to be able to programmatically find this menu       -->
             <item
                 android:title="Stub"
                 tools:ignore="HardcodedText" />

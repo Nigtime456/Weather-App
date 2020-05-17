@@ -6,14 +6,10 @@ package com.nigtime.weatherapplication.screen.common
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
-import leakcanary.AppWatcher
 
 
 /**
@@ -25,50 +21,24 @@ import leakcanary.AppWatcher
  * @param L - parent listener class
  */
 @Suppress("MemberVisibilityCanBePrivate")
-abstract class BaseFragment<V, P : BasePresenter<V>, L> constructor(@LayoutRes private val layoutRes: Int) :
-    Fragment() {
+abstract class BaseFragment<V, P : BasePresenter<V>, L>(@LayoutRes private val layoutRes: Int) :
+    FragmentWithListener<L>(layoutRes) {
 
     /**
      * Связанный листенер
      */
     private var previousToast: Toast? = null
-    protected var parentListener: L? = null
     protected lateinit var presenter: P
 
-    @Suppress("UNCHECKED_CAST")
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
         presenter = getPresenterProvider().getPresenter()
-
-        getListenerClass()?.let { clazz ->
-            parentListener = if (clazz.isAssignableFrom(context.javaClass)) {
-                clazz.cast(context)
-            } else if (parentFragment != null && clazz.isAssignableFrom(requireParentFragment().javaClass)) {
-                clazz.cast(parentFragment)
-            } else {
-                error("Context = [${context.javaClass.name}] or ParenFragment [$parentFragment] must implement ${clazz.name}")
-            }
-        }
     }
 
     override fun onDetach() {
         super.onDetach()
-        parentListener = null
         previousToast = null
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(layoutRes, container, false)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        AppWatcher.objectWatcher.watch(this, "fragment ${this::class.java}  leak")
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -85,7 +55,6 @@ abstract class BaseFragment<V, P : BasePresenter<V>, L> constructor(@LayoutRes p
         if (presenter.isViewAttached())
             presenter.detach()
     }
-
 
     @Suppress("UNCHECKED_CAST")
     override fun onHiddenChanged(hidden: Boolean) {
@@ -107,14 +76,6 @@ abstract class BaseFragment<V, P : BasePresenter<V>, L> constructor(@LayoutRes p
         val str = requireContext().getString(msg)
         showToast(str, duration)
     }
-
-    /**
-     * Вернуть класс listener'a.
-     *
-     * @return - activity or fragment class,
-     * null - without listener
-     */
-    protected open fun getListenerClass(): Class<L>? = null
 
     protected abstract fun getPresenterProvider(): PresenterProvider<P>
 }

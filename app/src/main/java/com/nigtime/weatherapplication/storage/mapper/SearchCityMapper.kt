@@ -2,11 +2,11 @@
  * Сreated by Igor Pokrovsky. 2020/5/2
  */
 
-package com.nigtime.weatherapplication.db.mapper
+package com.nigtime.weatherapplication.storage.mapper
 
-import com.nigtime.weatherapplication.db.table.ReferenceCityTable
-import com.nigtime.weatherapplication.db.table.WishCityTable
 import com.nigtime.weatherapplication.domain.city.SearchCity
+import com.nigtime.weatherapplication.storage.table.ReferenceCityTable
+import com.nigtime.weatherapplication.storage.table.WishCityTable
 
 class SearchCityMapper {
 

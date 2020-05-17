@@ -2,14 +2,14 @@
  * Сreated by Igor Pokrovsky. 2020/4/28
  */
 
-package com.nigtime.weatherapplication.db.repository
+package com.nigtime.weatherapplication.storage.repository
 
-import com.nigtime.weatherapplication.db.mapper.WishCityMapper
-import com.nigtime.weatherapplication.db.service.ReferenceCityDao
-import com.nigtime.weatherapplication.db.service.WishCityDao
-import com.nigtime.weatherapplication.db.table.WishCityTable
 import com.nigtime.weatherapplication.domain.city.WishCitiesRepository
 import com.nigtime.weatherapplication.domain.city.WishCity
+import com.nigtime.weatherapplication.storage.mapper.WishCityMapper
+import com.nigtime.weatherapplication.storage.service.ReferenceCityDao
+import com.nigtime.weatherapplication.storage.service.WishCityDao
+import com.nigtime.weatherapplication.storage.table.WishCityTable
 import io.reactivex.Completable
 import io.reactivex.Single
 

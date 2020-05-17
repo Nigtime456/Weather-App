@@ -68,13 +68,13 @@ class PagerCityFragment :
                     Toast.makeText(requireContext(), "TODO", Toast.LENGTH_LONG).show()
                 }
                 R.id.menuChangeCityList -> {
-                    presenter.onClickChangeCityList()
+                    presenter.onChangeCityListClick()
                 }
                 R.id.menuSettings -> {
-                    Toast.makeText(requireContext(), "TODO", Toast.LENGTH_LONG).show()
+                    presenter.onSettingsClick()
                 }
                 else -> {
-                    presenter.onClickNavigationItem(menuItem.itemId)
+                    presenter.onNavigationItemClick(menuItem.itemId)
                 }
             }
             closeDrawer()
@@ -126,7 +126,7 @@ class PagerCityFragment :
     }
 
     override fun onClickAddCity() {
-        presenter.onClickAddCity()
+        presenter.onAddCityClick()
     }
 
     override fun navigateToWishListScreen() {
@@ -135,6 +135,10 @@ class PagerCityFragment :
 
     override fun navigateToSearchCityScreen() {
         parentListener?.navigateTo(Screen.Factory.searchCity(this))
+    }
+
+    override fun navigateToSettingsScreen() {
+        parentListener?.navigateTo(Screen.Factory.settings())
     }
 
     override fun onClickOpenDrawer() {

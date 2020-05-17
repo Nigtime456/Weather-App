@@ -9,6 +9,20 @@ import com.nigtime.weatherapplication.R
 
 //TODO fit/sec
 sealed class UnitOfSpeed {
+
+    companion object {
+        fun getByCode(code: String): UnitOfSpeed {
+            return when (code) {
+                "kph" -> KilometrePerHour
+                "mph" -> MilesPerHour
+                "kn" -> Knots
+                "ms" -> MetrePerSeconds
+                else -> error("invalid code = $code")
+            }
+        }
+    }
+
+
     abstract fun convert(metrePerSeconds: Double): Double
 
     @StringRes

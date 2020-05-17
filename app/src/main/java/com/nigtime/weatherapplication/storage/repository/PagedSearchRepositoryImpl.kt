@@ -2,15 +2,15 @@
  * Сreated by Igor Pokrovsky. 2020/4/28
  */
 
-package com.nigtime.weatherapplication.db.repository
+package com.nigtime.weatherapplication.storage.repository
 
-import com.nigtime.weatherapplication.db.mapper.SearchCityMapper
-import com.nigtime.weatherapplication.db.service.ReferenceCityDao
-import com.nigtime.weatherapplication.db.service.WishCityDao
-import com.nigtime.weatherapplication.db.table.ReferenceCityTable
-import com.nigtime.weatherapplication.db.table.WishCityTable
 import com.nigtime.weatherapplication.domain.city.PagedSearchRepository
 import com.nigtime.weatherapplication.domain.city.SearchCity
+import com.nigtime.weatherapplication.storage.mapper.SearchCityMapper
+import com.nigtime.weatherapplication.storage.service.ReferenceCityDao
+import com.nigtime.weatherapplication.storage.service.WishCityDao
+import com.nigtime.weatherapplication.storage.table.ReferenceCityTable
+import com.nigtime.weatherapplication.storage.table.WishCityTable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.rxkotlin.flatMapIterable

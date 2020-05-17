@@ -62,7 +62,7 @@
         android:id="@+id/currentForecastSwipeRefresh"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="?attr/themeScreenBackground">
+        android:background="?attr/colorPrimary">
 
 
         <com.nigtime.weatherapplication.common.customview.FixedNestedScrollView

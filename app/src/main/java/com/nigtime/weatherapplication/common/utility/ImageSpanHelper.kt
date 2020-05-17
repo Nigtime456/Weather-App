@@ -12,6 +12,7 @@ import android.content.Context
 import android.text.SpannableString
 import android.text.style.ImageSpan
 import androidx.annotation.DrawableRes
+import java.util.*
 
 /**
  * Вспомогательный класс для добавления изображений в текст, с помощью SpannableString
@@ -24,15 +25,20 @@ class ImageSpanHelper {
         fun setImage(
             context: Context,
             source: String,
-            placeHolder: String, @DrawableRes resId: Int
+            placeHolder: String,
+            @DrawableRes resId: Int
         ): SpannableString {
-            var startIndex = source.indexOf(placeHolder)
+            val sourceStr = source.toLowerCase(Locale.getDefault())
+            val substringStr = placeHolder.toLowerCase(Locale.getDefault())
+
+            var startIndex = sourceStr.indexOf(substringStr)
             var endIndex = startIndex + placeHolder.length
 
             if (startIndex == -1)
                 startIndex = 0
             if (endIndex == -1)
                 endIndex = 0
+
 
             return if (startIndex == 0 && endIndex == 0) {
                 SpannableString(source)

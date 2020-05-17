@@ -67,7 +67,7 @@ class WishCitiesFragment :
         }
 
         override fun onItemClick(position: Int) {
-            presenter.onClickItem(position)
+            presenter.onItemClick(position)
         }
     }
 
@@ -105,13 +105,13 @@ class WishCitiesFragment :
     private fun setupAppBar() {
         wishToolbar.apply {
             setOnMenuItemClickListener { menuItem ->
-                if (menuItem.itemId == R.id.menuAdd) {
-                    presenter.onClickMenuAdd()
+                if (menuItem.itemId == R.id.menuFindCity) {
+                    presenter.onMenuAddClick()
                 }
                 true
             }
             setNavigationOnClickListener {
-                presenter.onClickNavigationButton()
+                presenter.onNavigationButtonClick()
             }
         }
 
@@ -178,7 +178,7 @@ class WishCitiesFragment :
 
     override fun showUndoDeleteSnack(duration: Int) {
         undoSnackbar = Snackbar.make(wishRoot, R.string.wish_city_removed, duration).apply {
-            setAction(R.string.wish_undo) { presenter.onClickUndoDelete() }
+            setAction(R.string.wish_undo) { presenter.onUndoDeleteClick() }
             show()
         }
     }

@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/5/2
  */
 
-package com.nigtime.weatherapplication.db.mapper
+package com.nigtime.weatherapplication.storage.mapper
 
 import com.nigtime.weatherapplication.domain.city.CityForForecast
 

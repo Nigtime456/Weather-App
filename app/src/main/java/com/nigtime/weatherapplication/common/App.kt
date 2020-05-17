@@ -5,6 +5,8 @@
 package com.nigtime.weatherapplication.common
 
 import android.app.Application
+import androidx.preference.PreferenceManager
+import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.common.di.AppContainer
 import com.nigtime.weatherapplication.common.log.CustomLogger
 import leakcanary.AppWatcher
@@ -25,12 +27,15 @@ class App : Application() {
         super.onCreate()
         INSTANCE = this
         setCanary()
+        setupPreferences()
         setContainer()
         setLogger()
     }
 
-    private fun setContainer() {
-        appContainer = AppContainer(this)
+    private fun setupPreferences() {
+        PreferenceManager.setDefaultValues(this, R.xml.main_preferences, false)
+        PreferenceManager.setDefaultValues(this, R.xml.data_preferences, false)
+        PreferenceManager.setDefaultValues(this, R.xml.unit_preferences, false)
     }
 
     /**
@@ -46,6 +51,10 @@ class App : Application() {
             watchDurationMillis = 5000
         )
         LeakCanary.config = LeakCanary.config.copy(retainedVisibleThreshold = 1)
+    }
+
+    private fun setContainer() {
+        appContainer = AppContainer(this)
     }
 
     /**

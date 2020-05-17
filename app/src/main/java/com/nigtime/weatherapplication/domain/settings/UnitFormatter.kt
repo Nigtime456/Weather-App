@@ -16,7 +16,7 @@ import com.nigtime.weatherapplication.domain.forecast.UvIndex
 import java.text.SimpleDateFormat
 import java.util.*
 
-class UnitFormatter(
+data class UnitFormatter(
     private val context: Context,
     private val unitOfTemp: UnitOfTemp,
     private val unitOfSpeed: UnitOfSpeed,

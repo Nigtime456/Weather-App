@@ -5,7 +5,7 @@
     android:id="@+id/wishRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/themeScreenBackground"
+    android:background="?attr/colorPrimary"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -33,6 +33,7 @@
 
     <com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout
         android:id="@+id/wishViewSwitcher"
+        style="@style/CrossFadeDefaultStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:crossDisplayedChild="1">
@@ -52,7 +53,7 @@
                 style="@style/PrimaryText.Lowest"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginStart="@dimen/medium_margin"
                 android:gravity="center"
                 android:text="@string/wish_wait" />
         </LinearLayout>

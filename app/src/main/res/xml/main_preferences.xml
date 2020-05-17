@@ -1,0 +1,50 @@
+<!--
+  ~ Сreated by Igor Pokrovsky. 2020/5/16
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:allowDividerAbove="true"
+    app:allowDividerBelow="true">
+
+    <ListPreference
+        app:defaultValue="night"
+        app:entries="@array/theme_entries"
+        app:entryValues="@array/theme_values"
+        app:icon="@drawable/ic_language"
+        app:key="theme"
+        app:title="@string/settings_theme"
+        app:useSimpleSummaryProvider="true" />
+
+
+    <ListPreference
+        app:defaultValue="ru"
+        app:entries="@array/lang_entries"
+        app:entryValues="@array/lang_values"
+        app:icon="@drawable/ic_language"
+        app:key="lang"
+        app:title="@string/settings_lang"
+        app:useSimpleSummaryProvider="true" />
+
+    <Preference
+        android:icon="@drawable/ic_thermometer"
+        android:title="@string/settings_units"
+        app:fragment="com.nigtime.weatherapplication.screen.settings.UnitSettingsFragment" />
+
+    <SeekBarPreference
+        android:max="24"
+        app:defaultValue="3"
+        app:icon="@drawable/ic_alarm"
+        app:key="notification_frequency"
+        app:min="1"
+        app:selectable="false"
+        app:showSeekBarValue="true"
+        app:summary="@string/settings_update_frequency_summary"
+        app:title="@string/settings_update_frequency" />
+
+    <Preference
+        android:icon="@drawable/ic_sd_storage"
+        android:title="@string/settings_app_data"
+        app:fragment="com.nigtime.weatherapplication.screen.settings.DataSettingsFragment" />
+
+</PreferenceScreen>

@@ -2,10 +2,10 @@
  * Сreated by Igor Pokrovsky. 2020/4/23
  */
 
-package com.nigtime.weatherapplication.db.service
+package com.nigtime.weatherapplication.storage.service
 
 import androidx.room.*
-import com.nigtime.weatherapplication.db.table.WishCityTable
+import com.nigtime.weatherapplication.storage.table.WishCityTable
 import io.reactivex.Flowable
 
 

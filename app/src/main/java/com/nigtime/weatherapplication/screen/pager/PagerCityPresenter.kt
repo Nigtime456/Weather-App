@@ -49,11 +49,11 @@ class PagerCityPresenter(
     }
 
 
-    fun onClickChangeCityList() {
+    fun onChangeCityListClick() {
         getView()?.navigateToWishListScreen()
     }
 
-    fun onClickNavigationItem(index: Int) {
+    fun onNavigationItemClick(index: Int) {
         getView()?.setCurrentPage(index)
     }
 
@@ -62,7 +62,7 @@ class PagerCityPresenter(
         getView()?.setCurrentNavItem(currentPage)
     }
 
-    fun onClickAddCity() {
+    fun onAddCityClick() {
         getView()?.navigateToSearchCityScreen()
     }
 
@@ -72,5 +72,9 @@ class PagerCityPresenter(
 
     fun onCitySelected(position: Int) {
         currentPage = position
+    }
+
+    fun onSettingsClick() {
+        getView()?.navigateToSettingsScreen()
     }
 }
