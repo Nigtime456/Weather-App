@@ -25,12 +25,7 @@ import com.nigtime.weatherapplication.screen.common.PresenterProvider
 import com.nigtime.weatherapplication.screen.currentforecast.list.DailyWeatherAdapter
 import com.nigtime.weatherapplication.screen.currentforecast.list.HourlyWeatherAdapter
 import kotlinx.android.synthetic.main.fragment_current_forecast.*
-import kotlinx.android.synthetic.main.fragment_current_forecast_main_current.*
-import kotlinx.android.synthetic.main.fragment_current_forecast_main_daily.*
-import kotlinx.android.synthetic.main.fragment_current_forecast_main_environment.*
-import kotlinx.android.synthetic.main.fragment_current_forecast_main_hourly.*
-import kotlinx.android.synthetic.main.fragment_current_forecast_main_more.*
-import kotlinx.android.synthetic.main.fragment_current_forecast_precipitation.*
+import kotlinx.android.synthetic.main.fragment_current_forecast_main.*
 
 /**
  * Главный экран с погодой

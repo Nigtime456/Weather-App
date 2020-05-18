@@ -54,7 +54,6 @@
                     tools:text="17:30 MSK" />
 
             </LinearLayout>
-
         </androidx.appcompat.widget.Toolbar>
     </androidx.cardview.widget.CardView>
 

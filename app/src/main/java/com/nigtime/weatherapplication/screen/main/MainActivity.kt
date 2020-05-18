@@ -10,6 +10,7 @@ package com.nigtime.weatherapplication.screen.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.screen.common.NavigationController
@@ -17,6 +18,7 @@ import com.nigtime.weatherapplication.screen.common.Screen
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import leakcanary.AppWatcher
+import kotlin.system.measureTimeMillis
 
 
 /**
@@ -38,6 +40,9 @@ class MainActivity : AppCompatActivity(),
     //TODO remove it
     @SuppressLint("CheckResult")
     private fun test() {
+        val m = measureTimeMillis {
+            LayoutInflater.from(this).inflate(R.layout.fragment_current_forecast_main, null)
+        }
 
         Single.fromCallable {
             "d"

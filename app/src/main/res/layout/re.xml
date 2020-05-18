@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/5/9
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/medium_margin">
+
+    <TextView
+        android:id="@+id/title_precipitation"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/current_forecast_precipitation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/currentForecastPrecipitation3Hours"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/small_margin"
+        app:layout_constraintEnd_toStartOf="@id/divider7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_precipitation"
+        tools:text="10%" />
+
+    <TextView
+        android:id="@+id/title_next_3_hours"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/small_margin"
+        android:text="@string/current_forecast_next_3_hours"
+        app:layout_constraintEnd_toEndOf="@id/currentForecastPrecipitation3Hours"
+        app:layout_constraintStart_toStartOf="@id/currentForecastPrecipitation3Hours"
+        app:layout_constraintTop_toBottomOf="@id/currentForecastPrecipitation3Hours" />
+
+    <View
+        android:id="@+id/divider7"
+        style="@style/DividerDefaultStyle"
+        android:layout_width="@dimen/divider_size"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/title_next_3_hours"
+        app:layout_constraintEnd_toStartOf="@id/divider8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/currentForecastPrecipitation3Hours" />
+
+    <TextView
+        android:id="@+id/currentForecastPrecipitation6Hours"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintEnd_toStartOf="@id/divider8"
+        app:layout_constraintStart_toEndOf="@id/divider7"
+        app:layout_constraintTop_toTopOf="@+id/currentForecastPrecipitation3Hours"
+        tools:text="10%" />
+
+    <TextView
+        android:id="@+id/title_next_6_hours"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/small_margin"
+        android:text="@string/current_forecast_next_6_hours"
+        app:layout_constraintEnd_toEndOf="@id/currentForecastPrecipitation6Hours"
+        app:layout_constraintStart_toStartOf="@id/currentForecastPrecipitation6Hours"
+        app:layout_constraintTop_toBottomOf="@id/currentForecastPrecipitation6Hours" />
+
+
+    <View
+        android:id="@+id/divider8"
+        style="@style/DividerDefaultStyle"
+        android:layout_width="@dimen/divider_size"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/divider7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/divider7"
+        app:layout_constraintTop_toTopOf="@id/divider7" />
+
+    <TextView
+        android:id="@+id/currentForecastPrecipitation12Hours"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/divider8"
+        app:layout_constraintTop_toTopOf="@+id/currentForecastPrecipitation6Hours"
+        tools:text="10%" />
+
+    <TextView
+        android:id="@+id/title_next_12_hours"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/small_margin"
+        android:text="@string/current_forecast_next_12_hours"
+        app:layout_constraintEnd_toEndOf="@id/currentForecastPrecipitation12Hours"
+        app:layout_constraintStart_toStartOf="@id/currentForecastPrecipitation12Hours"
+        app:layout_constraintTop_toBottomOf="@id/currentForecastPrecipitation12Hours" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
