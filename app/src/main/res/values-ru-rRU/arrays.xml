@@ -2,11 +2,15 @@
   ~ Сreated by Igor Pokrovsky. 2020/5/16
   -->
 
+<!--
+  ~ Сreated by Igor Pokrovsky. 2020/5/21
+  -->
+
 <resources>
     <!-- theme -->
     <string-array name="theme_entries">
-        <item>Day</item>
-        <item>Night</item>
+        <item>Светлая</item>
+        <item>Темная</item>
     </string-array>
 
     <string-array name="theme_values">
@@ -27,9 +31,9 @@
 
     <!--  unit of temp -->
     <string-array name="units_of_temp_entries">
-        <item>Celsius - C°</item>
-        <item>Fahrenheit - F°</item>
-        <item>Kelvin - K°</item>
+        <item>Цельсий - C°</item>
+        <item>Фаренгейт - F°</item>
+        <item>Кельвин - K°</item>
     </string-array>
 
     <string-array name="units_of_temp_values">
@@ -40,8 +44,8 @@
 
     <!--  unit of length  -->
     <string-array name="units_of_length_entries">
-        <item>Kilometres</item>
-        <item>Miles</item>
+        <item>Киллометры</item>
+        <item>Милли</item>
     </string-array>
 
     <string-array name="units_of_length_values">
@@ -51,10 +55,10 @@
 
     <!--  unit of speed  -->
     <string-array name="units_of_speed_entries">
-        <item>Kilometres/hour</item>
-        <item>Miles/hour</item>
-        <item>Knots</item>
-        <item>Metres/second</item>
+        <item>Киллометры/час</item>
+        <item>Милли/час</item>
+        <item>Узлы</item>
+        <item>Метр/секунду</item>
     </string-array>
 
     <string-array name="units_of_speed_values">
@@ -67,8 +71,8 @@
     <!--  unit of pressure  -->
 
     <string-array name="units_of_pressure_entries">
-        <item>MBar</item>
-        <item>mm hg</item>
+        <item>Мбар</item>
+        <item>Мм. рт. ст.</item>
     </string-array>
 
     <string-array name="units_of_pressure_values">

@@ -25,7 +25,6 @@ class SavedLocationRepositoryImpl constructor(
     private lateinit var cachedLocations: Observable<List<SavedLocation>>
 
     override fun getLocations(): Observable<List<SavedLocation>> {
-        //TODO перепеши
         return if (::cachedLocations.isInitialized) {
             Log.d("sas", "cache locations")
             cachedLocations
