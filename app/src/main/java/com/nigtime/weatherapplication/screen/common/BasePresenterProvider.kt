@@ -10,17 +10,19 @@ import com.nigtime.weatherapplication.common.App
 import leakcanary.AppWatcher
 
 /**
- * Реализация [PresenterProvider], сохраняет презентер в [ViewModel],
- * позволяя держать при смене конфигурации, но удалять когда фрагмент окончательно удаляется.
+ * Класс управляющий созданием презентера, отвечает за сохранения экземпляров и
+ * их уничтожение.
  *
+ * Реализован с помощью [ViewModel] позволяя держать презентер пока активити
+ * или фрагмент активны.
  */
-abstract class BasePresenterProvider<T : BasePresenter<*>> : ViewModel(), PresenterProvider<T> {
-    private val presenter = lazy { createPresenter() }
+abstract class BasePresenterProvider<P : BasePresenter<*>> : ViewModel() {
     protected val appContainer = App.INSTANCE.appContainer
+    private val presenter = lazy { createPresenter() }
 
-    final override fun getPresenter(): T = presenter.value
+    fun getPresenter(): P = presenter.value
 
-    protected abstract fun createPresenter(): T
+    protected abstract fun createPresenter(): P
 
     @CallSuper
     override fun onCleared() {

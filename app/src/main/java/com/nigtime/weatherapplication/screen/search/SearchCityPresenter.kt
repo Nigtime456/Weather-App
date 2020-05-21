@@ -6,20 +6,19 @@ package com.nigtime.weatherapplication.screen.search
 
 
 import androidx.paging.PagedList
-import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.location.PagedSearchRepository
 import com.nigtime.weatherapplication.domain.location.SearchCity
 import com.nigtime.weatherapplication.screen.common.BasePresenter
 import com.nigtime.weatherapplication.screen.search.paging.PagedListLoader
+import io.reactivex.rxkotlin.subscribeBy
 import java.util.*
 
 
 class SearchCityPresenter constructor(
-    schedulerProvider: SchedulerProvider,
     private val pagedSearchRepository: PagedSearchRepository,
     private val pagedListLoader: PagedListLoader
 ) :
-    BasePresenter<SearchCityView>(schedulerProvider, TAG) {
+    BasePresenter<SearchCityView>(TAG) {
 
     companion object {
         private const val TAG = "search"
@@ -35,17 +34,21 @@ class SearchCityPresenter constructor(
         if (searchCity.isSaved) {
             getView()?.showToastAlreadyAdded()
         } else {
-            pagedSearchRepository.insert(searchCity)
-                .subscribeOn(schedulerProvider.syncDatabase())
-                .observeOn(schedulerProvider.ui())
-                .subscribeAndHandleError(onResult = this::onInsertResult)
+            insertCity(searchCity)
         }
     }
 
-    private fun onInsertResult(insertedPosition: Int) {
+    private fun insertCity(searchCity: SearchCity) {
+        pagedSearchRepository.insert(searchCity)
+            .subscribeBy(onSuccess = this::onCityInserted)
+            .disposeOnDestroy()
+    }
+
+    private fun onCityInserted(insertedPosition: Int) {
         getView()?.setInsertionResult(insertedPosition)
         getView()?.navigateToPreviousScreen()
     }
+
 
     fun onNavigationButtonClick() {
         getView()?.navigateToPreviousScreen()
@@ -63,10 +66,11 @@ class SearchCityPresenter constructor(
     private fun loadQueryList(query: String) {
         getView()?.showProgressLayout()
         pagedListLoader.loadList(pagedSearchRepository, query)
-            .subscribeAndHandleError(onNext = this::onListLoaded)
+            .subscribeBy(onNext = this::onNextQueryList)
+            .disposeOnDestroy()
     }
 
-    private fun onListLoaded(pagedList: PagedList<SearchCity>) {
+    private fun onNextQueryList(pagedList: PagedList<SearchCity>) {
         getView()?.submitList(pagedList)
         if (pagedList.isNotEmpty()) {
             getView()?.delayScrollToPosition(0)

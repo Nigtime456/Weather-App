@@ -5,15 +5,13 @@
 package com.nigtime.weatherapplication.screen.common
 
 import android.content.Context
-import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 
 
 /**
- * Base fragment, собирает некоторый код для работы с презентером
+ * Базовый фрагмент, собирает некоторый код для работы с презентером
  * Подклассы сами присоединяют презентер.
  *
  * listener - activity or parent fragment
@@ -42,16 +40,16 @@ abstract class BaseFragment<V, P : BasePresenter<V>, L>(@LayoutRes private val l
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         val isNotHidden = !isHidden
         if (isNotHidden) {
             presenter.attach(this as V)
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onStop() {
+        super.onStop()
         if (presenter.isViewAttached())
             presenter.detach()
     }
@@ -66,16 +64,12 @@ abstract class BaseFragment<V, P : BasePresenter<V>, L>(@LayoutRes private val l
         }
     }
 
-    fun showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
+
+    fun showToast(@StringRes msg: Int, duration: Int = Toast.LENGTH_SHORT) {
         previousToast?.cancel()
         previousToast = Toast.makeText(context, msg, duration)
         previousToast?.show()
     }
 
-    fun showToast(@StringRes msg: Int, duration: Int = Toast.LENGTH_SHORT) {
-        val str = requireContext().getString(msg)
-        showToast(str, duration)
-    }
-
-    protected abstract fun getPresenterProvider(): PresenterProvider<P>
+    protected abstract fun getPresenterProvider(): BasePresenterProvider<P>
 }

@@ -5,20 +5,18 @@
 package com.nigtime.weatherapplication.screen.savedlocations
 
 import android.annotation.SuppressLint
+import android.util.Log
 import com.nigtime.weatherapplication.common.rx.RxDelayedMessageDispatcher
-import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.domain.location.SavedLocationsRepository
 import com.nigtime.weatherapplication.screen.common.BasePresenter
-import io.reactivex.Scheduler
+import io.reactivex.rxkotlin.subscribeBy
 
 
 class SavedLocationsPresenter constructor(
-    schedulerProvider: SchedulerProvider,
     private val savedLocationsRepository: SavedLocationsRepository,
     private val messageDispatcher: RxDelayedMessageDispatcher
-) :
-    BasePresenter<SavedLocationView>(schedulerProvider, TAG) {
+) : BasePresenter<SavedLocationView>(TAG) {
 
     companion object {
         private const val TAG = "saved_locations"
@@ -28,26 +26,23 @@ class SavedLocationsPresenter constructor(
     private var mutableItems = mutableListOf<SavedLocation>()
     private var hasDrag = false
 
-
     override fun onAttach() {
         super.onAttach()
         provideLocations()
     }
 
-
     override fun onDetach() {
         super.onDetach()
         messageDispatcher.forceRun()
         getView()?.hideUndoDeleteSnack()
+
     }
 
     private fun provideLocations() {
-        getView()?.showProgressLayout()
-
-        savedLocationsRepository.getLocations()
-            .subscribeOn(schedulerProvider.syncDatabase())
-            .observeOn(schedulerProvider.ui())
-            .subscribeAndHandleError(onResult = this::onListLoaded)
+        savedLocationsRepository.getLocationsOnce()
+            .doOnSubscribe { getView()?.showProgressLayout() }
+            .subscribeBy(onSuccess = this::onListLoaded)
+            .disposeOnDestroy()
     }
 
     private fun onListLoaded(list: List<SavedLocation>) {
@@ -82,20 +77,9 @@ class SavedLocationsPresenter constructor(
             DeleteItemMessage(
                 swiped,
                 position,
-                savedLocationsRepository,
-                schedulerProvider.syncDatabase()
+                savedLocationsRepository
             )
         )
-    }
-
-    fun saveListChanges() {
-        if (mutableItems.isNotEmpty()) {
-            savedLocationsRepository.replaceAll(mutableItems)
-                .subscribeOn(schedulerProvider.syncDatabase())
-                .subscribeAndHandleError {
-                    /*nothing */
-                }
-        }
     }
 
     fun onItemsMoved(
@@ -106,10 +90,14 @@ class SavedLocationsPresenter constructor(
     ) {
         hasDrag = true
         //перезаписываем индексы
-        mutableItems[targetPosition] = moved
-        mutableItems[movedPosition] = target
+        mutableItems[targetPosition] = moved.changeListIndex(targetPosition)
+        mutableItems[movedPosition] = target.changeListIndex(movedPosition)
     }
 
+    fun onMovementComplete() {
+        Log.d("sas", "save changes")
+        saveListChanges()
+    }
 
     fun onItemClick(position: Int) {
         getView()?.setSelectionResult(position)
@@ -134,6 +122,13 @@ class SavedLocationsPresenter constructor(
         }
     }
 
+    private fun saveListChanges() {
+        if (mutableItems.isNotEmpty()) {
+            savedLocationsRepository.replaceAll(mutableItems)
+                .subscribe()
+        }
+    }
+
     fun onNavigationButtonClick() {
         if (mutableItems.isNotEmpty()) {
             getView()?.navigateToPreviousScreen()
@@ -150,21 +145,16 @@ class SavedLocationsPresenter constructor(
         insertedPosition = position
     }
 
-
     private class DeleteItemMessage(
         val item: SavedLocation,
         val position: Int,
-        val repository: SavedLocationsRepository,
-        val scheduler: Scheduler
+        val repository: SavedLocationsRepository
     ) : Runnable {
 
         @SuppressLint("CheckResult")
         override fun run() {
             repository.delete(item)
-                .subscribeOn(scheduler)
-                .subscribe {
-                    //nothing
-                }
+                .subscribe()
         }
     }
 }

@@ -4,7 +4,6 @@
 
 package com.nigtime.weatherapplication.screen.savedlocations
 
-import android.util.Log
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.common.rx.RxDelayedMessageDispatcher
 import com.nigtime.weatherapplication.domain.location.SavedLocation
@@ -24,22 +23,24 @@ class SavedLocationPresenterProvider : BasePresenterProvider<SavedLocationsPrese
             RxDelayedMessageDispatcher(removeDelay.toLong(), appContainer.schedulerProvider)
 
         return SavedLocationsPresenter(
-            appContainer.schedulerProvider,
             appContainer.savedLocationsRepository,
             messageDispatcher
         )
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        itemsPresentersMap.forEach { entry -> entry.value.destroy() }
+    }
+
     override fun getItemPresenter(savedLocation: SavedLocation): SavedLocationItemPresenter {
         return itemsPresentersMap.getOrPut(savedLocation.getKey()) {
-            Log.d("sas", "create = ${savedLocation.getName()}")
             createItemPresenter(savedLocation)
         }
     }
 
     private fun createItemPresenter(savedLocation: SavedLocation): SavedLocationItemPresenter {
         return SavedLocationItemPresenter(
-            appContainer.schedulerProvider,
             appContainer.forecastManager,
             appContainer.settingsManager,
             savedLocation

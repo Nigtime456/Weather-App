@@ -4,7 +4,10 @@
 
 package com.nigtime.weatherapplication.storage.table
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
 import com.nigtime.weatherapplication.storage.table.TableConstants.COLUMN_LIST_INDEX
 
 /**
@@ -19,21 +22,20 @@ import com.nigtime.weatherapplication.storage.table.TableConstants.COLUMN_LIST_I
     indices = [
         Index(value = [COLUMN_LIST_INDEX], unique = true),
         Index(value = [TableConstants.COLUMN_ID], unique = true)
-    ],
-    foreignKeys = [
-        ForeignKey(
-            entity = ReferenceCitiesTable::class,
-            parentColumns = [TableConstants.COLUMN_ID],
-            childColumns = [TableConstants.COLUMN_ID]
-        )
     ]
 )
-data class LocationTable(
-    @ColumnInfo(name = TableConstants.COLUMN_ID)
-    val id: Long,
+data class LocationsTable(
     @PrimaryKey
     @ColumnInfo(name = COLUMN_LIST_INDEX)
-    val listIndex: Int
+    val listIndex: Int,
+    @ColumnInfo(name = TableConstants.COLUMN_ID)
+    val id: Long,
+    @ColumnInfo(name = TableConstants.COLUMN_CITY_NAME)
+    val name: String,
+    @ColumnInfo(name = TableConstants.COLUMN_STATE_NAME)
+    val stateName: String,
+    @ColumnInfo(name = TableConstants.COLUMN_COUNTRY_NAME)
+    val countryName: String
 )
 
 

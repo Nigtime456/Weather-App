@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.common.utility.ColorSpanHelper
+import com.nigtime.weatherapplication.common.util.ColorSpanHelper
 import com.nigtime.weatherapplication.domain.location.SearchCity
 
 /**
@@ -43,7 +43,7 @@ class PagedSearchAdapter constructor(private val spannHelper: ColorSpanHelper) :
 
     override fun onBindViewHolder(holder: SearchCityViewHolder, position: Int) {
         val searchCityData = getItem(position)
-        searchCityData?.let { holder.bind(it, spannHelper) }
+        searchCityData?.let { item -> holder.bind(item, spannHelper) }
     }
 
     override fun onViewRecycled(holder: SearchCityViewHolder) {

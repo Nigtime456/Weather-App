@@ -7,7 +7,7 @@ package com.nigtime.weatherapplication.screen.currentforecast.list
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.common.utility.DateFormatUtils
+import com.nigtime.weatherapplication.common.util.DateFormatHolder
 import com.nigtime.weatherapplication.domain.forecast.DailyForecast
 import com.nigtime.weatherapplication.domain.settings.UnitOfTemp
 import com.nigtime.weatherapplication.domain.utility.UnitFormatHelper
@@ -16,8 +16,8 @@ import kotlinx.android.synthetic.main.item_daily_forecast.view.*
 class DailyWeatherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     companion object {
-        private val weekDayFormatter = DateFormatUtils.getWeekdayFormatter()
-        private val dayOfMonthFormatter = DateFormatUtils.getDayOfMonthFormatter()
+        private val weekDayFormatter = DateFormatHolder.getWeekdayFormatter()
+        private val dayOfMonthFormatter = DateFormatHolder.getDayOfMonthFormatter()
     }
 
     private val unitFormatHelper = UnitFormatHelper(itemView.context)

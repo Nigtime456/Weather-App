@@ -9,9 +9,6 @@ import com.nigtime.weatherapplication.screen.common.BasePresenterProvider
 class LocationPagesPresenterProvider : BasePresenterProvider<LocationPagesPresenter>() {
 
     override fun createPresenter(): LocationPagesPresenter {
-        return LocationPagesPresenter(
-            appContainer.schedulerProvider,
-            appContainer.savedLocationsRepository
-        )
+        return LocationPagesPresenter(appContainer.savedLocationsRepository)
     }
 }

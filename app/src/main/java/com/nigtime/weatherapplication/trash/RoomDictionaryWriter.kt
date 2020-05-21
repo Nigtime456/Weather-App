@@ -14,8 +14,10 @@ import io.reactivex.Single
 class RoomDictionaryWriter constructor(private val dictionaryDao: ReferenceCitiesDao) {
 
     fun isDictionaryWritten(): Single<Boolean> {
-        return dictionaryDao
-            .getOneRow()
+        return Single.fromCallable {
+            dictionaryDao
+                .getOneRow()
+        }
             .map { it.isNotEmpty() }
     }
 

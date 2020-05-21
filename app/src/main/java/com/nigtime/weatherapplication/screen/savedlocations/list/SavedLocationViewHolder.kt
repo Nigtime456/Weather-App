@@ -31,6 +31,7 @@ class SavedLocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
 
     fun recycle() {
         currentLocation = null
+        presenter = null
     }
 
     fun attachOnClickListener(onClick: (Int) -> Unit) {

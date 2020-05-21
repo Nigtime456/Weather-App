@@ -19,5 +19,7 @@ interface SettingsManager {
     fun getUnitOfPressure(): UnitOfPressure
     fun getUnitOfSpeed(): UnitOfSpeed
     fun getUnitOfLength(): UnitOfLength
-    fun observeUnitChanges(): Observable<Any>
+    fun observeUnitsChanges(): Observable<Unit>
+    fun observeLangChanges(): Observable<Unit>
+    fun observeThemeChanges(): Observable<Unit>
 }

@@ -6,7 +6,7 @@ package com.nigtime.weatherapplication.screen.search.paging
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.nigtime.weatherapplication.common.utility.ColorSpanHelper
+import com.nigtime.weatherapplication.common.util.ColorSpanHelper
 import com.nigtime.weatherapplication.domain.location.SearchCity
 import kotlinx.android.synthetic.main.item_search_city.view.*
 

@@ -5,32 +5,35 @@
 package com.nigtime.weatherapplication.screen.common
 
 import com.nigtime.weatherapplication.common.log.CustomLogger
-import com.nigtime.weatherapplication.common.rx.SchedulerProvider
-import com.nigtime.weatherapplication.common.utility.RetainedContainer
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import java.lang.ref.WeakReference
 
 /**
- * Базовый класс презентера.
+ * Базовый класс презентера. На View держится слабая ссылка, сам презентер
+ * может быть независимым от ЖЦ View, переживать её пересоздание и т.д.
  *
- * @param schedulerProvider - поставщик потоков для Rx. [SchedulerProvider]
+ * Контракт:
+ * 1)[attach] - вызывается когда View присоеденно, отображается на экране,
+ * и готово получать и отображать данные.
+ * [onAttach] - может начинаться загрузка данных, настройка экрана.
+ *
+ * 2)[detach] - вызывается когда View отсоеденияется.
+ * [onDetach] - могут быть заданы какие то параметры, скрыты диалоги, сообщения.
+ *
+ * 3)[destroy] - вызывается когда презентер более не нужен (фрагмент уничтожается полностью,
+ * удаляется из стэк переходов)
+ * [onDestroy] - освобождаются ресурсы, удаляются подписки, соедения с сестью, базой данных и т.д.
+ *
+ *
+ * @param V - интерфейс MVP View
  * @param tag - тег для логгера.
- *
  */
 @Suppress("MemberVisibilityCanBePrivate")
-abstract class BasePresenter<V> constructor(
-    protected val schedulerProvider: SchedulerProvider,
-    tag: String = TAG
-) {
+abstract class BasePresenter<V> constructor(tag: String = TAG) {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private var weakView: WeakReference<V>? = null
     protected val logger: CustomLogger = CustomLogger(tag, true)
-    protected val retainedContainer = RetainedContainer()
 
     companion object {
         private const val TAG = "base_presenter"
@@ -38,35 +41,37 @@ abstract class BasePresenter<V> constructor(
 
     /**
      * Присоеденить презентер
-     * @param view - MvpView
      *
+     * @param view - MvpView
      */
     fun attach(view: V) {
-        require(isViewDetached()) { "view already attached!" }
         weakView = WeakReference(view)
         onAttach()
-
-        logger.d("attached")
+        logger.d("[${hashCode()}] attach")
     }
 
     /**
-     * Отсоеденить презентер
+     * Отсоеденить презентер, когда экран стал невидимым, View приостановлено.
      */
     fun detach() {
-        require(isViewAttached()) { "view already detached!" }
         onDetach()
-        weakView?.clear()
-        weakView = null
-
-        logger.d("detached")
+        releaseView()
+        logger.d("[${hashCode()}] detach")
     }
 
-    fun destroy() {
-        require(weakView == null) { "this method should be called after detach!" }
-        performDispose()
-        onDestroy()
+    private fun releaseView() {
+        weakView?.clear()
+        weakView = null
+    }
 
-        logger.d("destroyed")
+    /**
+     * Уничтожить презентер, когда он более не нужен
+     */
+    fun destroy() {
+        performDispose()
+        releaseView()
+        onDestroy()
+        logger.d("[${hashCode()}] destroy")
     }
 
     /**
@@ -76,6 +81,9 @@ abstract class BasePresenter<V> constructor(
         return weakView != null && weakView!!.get() != null
     }
 
+    /**
+     * true - view отсоеденино
+     */
     fun isViewDetached(): Boolean {
         return !isViewAttached()
     }
@@ -94,6 +102,9 @@ abstract class BasePresenter<V> constructor(
 
     }
 
+    /**
+     * Вызывается когда презентер будет уничтожен
+     */
     protected open fun onDestroy() {
 
     }
@@ -115,93 +126,9 @@ abstract class BasePresenter<V> constructor(
      * Расширение к Disposable для простой отписки
      */
     protected open fun Disposable.disposeOnDestroy() {
-        compositeDisposable.add(this)
-    }
-
-    /**
-     * Общий метод для ошибок в потоках Rx
-     * @param throwable - исключения, в базовой реализации оно будет
-     * проигнорировано.
-     */
-    protected open fun onStreamError(throwable: Throwable) {
-        logger.e(throwable)
-    }
-
-    /**
-     * Пробросить исключение полученное в потоке Rx
-     * @param throwable - пробрасываемое исключения
-     */
-    protected fun rethrowError(throwable: Throwable) {
-        rethrowError(throwable, "")
-    }
-
-    /**
-     * Пробросить исключение полученное в потоке Rx
-     * @param throwable - пробрасываемое исключения
-     * @param msg - сообщение
-     */
-    protected fun rethrowError(throwable: Throwable, msg: String) {
-        logger.e(throwable)
-        throw Exception("error on class ${this::class.java.simpleName} = $msg", throwable)
-    }
-
-    /**
-     * Расширение к [Completable], подписаться и обрабатывать ошибки и подписку.
-     *
-     * @param ignoreError - true - ошибка будет проигнорирована, false - проброшена дальше
-     * @param onComplete - коллбэк
-     */
-    protected fun Completable.subscribeAndHandleError(
-        ignoreError: Boolean = false,
-        onComplete: () -> Unit
-    ) {
-        subscribe(onComplete, { if (!ignoreError) rethrowError(it) })
-            .disposeOnDestroy()
-    }
-
-    /**
-     * Расширение к [Observable], подписаться и обрабатывать ошибки и подписку.
-     *
-     * @param ignoreError - true - ошибка будет проигнорирована, false - проброшена дальше
-     * @param onNext - коллбэк
-     */
-    protected fun <T> Observable<T>.subscribeAndHandleError(
-        ignoreError: Boolean = false,
-        onComplete: () -> Unit = {},
-        onNext: (T) -> Unit
-    ) {
-        subscribe(onNext, { if (!ignoreError) rethrowError(it) }, onComplete)
-            .disposeOnDestroy()
-    }
-
-    /**
-     * Расширение к [Flowable], подписаться и обрабатывать ошибки и подписку.
-     *
-     * @param ignoreError - true - ошибка будет проигнорирована, false - проброшена дальше
-     * @param onNext - коллбэк
-     */
-    protected fun <T> Flowable<T>.subscribeAndHandleError(
-        ignoreError: Boolean = false,
-        onComplete: () -> Unit = {},
-        onNext: (T) -> Unit
-    ) {
-        subscribe(onNext, { if (!ignoreError) rethrowError(it) }, onComplete)
-            .disposeOnDestroy()
-    }
-
-
-    /**
-     * Расширение к [Single], подписаться и обрабатывать ошибки и подписку.
-     *
-     * @param ignoreError - true - ошибка будет проигнорирована, false - проброшена дальше
-     * @param onResult - коллбэк
-     */
-    protected fun <T> Single<T>.subscribeAndHandleError(
-        ignoreError: Boolean = false,
-        onResult: (T) -> Unit
-    ) {
-        subscribe(onResult, { if (!ignoreError) rethrowError(it) })
-            .disposeOnDestroy()
+        require(compositeDisposable.add(this)) {
+            "unable to add a subscription. CompositeDisposable is disposed ?"
+        }
     }
 
 }

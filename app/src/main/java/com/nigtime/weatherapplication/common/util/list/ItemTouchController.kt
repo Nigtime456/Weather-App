@@ -3,7 +3,7 @@
  */
 
 
-package com.nigtime.weatherapplication.common.utility.list
+package com.nigtime.weatherapplication.common.util.list
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

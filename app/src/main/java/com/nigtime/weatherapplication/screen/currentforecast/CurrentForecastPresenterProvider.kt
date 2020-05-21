@@ -21,7 +21,6 @@ class CurrentForecastPresenterProvider(private val location: SavedLocation) :
 
     override fun createPresenter(): CurrentForecastPresenter {
         return CurrentForecastPresenter(
-            appContainer.schedulerProvider,
             location,
             appContainer.forecastManager,
             appContainer.settingsManager,

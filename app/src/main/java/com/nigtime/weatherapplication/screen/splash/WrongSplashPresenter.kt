@@ -9,13 +9,14 @@ import com.nigtime.weatherapplication.screen.common.BasePresenter
 import com.nigtime.weatherapplication.trash.CitiesMarshallingHelper
 import com.nigtime.weatherbitapp.uselles.storage.room.repository.RoomDictionaryWriter
 import io.reactivex.Single
+import io.reactivex.rxkotlin.subscribeBy
 import java.util.zip.ZipInputStream
 
 //TODO Должен копировать базу данных
 //TODO нужно переписать, вынести в отдельный модуль
-class WrongSplashPresenter :
-    BasePresenter<SplashView>(App.INSTANCE.appContainer.schedulerProvider, TAG) {
+class WrongSplashPresenter : BasePresenter<SplashView>(TAG) {
     private val referenceCityDao = App.INSTANCE.appContainer.referenceCitiesDao
+    private val schedulerProvider = App.INSTANCE.appContainer.schedulerProvider
 
     companion object {
         private const val TAG = "wrong_splash"
@@ -29,9 +30,9 @@ class WrongSplashPresenter :
     private fun checkReferenceCities() {
         RoomDictionaryWriter(referenceCityDao)
             .isDictionaryWritten()
-            .subscribeOn(schedulerProvider.syncDatabase())
+            .subscribeOn(schedulerProvider.database())
             .observeOn(schedulerProvider.ui())
-            .subscribe(this::onCheckSuccess, this::onStreamError)
+            .subscribe(this::onCheckSuccess)
             .disposeOnDestroy()
     }
 
@@ -55,23 +56,23 @@ class WrongSplashPresenter :
             .flatMap { marshallingHelper.readFromReader(it) }
             .doOnNext { dictionaryWriter.writeDictionaryCity(it) }
             .ignoreElements()
-            .subscribeOn(schedulerProvider.syncDatabase())
+            .subscribeOn(schedulerProvider.database())
             .observeOn(schedulerProvider.ui())
-            .subscribe(this::onWrithingCompleted, this::rethrowError)
+            .subscribe(this::onWrithingCompleted)
             .disposeOnDestroy()
     }
 
     private fun onWrithingCompleted() {
         App.INSTANCE.appContainer.savedLocationsRepository.hasLocations()
-            .subscribeOn(schedulerProvider.syncDatabase())
+            .subscribeOn(schedulerProvider.database())
             .observeOn(schedulerProvider.ui())
-            .subscribeAndHandleError {
+            .subscribeBy {
                 getView()?.finishSplash()
                 if (it)
                     getView()?.navigateToLocationPagesScreen()
                 else
                     getView()?.navigateToSavedLocationsScreen()
-            }
+            }.disposeOnDestroy()
     }
 
 }

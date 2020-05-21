@@ -64,6 +64,6 @@ object WeatherConditionHelper {
     //TODO доделать: по коду выбирается икона
     @DrawableRes
     fun getIconByCode(code: Int): Int {
-        return R.drawable._weather_stub
+        return R.drawable.ic_011_storm_2
     }
 }

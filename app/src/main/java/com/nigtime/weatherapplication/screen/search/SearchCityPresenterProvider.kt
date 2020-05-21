@@ -11,7 +11,6 @@ class SearchCityPresenterProvider : BasePresenterProvider<SearchCityPresenter>()
 
     override fun createPresenter(): SearchCityPresenter {
         return SearchCityPresenter(
-            appContainer.schedulerProvider,
             appContainer.getPagedSearchRepository(),
             PagedListLoader(appContainer.schedulerProvider)
         )

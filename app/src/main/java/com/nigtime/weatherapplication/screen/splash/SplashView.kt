@@ -4,6 +4,7 @@
 
 package com.nigtime.weatherapplication.screen.splash
 
+
 interface SplashView {
     fun finishSplash()
     fun navigateToLocationPagesScreen()

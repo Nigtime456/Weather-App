@@ -45,6 +45,7 @@ class SearchCitySourceFactory constructor(
         override fun loadInitial(
             params: LoadInitialParams, callback: LoadInitialCallback<SearchCity>
         ) {
+
             //worker thread
             val result =
                 pagedRepository.loadPage(query, params.requestedStartPosition, params.pageSize)

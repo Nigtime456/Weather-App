@@ -5,7 +5,6 @@
 package com.nigtime.weatherapplication.common.di
 
 import android.content.Context
-import com.nigtime.weatherapplication.common.cache.MemoryCacheForecastSource
 import com.nigtime.weatherapplication.common.rx.MainSchedulerProvider
 import com.nigtime.weatherapplication.common.rx.RxAsyncDiffer
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
@@ -13,11 +12,11 @@ import com.nigtime.weatherapplication.domain.forecast.ForecastManager
 import com.nigtime.weatherapplication.domain.location.PagedSearchRepository
 import com.nigtime.weatherapplication.domain.location.SavedLocationsRepository
 import com.nigtime.weatherapplication.domain.settings.SettingsManager
+import com.nigtime.weatherapplication.net.cache.MemoryCacheForecastSource
 import com.nigtime.weatherapplication.net.mappers.CurrentForecastMapper
 import com.nigtime.weatherapplication.net.mappers.DailyForecastMapper
 import com.nigtime.weatherapplication.net.mappers.HourlyForecastMapper
 import com.nigtime.weatherapplication.net.mappers.SunInfoMapper
-import com.nigtime.weatherapplication.net.repository.AbstractCacheForecastSource
 import com.nigtime.weatherapplication.net.repository.ForecastManagerImpl
 import com.nigtime.weatherapplication.net.repository.ForecastSource
 import com.nigtime.weatherapplication.net.service.ApiFactory
@@ -45,7 +44,7 @@ class AppContainer(val appContext: Context) {
 
     private val weatherApi = ApiFactory.getInstance().getApi()
     private val netSource: ForecastSource = FakeForecastSource()
-    private val memoryCacheSource: AbstractCacheForecastSource = MemoryCacheForecastSource()
+    private val memoryCacheSource = MemoryCacheForecastSource()
 
     val schedulerProvider: SchedulerProvider = MainSchedulerProvider()
 
@@ -63,12 +62,14 @@ class AppContainer(val appContext: Context) {
 
         savedLocationsRepository =
             SavedLocationRepositoryImpl(
+                schedulerProvider,
                 referenceCitiesDao,
                 savedLocationsDao,
                 SavedLocationMapper()
             )
 
         forecastManager = ForecastManagerImpl(
+            schedulerProvider,
             netSource,
             memoryCacheSource,
             CurrentForecastMapper(SunInfoMapper()),
@@ -82,7 +83,9 @@ class AppContainer(val appContext: Context) {
 
     fun getPagedSearchRepository(): PagedSearchRepository {
         return PagedSearchRepositoryImpl(
-            referenceCitiesDao, savedLocationsDao,
+            schedulerProvider,
+            referenceCitiesDao,
+            savedLocationsDao,
             SearchCityMapper()
         )
     }

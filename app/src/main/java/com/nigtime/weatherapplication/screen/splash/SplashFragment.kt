@@ -7,8 +7,8 @@ package com.nigtime.weatherapplication.screen.splash
 import androidx.lifecycle.ViewModelProvider
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.screen.common.BaseFragment
+import com.nigtime.weatherapplication.screen.common.BasePresenterProvider
 import com.nigtime.weatherapplication.screen.common.NavigationController
-import com.nigtime.weatherapplication.screen.common.PresenterProvider
 import com.nigtime.weatherapplication.screen.common.Screen
 
 /**
@@ -21,7 +21,7 @@ class SplashFragment :
 
     override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 
-    override fun getPresenterProvider(): PresenterProvider<WrongSplashPresenter> {
+    override fun getPresenterProvider(): BasePresenterProvider<WrongSplashPresenter> {
         return ViewModelProvider(this).get(SplashPresenterProvider::class.java)
     }
 

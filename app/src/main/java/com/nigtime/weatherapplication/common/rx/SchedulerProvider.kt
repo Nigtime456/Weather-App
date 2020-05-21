@@ -21,8 +21,7 @@ interface SchedulerProvider {
      */
     fun io(): Scheduler
 
-    /**
-     * Одиночный поток для синхронизации операций с БД
-     */
-    fun syncDatabase(): Scheduler
+    fun single(): Scheduler
+
+    fun database(): Scheduler
 }

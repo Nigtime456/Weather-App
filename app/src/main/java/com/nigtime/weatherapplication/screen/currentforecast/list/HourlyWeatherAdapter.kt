@@ -11,8 +11,8 @@ package com.nigtime.weatherapplication.screen.currentforecast.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.common.utility.list.BaseAdapter
-import com.nigtime.weatherapplication.common.utility.list.SimpleDiffCallback
+import com.nigtime.weatherapplication.common.util.list.BaseAdapter
+import com.nigtime.weatherapplication.common.util.list.SimpleDiffCallback
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
 import com.nigtime.weatherapplication.domain.settings.UnitOfTemp
 
@@ -37,11 +37,12 @@ class HourlyWeatherAdapter :
         }
     }
 
-
     private lateinit var unitOfTemp: UnitOfTemp
 
-    fun setUnitOfTemp(unitOfTemp: UnitOfTemp) {
+    fun submitList(newList: List<HourlyForecast.HourlyWeather>, unitOfTemp: UnitOfTemp) {
+        val calculateDiffs = this::unitOfTemp.isInitialized && this.unitOfTemp == unitOfTemp
         this.unitOfTemp = unitOfTemp
+        submitList(newList, calculateDiffs)
     }
 
     override fun createViewHolder(

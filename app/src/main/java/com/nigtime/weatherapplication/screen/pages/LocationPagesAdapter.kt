@@ -6,7 +6,6 @@ package com.nigtime.weatherapplication.screen.pages
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.screen.currentforecast.CurrentForecastFragment
 
@@ -19,17 +18,17 @@ class LocationPagesAdapter(host: Fragment, private var items: List<SavedLocation
     }
 
     override fun getItemId(position: Int): Long {
-        R.id.locationPagesDrawer
         return items[position].getKey()
     }
 
     override fun containsItem(itemId: Long): Boolean {
-        return items.find { it.getKey() == itemId } != null
+        return items.find { savedLocation -> savedLocation.getKey() == itemId } != null
     }
 
     override fun getItemCount(): Int = items.size
 
-    override fun createFragment(position: Int): Fragment =
-        CurrentForecastFragment.newInstance(items[position])
+    override fun createFragment(position: Int): Fragment {
+        return CurrentForecastFragment.newInstance(items[position])
+    }
 
 }

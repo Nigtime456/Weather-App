@@ -5,15 +5,13 @@
 package com.nigtime.weatherapplication.screen.splash
 
 
-import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.location.SavedLocationsRepository
 import com.nigtime.weatherapplication.screen.common.BasePresenter
+import io.reactivex.rxkotlin.subscribeBy
 
 class SplashPresenter(
-    schedulerProvider: SchedulerProvider,
     private val savedLocationsRepository: SavedLocationsRepository
-) :
-    BasePresenter<SplashView>(schedulerProvider, TAG) {
+) : BasePresenter<SplashView>(TAG) {
 
     companion object {
         private const val TAG = "splash"
@@ -26,9 +24,8 @@ class SplashPresenter(
 
     private fun dispatchScreen() {
         savedLocationsRepository.hasLocations()
-            .subscribeOn(schedulerProvider.syncDatabase())
-            .observeOn(schedulerProvider.ui())
-            .subscribeAndHandleError(onResult = this::dispatchResult)
+            .subscribeBy(onSuccess = this::dispatchResult)
+            .disposeOnDestroy()
     }
 
     private fun dispatchResult(hasCities: Boolean) {

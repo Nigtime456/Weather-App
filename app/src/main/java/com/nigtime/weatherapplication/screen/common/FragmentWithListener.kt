@@ -36,7 +36,6 @@ abstract class FragmentWithListener<L>(@LayoutRes private val layoutRes: Int) :
     override fun onDetach() {
         super.onDetach()
         parentListener = null
-
     }
 
     /**

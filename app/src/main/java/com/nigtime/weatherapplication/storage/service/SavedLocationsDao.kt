@@ -5,30 +5,28 @@
 package com.nigtime.weatherapplication.storage.service
 
 import androidx.room.*
-import com.nigtime.weatherapplication.storage.table.LocationTable
-import io.reactivex.Flowable
+import com.nigtime.weatherapplication.storage.table.LocationsTable
+import io.reactivex.Observable
+import io.reactivex.Single
 
 
 @Dao
 interface SavedLocationsDao {
 
     @Query("SELECT *FROM saved_locations ORDER BY list_index ASC")
-    fun getAll(): List<LocationTable>
+    fun getAll(): Observable<List<LocationsTable>>
 
     @Query("SELECT *FROM saved_locations ORDER BY list_index ASC")
-    fun getAllAsFlowable(): Flowable<List<LocationTable>>
-
-    @Query("SELECT city_id FROM saved_locations")
-    fun getAllIds(): List<Long>
-
-    @Insert
-    fun insert(item: LocationTable)
+    fun getAllOnce(): Single<List<LocationsTable>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAndReplaceAll(items: List<LocationTable>)
+    fun updateAll(items: List<LocationsTable>)
 
     @Delete
-    fun delete(item: LocationTable)
+    fun delete(item: LocationsTable)
+
+    @Insert
+    fun insert(item: LocationsTable)
 
     /**
      * Возвращает текущий максимальный порядковый номер из сохраненных городов
@@ -37,6 +35,9 @@ interface SavedLocationsDao {
     @Query("SELECT list_index FROM saved_locations WHERE list_index = (SELECT MAX(list_index) FROM saved_locations)")
     fun getMaxListIndex(): List<Int>
 
+    @Query("SELECT city_id FROM saved_locations")
+    fun getAllIds(): List<Long>
+
     @Query("SELECT * FROM saved_locations LIMIT 1")
-    fun getOneRow(): List<LocationTable>
+    fun getOneRow(): List<LocationsTable>
 }

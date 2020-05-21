@@ -4,62 +4,81 @@
 
 package com.nigtime.weatherapplication.storage.repository
 
+import android.util.Log
+import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.domain.location.SavedLocationsRepository
 import com.nigtime.weatherapplication.storage.mapper.SavedLocationMapper
 import com.nigtime.weatherapplication.storage.service.ReferenceCitiesDao
 import com.nigtime.weatherapplication.storage.service.SavedLocationsDao
-import com.nigtime.weatherapplication.storage.table.LocationTable
 import io.reactivex.Completable
-import io.reactivex.Flowable
+import io.reactivex.Observable
 import io.reactivex.Single
 
 class SavedLocationRepositoryImpl constructor(
+    private val schedulerProvider: SchedulerProvider,
     private val referenceCitiesDao: ReferenceCitiesDao,
     private val savedLocationsDao: SavedLocationsDao,
     private val mapper: SavedLocationMapper
 ) : SavedLocationsRepository {
 
-    override fun getLocations(): Single<List<SavedLocation>> {
-        return Single.fromCallable(savedLocationsDao::getAll)
-            .map(this::getListCityByIds)
-    }
+    private lateinit var cachedLocations: Observable<List<SavedLocation>>
 
-    override fun getLocationsAsFlowable(): Flowable<List<SavedLocation>> {
-        return savedLocationsDao.getAllAsFlowable()
-            .map(this::getListCityByIds)
-    }
-
-    private fun getListCityByIds(sourceList: List<LocationTable>): List<SavedLocation> {
-        return sourceList.map { savedLocation ->
-            val referenceCity = referenceCitiesDao.getById(savedLocation.id)
-            mapper.mapDomain(referenceCity, savedLocation)
+    override fun getLocations(): Observable<List<SavedLocation>> {
+        //TODO перепеши
+        return if (::cachedLocations.isInitialized) {
+            Log.d("sas", "cache locations")
+            cachedLocations
+        } else {
+            createCachedLocations()
+            cachedLocations
         }
+    }
+
+    private fun createCachedLocations() {
+        cachedLocations = savedLocationsDao.getAll()
+            .doOnEach {
+                Log.d("sas", "LOAD = $it")
+            }
+            .map(mapper::mapDomainList)
+            .subscribeOn(schedulerProvider.database())
+            .observeOn(schedulerProvider.ui())
+            .replay(1)
+            .refCount()
+            .doOnEach {
+                Log.d("sas", "REF = $it")
+            }
+    }
+
+    override fun getLocationsOnce(): Single<List<SavedLocation>> {
+        return savedLocationsDao.getAllOnce()
+            .map(mapper::mapDomainList)
+            .subscribeOn(schedulerProvider.database())
+            .observeOn(schedulerProvider.ui())
     }
 
     override fun hasLocations(): Single<Boolean> {
         return Single.fromCallable(savedLocationsDao::getOneRow)
-            .map { list -> list.isNotEmpty() }
+            .map(List<*>::isNotEmpty)
+            .subscribeOn(schedulerProvider.database())
+            .observeOn(schedulerProvider.ui())
     }
 
     override fun delete(item: SavedLocation): Completable {
-        return Completable.fromAction { savedLocationsDao.delete(mapper.mapEntity(item)) }
+        return Single.just(item)
+            .map(mapper::mapEntity)
+            .doOnSuccess { entity -> savedLocationsDao.delete(entity) }
+            .ignoreElement()
+            .subscribeOn(schedulerProvider.database())
+            .observeOn(schedulerProvider.ui())
     }
 
     override fun replaceAll(items: List<SavedLocation>): Completable {
         return Single.just(items)
-            .map(mapListToEntity())
-            .doOnSuccess(savedLocationsDao::insertAndReplaceAll)
+            .map(mapper::mapListEntity)
+            .doOnSuccess { list -> savedLocationsDao.updateAll(list) }
             .ignoreElement()
+            .subscribeOn(schedulerProvider.database())
+            .observeOn(schedulerProvider.ui())
     }
-
-    private fun mapListToEntity(): (List<SavedLocation>) -> List<LocationTable> {
-        return { list ->
-            list.mapIndexed { index, savedLocation ->
-                mapper.mapEntity(savedLocation, index)
-            }
-        }
-    }
-
-
 }

@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/5/2
  */
 
-package com.nigtime.weatherapplication.common.utility.list
+package com.nigtime.weatherapplication.common.util.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -16,7 +16,6 @@ abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> constructor(
     private val rxAsyncDiffer: RxAsyncDiffer = App.INSTANCE.appContainer.getRxAsyncDiffer()
 ) :
     RecyclerView.Adapter<VH>() {
-
 
     private var currentList = emptyList<T>()
 
@@ -40,6 +39,7 @@ abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> constructor(
         currentList = newList
         notifyDataSetChanged()
     }
+
 
     final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val inflater = LayoutInflater.from(parent.context)

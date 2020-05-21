@@ -3,6 +3,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/currentForecastRootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/small_margin">
@@ -30,6 +31,7 @@
         tools:text="Overcast clouds" />
 
     <ImageView
+        android:tint="?attr/iconTint"
         android:id="@+id/currentForecastCurrentIco"
         android:layout_width="@dimen/icon_small"
         android:layout_height="@dimen/icon_small"

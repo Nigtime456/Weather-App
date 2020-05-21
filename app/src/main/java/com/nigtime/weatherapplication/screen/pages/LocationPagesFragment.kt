@@ -15,8 +15,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.screen.common.BaseFragment
+import com.nigtime.weatherapplication.screen.common.BasePresenterProvider
 import com.nigtime.weatherapplication.screen.common.NavigationController
-import com.nigtime.weatherapplication.screen.common.PresenterProvider
 import com.nigtime.weatherapplication.screen.common.Screen
 import com.nigtime.weatherapplication.screen.currentforecast.CurrentForecastFragment
 import com.nigtime.weatherapplication.screen.savedlocations.SavedLocationsFragment
@@ -42,13 +42,13 @@ class LocationPagesFragment :
 
     override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 
-    override fun getPresenterProvider(): PresenterProvider<LocationPagesPresenter> {
+    override fun getPresenterProvider(): BasePresenterProvider<LocationPagesPresenter> {
         return ViewModelProvider(this).get(LocationPagesPresenterProvider::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initViews()
         super.onViewCreated(view, savedInstanceState)
+        initViews()
     }
 
     override fun onDestroyView() {

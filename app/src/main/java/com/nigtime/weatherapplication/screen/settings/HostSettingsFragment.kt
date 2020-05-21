@@ -18,7 +18,8 @@ import kotlinx.android.synthetic.main.fragment_host_settings.*
 
 class HostSettingsFragment :
     FragmentWithListener<NavigationController>(R.layout.fragment_host_settings),
-    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback, HostSettings {
+    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
+    HostSettings {
 
     override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 

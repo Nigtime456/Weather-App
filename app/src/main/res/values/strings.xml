@@ -1,18 +1,19 @@
 <resources>
+
+
+    <string name="todo">TODO</string>
     <!--  Common  -->
     <string name="app_name">WeatherApplication</string>
 
-    <string name="content_description_start_drag">Начать перетаскивание</string>
-    <string name="content_description_temp">Температура</string>
-    <string name="content_description_weather_ico">Погода</string>
+    <string name="content_description_start_drag">Start drag</string>
 
 
     <!--  units formatting  -->
-    <string name="units_temp_f">%.0f°</string>
+    <string name="units_temp_f" translatable="false">%.0f°</string>
     <string name="units_feels_like_temp_f">feels like %.0f°</string>
 
-    <string name="units_today">Сегодня</string>
-    <string name="units_tomorrow">Завтра</string>
+    <string name="units_today">Today</string>
+    <string name="units_tomorrow">Tomorrow</string>
 
     <string name="units_dir_n">N</string>
     <string name="units_dir_nne">NNE</string>
@@ -39,7 +40,7 @@
     <string name="units_km_f">%.1f km</string>
     <string name="units_mi_f">%.1f mi</string>
 
-    <string name="units_percent_pattern_f">%d %%</string>
+    <string name="units_percent_pattern_f" translatable="false">%d %%</string>
 
     <string name="units_mbar_f">%.0f mBar</string>
     <string name="units_mm_hg_f">%.0f mm hg</string>
@@ -67,7 +68,7 @@
     <string name="weather_description_230">Thunderstorm with light drizzle</string>
     <string name="weather_description_231">Thunderstorm with drizzle</string>
     <string name="weather_description_232">Thunderstorm with heavy drizzle</string>
-    <string name="weather_description_233">Thunderstorm with Hail</string>
+    <string name="weather_description_233">Thunderstorm with hail</string>
 
     <string name="weather_description_300">Light Drizzle</string>
     <string name="weather_description_301">Drizzle</string>
@@ -137,7 +138,7 @@
     <string name="current_forecast_5_days">5 дн.</string>
     <string name="current_forecast_10_days">10 дн.</string>
     <string name="current_forecast_16_days">16 дн.</string>
-    <string name="current_forecast_char_separator">|</string>
+    <string name="current_forecast_char_separator" translatable="false">|</string>
     <string name="current_forecast_more">Подробнее</string>
     <string name="current_forecast_wind">Ветер</string>
     <string name="current_forecast_pressure">Давление</string>
@@ -177,5 +178,7 @@
     <string name="settings_clear_cache">Очистить кэш</string>
     <string name="settings_clear_all_data">Удалить все данные</string>
     <string name="settings_clear_all_data_summary">Кэш, сохраненные города, настройки</string>
+    <string name="content_description_temp">Temp</string>
+    <string name="content_description_weather_ico">Weather</string>
 
 </resources>

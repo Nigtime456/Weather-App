@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/5/13
  */
 
-package com.nigtime.weatherapplication.common.utility.list
+package com.nigtime.weatherapplication.common.util.list
 
 import androidx.recyclerview.widget.DiffUtil
 

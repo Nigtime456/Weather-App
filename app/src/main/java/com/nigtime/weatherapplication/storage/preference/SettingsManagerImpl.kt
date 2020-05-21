@@ -21,11 +21,16 @@ class SettingsManagerImpl constructor(context: Context) : SettingsManager,
         const val KEY_UNIT_OF_LENGTH = "unit_of_length"
         const val KEY_UNIT_OF_SPEED = "unit_of_speed"
         const val KEY_UNIT_OF_PRESSURE = "unit_of_pressure"
+        const val KEY_LANG = "lang"
+        const val KEY_THEME = "theme"
     }
 
     private val sharedPreferences: SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(context)
-    private val changesUnitsSubject: Subject<Any> = PublishSubject.create()
+
+    private val unitsChangesSubject: Subject<Unit> = PublishSubject.create()
+    private val langChangesSubject: Subject<Unit> = PublishSubject.create()
+    private val themeChangesSubject: Subject<Unit> = PublishSubject.create()
 
     private lateinit var latestUnitOfTemp: UnitOfTemp
     private lateinit var latestUnitOfSpeed: UnitOfSpeed
@@ -65,19 +70,25 @@ class SettingsManagerImpl constructor(context: Context) : SettingsManager,
         when (key) {
             KEY_UNIT_OF_TEMP -> {
                 initUnitOfTemp()
-                changesUnitsSubject.onNext(latestUnitOfTemp)
+                unitsChangesSubject.onNext(Unit)
             }
             KEY_UNIT_OF_SPEED -> {
                 initUnitOfSpeed()
-                changesUnitsSubject.onNext(latestUnitOfSpeed)
+                unitsChangesSubject.onNext(Unit)
             }
             KEY_UNIT_OF_LENGTH -> {
                 initUnitOfLength()
-                changesUnitsSubject.onNext(latestUnitOfLength)
+                unitsChangesSubject.onNext(Unit)
             }
             KEY_UNIT_OF_PRESSURE -> {
                 initUnitOfPressure()
-                changesUnitsSubject.onNext(latestUnitOfPressure)
+                unitsChangesSubject.onNext(Unit)
+            }
+            KEY_LANG -> {
+                langChangesSubject.onNext(Unit)
+            }
+            KEY_THEME -> {
+                themeChangesSubject.onNext(Unit)
             }
         }
     }
@@ -90,7 +101,11 @@ class SettingsManagerImpl constructor(context: Context) : SettingsManager,
 
     override fun getUnitOfLength(): UnitOfLength = latestUnitOfLength
 
-    override fun observeUnitChanges(): Observable<Any> = changesUnitsSubject
+    override fun observeUnitsChanges(): Observable<Unit> = unitsChangesSubject
+
+    override fun observeLangChanges(): Observable<Unit> = langChangesSubject
+
+    override fun observeThemeChanges(): Observable<Unit> = themeChangesSubject
 
     private fun SharedPreferences.getStringOrThrow(key: String): String {
         return getString(key, null) ?: error("failed to get preference for key $key")

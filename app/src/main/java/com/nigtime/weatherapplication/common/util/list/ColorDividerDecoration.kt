@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/4/26
  */
 
-package com.nigtime.weatherapplication.common.utility.list
+package com.nigtime.weatherapplication.common.util.list
 
 import android.graphics.Canvas
 import android.graphics.Rect

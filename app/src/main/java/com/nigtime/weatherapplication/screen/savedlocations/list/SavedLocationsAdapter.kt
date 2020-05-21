@@ -12,19 +12,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.common.utility.list.BaseAdapter
-import com.nigtime.weatherapplication.common.utility.list.ItemTouchController
-import com.nigtime.weatherapplication.common.utility.list.SimpleDiffCallback
+import com.nigtime.weatherapplication.common.util.list.BaseAdapter
+import com.nigtime.weatherapplication.common.util.list.ItemTouchController
+import com.nigtime.weatherapplication.common.util.list.SimpleDiffCallback
 import com.nigtime.weatherapplication.domain.location.SavedLocation
 
-/**
- * TODO загрузка погоды + презентер для адаптера
- *
- * Как должна происходить загрузка данных:
- * К каждому ViewHolder презентер, который сохраняется в VM
- * получается так: ViewModelProvider.get(position,VM)
- *
- */
 
 class SavedLocationsAdapter constructor(
     private val listener: Listener,

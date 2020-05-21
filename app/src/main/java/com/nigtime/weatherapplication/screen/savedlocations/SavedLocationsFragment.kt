@@ -13,13 +13,13 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.common.utility.ThemeHelper
-import com.nigtime.weatherapplication.common.utility.list.ColorDividerDecoration
-import com.nigtime.weatherapplication.common.utility.list.ItemTouchController
+import com.nigtime.weatherapplication.common.util.ThemeUtils
+import com.nigtime.weatherapplication.common.util.list.ColorDividerDecoration
+import com.nigtime.weatherapplication.common.util.list.ItemTouchController
 import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.screen.common.BaseFragment
+import com.nigtime.weatherapplication.screen.common.BasePresenterProvider
 import com.nigtime.weatherapplication.screen.common.NavigationController
-import com.nigtime.weatherapplication.screen.common.PresenterProvider
 import com.nigtime.weatherapplication.screen.common.Screen
 import com.nigtime.weatherapplication.screen.savedlocations.list.SavedLocationsAdapter
 import com.nigtime.weatherapplication.screen.search.SearchCityFragment
@@ -63,7 +63,7 @@ class SavedLocationsFragment :
         }
 
         override fun onMovementComplete() {
-            presenter.saveListChanges()
+            presenter.onMovementComplete()
         }
 
         override fun onItemClick(position: Int) {
@@ -73,7 +73,7 @@ class SavedLocationsFragment :
 
     override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 
-    override fun getPresenterProvider(): PresenterProvider<SavedLocationsPresenter> {
+    override fun getPresenterProvider(): BasePresenterProvider<SavedLocationsPresenter> {
         return getRelatedViewModel()
     }
 
@@ -114,7 +114,7 @@ class SavedLocationsFragment :
                         presenter.onMenuAddClick()
                     }
                     R.id.menuAddLocation -> {
-                        showToast("TODO")
+                        showToast(R.string.todo)
                     }
                 }
                 true
@@ -142,7 +142,7 @@ class SavedLocationsFragment :
     }
 
     private fun getDivider(): ColorDividerDecoration {
-        val dividerColor = ThemeHelper.getColor(requireContext(), R.attr.colorControlHighlight)
+        val dividerColor = ThemeUtils.getColor(requireContext(), R.attr.colorControlHighlight)
         val dividerSize = resources.getDimensionPixelSize(R.dimen.divider_size)
         return ColorDividerDecoration(
             dividerColor,

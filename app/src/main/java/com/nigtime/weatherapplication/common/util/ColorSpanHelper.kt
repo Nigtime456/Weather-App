@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/4/23
  */
 
-package com.nigtime.weatherapplication.common.utility
+package com.nigtime.weatherapplication.common.util
 
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan

@@ -6,13 +6,14 @@ package com.nigtime.weatherapplication.screen.currentforecast
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.TransitionManager
 import com.nigtime.weatherapplication.R
+import com.nigtime.weatherapplication.common.util.ThemeUtils
+import com.nigtime.weatherapplication.common.util.list.ColorDividerDecoration
 import com.nigtime.weatherapplication.domain.forecast.*
 import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.domain.settings.UnitOfLength
@@ -21,7 +22,7 @@ import com.nigtime.weatherapplication.domain.settings.UnitOfSpeed
 import com.nigtime.weatherapplication.domain.settings.UnitOfTemp
 import com.nigtime.weatherapplication.domain.utility.UnitFormatHelper
 import com.nigtime.weatherapplication.screen.common.BaseFragment
-import com.nigtime.weatherapplication.screen.common.PresenterProvider
+import com.nigtime.weatherapplication.screen.common.BasePresenterProvider
 import com.nigtime.weatherapplication.screen.currentforecast.list.DailyWeatherAdapter
 import com.nigtime.weatherapplication.screen.currentforecast.list.HourlyWeatherAdapter
 import kotlinx.android.synthetic.main.fragment_current_forecast.*
@@ -33,7 +34,8 @@ import kotlinx.android.synthetic.main.fragment_current_forecast_main.*
 class CurrentForecastFragment :
     BaseFragment<CurrentForecastView, CurrentForecastPresenter, CurrentForecastFragment.ParentListener>(
         R.layout.fragment_current_forecast
-    ), CurrentForecastView {
+    ),
+    CurrentForecastView {
 
     interface ParentListener {
         fun onAddCityClick()
@@ -55,7 +57,7 @@ class CurrentForecastFragment :
 
     override fun getListenerClass(): Class<ParentListener> = ParentListener::class.java
 
-    override fun getPresenterProvider(): PresenterProvider<CurrentForecastPresenter> {
+    override fun getPresenterProvider(): BasePresenterProvider<CurrentForecastPresenter> {
         val location = arguments?.getParcelable<SavedLocation>(EXTRA_LOCATION)
             ?: error("require SavedLocation")
 
@@ -77,23 +79,13 @@ class CurrentForecastFragment :
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initViews()
         super.onViewCreated(view, savedInstanceState)
+        initViews()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         currentForecastScrollView.setOnScrollChangeListener(nullScrollListener)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("sas", "onResume [${currentForecastLocationName.text}]")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("sas", "onPause [${currentForecastLocationName.text}]")
     }
 
     private fun initViews() {
@@ -131,15 +123,22 @@ class CurrentForecastFragment :
     }
 
     private fun setupLists() {
-        currentForecastHourlyList.adapter =
-            HourlyWeatherAdapter()
+        currentForecastHourlyList.adapter = HourlyWeatherAdapter()
         currentForecastDailyList.apply {
             itemAnimator = null
-            adapter =
-                DailyWeatherAdapter {
-                    showToast("TODO = $it")
-                }
+            adapter = DailyWeatherAdapter {
+                showToast(R.string.todo)
+            }
         }
+    }
+
+    private fun getDivider(): ColorDividerDecoration {
+        val dividerColor = ThemeUtils.getColor(requireContext(), R.attr.colorControlHighlight)
+        val dividerSize = resources.getDimensionPixelSize(R.dimen.divider_size)
+        return ColorDividerDecoration(
+            dividerColor,
+            dividerSize
+        )
     }
 
     private fun setupScrollView() {
@@ -189,6 +188,11 @@ class CurrentForecastFragment :
         currentForecastSwipeRefresh.isRefreshing = false
     }
 
+    override fun setDisplayedDays(count: Int) {
+        (currentForecastDailyList.adapter as DailyWeatherAdapter)
+            .setDisplayedCount(count)
+    }
+
     override fun selectDaysSwitchButton(buttonId: Int) {
         currentForecastDaysSwitcher.check(buttonId)
     }
@@ -221,24 +225,18 @@ class CurrentForecastFragment :
 
     override fun setHourlyForecast(
         hourlyWeatherList: List<HourlyForecast.HourlyWeather>,
-        unitOfTemp: UnitOfTemp,
-        calculateDiffs: Boolean
+        unitOfTemp: UnitOfTemp
     ) {
-        (currentForecastHourlyList.adapter as HourlyWeatherAdapter).apply {
-            setUnitOfTemp(unitOfTemp)
-            submitList(hourlyWeatherList, calculateDiffs)
-        }
+        (currentForecastHourlyList.adapter as HourlyWeatherAdapter)
+            .submitList(hourlyWeatherList, unitOfTemp)
     }
 
     override fun setDailyForecast(
         dailyWeather: List<DailyForecast.DailyWeather>,
-        unitOfTemp: UnitOfTemp,
-        calculateDiffs: Boolean
+        unitOfTemp: UnitOfTemp
     ) {
-        (currentForecastDailyList.adapter as DailyWeatherAdapter).apply {
-            setUnitOfTemp(unitOfTemp)
-            submitList(dailyWeather, calculateDiffs)
-        }
+        (currentForecastDailyList.adapter as DailyWeatherAdapter)
+            .submitList(dailyWeather, unitOfTemp)
     }
 
     override fun setWind(wind: Wind, unitOfSpeed: UnitOfSpeed) {

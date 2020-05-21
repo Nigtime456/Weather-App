@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/5/8
  */
 
-package com.nigtime.weatherapplication.net.repository
+package com.nigtime.weatherapplication.net.cache
 
 import com.nigtime.weatherapplication.domain.params.RequestParams
 import com.nigtime.weatherapplication.net.data.NetData
@@ -50,19 +50,19 @@ abstract class AbstractCacheForecastSource constructor(private val maxAgeMillis:
 
     fun getJsonCurrentForecast(requestParams: RequestParams): Observable<NetData<JsonCurrentForecast>> {
         return Observable.create { emitter ->
-            setObservable(emitter, getAndRemoveCurrentData(getKey(requestParams)))
+            setObservable(emitter, getCurrentData(getKey(requestParams)))
         }
     }
 
     fun getJsonHourlyForecast(requestParams: RequestParams): Observable<NetData<JsonHourlyForecast>> {
         return Observable.create { emitter ->
-            setObservable(emitter, getAndRemoveHourlyData(getKey(requestParams)))
+            setObservable(emitter, getHourlyData(getKey(requestParams)))
         }
     }
 
     fun getJsonDailyForecast(requestParams: RequestParams): Observable<NetData<JsonDailyForecast>> {
         return Observable.create { emitter ->
-            setObservable(emitter, getAndRemoveDailyData(getKey(requestParams)))
+            setObservable(emitter, getDailyData(getKey(requestParams)))
         }
     }
 
@@ -94,10 +94,12 @@ abstract class AbstractCacheForecastSource constructor(private val maxAgeMillis:
     protected abstract fun storeDailyData(key: Long, data: NetData<JsonDailyForecast>)
 
     /**
-     * Вернуть и удалить данные из источника, если они есть
+     * Вернуть данные из источника, если они есть
+     *
+     * @return null - if empty
      */
-    protected abstract fun getAndRemoveCurrentData(key: Long): NetData<JsonCurrentForecast>?
-    protected abstract fun getAndRemoveHourlyData(key: Long): NetData<JsonHourlyForecast>?
-    protected abstract fun getAndRemoveDailyData(key: Long): NetData<JsonDailyForecast>?
+    protected abstract fun getCurrentData(key: Long): NetData<JsonCurrentForecast>?
+    protected abstract fun getHourlyData(key: Long): NetData<JsonHourlyForecast>?
+    protected abstract fun getDailyData(key: Long): NetData<JsonDailyForecast>?
 
 }

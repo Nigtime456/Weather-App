@@ -5,26 +5,39 @@
 package com.nigtime.weatherapplication.storage.mapper
 
 import com.nigtime.weatherapplication.domain.location.SavedLocation
-import com.nigtime.weatherapplication.storage.table.LocationTable
-import com.nigtime.weatherapplication.storage.table.ReferenceCitiesTable
+import com.nigtime.weatherapplication.storage.table.LocationsTable
 
 class SavedLocationMapper {
-    fun mapDomain(rawReference: ReferenceCitiesTable, rawLocation: LocationTable): SavedLocation {
+
+    private fun mapDomain(entity: LocationsTable): SavedLocation {
         return SavedLocation.City(
-            rawLocation.listIndex,
-            rawLocation.id,
-            rawReference.name,
-            rawReference.stateName,
-            rawReference.countryName
+            entity.listIndex,
+            entity.id,
+            entity.name,
+            entity.stateName,
+            entity.countryName
         )
     }
 
-    fun mapEntity(rawLocation: SavedLocation, listIndex: Int = -1): LocationTable {
-        val newListIndex = if (listIndex != -1) {
-            listIndex
-        } else {
-            rawLocation.listIndex
+    fun mapDomainList(list: List<LocationsTable>): List<SavedLocation> {
+        return list.map { item -> mapDomain(item) }
+    }
+
+    fun mapEntity(location: SavedLocation): LocationsTable {
+        return when (location) {
+            is SavedLocation.City -> {
+                LocationsTable(
+                    location.listIndex,
+                    location.cityId,
+                    location.cityName,
+                    location.stateName,
+                    location.countryName
+                )
+            }
         }
-        return LocationTable(rawLocation.getKey(), newListIndex)
+    }
+
+    fun mapListEntity(list: List<SavedLocation>): List<LocationsTable> {
+        return list.map { item -> mapEntity(item) }
     }
 }
