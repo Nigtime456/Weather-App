@@ -29,6 +29,7 @@ class LocationPagesPresenter(private val savedLocationsRepository: SavedLocation
         getView()?.submitListToNavView(list)
         getView()?.setCurrentPage(currentPage)
         getView()?.setCurrentNavItem(currentPage)
+        getView()?.notifyLoadEnd()
     }
 
     fun onChangeListLocationsClick() {

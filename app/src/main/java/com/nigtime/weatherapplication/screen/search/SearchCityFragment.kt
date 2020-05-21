@@ -7,7 +7,9 @@ package com.nigtime.weatherapplication.screen.search
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import com.nigtime.weatherapplication.R
@@ -99,15 +101,6 @@ class SearchCityFragment :
         return ColorDividerDecoration(dividerColor, dividerSize)
     }
 
-
-    private fun EditText.changeTextListener(block: (String) -> Unit) {
-        addTextChangedListener(object : SimpleTextWatcher() {
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                block(s.toString())
-            }
-        })
-    }
-
     override fun showHintLayout() {
         liftAppBar(false)
         searchViewSwitcher.switchTo(0, true)
@@ -129,6 +122,11 @@ class SearchCityFragment :
 
     override fun showToastAlreadyAdded() {
         showToast(R.string.search_already_selected)
+    }
+
+    override fun hideSoftKeyboard() {
+        ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)
+            ?.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
 
     override fun submitList(pagedList: PagedList<SearchCity>) {
@@ -155,6 +153,15 @@ class SearchCityFragment :
 
     override fun navigateToPreviousScreen() {
         parentListener?.toPreviousScreen()
+    }
+
+
+    private fun EditText.changeTextListener(block: (String) -> Unit) {
+        addTextChangedListener(object : SimpleTextWatcher() {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                block(s.toString())
+            }
+        })
     }
 
 }

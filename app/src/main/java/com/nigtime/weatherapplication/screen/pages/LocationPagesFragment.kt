@@ -29,6 +29,10 @@ class LocationPagesFragment :
     LocationPagesView, CurrentForecastFragment.ParentListener, SearchCityFragment.TargetFragment,
     SavedLocationsFragment.TargetFragment {
 
+    interface TargetFragment {
+        fun onLocationsLoaded()
+    }
+
     companion object {
         private const val PAGE_LIMIT = 1
     }
@@ -105,6 +109,12 @@ class LocationPagesFragment :
 
     override fun showDrawer() {
         locationPagesDrawer.openDrawer(GravityCompat.START)
+    }
+
+    override fun notifyLoadEnd() {
+        if (targetFragment is TargetFragment) {
+            (targetFragment as TargetFragment).onLocationsLoaded()
+        }
     }
 
     override fun submitListToPager(items: List<SavedLocation>) {

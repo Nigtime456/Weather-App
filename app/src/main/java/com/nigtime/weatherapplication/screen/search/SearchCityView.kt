@@ -14,6 +14,8 @@ interface SearchCityView {
     fun showEmptyLayout()
     fun showToastAlreadyAdded()
 
+    fun hideSoftKeyboard()
+
     fun submitList(pagedList: PagedList<SearchCity>)
     fun delayScrollToPosition(position: Int)
 

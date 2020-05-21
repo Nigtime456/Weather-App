@@ -46,6 +46,7 @@ class SearchCityPresenter constructor(
 
     private fun onCityInserted(insertedPosition: Int) {
         getView()?.setInsertionResult(insertedPosition)
+        getView()?.hideSoftKeyboard()
         getView()?.navigateToPreviousScreen()
     }
 

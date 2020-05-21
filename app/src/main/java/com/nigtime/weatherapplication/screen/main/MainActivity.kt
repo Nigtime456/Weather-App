@@ -10,7 +10,6 @@ package com.nigtime.weatherapplication.screen.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.common.App
@@ -21,7 +20,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
 import leakcanary.AppWatcher
-import java.util.*
 
 
 /**
@@ -42,7 +40,6 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun initFragments(savedInstanceState: Bundle?) {
-        Log.d("sas", "Locale = ${Locale.getDefault()}")
         if (savedInstanceState == null) {
             navigateTo(Screen.Factory.splash())
         }

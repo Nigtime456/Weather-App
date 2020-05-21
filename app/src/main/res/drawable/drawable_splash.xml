@@ -6,4 +6,11 @@
     <item>
         <color android:color="?attr/colorPrimary" />
     </item>
+    <item>
+        <inset android:inset="80dp">
+            <shape>
+                <solid android:color="@color/orange" />
+            </shape>
+        </inset>
+    </item>
 </layer-list>

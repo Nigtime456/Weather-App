@@ -9,6 +9,8 @@ import com.nigtime.weatherapplication.domain.location.SavedLocation
 interface LocationPagesView {
     fun showDrawer()
 
+    fun notifyLoadEnd()
+
     fun submitListToPager(items: List<SavedLocation>)
     fun submitListToNavView(items: List<SavedLocation>)
 

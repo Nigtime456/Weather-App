@@ -12,8 +12,6 @@ import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.TransitionManager
 import com.nigtime.weatherapplication.R
-import com.nigtime.weatherapplication.common.util.ThemeUtils
-import com.nigtime.weatherapplication.common.util.list.ColorDividerDecoration
 import com.nigtime.weatherapplication.domain.forecast.*
 import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.domain.settings.UnitOfLength
@@ -132,15 +130,6 @@ class CurrentForecastFragment :
         }
     }
 
-    private fun getDivider(): ColorDividerDecoration {
-        val dividerColor = ThemeUtils.getColor(requireContext(), R.attr.colorControlHighlight)
-        val dividerSize = resources.getDimensionPixelSize(R.dimen.divider_size)
-        return ColorDividerDecoration(
-            dividerColor,
-            dividerSize
-        )
-    }
-
     private fun setupScrollView() {
         currentForecastScrollView.setOnScrollChangeListener { _: NestedScrollView?, _: Int, scrollY: Int, _: Int, _: Int ->
             presenter.onScrollChanged(scrollY)
@@ -156,7 +145,7 @@ class CurrentForecastFragment :
     }
 
     override fun showLoadLayout() {
-        currentForecastViewSwitcher.switchTo(1, false)
+        currentForecastViewSwitcher.switchTo(1, true)
     }
 
     override fun showErrorLayout() {
@@ -168,7 +157,7 @@ class CurrentForecastFragment :
     }
 
     override fun showMainLayout() {
-        currentForecastViewSwitcher.switchTo(0, false)
+        currentForecastViewSwitcher.switchTo(0, true)
     }
 
     override fun showClockWidget() {

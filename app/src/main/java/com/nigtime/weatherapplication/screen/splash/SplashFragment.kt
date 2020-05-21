@@ -37,4 +37,5 @@ class SplashFragment :
     override fun navigateToSavedLocationsScreen() {
         parentListener?.navigateTo(Screen.Factory.savedLocations())
     }
+
 }
