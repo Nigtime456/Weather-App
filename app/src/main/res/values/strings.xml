@@ -13,7 +13,7 @@
 
     <!--  units formatting  -->
     <string name="units_temp_f" translatable="false">%.0f°</string>
-    <string name="units_feels_like_temp_f">feels like %.0f°</string>
+    <string name="units_feels_like_temp_f">Feels like %.0f°</string>
 
     <string name="units_today">Today</string>
     <string name="units_tomorrow">Tomorrow</string>
