@@ -15,7 +15,7 @@ import androidx.annotation.ColorInt
 object ThemeUtils {
 
     @ColorInt
-    fun getColor(context: Context, @AttrRes attrColor: Int): Int {
+    fun getAttrColor(context: Context, @AttrRes attrColor: Int): Int {
         val typedValue = TypedValue()
         context.theme.resolveAttribute(attrColor, typedValue, true)
         return typedValue.data

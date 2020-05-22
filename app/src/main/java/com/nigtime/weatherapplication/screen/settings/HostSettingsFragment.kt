@@ -59,7 +59,7 @@ class HostSettingsFragment :
 
     private fun setupAppBar() {
         hostSettingsToolbar.setNavigationOnClickListener {
-            parentListener?.toPreviousScreen()
+            attachedListener?.toPreviousScreen()
         }
     }
 

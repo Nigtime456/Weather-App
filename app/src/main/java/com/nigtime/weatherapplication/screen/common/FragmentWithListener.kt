@@ -11,14 +11,14 @@ import leakcanary.AppWatcher
 
 abstract class FragmentWithListener<L>(@LayoutRes private val layoutRes: Int) :
     Fragment(layoutRes) {
-    protected var parentListener: L? = null
+    protected var attachedListener: L? = null
 
     @Suppress("UNCHECKED_CAST")
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
         getListenerClass()?.let { clazz ->
-            parentListener = if (clazz.isAssignableFrom(context.javaClass)) {
+            attachedListener = if (clazz.isAssignableFrom(context.javaClass)) {
                 clazz.cast(context)
             } else if (parentFragment != null && clazz.isAssignableFrom(requireParentFragment().javaClass)) {
                 clazz.cast(parentFragment)
@@ -35,7 +35,7 @@ abstract class FragmentWithListener<L>(@LayoutRes private val layoutRes: Int) :
 
     override fun onDetach() {
         super.onDetach()
-        parentListener = null
+        attachedListener = null
     }
 
     /**

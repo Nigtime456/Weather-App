@@ -9,12 +9,11 @@ import java.util.concurrent.Executors
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.atomic.AtomicInteger
 
-object ExecutorsHolder {
+object ExecutorsFactory {
     private val maxIOThreads = Runtime.getRuntime().availableProcessors() * 2
     val dataBaseExecutor: Executor = Executors.newSingleThreadExecutor(DatabaseThreadFactory())
     val IOExecutor: Executor = Executors.newFixedThreadPool(maxIOThreads, IOThreadFactory())
     val singleExecutor: Executor = Executors.newSingleThreadExecutor(SingleThreadFactory())
-
 
     private class SingleThreadFactory : ThreadFactory {
         override fun newThread(r: Runnable): Thread {

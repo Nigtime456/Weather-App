@@ -9,8 +9,8 @@
     <string name="content_description_temp">Температура</string>
     <string name="content_description_weather_ico">Погода</string>
     <string name="units_feels_like_temp_f">По ощущениям %.0f°</string>
-    <string name="units_today">Сегодня</string>
-    <string name="units_tomorrow">Завтра</string>
+    <string name="units_today">сегодня</string>
+    <string name="units_tomorrow">завтра</string>
     <string name="units_dir_n">С</string>
     <string name="units_dir_nne">ССВ</string>
     <string name="units_dir_ne">СВ</string>
@@ -119,7 +119,7 @@
     <string name="current_forecast_air_quality">Качество воздуха</string>
     <string name="current_forecast_uv_index">УФ-индекс</string>
     <string name="current_forecast_clouds">Облачность</string>
-    <string name="menu_add_location">Добавить местопложение</string>
+    <string name="menu_add_location">Использовать местопложение</string>
     <string name="settings_main_title">Настройки приложения</string>
     <string name="settings_units_title">Единицы измерения</string>
     <string name="settings_data_title">Данные приложения</string>

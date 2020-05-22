@@ -9,7 +9,7 @@ import android.text.format.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-object DateFormatHolder {
+object DateFormatFactory {
     private const val HOURS_PATTERN_24 = "HH:mm"
     private const val HOURS_PATTERN_12 = "KK:mm a"
     private const val WEEKDAY_PATTERN = "EEEE"

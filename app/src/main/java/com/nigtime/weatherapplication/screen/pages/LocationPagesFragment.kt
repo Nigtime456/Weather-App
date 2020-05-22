@@ -135,15 +135,15 @@ class LocationPagesFragment :
     }
 
     override fun navigateToSavedLocationsScreen() {
-        parentListener?.navigateTo(Screen.Factory.savedLocations(this))
+        attachedListener?.navigateTo(Screen.Factory.savedLocations(this))
     }
 
     override fun navigateToSearchCityScreen() {
-        parentListener?.navigateTo(Screen.Factory.searchCity(this))
+        attachedListener?.navigateTo(Screen.Factory.searchCity(this))
     }
 
     override fun navigateToSettingsScreen() {
-        parentListener?.navigateTo(Screen.Factory.settings())
+        attachedListener?.navigateTo(Screen.Factory.settings())
     }
 
     override fun onCityInserted(position: Int) {

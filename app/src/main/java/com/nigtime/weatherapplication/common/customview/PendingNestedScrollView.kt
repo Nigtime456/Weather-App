@@ -10,7 +10,7 @@ import android.view.ViewTreeObserver
 import androidx.core.widget.NestedScrollView
 
 /**
- * NestedScrollView который откладывает скролл, если layout ещё не
+ * NestedScrollView который откладывает установку скролла, если layout ещё не
  * сформирован
  */
 class PendingNestedScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListener {

@@ -8,7 +8,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.nigtime.weatherapplication.common.util.ExecutorsHolder
+import com.nigtime.weatherapplication.common.util.ExecutorsFactory
 import com.nigtime.weatherapplication.storage.table.LocationsTable
 import com.nigtime.weatherapplication.storage.table.ReferenceCitiesTable
 import com.nigtime.weatherapplication.storage.table.TableConstants
@@ -32,8 +32,8 @@ abstract class AppDatabase : RoomDatabase() {
                 AppDatabase::class.java,
                 TableConstants.DATABASE_NAME
             )
-                .setQueryExecutor(ExecutorsHolder.dataBaseExecutor)
-                .setTransactionExecutor(ExecutorsHolder.dataBaseExecutor)
+                .setQueryExecutor(ExecutorsFactory.dataBaseExecutor)
+                .setTransactionExecutor(ExecutorsFactory.dataBaseExecutor)
                 .build()
         }
     }

@@ -91,12 +91,12 @@ class SearchCityFragment :
     }
 
     private fun getSpanHelper(): ColorSpanHelper {
-        val highlightColor = ThemeUtils.getColor(requireContext(), R.attr.colorAccent)
+        val highlightColor = ThemeUtils.getAttrColor(requireContext(), R.attr.colorAccent)
         return ColorSpanHelper(highlightColor)
     }
 
     private fun getDivider(): ColorDividerDecoration {
-        val dividerColor = ThemeUtils.getColor(requireContext(), R.attr.colorControlHighlight)
+        val dividerColor = ThemeUtils.getAttrColor(requireContext(), R.attr.colorControlHighlight)
         val dividerSize = resources.getDimensionPixelSize(R.dimen.divider_size)
         return ColorDividerDecoration(dividerColor, dividerSize)
     }
@@ -152,7 +152,7 @@ class SearchCityFragment :
     }
 
     override fun navigateToPreviousScreen() {
-        parentListener?.toPreviousScreen()
+        attachedListener?.toPreviousScreen()
     }
 
 

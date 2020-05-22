@@ -142,7 +142,7 @@ class SavedLocationsFragment :
     }
 
     private fun getDivider(): ColorDividerDecoration {
-        val dividerColor = ThemeUtils.getColor(requireContext(), R.attr.colorControlHighlight)
+        val dividerColor = ThemeUtils.getAttrColor(requireContext(), R.attr.colorControlHighlight)
         val dividerSize = resources.getDimensionPixelSize(R.dimen.divider_size)
         return ColorDividerDecoration(
             dividerColor,
@@ -212,11 +212,11 @@ class SavedLocationsFragment :
     }
 
     override fun navigateToPreviousScreen() {
-        parentListener?.toPreviousScreen()
+        attachedListener?.toPreviousScreen()
     }
 
     override fun navigateToSearchCityScreen() {
-        parentListener?.navigateTo(Screen.Factory.searchCity(this))
+        attachedListener?.navigateTo(Screen.Factory.searchCity(this))
     }
 
     override fun onCityInserted(position: Int) {

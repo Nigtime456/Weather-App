@@ -110,12 +110,12 @@ class CurrentForecastFragment :
         currentForecastToolbar.apply {
             setOnMenuItemClickListener {
                 if (it.itemId == R.id.menuFindCity) {
-                    parentListener?.onAddCityClick()
+                    attachedListener?.onAddCityClick()
                 }
                 true
             }
             setNavigationOnClickListener {
-                parentListener?.onOpenDrawerClick()
+                attachedListener?.onOpenDrawerClick()
             }
         }
     }
