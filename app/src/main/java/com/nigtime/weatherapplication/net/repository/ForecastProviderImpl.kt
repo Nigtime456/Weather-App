@@ -7,7 +7,7 @@ package com.nigtime.weatherapplication.net.repository
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
 import com.nigtime.weatherapplication.domain.forecast.DailyForecast
-import com.nigtime.weatherapplication.domain.forecast.ForecastManager
+import com.nigtime.weatherapplication.domain.forecast.ForecastProvider
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
 import com.nigtime.weatherapplication.domain.params.RequestParams
 import com.nigtime.weatherapplication.net.cache.MemoryCacheForecastSource
@@ -16,14 +16,14 @@ import com.nigtime.weatherapplication.net.mappers.DailyForecastMapper
 import com.nigtime.weatherapplication.net.mappers.HourlyForecastMapper
 import io.reactivex.Observable
 
-class ForecastManagerImpl constructor(
+class ForecastProviderImpl constructor(
     private val schedulerProvider: SchedulerProvider,
     private val netSource: ForecastSource,
     private val memoryCacheSource: MemoryCacheForecastSource,
     private val currentDataMapper: CurrentForecastMapper,
     private val hourlyDataMapper: HourlyForecastMapper,
     private val dailyDataMapper: DailyForecastMapper
-) : ForecastManager {
+) : ForecastProvider {
 
     override fun getCurrentForecast(
         params: RequestParams,

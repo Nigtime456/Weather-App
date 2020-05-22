@@ -5,14 +5,14 @@
 package com.nigtime.weatherapplication.screen.savedlocations.list
 
 import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
-import com.nigtime.weatherapplication.domain.forecast.ForecastManager
+import com.nigtime.weatherapplication.domain.forecast.ForecastProvider
 import com.nigtime.weatherapplication.domain.location.SavedLocation
-import com.nigtime.weatherapplication.domain.settings.SettingsManager
+import com.nigtime.weatherapplication.domain.settings.SettingsProvider
 import com.nigtime.weatherapplication.screen.common.BasePresenter
 
 class SavedLocationItemPresenter(
-    private val forecastManager: ForecastManager,
-    private val settingsManager: SettingsManager,
+    private val forecastProvider: ForecastProvider,
+    private val settingsProvider: SettingsProvider,
     private val savedLocation: SavedLocation
 ) : BasePresenter<SavedLocationItemView>(TAG) {
 
@@ -26,13 +26,13 @@ class SavedLocationItemPresenter(
     }
 
     private fun provideForecast() {
-        forecastManager.getCurrentForecast(savedLocation.createRequestParams())
+        forecastProvider.getCurrentForecast(savedLocation.createRequestParams())
             .subscribe(this::showCurrentForecast) {/* ignore errors */ }
             .disposeOnDestroy()
     }
 
     private fun showCurrentForecast(currentForecast: CurrentForecast) {
-        getView()?.showCurrentTemp(currentForecast.temp, settingsManager.getUnitOfTemp())
+        getView()?.showCurrentTemp(currentForecast.temp, settingsProvider.getUnitOfTemp())
         getView()?.showCurrentTempIco(currentForecast.ico)
     }
 

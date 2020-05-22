@@ -41,8 +41,8 @@ class SavedLocationPresenterProvider : BasePresenterProvider<SavedLocationsPrese
 
     private fun createItemPresenter(savedLocation: SavedLocation): SavedLocationItemPresenter {
         return SavedLocationItemPresenter(
-            appContainer.forecastManager,
-            appContainer.settingsManager,
+            appContainer.forecastProvider,
+            appContainer.settingsProvider,
             savedLocation
         )
     }

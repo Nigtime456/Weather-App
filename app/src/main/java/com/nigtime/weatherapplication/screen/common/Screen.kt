@@ -22,38 +22,16 @@ interface Screen {
     fun load(manager: FragmentManager, @IdRes container: Int, args: Bundle? = null)
 
     object Factory {
+        private const val SPLASH = "weatherapplication.screen.splash"
         private const val SAVED_LOCATIONS = "weatherapplication.screen.saved_locations"
         private const val SEARCH_CITY = "weatherapplication.screen.search_city"
         private const val LOCATION_PAGES = "weatherapplication.screen.location_pages"
-        private const val SPLASH = "weatherapplication.screen.splash"
         private const val SETTINGS = "weatherapplication.screen.settings"
-
-        fun settings() = object : Screen {
-            override fun load(manager: FragmentManager, container: Int, args: Bundle?) {
-                manager.beginTransaction()
-                    .add(container, manager.findFrag(SETTINGS, ::HostSettingsFragment))
-                    .addToBackStack(SETTINGS)
-                    .commit()
-            }
-        }
 
         fun splash() = object : Screen {
             override fun load(manager: FragmentManager, @IdRes container: Int, args: Bundle?) {
                 manager.beginTransaction()
-                    .replace(container, manager.findFrag(SPLASH, ::SplashFragment), null)
-                    .commit()
-            }
-        }
-
-        fun searchCity(targetFragment: Fragment? = null) = object : Screen {
-            override fun load(manager: FragmentManager, @IdRes container: Int, args: Bundle?) {
-                val frag = manager.findFrag(SEARCH_CITY, ::SearchCityFragment)
-                frag.setTargetFragment(targetFragment, 0)
-
-                manager.beginTransaction()
-                    .hideCurrentVisible(manager.currentVisibleFrag())
-                    .add(container, frag, SEARCH_CITY)
-                    .addToBackStack(SEARCH_CITY)
+                    .replace(container, SplashFragment())
                     .commit()
             }
         }
@@ -65,8 +43,21 @@ interface Screen {
 
                 manager.beginTransaction()
                     .hideCurrentVisible(manager.currentVisibleFrag())
-                    .add(container, frag, SAVED_LOCATIONS)
+                    .add(container, SavedLocationsFragment(), SAVED_LOCATIONS)
                     .addToBackStack(SAVED_LOCATIONS)
+                    .commit()
+            }
+        }
+
+        fun searchCity(targetFragment: Fragment? = null) = object : Screen {
+            override fun load(manager: FragmentManager, @IdRes container: Int, args: Bundle?) {
+                val frag = manager.findFrag(SEARCH_CITY, ::SearchCityFragment)
+                frag.setTargetFragment(targetFragment, 0)
+
+                manager.beginTransaction()
+                    .hideCurrentVisible(manager.currentVisibleFrag())
+                    .add(container, SearchCityFragment(), SEARCH_CITY)
+                    .addToBackStack(SEARCH_CITY)
                     .commit()
             }
         }
@@ -79,6 +70,15 @@ interface Screen {
                         manager.findFrag(LOCATION_PAGES, ::LocationPagesFragment),
                         LOCATION_PAGES
                     )
+                    .commit()
+            }
+        }
+
+        fun settings() = object : Screen {
+            override fun load(manager: FragmentManager, container: Int, args: Bundle?) {
+                manager.beginTransaction()
+                    .add(container, manager.findFrag(SETTINGS, ::HostSettingsFragment))
+                    .addToBackStack(SETTINGS)
                     .commit()
             }
         }
@@ -96,7 +96,6 @@ interface Screen {
             fragment?.let { frag -> hide(frag) }
             return this
         }
-
     }
 }
 

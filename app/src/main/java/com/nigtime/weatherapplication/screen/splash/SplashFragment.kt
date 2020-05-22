@@ -19,6 +19,7 @@ class SplashFragment :
     BaseFragment<SplashView, WrongSplashPresenter, NavigationController>(R.layout.fragment_splash),
     SplashView {
 
+
     override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 
     override fun getPresenterProvider(): BasePresenterProvider<WrongSplashPresenter> {

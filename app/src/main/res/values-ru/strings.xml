@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Сreated by Igor Pokrovsky. 2020/5/21
+  ~ Сreated by Igor Pokrovsky. 2020/5/22
   -->
 
 <resources>
     <string name="app_name">WeatherApplication</string>
-    <string name="lang_tag">RU</string>
+    <string name="lang_tag">ru</string>
     <string name="content_description_start_drag">Начать перетаскивание</string>
     <string name="content_description_temp">Температура</string>
     <string name="content_description_weather_ico">Погода</string>

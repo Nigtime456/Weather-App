@@ -14,7 +14,7 @@ import io.reactivex.Observable
 /**
  * Репозиторий предоставляющий погоду
  */
-interface ForecastManager {
+interface ForecastProvider {
 
     /**
      * @param forceNet - игнорировать кэш.

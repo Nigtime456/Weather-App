@@ -8,17 +8,17 @@
 
 package com.nigtime.weatherapplication.screen.main
 
-import android.annotation.SuppressLint
+import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.common.App
 import com.nigtime.weatherapplication.screen.common.NavigationController
 import com.nigtime.weatherapplication.screen.common.Screen
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
-import io.reactivex.schedulers.Schedulers
 import leakcanary.AppWatcher
 
 
@@ -28,21 +28,38 @@ import leakcanary.AppWatcher
 class MainActivity : AppCompatActivity(),
     NavigationController {
 
-    private val settingsManager = App.INSTANCE.appContainer.settingsManager
+    private val settingsManager = App.INSTANCE.appContainer.settingsProvider
     private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("sas", "lang = ${getString(R.string.lang_tag)}")
         setContentView(R.layout.activity_main)
         initFragments(savedInstanceState)
-
-        test()
     }
 
     private fun initFragments(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             navigateTo(Screen.Factory.splash())
         }
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        return super.attachBaseContext(createLanguageContext(newBase))
+    }
+
+    private fun createLanguageContext(context: Context): Context {
+        val lang = settingsManager.getLangCode()
+        return LocaleHelper.onAttach(context, lang)
+    }
+
+    override fun applyOverrideConfiguration(overrideConfiguration: Configuration?) {
+        if (overrideConfiguration != null) {
+            val uiMode = overrideConfiguration.uiMode
+            overrideConfiguration.setTo(baseContext.resources.configuration)
+            overrideConfiguration.uiMode = uiMode
+        }
+        super.applyOverrideConfiguration(overrideConfiguration)
     }
 
     override fun onStart() {
@@ -55,6 +72,12 @@ class MainActivity : AppCompatActivity(),
         super.onStop()
         compositeDisposable.clear()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        AppWatcher.objectWatcher.watch(this, "activity leak")
+    }
+
 
     private fun observeLangChanges() {
         compositeDisposable += settingsManager
@@ -72,23 +95,8 @@ class MainActivity : AppCompatActivity(),
             }
     }
 
-
-    //TODO remove it
-    @SuppressLint("CheckResult")
-    private fun test() {
-        Single.fromCallable {
-            "d"
-        }.subscribeOn(Schedulers.io())
-            .subscribeOn(Schedulers.io()).subscribe()
-    }
-
     override fun navigateTo(screen: Screen) {
         screen.load(supportFragmentManager, R.id.mainFragContainer)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        AppWatcher.objectWatcher.watch(this, "activity leak")
     }
 
     override fun toPreviousScreen() {

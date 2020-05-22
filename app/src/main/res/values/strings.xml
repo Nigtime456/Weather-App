@@ -1,7 +1,7 @@
 <resources>
 
     <!--   service  -->
-    <string name="lang_tag">EN</string>
+    <string name="lang_tag">en</string>
     <string name="todo" translatable="false">TODO</string>
 
 

@@ -13,7 +13,7 @@ import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 
 
-class SettingsManagerImpl constructor(context: Context) : SettingsManager,
+class SettingsProviderImpl constructor(context: Context) : SettingsProvider,
     SharedPreferences.OnSharedPreferenceChangeListener {
 
     private companion object {
@@ -91,6 +91,10 @@ class SettingsManagerImpl constructor(context: Context) : SettingsManager,
                 themeChangesSubject.onNext(Unit)
             }
         }
+    }
+
+    override fun getLangCode(): String {
+        return sharedPreferences.getStringOrThrow(KEY_LANG)
     }
 
     override fun getUnitOfTemp(): UnitOfTemp = latestUnitOfTemp

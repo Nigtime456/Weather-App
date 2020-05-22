@@ -6,11 +6,11 @@ package com.nigtime.weatherapplication.screen.currentforecast
 
 import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
 import com.nigtime.weatherapplication.domain.forecast.DailyForecast
-import com.nigtime.weatherapplication.domain.forecast.ForecastManager
+import com.nigtime.weatherapplication.domain.forecast.ForecastProvider
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
 import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.domain.params.RequestParams
-import com.nigtime.weatherapplication.domain.settings.SettingsManager
+import com.nigtime.weatherapplication.domain.settings.SettingsProvider
 import com.nigtime.weatherapplication.screen.common.BasePresenter
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.Observables
@@ -19,8 +19,8 @@ import io.reactivex.subjects.Subject
 
 class CurrentForecastPresenter(
     private val currentLocation: SavedLocation,
-    private val forecastManager: ForecastManager,
-    private val settingsManager: SettingsManager,
+    private val forecastProvider: ForecastProvider,
+    private val settingsProvider: SettingsProvider,
     private val displayedDaysSwitchSubject: Subject<Int>,
     private val verticalScrollSubject: Subject<Int>
 ) : BasePresenter<CurrentForecastView>(TAG) {
@@ -71,7 +71,7 @@ class CurrentForecastPresenter(
     }
 
     private fun observeUnitSettingsChanges() {
-        settingsManager.observeUnitsChanges()
+        settingsProvider.observeUnitsChanges()
             .subscribe {
                 //при смене единиц измерения - перезагружаем погоду
                 provideForecast(false)
@@ -99,9 +99,9 @@ class CurrentForecastPresenter(
         forceNet: Boolean
     ): Observable<Triple<CurrentForecast, HourlyForecast, DailyForecast>> {
 
-        val current = forecastManager.getCurrentForecast(requestParams, forceNet)
-        val hourly = forecastManager.getHourlyForecast(requestParams, forceNet)
-        val daily = forecastManager.getDailyForecast(requestParams, forceNet)
+        val current = forecastProvider.getCurrentForecast(requestParams, forceNet)
+        val hourly = forecastProvider.getHourlyForecast(requestParams, forceNet)
+        val daily = forecastProvider.getDailyForecast(requestParams, forceNet)
 
         return Observables.zip(current, hourly, daily, ::Triple)
     }
@@ -134,10 +134,10 @@ class CurrentForecastPresenter(
     }
 
     private fun bindData(data: Triple<CurrentForecast, HourlyForecast, DailyForecast>) {
-        val unitOfTemp = settingsManager.getUnitOfTemp()
-        val unitOfSpeed = settingsManager.getUnitOfSpeed()
-        val unitOfPressure = settingsManager.getUnitOfPressure()
-        val unitOfLength = settingsManager.getUnitOfLength()
+        val unitOfTemp = settingsProvider.getUnitOfTemp()
+        val unitOfSpeed = settingsProvider.getUnitOfSpeed()
+        val unitOfPressure = settingsProvider.getUnitOfPressure()
+        val unitOfLength = settingsProvider.getUnitOfLength()
 
         val currentForecast = data.first
         val hourlyForecast = data.second
