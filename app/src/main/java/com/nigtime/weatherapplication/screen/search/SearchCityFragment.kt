@@ -58,6 +58,12 @@ class SearchCityFragment :
     override fun onStop() {
         super.onStop()
         searchRecycler.viewTreeObserver.removeOnScrollChangedListener(liftScrollListener)
+        hideSoftKeyboard()
+    }
+
+    private fun hideSoftKeyboard() {
+        ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)
+            ?.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
 
     private fun initViews() {
@@ -122,11 +128,6 @@ class SearchCityFragment :
 
     override fun showToastAlreadyAdded() {
         showToast(R.string.search_already_selected)
-    }
-
-    override fun hideSoftKeyboard() {
-        ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)
-            ?.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
 
     override fun submitList(pagedList: PagedList<SearchCity>) {
