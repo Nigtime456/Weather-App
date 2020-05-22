@@ -6,11 +6,13 @@
     <item>
         <color android:color="?attr/colorPrimary" />
     </item>
-    <item>
-        <inset android:inset="80dp">
-            <shape>
-                <solid android:color="@color/orange" />
-            </shape>
-        </inset>
+    <item
+        android:bottom="@dimen/splash_ico_padding"
+        android:left="@dimen/splash_ico_padding"
+        android:right="@dimen/splash_ico_padding"
+        android:top="@dimen/splash_ico_padding">
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/ic_launcher" />
     </item>
 </layer-list>
