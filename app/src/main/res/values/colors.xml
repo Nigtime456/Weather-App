@@ -11,4 +11,9 @@
     <color name="light_gray">#D8D7D7</color>
     <color name="orange">#FFC107</color>
     <color name="dark_blue">#246A97</color>
+
+
+    <!--  new  -->
+    <color name="blue">#0091cf</color>
+
 </resources>

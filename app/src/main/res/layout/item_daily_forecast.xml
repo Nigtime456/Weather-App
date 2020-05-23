@@ -48,7 +48,7 @@
         android:layout_gravity="center"
         android:layout_weight="0.4"
         android:gravity="center|end"
-        android:textColor="#0091cf"
+        android:textColor="@color/blue"
         tools:text="8°" />
 
 </LinearLayout>

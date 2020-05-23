@@ -97,8 +97,8 @@ class SettingsProviderImpl constructor(context: Context) : SettingsProvider,
 
     override fun getTheme(): Int {
         return when (val theme = sharedPreferences.getStringOrThrow(KEY_THEME)) {
-            "day" -> R.style.AppThemeLight
-            "night" -> R.style.AppThemeDark
+            "dark" -> R.style.BaseTheme_Dark
+            "light" -> R.style.BaseTheme_Light
             else -> error("unknown theme tag = $theme?")
         }
     }

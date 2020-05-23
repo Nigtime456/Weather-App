@@ -129,6 +129,7 @@
     <!--  Location Pages  -->
     <string name="location_pages_cities">Cities</string>
     <string name="location_pages_other">Others</string>
+    <string name="location_pages_main">Main</string>
     <string name="location_pages_settings">Settings</string>
     <string name="location_pages_about_app">About app</string>
     <string name="location_pages_change_location">Change locations</string>

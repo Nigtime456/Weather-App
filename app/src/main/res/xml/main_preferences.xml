@@ -8,7 +8,7 @@
     app:allowDividerBelow="true">
 
     <ListPreference
-        app:defaultValue="night"
+        app:defaultValue="dark"
         app:entries="@array/theme_entries"
         app:entryValues="@array/theme_values"
         app:icon="@drawable/ic_change_theme"

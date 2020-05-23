@@ -33,7 +33,6 @@
 
     </LinearLayout>
 
-
     <View
         style="@style/DividerDefault"
         android:layout_width="match_parent"

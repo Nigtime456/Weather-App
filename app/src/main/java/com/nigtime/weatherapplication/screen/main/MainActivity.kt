@@ -9,6 +9,7 @@
 package com.nigtime.weatherapplication.screen.main
 
 import android.os.Bundle
+import android.view.WindowManager
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.screen.common.BaseActivity
 import com.nigtime.weatherapplication.screen.common.NavigationController
@@ -38,6 +39,7 @@ class MainActivity : BaseActivity(), NavigationController, SplashFragment.Splash
 
     override fun removeSplashBackground() {
         window.setBackgroundDrawable(null)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
     override fun navigateTo(screen: Screen) {

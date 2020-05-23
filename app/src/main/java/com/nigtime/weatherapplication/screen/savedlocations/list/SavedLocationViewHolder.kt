@@ -39,7 +39,7 @@ class SavedLocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
     }
 
     fun attachDragListener(onStartDrag: (SavedLocationViewHolder) -> Unit) {
-        itemView.itemSavedLocation.setOnTouchListener { _, event ->
+        itemView.itemSavedLocationDragArea.setOnTouchListener { _, event ->
             when (event.actionMasked) {
                 MotionEvent.ACTION_DOWN -> {
                     onStartDrag(this@SavedLocationViewHolder)
@@ -50,7 +50,7 @@ class SavedLocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
     }
 
     fun removeListeners() {
-        itemView.itemSavedLocation.setOnClickListener(null)
+        itemView.itemSavedLocationDragArea.setOnClickListener(null)
         itemView.setOnClickListener(null)
     }
 

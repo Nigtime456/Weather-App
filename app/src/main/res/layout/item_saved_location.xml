@@ -12,7 +12,7 @@
     android:stateListAnimator="@animator/selector_drag_n_drop">
 
     <FrameLayout
-        android:id="@+id/itemSavedLocation"
+        android:id="@+id/itemSavedLocationDragArea"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,7 +24,8 @@
             android:layout_height="@dimen/icon_small"
             android:layout_gravity="center_vertical"
             android:contentDescription="@string/content_description_start_drag"
-            android:src="@drawable/ic_drag_handle" />
+            android:src="@drawable/ic_drag_handle"
+            android:tint="?attr/colorAccent" />
 
     </FrameLayout>
 
@@ -36,7 +37,7 @@
         android:layout_marginStart="@dimen/small_margin"
         app:layout_constraintBottom_toTopOf="@id/itemSavedLocationDescription"
         app:layout_constraintEnd_toStartOf="@+id/itemSavedLocationTempIco"
-        app:layout_constraintStart_toEndOf="@id/itemSavedLocation"
+        app:layout_constraintStart_toEndOf="@id/itemSavedLocationDragArea"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="CityName" />

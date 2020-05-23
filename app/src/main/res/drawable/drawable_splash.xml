@@ -4,13 +4,14 @@
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <color android:color="?attr/colorPrimary" />
+        <color android:color="@color/blue" />
     </item>
     <item
         android:bottom="@dimen/splash_ico_padding"
         android:left="@dimen/splash_ico_padding"
         android:right="@dimen/splash_ico_padding"
         android:top="@dimen/splash_ico_padding">
+
         <bitmap
             android:gravity="center"
             android:src="@drawable/ic_launcher" />
