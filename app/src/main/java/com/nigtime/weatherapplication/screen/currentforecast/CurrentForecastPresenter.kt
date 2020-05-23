@@ -4,6 +4,7 @@
 
 package com.nigtime.weatherapplication.screen.currentforecast
 
+import android.util.Log
 import com.nigtime.weatherapplication.domain.forecast.CurrentForecast
 import com.nigtime.weatherapplication.domain.forecast.DailyForecast
 import com.nigtime.weatherapplication.domain.forecast.ForecastProvider
@@ -85,12 +86,11 @@ class CurrentForecastPresenter(
     }
 
     private fun provideForecast(forceNet: Boolean) {
+        startMeasure()
         getForecastAsTriple(currentLocation.createRequestParams(), forceNet)
             .doOnSubscribe { onLoadStart() }
             .doFinally { onLoadEnd() }
-            .subscribe(this::onNextData, this::onErrorLoading) {
-
-            }
+            .subscribe(this::onNextDataLoaded, this::onErrorLoading)
             .disposeOnDestroy()
     }
 
@@ -127,7 +127,8 @@ class CurrentForecastPresenter(
         }
     }
 
-    private fun onNextData(data: Triple<CurrentForecast, HourlyForecast, DailyForecast>) {
+    private fun onNextDataLoaded(data: Triple<CurrentForecast, HourlyForecast, DailyForecast>) {
+        Log.d("sas", "FORECAST LOAD = [${endMeasure()}]")
         isDataShown = true
         getView()?.showMainLayout()
         bindData(data)
@@ -178,5 +179,9 @@ class CurrentForecastPresenter(
 
     fun onRequestRefresh() {
         provideForecast(true)
+    }
+
+    fun onDailyWeatherItemClick(index: Int) {
+        getView()?.navigateToDailyPagesScreen(currentLocation, index)
     }
 }

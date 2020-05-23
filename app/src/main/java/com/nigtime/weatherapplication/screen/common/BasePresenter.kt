@@ -39,6 +39,13 @@ abstract class BasePresenter<V> constructor(tag: String = TAG) {
         private const val TAG = "base_presenter"
     }
 
+    private var start = 0L
+    fun startMeasure() {
+        start = System.currentTimeMillis()
+    }
+
+    fun endMeasure(): Long = System.currentTimeMillis() - start
+
     /**
      * Присоеденить презентер
      *

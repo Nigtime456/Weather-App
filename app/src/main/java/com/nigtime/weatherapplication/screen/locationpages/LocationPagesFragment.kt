@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/4/26
  */
 
-package com.nigtime.weatherapplication.screen.pages
+package com.nigtime.weatherapplication.screen.locationpages
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -105,6 +105,10 @@ class LocationPagesFragment :
 
     override fun onOpenDrawerClick() {
         presenter.onOpenDrawerClick()
+    }
+
+    override fun navigateToDailyPagesFragment(location: SavedLocation, dayIndex: Int) {
+        attachedListener?.navigateTo(Screen.Factory.dailyPages(location, dayIndex))
     }
 
     override fun showDrawer() {

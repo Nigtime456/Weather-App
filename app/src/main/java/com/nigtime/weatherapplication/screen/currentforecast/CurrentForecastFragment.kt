@@ -40,6 +40,7 @@ class CurrentForecastFragment :
     interface ParentListener {
         fun onAddCityClick()
         fun onOpenDrawerClick()
+        fun navigateToDailyPagesFragment(location: SavedLocation, dayIndex: Int)
     }
 
     companion object {
@@ -130,8 +131,8 @@ class CurrentForecastFragment :
         currentForecastDailyList.apply {
             itemAnimator = null
             addItemDecoration(getDivider())
-            adapter = DailyWeatherAdapter {
-                showToast(R.string.todo)
+            adapter = DailyWeatherAdapter { index ->
+                presenter.onDailyWeatherItemClick(index)
             }
         }
     }
@@ -170,7 +171,7 @@ class CurrentForecastFragment :
     }
 
     override fun showErrorMessage() {
-        showToast(R.string.current_forecast_message_error)
+        showToast(R.string.network_error)
     }
 
     override fun showMainLayout() {
@@ -287,5 +288,9 @@ class CurrentForecastFragment :
 
     override fun setSunInfo(sunInfo: SunInfo) {
         //TODO сделать
+    }
+
+    override fun navigateToDailyPagesScreen(location: SavedLocation, dayIndex: Int) {
+        attachedListener?.navigateToDailyPagesFragment(location, dayIndex)
     }
 }

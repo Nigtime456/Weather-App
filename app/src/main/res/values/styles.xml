@@ -51,6 +51,12 @@
 
     </style>
 
+    <!--  TabLayout  -->
+    <style name="TabTextAppearanceDefault" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <!--  Alert Dialog  -->
 
     <style name="AlertDialogButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
@@ -121,6 +127,7 @@
     <!--   Toolbar style  -->
     <style name="ToolbarDefault">
         <item name="titleTextColor">@color/selector_primary_text</item>
+        <item name="subtitleTextAppearance">@style/PrimaryText.Lowest</item>
         <item name="subtitleTextColor">@color/selector_primary_text</item>
     </style>
 

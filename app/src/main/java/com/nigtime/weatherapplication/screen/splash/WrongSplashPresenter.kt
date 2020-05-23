@@ -4,6 +4,7 @@
 
 package com.nigtime.weatherapplication.screen.splash
 
+import android.util.Log
 import com.nigtime.weatherapplication.common.App
 import com.nigtime.weatherapplication.screen.common.BasePresenter
 import com.nigtime.weatherapplication.trash.CitiesMarshallingHelper
@@ -28,6 +29,7 @@ class WrongSplashPresenter : BasePresenter<SplashView>(TAG) {
     }
 
     private fun checkReferenceCities() {
+        startMeasure()
         RoomDictionaryWriter(referenceCityDao)
             .isDictionaryWritten()
             .subscribeOn(schedulerProvider.database())
@@ -67,6 +69,7 @@ class WrongSplashPresenter : BasePresenter<SplashView>(TAG) {
             .subscribeOn(schedulerProvider.database())
             .observeOn(schedulerProvider.ui())
             .subscribeBy {
+                Log.d("sas", "SPLASH CHECK END = [${endMeasure()}]")
                 getView()?.finishSplash()
                 if (it)
                     getView()?.navigateToLocationPagesScreen()

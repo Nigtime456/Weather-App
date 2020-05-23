@@ -12,6 +12,8 @@
     <string name="content_description_temp">Temp</string>
     <string name="content_description_weather_ico">Weather</string>
 
+    <string name="network_error">Network error!</string>
+
     <!--  units formatting  -->
     <string name="units_temp_f" translatable="false">%.0f°</string>
     <string name="units_feels_like_temp_f">Feels like %.0f°</string>
@@ -137,7 +139,6 @@
 
     <!--  Current forecast  -->
     <string name="current_forecast_char_separator" translatable="false">|</string>
-    <string name="current_forecast_message_error">Network error!</string>
     <string name="current_forecast_hourly_forecast">Hourly forecast</string>
     <string name="current_forecast_daily_forecast">Daily forecast</string>
     <string name="current_forecast_5_days">5 d.</string>
@@ -182,5 +183,9 @@
     <string name="settings_clear_cache">Clear cache</string>
     <string name="settings_clear_all_data">Clear all data</string>
     <string name="settings_clear_all_data_summary">cache, locations, settings</string>
+
+
+    <!--  Daily Pages  -->
+    <string name="daily_pages_16_days_forecast">16 days forecast</string>
 
 </resources>

@@ -14,6 +14,7 @@ object DateFormatFactory {
     private const val HOURS_PATTERN_12 = "KK:mm a"
     private const val WEEKDAY_PATTERN = "EEEE"
     private const val DAY_OF_MONTH_PATTERN = "d MMMM (E)"
+    private const val SHORT_WEEKDAY = "dd\nE"
 
     fun getHoursFormatter(context: Context): SimpleDateFormat {
         return if (DateFormat.is24HourFormat(context)) {
@@ -31,5 +32,9 @@ object DateFormatFactory {
     fun getDayOfMonthFormatter(): SimpleDateFormat {
         val pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), DAY_OF_MONTH_PATTERN)
         return SimpleDateFormat(pattern, Locale.getDefault())
+    }
+
+    fun getShortWeekdayWithDayFormatter(): SimpleDateFormat {
+        return SimpleDateFormat(SHORT_WEEKDAY, Locale.getDefault())
     }
 }

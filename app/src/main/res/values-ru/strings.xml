@@ -100,7 +100,7 @@
     <string name="location_pages_settings">Настройки</string>
     <string name="location_pages_about_app">О приложение</string>
     <string name="location_pages_change_location">Изменить местоположение</string>
-    <string name="current_forecast_message_error">Ошибка сети!</string>
+    <string name="network_error">Ошибка сети!</string>
     <string name="current_forecast_hourly_forecast">Прогноз на 24 часа</string>
     <string name="current_forecast_daily_forecast">Прогноз по дням</string>
     <string name="current_forecast_5_days">5 дн.</string>
@@ -142,4 +142,5 @@
     <string name="menu_add_city">Добавить город</string>
     <string name="location_pages_weather_notification">Уведомления об погоде</string>
     <string name="location_pages_main">Главное</string>
+    <string name="daily_pages_16_days_forecast">16-ти дневный прогноз</string>
 </resources>

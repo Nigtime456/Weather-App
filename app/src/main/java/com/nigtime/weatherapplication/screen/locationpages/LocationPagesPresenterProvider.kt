@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/5/7
  */
 
-package com.nigtime.weatherapplication.screen.pages
+package com.nigtime.weatherapplication.screen.locationpages
 
 import com.nigtime.weatherapplication.screen.common.BasePresenterProvider
 

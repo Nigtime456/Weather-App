@@ -2,8 +2,9 @@
  * Сreated by Igor Pokrovsky. 2020/4/27
  */
 
-package com.nigtime.weatherapplication.screen.pages
+package com.nigtime.weatherapplication.screen.locationpages
 
+import android.util.Log
 import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.domain.location.SavedLocationsRepository
 import com.nigtime.weatherapplication.screen.common.BasePresenter
@@ -19,12 +20,14 @@ class LocationPagesPresenter(private val savedLocationsRepository: SavedLocation
     }
 
     private fun provideLocations() {
+        startMeasure()
         savedLocationsRepository.getLocations()
             .subscribe(this::onNextListLocations)
             .disposeOnDestroy()
     }
 
     private fun onNextListLocations(list: List<SavedLocation>) {
+        Log.d("sas", "LOAD LOCATIONS = [${endMeasure()}]")
         getView()?.submitListToPager(list)
         getView()?.submitListToNavView(list)
         getView()?.setCurrentPage(currentPage)

@@ -8,6 +8,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.domain.forecast.*
+import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.domain.settings.UnitOfLength
 import com.nigtime.weatherapplication.domain.settings.UnitOfPressure
 import com.nigtime.weatherapplication.domain.settings.UnitOfSpeed
@@ -64,4 +65,6 @@ interface CurrentForecastView {
 
     fun setSunInfo(sunInfo: SunInfo)
 
+
+    fun navigateToDailyPagesScreen(location: SavedLocation, dayIndex: Int)
 }

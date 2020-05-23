@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/4/27
  */
 
-package com.nigtime.weatherapplication.screen.pages
+package com.nigtime.weatherapplication.screen.locationpages
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
