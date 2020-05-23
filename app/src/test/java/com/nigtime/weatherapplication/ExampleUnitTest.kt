@@ -6,7 +6,7 @@ import org.junit.Test
 /**
  * Example local unit selector_ripple_with_background, which will execute on the development machine (host).
  *
- * See [testing documentation](http://d.android.com/tools/testing).
+ * See [testing documentation](http://item_preference.android.com/tools/testing).
  */
 class ExampleUnitTest {
     @Test

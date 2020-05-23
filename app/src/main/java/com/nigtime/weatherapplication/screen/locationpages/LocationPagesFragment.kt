@@ -75,7 +75,7 @@ class LocationPagesFragment :
                     presenter.onSettingsClick()
                 }
                 R.id.menuWeatherNotifications -> {
-                    showToast(R.string.todo)
+                    attachedListener?.navigateTo(Screen.Factory.notifications())
                 }
                 else -> {
                     presenter.onNavigationItemClick(menuItem.itemId)

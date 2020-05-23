@@ -13,7 +13,7 @@ object DateFormatFactory {
     private const val HOURS_PATTERN_24 = "HH:mm"
     private const val HOURS_PATTERN_12 = "KK:mm a"
     private const val WEEKDAY_PATTERN = "EEEE"
-    private const val DAY_OF_MONTH_PATTERN = "d MMMM (E)"
+    private const val DAY_OF_MONTH_PATTERN = "item_preference MMMM (E)"
     private const val SHORT_WEEKDAY = "dd\nE"
 
     fun getHoursFormatter(context: Context): SimpleDateFormat {

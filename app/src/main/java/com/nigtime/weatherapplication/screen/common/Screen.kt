@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.screen.dailypages.DailyPagesFragment
 import com.nigtime.weatherapplication.screen.locationpages.LocationPagesFragment
+import com.nigtime.weatherapplication.screen.notifications.NotificationsFragment
 import com.nigtime.weatherapplication.screen.savedlocations.SavedLocationsFragment
 import com.nigtime.weatherapplication.screen.search.SearchCityFragment
 import com.nigtime.weatherapplication.screen.settings.HostSettingsFragment
@@ -82,6 +83,16 @@ interface Screen {
                 manager.beginTransaction()
                     .add(container, frag)
                     .addToBackStack(DAILY_PAGES)
+                    .commit()
+            }
+        }
+
+        fun notifications() = object : Screen {
+            //TODO
+            override fun load(manager: FragmentManager, @IdRes container: Int) {
+                manager.beginTransaction()
+                    .add(container, NotificationsFragment())
+                    .addToBackStack(null)
                     .commit()
             }
         }

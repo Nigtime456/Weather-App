@@ -31,7 +31,7 @@ object FakeJsonDataProvider {
                 {
                     "wind_cdir": "WSW",
                     "rh": 86,
-                    "pod": "d",
+                    "pod": "item_preference",
                     "timestamp_utc": "2020-05-10T21:00:00",
                     "pres": 986.849,
                     "solar_rad": 133.597,
@@ -69,7 +69,7 @@ object FakeJsonDataProvider {
                 {
                     "wind_cdir": "W",
                     "rh": 81,
-                    "pod": "d",
+                    "pod": "item_preference",
                     "timestamp_utc": "2020-05-10T22:00:00",
                     "pres": 987.048,
                     "solar_rad": 313.101,
@@ -107,7 +107,7 @@ object FakeJsonDataProvider {
                 {
                     "wind_cdir": "WSW",
                     "rh": 71,
-                    "pod": "d",
+                    "pod": "item_preference",
                     "timestamp_utc": "2020-05-10T23:00:00",
                     "pres": 986.842,
                     "solar_rad": 499.977,
@@ -145,7 +145,7 @@ object FakeJsonDataProvider {
                 {
                     "wind_cdir": "W",
                     "rh": 65,
-                    "pod": "d",
+                    "pod": "item_preference",
                     "timestamp_utc": "2020-05-11T00:00:00",
                     "pres": 986.963,
                     "solar_rad": 673.688,
@@ -183,7 +183,7 @@ object FakeJsonDataProvider {
                 {
                     "wind_cdir": "WNW",
                     "rh": 63,
-                    "pod": "d",
+                    "pod": "item_preference",
                     "timestamp_utc": "2020-05-11T01:00:00",
                     "pres": 987.47,
                     "solar_rad": 817.56,
@@ -221,7 +221,7 @@ object FakeJsonDataProvider {
                 {
                     "wind_cdir": "WNW",
                     "rh": 56,
-                    "pod": "d",
+                    "pod": "item_preference",
                     "timestamp_utc": "2020-05-11T02:00:00",
                     "pres": 987.827,
                     "solar_rad": 908.188,
@@ -259,7 +259,7 @@ object FakeJsonDataProvider {
                 {
                     "wind_cdir": "WNW",
                     "rh": 46,
-                    "pod": "d",
+                    "pod": "item_preference",
                     "timestamp_utc": "2020-05-11T03:00:00",
                     "pres": 987.978,
                     "solar_rad": 943.645,
@@ -297,7 +297,7 @@ object FakeJsonDataProvider {
                 {
                     "wind_cdir": "NW",
                     "rh": 39,
-                    "pod": "d",
+                    "pod": "item_preference",
                     "timestamp_utc": "2020-05-11T04:00:00",
                     "pres": 987.642,
                     "solar_rad": 924.021,
@@ -335,7 +335,7 @@ object FakeJsonDataProvider {
                 {
                     "wind_cdir": "NW",
                     "rh": 37,
-                    "pod": "d",
+                    "pod": "item_preference",
                     "timestamp_utc": "2020-05-11T05:00:00",
                     "pres": 987.846,
                     "solar_rad": 848.463,
@@ -373,7 +373,7 @@ object FakeJsonDataProvider {
                 {
                     "wind_cdir": "WNW",
                     "rh": 39,
-                    "pod": "d",
+                    "pod": "item_preference",
                     "timestamp_utc": "2020-05-11T06:00:00",
                     "pres": 987.896,
                     "solar_rad": 723.668,
@@ -411,7 +411,7 @@ object FakeJsonDataProvider {
                 {
                     "wind_cdir": "WNW",
                     "rh": 40,
-                    "pod": "d",
+                    "pod": "item_preference",
                     "timestamp_utc": "2020-05-11T07:00:00",
                     "pres": 988.09,
                     "solar_rad": 387.739,
@@ -449,7 +449,7 @@ object FakeJsonDataProvider {
                 {
                     "wind_cdir": "SW",
                     "rh": 46,
-                    "pod": "d",
+                    "pod": "item_preference",
                     "timestamp_utc": "2020-05-11T08:00:00",
                     "pres": 988.54,
                     "solar_rad": 316.212,
@@ -487,7 +487,7 @@ object FakeJsonDataProvider {
                 {
                     "wind_cdir": "SSW",
                     "rh": 53,
-                    "pod": "d",
+                    "pod": "item_preference",
                     "timestamp_utc": "2020-05-11T09:00:00",
                     "pres": 988.899,
                     "solar_rad": 142.601,
@@ -525,7 +525,7 @@ object FakeJsonDataProvider {
                 {
                     "wind_cdir": "SSW",
                     "rh": 64,
-                    "pod": "d",
+                    "pod": "item_preference",
                     "timestamp_utc": "2020-05-11T10:00:00",
                     "pres": 989.284,
                     "solar_rad": 25.0137,
@@ -905,7 +905,7 @@ object FakeJsonDataProvider {
                 {
                     "wind_cdir": "SW",
                     "rh": 81,
-                    "pod": "d",
+                    "pod": "item_preference",
                     "timestamp_utc": "2020-05-11T20:00:00",
                     "pres": 987.59,
                     "solar_rad": 0.551,

@@ -142,5 +142,5 @@
     <string name="menu_add_city">Добавить город</string>
     <string name="location_pages_weather_notification">Уведомления об погоде</string>
     <string name="location_pages_main">Главное</string>
-    <string name="daily_pages_16_days_forecast">16-ти дневный прогноз</string>
+    <string name="daily_pages_16_days_forecast">Прогноз на 16 дней</string>
 </resources>
