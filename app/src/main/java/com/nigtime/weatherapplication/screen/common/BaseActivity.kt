@@ -27,8 +27,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     private fun createLanguageContext(context: Context): Context {
-        val lang = settingsProvider.getLangCode()
-        val locale = Locale(lang)
+        val locale = settingsProvider.getLocale()
         Locale.setDefault(locale)
         val newConfiguration = context.resources.configuration
         newConfiguration.setLocale(locale)

@@ -23,6 +23,7 @@ class MainActivity : BaseActivity(), NavigationController, SplashFragment.Splash
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(settingsProvider.getTheme())
         setContentView(R.layout.activity_main)
         init(savedInstanceState)
     }

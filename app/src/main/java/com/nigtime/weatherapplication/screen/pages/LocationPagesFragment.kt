@@ -74,6 +74,9 @@ class LocationPagesFragment :
                 R.id.menuSettings -> {
                     presenter.onSettingsClick()
                 }
+                R.id.menuWeatherNotifications -> {
+                    showToast(R.string.todo)
+                }
                 else -> {
                     presenter.onNavigationItemClick(menuItem.itemId)
                 }
@@ -121,7 +124,7 @@ class LocationPagesFragment :
         subMenu.clear()
         items.forEachIndexed { index, cityForForecast ->
             val menuItem = subMenu.add(0, index, 0, cityForForecast.getName())
-            menuItem.setIcon(R.drawable.ic_location_city)
+            menuItem.setIcon(R.drawable.ic_city)
             menuItem.isCheckable = true
         }
     }

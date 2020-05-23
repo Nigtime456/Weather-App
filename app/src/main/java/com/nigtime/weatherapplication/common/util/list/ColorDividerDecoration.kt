@@ -22,7 +22,8 @@ import kotlin.math.roundToInt
 class ColorDividerDecoration constructor(
     color: Int,
     private val dividerSize: Int,
-    private val drawLastItem: Boolean = false
+    private val drawLastItem: Boolean = false,
+    private val paddingHorizontal: Int = 0
 ) :
     RecyclerView.ItemDecoration() {
 
@@ -39,8 +40,8 @@ class ColorDividerDecoration constructor(
 
     private fun drawVertical(canvas: Canvas, parent: RecyclerView) {
         canvas.save()
-        val left: Int
-        val right: Int
+        var left: Int
+        var right: Int
 
         if (parent.clipToPadding) {
             left = parent.paddingLeft
@@ -55,8 +56,13 @@ class ColorDividerDecoration constructor(
         }
         val childCount = parent.childCount
         val lastItem = childCount - 1
-        for (i in 0 until childCount) {
 
+        //set custom padding
+        left += paddingHorizontal
+        right -= paddingHorizontal
+
+        for (i in 0 until childCount) {
+            //drop last item
             if (i == lastItem && !drawLastItem)
                 break
 

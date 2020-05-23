@@ -9,60 +9,47 @@
     android:background="@drawable/selector_ripple_without_background"
     android:clickable="true"
     android:focusable="true"
-    android:orientation="vertical"
-    android:paddingHorizontal="@dimen/medium_padding">
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/medium_padding"
+    android:paddingVertical="@dimen/small_padding">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/itemDailyCurrentDate"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/small_margin"
-        android:orientation="horizontal">
+        android:layout_weight="0.7"
+        android:gravity="center_vertical"
+        tools:text="Monday" />
 
-        <TextView
-            android:id="@+id/itemDailyCurrentDate"
-            style="@style/PrimaryText.Lowest"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.7"
-            android:gravity="center_vertical"
-            tools:text="Monday" />
+    <ImageView
+        android:id="@+id/itemDailyIco"
+        android:layout_width="@dimen/icon_small"
+        android:layout_height="@dimen/icon_small"
+        android:layout_gravity="center"
+        android:contentDescription="@string/content_description_weather_ico"
+        tools:src="@drawable/_weather_stub" />
 
-        <ImageView
-            android:id="@+id/itemDailyIco"
-            android:layout_width="@dimen/icon_small"
-            android:layout_height="@dimen/icon_small"
-            android:layout_gravity="center"
-            android:contentDescription="@string/content_description_weather_ico"
-            tools:src="@drawable/_weather_stub" />
+    <TextView
+        android:id="@+id/itemDailyDTemp"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="0.4"
+        android:gravity="center|end"
+        tools:text="10°" />
 
-        <TextView
-            android:id="@+id/itemDailyDTemp"
-            style="@style/PrimaryText.Lowest"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="0.4"
-            android:gravity="center|end"
-            tools:text="10°" />
-
-        <TextView
-            android:id="@+id/itemDailyNTemp"
-            style="@style/PrimaryText.Lowest"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="0.4"
-            android:gravity="center|end"
-            android:textColor="?attr/themeNightTempColor"
-            tools:text="8°" />
-
-    </LinearLayout>
-
-    <View
-        style="@style/DividerDefaultStyle"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_size"
-        android:layout_marginTop="@dimen/small_margin" />
+    <TextView
+        android:id="@+id/itemDailyNTemp"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="0.4"
+        android:gravity="center|end"
+        android:textColor="#0091cf"
+        tools:text="8°" />
 
 </LinearLayout>
 

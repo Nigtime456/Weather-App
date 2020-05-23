@@ -10,7 +10,7 @@ import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.common.util.DateFormatFactory
 import com.nigtime.weatherapplication.domain.forecast.DailyForecast
 import com.nigtime.weatherapplication.domain.settings.UnitOfTemp
-import com.nigtime.weatherapplication.domain.utility.UnitFormatHelper
+import com.nigtime.weatherapplication.domain.util.UnitFormatHelper
 import kotlinx.android.synthetic.main.item_daily_forecast.view.*
 
 class DailyWeatherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

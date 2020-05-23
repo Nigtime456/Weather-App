@@ -7,10 +7,12 @@ package com.nigtime.weatherapplication.storage.preference
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import com.nigtime.weatherapplication.R
 import com.nigtime.weatherapplication.domain.settings.*
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
+import java.util.*
 
 
 class SettingsProviderImpl constructor(context: Context) : SettingsProvider,
@@ -93,8 +95,17 @@ class SettingsProviderImpl constructor(context: Context) : SettingsProvider,
         }
     }
 
-    override fun getLangCode(): String {
-        return sharedPreferences.getStringOrThrow(KEY_LANG)
+    override fun getTheme(): Int {
+        return when (val theme = sharedPreferences.getStringOrThrow(KEY_THEME)) {
+            "day" -> R.style.AppThemeLight
+            "night" -> R.style.AppThemeDark
+            else -> error("unknown theme tag = $theme?")
+        }
+    }
+
+    override fun getLocale(): Locale {
+        val langCode = sharedPreferences.getStringOrThrow(KEY_LANG)
+        return Locale(langCode)
     }
 
     override fun getUnitOfTemp(): UnitOfTemp = latestUnitOfTemp

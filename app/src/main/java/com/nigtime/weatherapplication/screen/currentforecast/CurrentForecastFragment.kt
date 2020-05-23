@@ -12,13 +12,15 @@ import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.TransitionManager
 import com.nigtime.weatherapplication.R
+import com.nigtime.weatherapplication.common.util.ThemeUtils
+import com.nigtime.weatherapplication.common.util.list.ColorDividerDecoration
 import com.nigtime.weatherapplication.domain.forecast.*
 import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.domain.settings.UnitOfLength
 import com.nigtime.weatherapplication.domain.settings.UnitOfPressure
 import com.nigtime.weatherapplication.domain.settings.UnitOfSpeed
 import com.nigtime.weatherapplication.domain.settings.UnitOfTemp
-import com.nigtime.weatherapplication.domain.utility.UnitFormatHelper
+import com.nigtime.weatherapplication.domain.util.UnitFormatHelper
 import com.nigtime.weatherapplication.screen.common.BaseFragment
 import com.nigtime.weatherapplication.screen.common.BasePresenterProvider
 import com.nigtime.weatherapplication.screen.currentforecast.list.DailyWeatherAdapter
@@ -95,7 +97,10 @@ class CurrentForecastFragment :
     }
 
     private fun setupSwipeToRefresh() {
-        currentForecastSwipeRefresh.setOnRefreshListener(presenter::onRequestRefresh)
+        currentForecastSwipeRefresh.apply {
+            setColorSchemeColors(ThemeUtils.getAttrColor(requireContext(), R.attr.colorAccent))
+            setOnRefreshListener(presenter::onRequestRefresh)
+        }
     }
 
     private fun setupDaysSwitcher() {
@@ -124,10 +129,22 @@ class CurrentForecastFragment :
         currentForecastHourlyList.adapter = HourlyWeatherAdapter()
         currentForecastDailyList.apply {
             itemAnimator = null
+            addItemDecoration(getDivider())
             adapter = DailyWeatherAdapter {
                 showToast(R.string.todo)
             }
         }
+    }
+
+    private fun getDivider(): ColorDividerDecoration {
+        val dividerColor = ThemeUtils.getAttrColor(requireContext(), R.attr.colorControlHighlight)
+        val dividerSize = resources.getDimensionPixelSize(R.dimen.divider_size)
+        return ColorDividerDecoration(
+            dividerColor,
+            dividerSize,
+            false,
+            resources.getDimensionPixelOffset(R.dimen.medium_padding)
+        )
     }
 
     private fun setupScrollView() {

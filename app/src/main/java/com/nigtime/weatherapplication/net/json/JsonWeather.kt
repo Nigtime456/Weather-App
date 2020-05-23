@@ -10,7 +10,6 @@ import com.google.gson.annotations.SerializedName
  * Описание погоды
  */
 data class JsonWeather(
-    //TODO не нужен ?
     @SerializedName("icon")
     val icon: String,
     @SerializedName("code")

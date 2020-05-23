@@ -1,11 +1,11 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppThemeDark" parent="Theme.MaterialComponents.NoActionBar">
+
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/orange</item>
+        <item name="colorAccent">@color/white</item>
 
         <item name="android:colorEdgeEffect">?attr/colorAccent</item>
         <item name="android:colorControlActivated">?attr/colorAccent</item>
@@ -20,8 +20,40 @@
         <item name="themePrimaryTextColor">@color/white</item>
         <item name="themeSecondaryTextColor">@color/light_gray</item>
 
+        <!--   Action Mode     -->
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeBackground">?colorPrimary</item>
+        <item name="android:actionModeCloseDrawable">@drawable/ic_arrow_back</item>
+        <item name="android:actionModeCopyDrawable">@drawable/ic_content_copy</item>
+        <item name="android:actionModeCutDrawable">@drawable/ic_content_cut</item>
+        <item name="android:actionModePasteDrawable">@drawable/ic_content_paste</item>
+        <item name="android:actionModeSelectAllDrawable">@drawable/ic_select_all</item>
 
-        <item name="themeNightTempColor">#3F51B5</item>
+
+        <!--    Snackbar    -->
+        <item name="snackbarStyle">@style/SnackDefault</item>
+        <item name="snackbarTextViewStyle">@style/SnackText</item>
+        <item name="snackbarButtonStyle">@style/SnackButton</item>
+    </style>
+
+    <style name="AppThemeLight" parent="Theme.MaterialComponents.NoActionBar">
+
+        <item name="colorPrimary">#ffffff</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">#333333</item>
+
+        <item name="android:colorEdgeEffect">?attr/colorAccent</item>
+        <item name="android:colorControlActivated">?attr/colorAccent</item>
+        <item name="android:windowBackground">@drawable/drawable_splash</item>
+        <item name="colorControlHighlight">#f1f0f2</item>
+
+        <item name="buttonBarNegativeButtonStyle">@style/AlertDialogButton</item>
+
+        <item name="iconTint">?attr/colorAccent</item>
+
+        <!--    Custom color attributes     -->
+        <item name="themePrimaryTextColor">#333333</item>
+        <item name="themeSecondaryTextColor">#7C7C7C</item>
 
         <!--   Action Mode     -->
         <item name="windowActionModeOverlay">true</item>
@@ -34,11 +66,13 @@
 
 
         <!--    Snackbar    -->
-        <item name="snackbarStyle">@style/SnackMain</item>
-        <item name="snackbarTextViewStyle">@style/SnackTextStyle</item>
+        <item name="snackbarStyle">@style/SnackDefault</item>
+        <item name="snackbarTextViewStyle">@style/SnackText</item>
         <item name="snackbarButtonStyle">@style/SnackButton</item>
-    </style>
 
+        <item name="android:textAppearanceLarge">@style/PrimaryText.Lowest</item>
+        <item name="android:textAppearanceSmall">@style/SecondaryText.Lowest</item>
+    </style>
 
     <!--  Alert Dialog  -->
 
@@ -49,8 +83,14 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <!--  TextClock style   -->
+    <style name="TextClockDefault" parent="PrimaryText.Lowest">
+        <item name="android:format12Hour">KK:mm a</item>
+        <item name="android:format24Hour">HH:mm</item>
+    </style>
+
     <!--  CrossFadeAnimator styles  -->
-    <style name="CrossFadeDefaultStyle">
+    <style name="CrossFadeDefault">
         <item name="crossAnimationDuration">@integer/cross_anim_duration</item>
         <item name="crossStartDelay">@integer/cross_start_delay</item>
     </style>
@@ -75,14 +115,14 @@
     </style>
 
     <!--    Snackbar  styles  -->
-    <style name="SnackMain" parent="Widget.MaterialComponents.Snackbar">
+    <style name="SnackDefault" parent="Widget.MaterialComponents.Snackbar">
         <item name="animationMode">slide</item>
         <item name="backgroundTint">?attr/colorPrimary</item>
         <item name="backgroundOverlayColorAlpha">0</item>
         <item name="actionTextColorAlpha">1</item>
     </style>
 
-    <style name="SnackTextStyle" parent="PrimaryText.Lowest">
+    <style name="SnackText" parent="PrimaryText.Lowest">
         <item name="android:textSize">15sp</item>
     </style>
 
@@ -94,7 +134,7 @@
     </style>
 
     <!-- Card styles -->
-    <style name="LiftingToolbarCardStyle">
+    <style name="LiftingCard">
         <item name="cardBackgroundColor">?attr/colorPrimary</item>
         <item name="cardCornerRadius">0dp</item>
         <item name="cardElevation">0dp</item>
@@ -102,7 +142,7 @@
     </style>
 
     <!--   Toolbar style  -->
-    <style name="ToolbarMainStyle">
+    <style name="ToolbarDefault">
         <item name="titleTextColor">@color/selector_primary_text</item>
         <item name="subtitleTextColor">@color/selector_primary_text</item>
     </style>
@@ -135,7 +175,7 @@
     </style>
 
     <!--  TextInputLayout style  -->
-    <style name="TextInputLayoutMainStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+    <style name="TextInputLayoutDefault" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="boxCollapsedPaddingTop">0dp</item>
         <item name="textInputLayoutFocusedRectEnabled">false</item>
         <item name="boxStrokeColor">?attr/colorAccent</item>
@@ -147,7 +187,7 @@
         <item name="hintEnabled">false</item>
     </style>
 
-    <style name="TextInputEditMainStyle" parent="PrimaryText.Lowest">
+    <style name="TextInputEditDefault" parent="PrimaryText.Lowest">
         <item name="android:textColor">@color/selector_primary_text</item>
         <item name="android:textColorHint">@color/selector_secondary_text</item>
     </style>
@@ -181,7 +221,7 @@
         <item name="android:textSize">@dimen/text_size_secondary_lowest</item>
     </style>
 
-    <style name="DividerDefaultStyle">
+    <style name="DividerDefault">
         <item name="android:background">?attr/colorControlHighlight</item>
     </style>
 </resources>

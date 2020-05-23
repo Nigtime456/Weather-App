@@ -10,7 +10,7 @@ import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.RecyclerView
 import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.domain.settings.UnitOfTemp
-import com.nigtime.weatherapplication.domain.utility.UnitFormatHelper
+import com.nigtime.weatherapplication.domain.util.UnitFormatHelper
 import kotlinx.android.synthetic.main.item_saved_location.view.*
 
 class SavedLocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),

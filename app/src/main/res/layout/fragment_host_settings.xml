@@ -13,7 +13,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/hostSettingsToolbar"
-        style="@style/ToolbarMainStyle"
+        style="@style/ToolbarDefault"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:navigationIcon="@drawable/ic_arrow_back"

@@ -5,7 +5,7 @@
 package com.nigtime.weatherapplication.net.mappers
 
 import com.nigtime.weatherapplication.domain.forecast.HourlyForecast
-import com.nigtime.weatherapplication.domain.utility.WeatherConditionHelper
+import com.nigtime.weatherapplication.domain.util.WeatherConditionHelper
 import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.net.json.JsonHourlyData
 import com.nigtime.weatherapplication.net.json.JsonHourlyForecast
@@ -38,7 +38,7 @@ class HourlyForecastMapper {
     private fun JsonHourlyData.toHourlyForecast(): HourlyForecast.HourlyWeather {
         //"2020-02-22T21:00:00"
         val dateFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.ROOT)
-        val ico = WeatherConditionHelper.getIconByCode(weather.code)
+        val ico = WeatherConditionHelper.getIconByCode(weather.icon)
         val unixHour = dateFormatter.parse(timeStamp)?.time ?: 0
         return HourlyForecast.HourlyWeather(temp, ico, unixHour)
     }

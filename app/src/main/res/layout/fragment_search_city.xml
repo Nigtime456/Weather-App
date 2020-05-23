@@ -9,7 +9,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/searchAppbar"
-        style="@style/LiftingToolbarCardStyle"
+        style="@style/LiftingCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -21,7 +21,7 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/searchToolbar"
-                style="@style/ToolbarMainStyle"
+                style="@style/ToolbarDefault"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:navigationIcon="@drawable/ic_arrow_back"
@@ -29,14 +29,14 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputLayoutMainStyle"
+                style="@style/TextInputLayoutDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/medium_margin">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/searchEditText"
-                    style="@style/TextInputEditMainStyle"
+                    style="@style/TextInputEditDefault"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/search_input_hint"
@@ -52,7 +52,7 @@
 
     <com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout
         android:id="@+id/searchViewSwitcher"
-        style="@style/CrossFadeDefaultStyle"
+        style="@style/CrossFadeDefault"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:crossDisplayedChild="0">

@@ -4,7 +4,9 @@
 
 package com.nigtime.weatherapplication.domain.settings
 
+import androidx.annotation.StyleRes
 import io.reactivex.Observable
+import java.util.*
 
 /**
  * Класс предоставляющий информацию об настройках
@@ -13,7 +15,9 @@ import io.reactivex.Observable
  * Так же предоставляет методы для отслеживания изменений настроек.
  */
 interface SettingsProvider {
-    fun getLangCode(): String
+    @StyleRes
+    fun getTheme(): Int
+    fun getLocale(): Locale
     fun getUnitOfTemp(): UnitOfTemp
     fun getUnitOfPressure(): UnitOfPressure
     fun getUnitOfSpeed(): UnitOfSpeed

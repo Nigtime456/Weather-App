@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
     <!--  Theme attrs  -->
-    <attr name="themeNightTempColor" format="color" />
-
     <attr name="themePrimaryTextColor" format="color" />
     <attr name="themeSecondaryTextColor" format="color" />
 
@@ -14,6 +11,5 @@
         <attr name="crossStartDelay" format="integer" />
         <attr name="crossAnimationDuration" format="integer" />
     </declare-styleable>
-
 
 </resources>

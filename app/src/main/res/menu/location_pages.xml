@@ -4,11 +4,17 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/menuWeatherNotifications"
+        android:checked="true"
+        android:icon="@drawable/ic_notifications"
+        android:title="@string/location_pages_weather_notification" />
+
     <item
         android:id="@+id/menuChangeListLocations"
         android:checked="true"
-        android:icon="@drawable/ic_launch"
-        android:orderInCategory="0"
+        android:icon="@drawable/ic_change_locations"
         android:title="@string/location_pages_change_location" />
 
     <item

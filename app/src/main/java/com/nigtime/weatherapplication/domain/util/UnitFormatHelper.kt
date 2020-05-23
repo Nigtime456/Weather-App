@@ -2,7 +2,7 @@
  * Сreated by Igor Pokrovsky. 2020/5/6
  */
 
-package com.nigtime.weatherapplication.domain.utility
+package com.nigtime.weatherapplication.domain.util
 
 import android.content.Context
 import com.nigtime.weatherapplication.R

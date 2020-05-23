@@ -10,13 +10,13 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/currentForecastAppBar"
-        style="@style/LiftingToolbarCardStyle"
+        style="@style/LiftingCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/currentForecastToolbar"
-            style="@style/ToolbarMainStyle"
+            style="@style/ToolbarDefault"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:menu="@menu/current_forecast"
@@ -41,15 +41,10 @@
 
                 <TextClock
                     android:id="@+id/currentForecastLocalClock"
-                    style="@style/PrimaryText.Lowest"
+                    style="@style/TextClockDefault"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:format12Hour="KK:mm a"
-                    android:format24Hour="HH:mm"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:textColor="@android:color/white"
                     android:visibility="gone"
                     tools:text="17:30 MSK" />
 
@@ -74,7 +69,7 @@
 
             <com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout
                 android:id="@+id/currentForecastViewSwitcher"
-                style="@style/CrossFadeDefaultStyle"
+                style="@style/CrossFadeDefault"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:crossDisplayedChild="0">

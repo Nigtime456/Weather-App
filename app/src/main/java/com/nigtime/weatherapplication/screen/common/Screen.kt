@@ -43,7 +43,7 @@ interface Screen {
 
                 manager.beginTransaction()
                     .hideCurrentVisible(manager.currentVisibleFrag())
-                    .add(container, SavedLocationsFragment(), SAVED_LOCATIONS)
+                    .add(container, frag, SAVED_LOCATIONS)
                     .addToBackStack(SAVED_LOCATIONS)
                     .commit()
             }
@@ -56,7 +56,7 @@ interface Screen {
 
                 manager.beginTransaction()
                     .hideCurrentVisible(manager.currentVisibleFrag())
-                    .add(container, SearchCityFragment(), SEARCH_CITY)
+                    .add(container, frag, SEARCH_CITY)
                     .addToBackStack(SEARCH_CITY)
                     .commit()
             }

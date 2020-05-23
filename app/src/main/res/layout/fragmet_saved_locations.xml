@@ -10,7 +10,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/savedLocationsAppbar"
-        style="@style/LiftingToolbarCardStyle"
+        style="@style/LiftingCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -21,7 +21,7 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/savedLocationsToolbar"
-                style="@style/ToolbarMainStyle"
+                style="@style/ToolbarDefault"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:menu="@menu/saved_locations"
@@ -33,7 +33,7 @@
 
     <com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout
         android:id="@+id/savedLocationsViewSwitcher"
-        style="@style/CrossFadeDefaultStyle"
+        style="@style/CrossFadeDefault"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:crossDisplayedChild="1">

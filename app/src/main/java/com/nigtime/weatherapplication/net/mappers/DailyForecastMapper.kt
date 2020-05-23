@@ -5,7 +5,7 @@
 package com.nigtime.weatherapplication.net.mappers
 
 import com.nigtime.weatherapplication.domain.forecast.DailyForecast
-import com.nigtime.weatherapplication.domain.utility.WeatherConditionHelper
+import com.nigtime.weatherapplication.domain.util.WeatherConditionHelper
 import com.nigtime.weatherapplication.net.data.NetData
 import com.nigtime.weatherapplication.net.json.JsonDailyData
 import com.nigtime.weatherapplication.net.json.JsonDailyForecast
@@ -26,7 +26,7 @@ class DailyForecastMapper {
     }
 
     private fun JsonDailyData.toDailyWeather(index: Int): DailyForecast.DailyWeather {
-        val ico = WeatherConditionHelper.getIconByCode(weather.code)
+        val ico = WeatherConditionHelper.getIconByCode(weather.icon)
         val dateFormatter = SimpleDateFormat(DATE_PATTERN, Locale.ROOT)
         val unixTimestamp = dateFormatter.parse(date)?.time ?: 0
         return DailyForecast.DailyWeather(maxTemp, minTemp, ico, index, unixTimestamp)
