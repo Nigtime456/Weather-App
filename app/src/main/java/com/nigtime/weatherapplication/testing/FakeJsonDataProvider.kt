@@ -905,7 +905,7 @@ object FakeJsonDataProvider {
                 {
                     "wind_cdir": "SW",
                     "rh": 81,
-                    "pod": "item_preference",
+                    "pod": "d",
                     "timestamp_utc": "2020-05-11T20:00:00",
                     "pres": 987.59,
                     "solar_rad": 0.551,
