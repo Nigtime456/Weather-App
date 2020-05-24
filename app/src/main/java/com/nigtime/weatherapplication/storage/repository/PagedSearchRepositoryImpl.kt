@@ -7,7 +7,7 @@ package com.nigtime.weatherapplication.storage.repository
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.location.PagedSearchRepository
 import com.nigtime.weatherapplication.domain.location.SearchCity
-import com.nigtime.weatherapplication.storage.mapper.SearchCityMapper
+import com.nigtime.weatherapplication.storage.mappers.SearchCityMapper
 import com.nigtime.weatherapplication.storage.service.ReferenceCitiesDao
 import com.nigtime.weatherapplication.storage.service.SavedLocationsDao
 import io.reactivex.Single

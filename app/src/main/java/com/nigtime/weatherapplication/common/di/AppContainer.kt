@@ -20,14 +20,15 @@ import com.nigtime.weatherapplication.net.mappers.SunInfoMapper
 import com.nigtime.weatherapplication.net.repository.ForecastProviderImpl
 import com.nigtime.weatherapplication.net.repository.ForecastSource
 import com.nigtime.weatherapplication.net.service.ApiFactory
-import com.nigtime.weatherapplication.storage.mapper.SavedLocationMapper
-import com.nigtime.weatherapplication.storage.mapper.SearchCityMapper
+import com.nigtime.weatherapplication.storage.mappers.SavedLocationMapper
+import com.nigtime.weatherapplication.storage.mappers.SearchCityMapper
 import com.nigtime.weatherapplication.storage.preference.SettingsProviderImpl
 import com.nigtime.weatherapplication.storage.repository.PagedSearchRepositoryImpl
 import com.nigtime.weatherapplication.storage.repository.SavedLocationRepositoryImpl
-import com.nigtime.weatherapplication.storage.service.AppDatabase
 import com.nigtime.weatherapplication.storage.service.ReferenceCitiesDao
+import com.nigtime.weatherapplication.storage.service.ReferenceCitiesDatabase
 import com.nigtime.weatherapplication.storage.service.SavedLocationsDao
+import com.nigtime.weatherapplication.storage.service.SavedLocationsDatabase
 import com.nigtime.weatherapplication.testing.FakeForecastSource
 
 /**
@@ -55,9 +56,10 @@ class AppContainer(val appContext: Context) {
     val settingsProvider: SettingsProvider = SettingsProviderImpl(appContext)
 
     init {
-        val database = AppDatabase.getInstance(appContext)
-        referenceCitiesDao = database.referenceCitiesDao()
-        savedLocationsDao = database.savedLocationsDao()
+        val referenceCitiesDatabase = ReferenceCitiesDatabase.getInstance(appContext)
+        val savedLocationsDatabase = SavedLocationsDatabase.getInstance(appContext)
+        referenceCitiesDao = referenceCitiesDatabase.referenceCitiesDao()
+        savedLocationsDao = savedLocationsDatabase.savedLocationsDao()
 
         savedLocationsRepository =
             SavedLocationRepositoryImpl(

@@ -8,7 +8,7 @@ import android.util.Log
 import com.nigtime.weatherapplication.common.rx.SchedulerProvider
 import com.nigtime.weatherapplication.domain.location.SavedLocation
 import com.nigtime.weatherapplication.domain.location.SavedLocationsRepository
-import com.nigtime.weatherapplication.storage.mapper.SavedLocationMapper
+import com.nigtime.weatherapplication.storage.mappers.SavedLocationMapper
 import com.nigtime.weatherapplication.storage.service.ReferenceCitiesDao
 import com.nigtime.weatherapplication.storage.service.SavedLocationsDao
 import io.reactivex.Completable

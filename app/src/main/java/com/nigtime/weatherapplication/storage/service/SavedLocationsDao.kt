@@ -5,7 +5,7 @@
 package com.nigtime.weatherapplication.storage.service
 
 import androidx.room.*
-import com.nigtime.weatherapplication.storage.table.LocationsTable
+import com.nigtime.weatherapplication.storage.tables.SavedLocationTable
 import io.reactivex.Observable
 import io.reactivex.Single
 
@@ -14,19 +14,19 @@ import io.reactivex.Single
 interface SavedLocationsDao {
 
     @Query("SELECT *FROM saved_locations ORDER BY list_index ASC")
-    fun getAll(): Observable<List<LocationsTable>>
+    fun getAll(): Observable<List<SavedLocationTable>>
 
     @Query("SELECT *FROM saved_locations ORDER BY list_index ASC")
-    fun getAllOnce(): Single<List<LocationsTable>>
+    fun getAllOnce(): Single<List<SavedLocationTable>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun updateAll(items: List<LocationsTable>)
+    fun updateAll(items: List<SavedLocationTable>)
 
     @Delete
-    fun delete(item: LocationsTable)
+    fun delete(item: SavedLocationTable)
 
     @Insert
-    fun insert(item: LocationsTable)
+    fun insert(item: SavedLocationTable)
 
     /**
      * Возвращает текущий максимальный порядковый номер из сохраненных городов
@@ -39,5 +39,5 @@ interface SavedLocationsDao {
     fun getAllIds(): List<Long>
 
     @Query("SELECT * FROM saved_locations LIMIT 1")
-    fun getOneRow(): List<LocationsTable>
+    fun getOneRow(): List<SavedLocationTable>
 }
