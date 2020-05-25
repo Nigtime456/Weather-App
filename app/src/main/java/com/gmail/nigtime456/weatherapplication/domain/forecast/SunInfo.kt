@@ -4,4 +4,7 @@
 
 package com.gmail.nigtime456.weatherapplication.domain.forecast
 
-data class SunInfo constructor(val localSunriseTime: String, val localSunsetTime: String)
+data class SunInfo constructor(
+    val localSunriseTime: String,
+    val localSunsetTime: String
+)

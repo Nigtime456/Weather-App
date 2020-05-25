@@ -6,6 +6,8 @@ package com.gmail.nigtime456.weatherapplication.screen.common
 
 import android.content.Context
 import android.content.res.Configuration
+import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import com.gmail.nigtime456.weatherapplication.common.App
 import io.reactivex.disposables.CompositeDisposable
@@ -20,7 +22,8 @@ import java.util.*
  */
 abstract class BaseActivity : AppCompatActivity() {
     private val compositeDisposable = CompositeDisposable()
-    protected val settingsProvider = App.INSTANCE.appContainer.settingsProvider
+    private val settingsProvider = App.INSTANCE.appContainer.settingsProvider
+    protected val presenterFactory = App.INSTANCE.presenterFactory
 
     override fun attachBaseContext(newBase: Context) {
         return super.attachBaseContext(createLanguageContext(newBase))
@@ -44,19 +47,15 @@ abstract class BaseActivity : AppCompatActivity() {
         super.applyOverrideConfiguration(overrideConfiguration)
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
         observeLangChanges()
         observeThemeChanges()
     }
 
-    override fun onStop() {
-        super.onStop()
-        compositeDisposable.clear()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
+        compositeDisposable.clear()
         AppWatcher.objectWatcher.watch(this, "activity leak")
     }
 
@@ -77,4 +76,5 @@ abstract class BaseActivity : AppCompatActivity() {
     protected fun Disposable.disposeOnStop() {
         compositeDisposable.add(this)
     }
+
 }

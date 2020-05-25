@@ -8,8 +8,8 @@
 
 package com.gmail.nigtime456.weatherapplication.net.repository
 
-import com.gmail.nigtime456.weatherapplication.domain.params.RequestParams
-import com.gmail.nigtime456.weatherapplication.net.data.NetData
+import com.gmail.nigtime456.weatherapplication.domain.net.RequestParams
+import com.gmail.nigtime456.weatherapplication.net.dto.NetData
 import com.gmail.nigtime456.weatherapplication.net.json.JsonCurrentForecast
 import com.gmail.nigtime456.weatherapplication.net.json.JsonDailyForecast
 import com.gmail.nigtime456.weatherapplication.net.json.JsonHourlyForecast
@@ -20,17 +20,17 @@ class NetForecastSourceImpl constructor(
     private val weatherApi: WeatherApi
 ) : ForecastSource {
 
-    override fun getJsonCurrentForecast(requestParams: RequestParams): Observable<NetData<JsonCurrentForecast>> {
+    override fun getCurrentForecast(requestParams: RequestParams): Observable<NetData<JsonCurrentForecast>> {
         return weatherApi.currentForecast(makeQueryParams(requestParams))
             .map(mapToNetData())
     }
 
-    override fun getJsonHourlyForecast(requestParams: RequestParams): Observable<NetData<JsonHourlyForecast>> {
+    override fun getHourlyForecast(requestParams: RequestParams): Observable<NetData<JsonHourlyForecast>> {
         return weatherApi.hourlyForecast(makeQueryParams(requestParams))
             .map(mapToNetData())
     }
 
-    override fun getJsonDailyForecast(requestParams: RequestParams): Observable<NetData<JsonDailyForecast>> {
+    override fun getDailyForecast(requestParams: RequestParams): Observable<NetData<JsonDailyForecast>> {
         return weatherApi.dailyForecast(makeQueryParams(requestParams))
             .map(mapToNetData())
     }
@@ -49,10 +49,7 @@ class NetForecastSourceImpl constructor(
     }
 
     private fun <T> mapToNetData(): (T) -> NetData<T> = { data: T ->
-        NetData(
-            data,
-            getTimestamp()
-        )
+        NetData(getTimestamp(), data)
     }
 
     private fun getTimestamp(): Long {

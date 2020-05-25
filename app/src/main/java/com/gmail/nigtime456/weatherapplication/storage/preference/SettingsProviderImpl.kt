@@ -8,7 +8,11 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import com.gmail.nigtime456.weatherapplication.R
-import com.gmail.nigtime456.weatherapplication.domain.settings.*
+import com.gmail.nigtime456.weatherapplication.domain.repository.SettingsProvider
+import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfLength
+import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfPressure
+import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfSpeed
+import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfTemp
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject

@@ -7,8 +7,8 @@ package com.gmail.nigtime456.weatherapplication.screen.search.paging
 import androidx.paging.PagedList
 import androidx.paging.toFlowable
 import com.gmail.nigtime456.weatherapplication.common.rx.SchedulerProvider
-import com.gmail.nigtime456.weatherapplication.domain.location.PagedSearchRepository
 import com.gmail.nigtime456.weatherapplication.domain.location.SearchCity
+import com.gmail.nigtime456.weatherapplication.domain.repository.PagedSearchRepository
 import io.reactivex.Flowable
 
 /**

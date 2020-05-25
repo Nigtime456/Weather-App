@@ -8,6 +8,7 @@ import android.app.Application
 import androidx.preference.PreferenceManager
 import com.gmail.nigtime456.weatherapplication.R
 import com.gmail.nigtime456.weatherapplication.common.di.AppContainer
+import com.gmail.nigtime456.weatherapplication.common.di.PresenterFactory
 import com.gmail.nigtime456.weatherapplication.common.log.CustomLogger
 import leakcanary.AppWatcher
 import leakcanary.LeakCanary
@@ -19,6 +20,8 @@ class App : Application() {
     }
 
     lateinit var appContainer: AppContainer
+        private set
+    lateinit var presenterFactory: PresenterFactory
         private set
 
     override fun onCreate() {
@@ -41,7 +44,7 @@ class App : Application() {
      */
     private fun setCanary() {
         AppWatcher.config = AppWatcher.config.copy(
-            enabled = true,
+            enabled = false,
             watchActivities = true,
             watchFragments = true,
             watchFragmentViews = true,
@@ -53,6 +56,10 @@ class App : Application() {
 
     private fun setContainer() {
         appContainer = AppContainer(this)
+    }
+
+    private fun setPresenterFactory() {
+        presenterFactory = PresenterFactory()
     }
 
     /**

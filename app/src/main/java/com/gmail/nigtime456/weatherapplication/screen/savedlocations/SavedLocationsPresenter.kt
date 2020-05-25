@@ -8,7 +8,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import com.gmail.nigtime456.weatherapplication.common.rx.RxDelayedMessageDispatcher
 import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
-import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocationsRepository
+import com.gmail.nigtime456.weatherapplication.domain.repository.SavedLocationsRepository
 import com.gmail.nigtime456.weatherapplication.screen.common.BasePresenter
 import io.reactivex.rxkotlin.subscribeBy
 

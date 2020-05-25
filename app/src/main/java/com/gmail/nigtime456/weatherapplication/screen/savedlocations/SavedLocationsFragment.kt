@@ -4,7 +4,9 @@
 
 package com.gmail.nigtime456.weatherapplication.screen.savedlocations
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.Toast
@@ -12,9 +14,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.nigtime456.weatherapplication.R
+import com.gmail.nigtime456.weatherapplication.common.list.ColorDividerDecoration
+import com.gmail.nigtime456.weatherapplication.common.list.ItemTouchController
 import com.gmail.nigtime456.weatherapplication.common.util.ThemeUtils
-import com.gmail.nigtime456.weatherapplication.common.util.list.ColorDividerDecoration
-import com.gmail.nigtime456.weatherapplication.common.util.list.ItemTouchController
 import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
 import com.gmail.nigtime456.weatherapplication.screen.common.BaseFragment
 import com.gmail.nigtime456.weatherapplication.screen.common.BasePresenterProvider
@@ -71,9 +73,19 @@ class SavedLocationsFragment :
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.d("sas", "attach")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d("sas", "dettach")
+    }
+
     override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 
-    override fun getPresenterProvider(): BasePresenterProvider<SavedLocationsPresenter> {
+    override fun getPresenterFactory(): BasePresenterProvider<SavedLocationsPresenter> {
         return getRelatedViewModel()
     }
 

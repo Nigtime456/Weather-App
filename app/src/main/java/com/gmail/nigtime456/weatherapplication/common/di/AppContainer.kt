@@ -8,15 +8,11 @@ import android.content.Context
 import com.gmail.nigtime456.weatherapplication.common.rx.MainSchedulerProvider
 import com.gmail.nigtime456.weatherapplication.common.rx.RxAsyncDiffer
 import com.gmail.nigtime456.weatherapplication.common.rx.SchedulerProvider
-import com.gmail.nigtime456.weatherapplication.domain.forecast.ForecastProvider
-import com.gmail.nigtime456.weatherapplication.domain.location.PagedSearchRepository
-import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocationsRepository
-import com.gmail.nigtime456.weatherapplication.domain.settings.SettingsProvider
-import com.gmail.nigtime456.weatherapplication.net.cache.MemoryCacheForecastSource
-import com.gmail.nigtime456.weatherapplication.net.mappers.CurrentForecastMapper
-import com.gmail.nigtime456.weatherapplication.net.mappers.DailyForecastMapper
-import com.gmail.nigtime456.weatherapplication.net.mappers.HourlyForecastMapper
-import com.gmail.nigtime456.weatherapplication.net.mappers.SunInfoMapper
+import com.gmail.nigtime456.weatherapplication.domain.repository.ForecastProvider
+import com.gmail.nigtime456.weatherapplication.domain.repository.PagedSearchRepository
+import com.gmail.nigtime456.weatherapplication.domain.repository.SavedLocationsRepository
+import com.gmail.nigtime456.weatherapplication.domain.repository.SettingsProvider
+import com.gmail.nigtime456.weatherapplication.net.mappers.*
 import com.gmail.nigtime456.weatherapplication.net.repository.ForecastProviderImpl
 import com.gmail.nigtime456.weatherapplication.net.repository.ForecastSource
 import com.gmail.nigtime456.weatherapplication.net.service.ApiFactory
@@ -45,7 +41,6 @@ class AppContainer(val appContext: Context) {
 
     private val weatherApi = ApiFactory.getInstance().getApi()
     private val netSource: ForecastSource = FakeForecastSource()
-    private val memoryCacheSource = MemoryCacheForecastSource()
 
     val schedulerProvider: SchedulerProvider = MainSchedulerProvider()
 
@@ -61,23 +56,37 @@ class AppContainer(val appContext: Context) {
         referenceCitiesDao = referenceCitiesDatabase.referenceCitiesDao()
         savedLocationsDao = savedLocationsDatabase.savedLocationsDao()
 
-        savedLocationsRepository =
-            SavedLocationRepositoryImpl(
-                schedulerProvider,
-                referenceCitiesDao,
-                savedLocationsDao,
-                SavedLocationMapper()
-            )
+        savedLocationsRepository = getSavedLocationsRepository()
 
         forecastProvider = ForecastProviderImpl(
             schedulerProvider,
             netSource,
-            memoryCacheSource,
-            CurrentForecastMapper(SunInfoMapper()),
-            HourlyForecastMapper(),
-            DailyForecastMapper()
+            getCurrentForecastMapper(),
+            getHourlyForecastMapper(),
+            getDailyForecastMapper()
         )
+    }
 
+    private fun getDailyForecastMapper() = DailyForecastMapper(DailyWeatherMapper())
+
+    private fun getHourlyForecastMapper() = HourlyForecastMapper(HourlyWeatherMapper())
+
+    private fun getCurrentForecastMapper(): CurrentForecastMapper {
+        return CurrentForecastMapper(
+            WindMapper(),
+            AirQualityMapper(),
+            UvIndexMapper(),
+            SunInfoMapper()
+        )
+    }
+
+    private fun getSavedLocationsRepository(): SavedLocationRepositoryImpl {
+        return SavedLocationRepositoryImpl(
+            schedulerProvider,
+            referenceCitiesDao,
+            savedLocationsDao,
+            SavedLocationMapper()
+        )
     }
 
     fun getRxAsyncDiffer(): RxAsyncDiffer = RxAsyncDiffer(schedulerProvider)

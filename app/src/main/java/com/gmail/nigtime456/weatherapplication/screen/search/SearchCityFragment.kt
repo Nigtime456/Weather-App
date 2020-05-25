@@ -13,10 +13,10 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import com.gmail.nigtime456.weatherapplication.R
+import com.gmail.nigtime456.weatherapplication.common.list.ColorDividerDecoration
 import com.gmail.nigtime456.weatherapplication.common.util.ColorSpanHelper
 import com.gmail.nigtime456.weatherapplication.common.util.SimpleTextWatcher
 import com.gmail.nigtime456.weatherapplication.common.util.ThemeUtils
-import com.gmail.nigtime456.weatherapplication.common.util.list.ColorDividerDecoration
 import com.gmail.nigtime456.weatherapplication.domain.location.SearchCity
 import com.gmail.nigtime456.weatherapplication.screen.common.BaseFragment
 import com.gmail.nigtime456.weatherapplication.screen.common.BasePresenterProvider
@@ -41,7 +41,7 @@ class SearchCityFragment :
 
     override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 
-    override fun getPresenterProvider(): BasePresenterProvider<SearchCityPresenter> {
+    override fun getPresenterFactory(): BasePresenterProvider<SearchCityPresenter> {
         return ViewModelProvider(this).get(SearchCityPresenterProvider::class.java)
     }
 

@@ -7,8 +7,8 @@ package com.gmail.nigtime456.weatherapplication.screen.search.paging
 import androidx.annotation.WorkerThread
 import androidx.paging.DataSource
 import androidx.paging.PositionalDataSource
-import com.gmail.nigtime456.weatherapplication.domain.location.PagedSearchRepository
 import com.gmail.nigtime456.weatherapplication.domain.location.SearchCity
+import com.gmail.nigtime456.weatherapplication.domain.repository.PagedSearchRepository
 
 /**
  * Фабрика [DataSource], нужна для подрузки первой партии данных асинхронно

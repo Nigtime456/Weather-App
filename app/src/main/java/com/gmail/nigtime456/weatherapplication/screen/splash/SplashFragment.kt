@@ -26,7 +26,7 @@ class SplashFragment :
 
     override fun getListenerClass(): Class<SplashParent> = SplashParent::class.java
 
-    override fun getPresenterProvider(): BasePresenterProvider<SplashPresenter> {
+    override fun getPresenterFactory(): BasePresenterProvider<SplashPresenter> {
         return ViewModelProvider(this).get(SplashPresenterProvider::class.java)
     }
 
@@ -34,8 +34,8 @@ class SplashFragment :
         attachedListener?.removeSplashBackground()
     }
 
-    override fun navigateToLocationPagesScreen() {
-        attachedListener?.navigateTo(Screen.Factory.locationPages())
+    override fun navigateToCurrentForecastScreen() {
+        attachedListener?.navigateTo(Screen.Factory.currentForecastHost())
     }
 
     override fun navigateToSavedLocationsScreen() {

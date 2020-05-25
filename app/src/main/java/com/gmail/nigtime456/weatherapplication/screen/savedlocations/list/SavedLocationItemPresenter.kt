@@ -5,9 +5,9 @@
 package com.gmail.nigtime456.weatherapplication.screen.savedlocations.list
 
 import com.gmail.nigtime456.weatherapplication.domain.forecast.CurrentForecast
-import com.gmail.nigtime456.weatherapplication.domain.forecast.ForecastProvider
 import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
-import com.gmail.nigtime456.weatherapplication.domain.settings.SettingsProvider
+import com.gmail.nigtime456.weatherapplication.domain.repository.ForecastProvider
+import com.gmail.nigtime456.weatherapplication.domain.repository.SettingsProvider
 import com.gmail.nigtime456.weatherapplication.screen.common.BasePresenter
 
 class SavedLocationItemPresenter(

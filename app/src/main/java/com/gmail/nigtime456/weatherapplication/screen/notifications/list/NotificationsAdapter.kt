@@ -12,8 +12,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.gmail.nigtime456.weatherapplication.R
-import com.gmail.nigtime456.weatherapplication.common.util.list.BaseAdapter
-import com.gmail.nigtime456.weatherapplication.common.util.list.SimpleDiffCallback
+import com.gmail.nigtime456.weatherapplication.common.list.BaseAdapter
+import com.gmail.nigtime456.weatherapplication.common.list.SimpleDiffCallback
 import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
 
 

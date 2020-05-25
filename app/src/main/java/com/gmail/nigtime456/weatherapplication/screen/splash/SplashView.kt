@@ -7,6 +7,6 @@ package com.gmail.nigtime456.weatherapplication.screen.splash
 
 interface SplashView {
     fun finishSplash()
-    fun navigateToLocationPagesScreen()
+    fun navigateToCurrentForecastScreen()
     fun navigateToSavedLocationsScreen()
 }

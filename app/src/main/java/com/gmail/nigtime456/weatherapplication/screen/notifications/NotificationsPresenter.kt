@@ -5,7 +5,7 @@
 package com.gmail.nigtime456.weatherapplication.screen.notifications
 
 import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
-import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocationsRepository
+import com.gmail.nigtime456.weatherapplication.domain.repository.SavedLocationsRepository
 import com.gmail.nigtime456.weatherapplication.screen.common.BasePresenter
 import io.reactivex.rxkotlin.subscribeBy
 

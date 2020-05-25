@@ -7,7 +7,7 @@ package com.gmail.nigtime456.weatherapplication.storage.repository
 import android.util.Log
 import com.gmail.nigtime456.weatherapplication.common.rx.SchedulerProvider
 import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
-import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocationsRepository
+import com.gmail.nigtime456.weatherapplication.domain.repository.SavedLocationsRepository
 import com.gmail.nigtime456.weatherapplication.storage.mappers.SavedLocationMapper
 import com.gmail.nigtime456.weatherapplication.storage.service.ReferenceCitiesDao
 import com.gmail.nigtime456.weatherapplication.storage.service.SavedLocationsDao
@@ -40,13 +40,13 @@ class SavedLocationRepositoryImpl constructor(
                 Log.d("sas", "LOAD = $it")
             }
             .map(mapper::mapDomainList)
-            .subscribeOn(schedulerProvider.database())
-            .observeOn(schedulerProvider.ui())
             .replay(1)
             .refCount()
             .doOnEach {
                 Log.d("sas", "REF = $it")
             }
+            .subscribeOn(schedulerProvider.database())
+            .observeOn(schedulerProvider.ui())
     }
 
     override fun getLocationsOnce(): Single<List<SavedLocation>> {

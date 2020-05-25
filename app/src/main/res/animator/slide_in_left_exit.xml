@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/5/25
+  -->
+
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="4000"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:propertyName="x"
+    android:valueTo="-1280"
+    android:valueType="floatType" />

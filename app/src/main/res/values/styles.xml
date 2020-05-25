@@ -1,11 +1,15 @@
 <resources>
+    <!--  Splash theme  -->
+    <style name="SplashTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowBackground">@drawable/drawable_splash</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="BaseTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorAccent">#673AB7</item>
         <item name="android:colorEdgeEffect">?attr/colorAccent</item>
         <item name="android:colorControlActivated">?attr/colorAccent</item>
-        <item name="android:windowBackground">@drawable/drawable_splash</item>
-        <item name="android:windowFullscreen">true</item>
         <item name="buttonBarNegativeButtonStyle">@style/AlertDialogButton</item>
 
         <!--   Action Mode     -->

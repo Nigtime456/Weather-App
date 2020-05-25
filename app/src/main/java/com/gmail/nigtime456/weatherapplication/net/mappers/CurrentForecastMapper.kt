@@ -4,44 +4,58 @@
 
 package com.gmail.nigtime456.weatherapplication.net.mappers
 
-import com.gmail.nigtime456.weatherapplication.domain.forecast.AirQuality
 import com.gmail.nigtime456.weatherapplication.domain.forecast.CurrentForecast
-import com.gmail.nigtime456.weatherapplication.domain.forecast.UvIndex
-import com.gmail.nigtime456.weatherapplication.domain.forecast.Wind
-import com.gmail.nigtime456.weatherapplication.domain.util.WeatherConditionHelper
-import com.gmail.nigtime456.weatherapplication.net.data.NetData
+import com.gmail.nigtime456.weatherapplication.net.dto.NetData
 import com.gmail.nigtime456.weatherapplication.net.json.JsonCurrentForecast
 
 
 class CurrentForecastMapper constructor(
+    private val windMapper: WindMapper,
+    private val airQualityMapper: AirQualityMapper,
+    private val uvIndexMapper: UvIndexMapper,
     private val sunInfoMapper: SunInfoMapper
 ) {
 
     fun map(json: NetData<JsonCurrentForecast>): CurrentForecast {
         val jsonCurrentData = json.data.forecastList[0]
-        val wind = Wind(jsonCurrentData.windSped, jsonCurrentData.windDirectionDegrees)
-        val airQuality = AirQuality(jsonCurrentData.airQualityIndex)
-        val uvIndex = UvIndex(jsonCurrentData.uvIndex.toInt())
+
+        val loadTimestamp = json.loadTimestamp
+
+        val temp = jsonCurrentData.temp
+        val feelsLikeTemp = jsonCurrentData.feelsLikeTemp
         val icon = WeatherConditionHelper.getIconByCode(jsonCurrentData.weather.icon)
         val description = WeatherConditionHelper.getDescriptionByCode(jsonCurrentData.weather.code)
+
+        val wind = windMapper.map(jsonCurrentData)
+
+        val humidity = jsonCurrentData.averageHumidity
+        val pressure = jsonCurrentData.pressure
+        val visibility = jsonCurrentData.visibility
+
+        val airQuality = airQualityMapper.map(jsonCurrentData)
+        val uvIndex = uvIndexMapper.map(jsonCurrentData)
+
+        val cloudsCoverage = jsonCurrentData.cloudsCoverage
+
+        val timeZone = jsonCurrentData.timezone
+
         val sunInfo = sunInfoMapper.map(jsonCurrentData)
 
         return CurrentForecast(
-            jsonCurrentData.temp,
+            loadTimestamp,
+            temp,
             icon,
-            jsonCurrentData.feelsLikeTemp,
+            feelsLikeTemp,
             description,
             wind,
-            jsonCurrentData.averageHumidity,
-            jsonCurrentData.pressure,
-            jsonCurrentData.visibility,
+            humidity,
+            pressure,
+            visibility,
             airQuality,
             uvIndex,
-            jsonCurrentData.cloudsCoverage,
-            jsonCurrentData.timezone,
+            cloudsCoverage,
+            timeZone,
             sunInfo
         )
     }
-
-
 }

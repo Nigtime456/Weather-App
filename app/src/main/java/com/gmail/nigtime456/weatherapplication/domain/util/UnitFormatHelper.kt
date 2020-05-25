@@ -28,7 +28,6 @@ class UnitFormatHelper constructor(private val context: Context) {
     }
 
     fun formatHumidity(humidity: Int): String {
-
         return context.getString(R.string.units_percent_pattern_f, humidity)
     }
 

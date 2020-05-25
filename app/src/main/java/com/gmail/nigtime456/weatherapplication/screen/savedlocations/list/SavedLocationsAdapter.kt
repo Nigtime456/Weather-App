@@ -12,9 +12,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.nigtime456.weatherapplication.R
-import com.gmail.nigtime456.weatherapplication.common.util.list.BaseAdapter
-import com.gmail.nigtime456.weatherapplication.common.util.list.ItemTouchController
-import com.gmail.nigtime456.weatherapplication.common.util.list.SimpleDiffCallback
+import com.gmail.nigtime456.weatherapplication.common.list.BaseAdapter
+import com.gmail.nigtime456.weatherapplication.common.list.ItemTouchController
+import com.gmail.nigtime456.weatherapplication.common.list.SimpleDiffCallback
 import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
 
 

@@ -66,7 +66,7 @@
             android:fillViewport="true"
             android:scrollbars="vertical"
             android:overScrollMode="never"
-            tools:context=".screen.currentforecast.CurrentForecastFragment">
+            tools:context=".screen.current.forecast.CurrentForecastFragment">
 
             <com.gmail.nigtime456.weatherapplication.common.customview.CrossFadeAnimatorLayout
                 android:id="@+id/currentForecastViewSwitcher"

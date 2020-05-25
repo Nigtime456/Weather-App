@@ -8,6 +8,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
 data class CurrentForecast constructor(
+    val loadTimestamp: Long,
     val temp: Double,
     @DrawableRes val ico: Int,
     val feelsLikeTemp: Double,

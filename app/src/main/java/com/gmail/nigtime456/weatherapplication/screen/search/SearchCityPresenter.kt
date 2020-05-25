@@ -5,9 +5,10 @@
 package com.gmail.nigtime456.weatherapplication.screen.search
 
 
+import android.util.Log
 import androidx.paging.PagedList
-import com.gmail.nigtime456.weatherapplication.domain.location.PagedSearchRepository
 import com.gmail.nigtime456.weatherapplication.domain.location.SearchCity
+import com.gmail.nigtime456.weatherapplication.domain.repository.PagedSearchRepository
 import com.gmail.nigtime456.weatherapplication.screen.common.BasePresenter
 import com.gmail.nigtime456.weatherapplication.screen.search.paging.PagedListLoader
 import io.reactivex.rxkotlin.subscribeBy
@@ -45,6 +46,7 @@ class SearchCityPresenter constructor(
     }
 
     private fun onCityInserted(insertedPosition: Int) {
+        Log.d("sas", "Insert = $insertedPosition")
         getView()?.setInsertionResult(insertedPosition)
         getView()?.navigateToPreviousScreen()
     }

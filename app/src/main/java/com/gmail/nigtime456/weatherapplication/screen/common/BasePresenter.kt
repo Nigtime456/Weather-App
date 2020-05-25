@@ -13,19 +13,6 @@ import java.lang.ref.WeakReference
  * Базовый класс презентера. На View держится слабая ссылка, сам презентер
  * может быть независимым от ЖЦ View, переживать её пересоздание и т.д.
  *
- * Контракт:
- * 1)[attach] - вызывается когда View присоеденно, отображается на экране,
- * и готово получать и отображать данные.
- * [onAttach] - может начинаться загрузка данных, настройка экрана.
- *
- * 2)[detach] - вызывается когда View отсоеденияется.
- * [onDetach] - могут быть заданы какие то параметры, скрыты диалоги, сообщения.
- *
- * 3)[destroy] - вызывается когда презентер более не нужен (фрагмент уничтожается полностью,
- * удаляется из стэк переходов)
- * [onDestroy] - освобождаются ресурсы, удаляются подписки, соедения с сестью, базой данных и т.д.
- *
- *
  * @param V - интерфейс MVP View
  * @param tag - тег для логгера.
  */
@@ -53,15 +40,12 @@ abstract class BasePresenter<V> constructor(tag: String = TAG) {
      */
     fun attach(view: V) {
         weakView = WeakReference(view)
-        onAttach()
-        logger.d("[${hashCode()}] attach")
     }
 
     /**
      * Отсоеденить презентер, когда экран стал невидимым, View приостановлено.
      */
     fun detach() {
-        onDetach()
         releaseView()
         logger.d("[${hashCode()}] detach")
     }
@@ -77,7 +61,6 @@ abstract class BasePresenter<V> constructor(tag: String = TAG) {
     fun destroy() {
         performDispose()
         releaseView()
-        onDestroy()
         logger.d("[${hashCode()}] destroy")
     }
 
@@ -93,27 +76,6 @@ abstract class BasePresenter<V> constructor(tag: String = TAG) {
      */
     fun isViewDetached(): Boolean {
         return !isViewAttached()
-    }
-
-    /**
-     * Вызывается когда презентер присоденен
-     */
-    protected open fun onAttach() {
-
-    }
-
-    /**
-     * Вызывается когда вью будет отсоедено
-     */
-    protected open fun onDetach() {
-
-    }
-
-    /**
-     * Вызывается когда презентер будет уничтожен
-     */
-    protected open fun onDestroy() {
-
     }
 
     /**

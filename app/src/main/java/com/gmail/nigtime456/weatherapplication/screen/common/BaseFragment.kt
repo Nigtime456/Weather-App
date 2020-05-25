@@ -5,9 +5,14 @@
 package com.gmail.nigtime456.weatherapplication.screen.common
 
 import android.content.Context
+import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
+import com.gmail.nigtime456.weatherapplication.common.App
+import com.gmail.nigtime456.weatherapplication.common.mvp.BasePresenter
+import com.gmail.nigtime456.weatherapplication.common.mvp.PresenterFactory
 
 
 /**
@@ -22,22 +27,26 @@ import androidx.annotation.StringRes
 abstract class BaseFragment<V, P : BasePresenter<V>, L>(@LayoutRes private val layoutRes: Int) :
     FragmentWithListener<L>(layoutRes) {
 
-    /**
-     * Связанный листенер
-     */
+    private val presenterProvider = App.INSTANCE.presenterProvider
     private var previousToast: Toast? = null
     protected lateinit var presenter: P
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        presenter = getPresenterProvider().getPresenter()
+        presenter = presenterProvider.getPresenter(javaClass.name, getPresenterFactory())
     }
 
     override fun onDetach() {
         super.onDetach()
         previousToast = null
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        presenter.attach(this as V)
+    }
+
+
 
     @Suppress("UNCHECKED_CAST")
     override fun onStart() {
@@ -71,5 +80,5 @@ abstract class BaseFragment<V, P : BasePresenter<V>, L>(@LayoutRes private val l
         previousToast?.show()
     }
 
-    protected abstract fun getPresenterProvider(): BasePresenterProvider<P>
+    protected abstract fun getPresenterFactory(): PresenterFactory<P>
 }

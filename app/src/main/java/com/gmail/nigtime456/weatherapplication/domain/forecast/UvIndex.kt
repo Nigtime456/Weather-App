@@ -8,6 +8,7 @@ import androidx.annotation.StringRes
 import com.gmail.nigtime456.weatherapplication.R
 
 data class UvIndex constructor(val index: Int) {
+
     @StringRes
     fun getFormattingString(): Int = when (index) {
         in 0..2 -> R.string.uv_index_low_f

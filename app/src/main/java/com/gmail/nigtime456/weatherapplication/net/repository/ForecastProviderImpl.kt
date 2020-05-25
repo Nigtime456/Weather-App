@@ -4,13 +4,13 @@
 
 package com.gmail.nigtime456.weatherapplication.net.repository
 
+import androidx.collection.LruCache
 import com.gmail.nigtime456.weatherapplication.common.rx.SchedulerProvider
 import com.gmail.nigtime456.weatherapplication.domain.forecast.CurrentForecast
 import com.gmail.nigtime456.weatherapplication.domain.forecast.DailyForecast
-import com.gmail.nigtime456.weatherapplication.domain.forecast.ForecastProvider
 import com.gmail.nigtime456.weatherapplication.domain.forecast.HourlyForecast
-import com.gmail.nigtime456.weatherapplication.domain.params.RequestParams
-import com.gmail.nigtime456.weatherapplication.net.cache.MemoryCacheForecastSource
+import com.gmail.nigtime456.weatherapplication.domain.net.RequestParams
+import com.gmail.nigtime456.weatherapplication.domain.repository.ForecastProvider
 import com.gmail.nigtime456.weatherapplication.net.mappers.CurrentForecastMapper
 import com.gmail.nigtime456.weatherapplication.net.mappers.DailyForecastMapper
 import com.gmail.nigtime456.weatherapplication.net.mappers.HourlyForecastMapper
@@ -19,82 +19,80 @@ import io.reactivex.Observable
 class ForecastProviderImpl constructor(
     private val schedulerProvider: SchedulerProvider,
     private val netSource: ForecastSource,
-    private val memoryCacheSource: MemoryCacheForecastSource,
-    private val currentDataMapper: CurrentForecastMapper,
-    private val hourlyDataMapper: HourlyForecastMapper,
-    private val dailyDataMapper: DailyForecastMapper
+    private val currentMapper: CurrentForecastMapper,
+    private val hourlyMapper: HourlyForecastMapper,
+    private val dailyMapper: DailyForecastMapper
 ) : ForecastProvider {
+
+    private companion object {
+        private const val MAX_STORE_SIZE = 200
+    }
+
+    private val currentStore: LruCache<Long, Observable<CurrentForecast>> = LruCache(MAX_STORE_SIZE)
+    private val hourlyStore: LruCache<Long, Observable<HourlyForecast>> = LruCache(MAX_STORE_SIZE)
+    private val dailyStore: LruCache<Long, Observable<DailyForecast>> = LruCache(MAX_STORE_SIZE)
 
     override fun getCurrentForecast(
         params: RequestParams,
         forceNet: Boolean
     ): Observable<CurrentForecast> {
 
-        return resolveSource(
-            params,
-            forceNet,
-            netSource::getJsonCurrentForecast,
-            memoryCacheSource::getJsonCurrentForecast,
-            memoryCacheSource::storeJsonCurrentForecast
-        ).map(currentDataMapper::map)
+        return if (forceNet) {
+            forceNetCurrentForecast(params)
+        } else {
+            currentStore.get(params.getKey()) ?: forceNetCurrentForecast(params)
+        }
+    }
+
+    private fun forceNetCurrentForecast(params: RequestParams): Observable<CurrentForecast> {
+        return netSource.getCurrentForecast(params)
+            .map(currentMapper::map)
+            .replay(1)
+            .refCount()
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
+            .also { observable -> currentStore.put(params.getKey(), observable) }
     }
 
     override fun getHourlyForecast(
         params: RequestParams,
         forceNet: Boolean
     ): Observable<HourlyForecast> {
-        return resolveSource(
-            params,
-            forceNet,
-            netSource::getJsonHourlyForecast,
-            memoryCacheSource::getJsonHourlyForecast,
-            memoryCacheSource::storeJsonHourlyForecast
-        ).map(hourlyDataMapper::map)
+        return if (forceNet) {
+            forceNetHourlyForecast(params)
+        } else {
+            hourlyStore.get(params.getKey()) ?: forceNetHourlyForecast(params)
+        }
     }
 
+    private fun forceNetHourlyForecast(params: RequestParams): Observable<HourlyForecast> {
+        return netSource.getHourlyForecast(params)
+            .map(hourlyMapper::map)
+            .replay(1)
+            .refCount()
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
+            .also { observable -> hourlyStore.put(params.getKey(), observable) }
+    }
 
     override fun getDailyForecast(
         params: RequestParams,
         forceNet: Boolean
     ): Observable<DailyForecast> {
-        return resolveSource(
-            params,
-            forceNet,
-            netSource::getJsonDailyForecast,
-            memoryCacheSource::getJsonDailyForecast,
-            memoryCacheSource::storeJsonDailyForecast
-        ).map(dailyDataMapper::map)
-    }
-
-    private fun <T> resolveSource(
-        params: RequestParams,
-        forceNet: Boolean,
-        netSource: (RequestParams) -> Observable<T>,
-        memorySource: (RequestParams) -> T?,
-        cacheMemory: (RequestParams, T) -> Unit
-    ): Observable<T> {
-
-
         return if (forceNet) {
-            setupNetStream(params, netSource(params), cacheMemory)
+            forceNetDailyForecast(params)
         } else {
-            val memoryData = memorySource(params)
-            if (memoryData != null) {
-                Observable.just(memoryData)
-            } else {
-                setupNetStream(params, netSource(params), cacheMemory)
-            }
+            dailyStore.get(params.getKey()) ?: forceNetDailyForecast(params)
         }
     }
 
-    private fun <T> setupNetStream(
-        params: RequestParams,
-        netSource: Observable<T>,
-        memoryCache: (RequestParams, T) -> Unit
-    ): Observable<T> {
-        return netSource
-            .doOnNext { data -> memoryCache(params, data) }
+    private fun forceNetDailyForecast(params: RequestParams): Observable<DailyForecast> {
+        return netSource.getDailyForecast(params)
+            .map(dailyMapper::map)
+            .replay(1)
+            .refCount()
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())
+            .also { observable -> dailyStore.put(params.getKey(), observable) }
     }
 }

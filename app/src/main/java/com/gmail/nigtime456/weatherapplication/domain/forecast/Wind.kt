@@ -7,9 +7,11 @@ package com.gmail.nigtime456.weatherapplication.domain.forecast
 import androidx.annotation.StringRes
 import com.gmail.nigtime456.weatherapplication.R
 
-data class Wind constructor(val speed: Double, val degrees: Int) {
-    val cardinalDirection: CardinalDirection = CardinalDirection.fromDegrees(degrees)
-
+data class Wind constructor(
+    val speed: Double,
+    val degrees: Int,
+    val cardinalDirection: CardinalDirection
+) {
 
     enum class CardinalDirection {
         N, NNE, NE, ENE,

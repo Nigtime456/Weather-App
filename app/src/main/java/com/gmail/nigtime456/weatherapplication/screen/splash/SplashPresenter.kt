@@ -5,35 +5,20 @@
 package com.gmail.nigtime456.weatherapplication.screen.splash
 
 
-import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocationsRepository
-import com.gmail.nigtime456.weatherapplication.screen.common.BasePresenter
-import io.reactivex.rxkotlin.subscribeBy
+import com.gmail.nigtime456.weatherapplication.domain.repository.SavedLocationsRepository
+import com.gmail.nigtime456.weatherapplication.screen.splash_t.SplashContract
 
 class SplashPresenter(
     private val savedLocationsRepository: SavedLocationsRepository
-) : BasePresenter<SplashView>(TAG) {
+) : SplashContract.Presenter {
 
-    companion object {
-        private const val TAG = "splash"
+    override fun dispatchScreen() {
+
     }
 
-    override fun onAttach() {
-        super.onAttach()
-        dispatchScreen()
+    fun start() {
+        TODO("Not yet implemented")
     }
 
-    private fun dispatchScreen() {
-        savedLocationsRepository.hasLocations()
-            .subscribeBy(onSuccess = this::dispatchResult)
-            .disposeOnDestroy()
-    }
 
-    private fun dispatchResult(hasCities: Boolean) {
-        getView()?.finishSplash()
-        if (hasCities) {
-            getView()?.navigateToLocationPagesScreen()
-        } else {
-            getView()?.navigateToSavedLocationsScreen()
-        }
-    }
 }

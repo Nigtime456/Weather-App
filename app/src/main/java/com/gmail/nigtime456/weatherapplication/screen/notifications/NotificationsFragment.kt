@@ -8,8 +8,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.gmail.nigtime456.weatherapplication.R
+import com.gmail.nigtime456.weatherapplication.common.list.ColorDividerDecoration
 import com.gmail.nigtime456.weatherapplication.common.util.ThemeUtils
-import com.gmail.nigtime456.weatherapplication.common.util.list.ColorDividerDecoration
 import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
 import com.gmail.nigtime456.weatherapplication.screen.common.BaseFragment
 import com.gmail.nigtime456.weatherapplication.screen.common.BasePresenterProvider
@@ -23,7 +23,7 @@ class NotificationsFragment :
 
     override fun getListenerClass(): Class<NavigationController>? = NavigationController::class.java
 
-    override fun getPresenterProvider(): BasePresenterProvider<NotificationsPresenter> {
+    override fun getPresenterFactory(): BasePresenterProvider<NotificationsPresenter> {
         return ViewModelProvider(this).get(NotificationsPresenterProvider::class.java)
     }
 

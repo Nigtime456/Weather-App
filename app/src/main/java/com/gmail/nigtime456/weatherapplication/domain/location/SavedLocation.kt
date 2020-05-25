@@ -6,7 +6,7 @@ package com.gmail.nigtime456.weatherapplication.domain.location
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.gmail.nigtime456.weatherapplication.domain.params.RequestParams
+import com.gmail.nigtime456.weatherapplication.domain.net.RequestParams
 
 
 sealed class SavedLocation constructor(val listIndex: Int) : Parcelable {
