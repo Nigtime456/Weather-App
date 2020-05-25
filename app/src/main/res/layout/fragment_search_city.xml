@@ -50,7 +50,7 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout
+    <com.gmail.nigtime456.weatherapplication.common.customview.CrossFadeAnimatorLayout
         android:id="@+id/searchViewSwitcher"
         style="@style/CrossFadeDefault"
         android:layout_width="match_parent"
@@ -88,5 +88,5 @@
             android:layout_gravity="center"
             android:text="@string/search_city_not_found" />
 
-    </com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout>
+    </com.gmail.nigtime456.weatherapplication.common.customview.CrossFadeAnimatorLayout>
 </LinearLayout>

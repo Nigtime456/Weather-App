@@ -31,7 +31,7 @@
     </androidx.cardview.widget.CardView>
 
 
-    <com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout
+    <com.gmail.nigtime456.weatherapplication.common.customview.CrossFadeAnimatorLayout
         android:id="@+id/savedLocationsViewSwitcher"
         style="@style/CrossFadeDefault"
         android:layout_width="match_parent"
@@ -74,7 +74,7 @@
             android:gravity="center"
             android:text="@string/saved_locations_hint" />
 
-    </com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout>
+    </com.gmail.nigtime456.weatherapplication.common.customview.CrossFadeAnimatorLayout>
 
 
 </LinearLayout>

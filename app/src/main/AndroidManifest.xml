@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.nigtime.weatherapplication">
+    package="com.gmail.nigtime456.weatherapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.nigtime.weatherapplication.common.App"
+        android:name="com.gmail.nigtime456.weatherapplication.common.App"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,7 +14,7 @@
         android:supportsRtl="true">
 
         <activity
-            android:name="com.nigtime.weatherapplication.screen.main.MainActivity"
+            android:name="com.gmail.nigtime456.weatherapplication.screen.main.MainActivity"
             android:theme="@style/BaseTheme.Dark"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

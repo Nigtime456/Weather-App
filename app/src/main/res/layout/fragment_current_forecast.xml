@@ -59,7 +59,7 @@
         android:background="?attr/colorPrimary">
 
 
-        <com.nigtime.weatherapplication.common.customview.PendingNestedScrollView
+        <com.gmail.nigtime456.weatherapplication.common.customview.PendingNestedScrollView
             android:id="@+id/currentForecastScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -68,7 +68,7 @@
             android:overScrollMode="never"
             tools:context=".screen.currentforecast.CurrentForecastFragment">
 
-            <com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout
+            <com.gmail.nigtime456.weatherapplication.common.customview.CrossFadeAnimatorLayout
                 android:id="@+id/currentForecastViewSwitcher"
                 style="@style/CrossFadeDefault"
                 android:layout_width="match_parent"
@@ -81,9 +81,9 @@
 
                 <include layout="@layout/fragment_current_forecast_error" />
 
-            </com.nigtime.weatherapplication.common.customview.CrossFadeAnimatorLayout>
+            </com.gmail.nigtime456.weatherapplication.common.customview.CrossFadeAnimatorLayout>
 
-        </com.nigtime.weatherapplication.common.customview.PendingNestedScrollView>
+        </com.gmail.nigtime456.weatherapplication.common.customview.PendingNestedScrollView>
 
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
