@@ -4,6 +4,7 @@
 
 package com.gmail.nigtime456.weatherapplication.ui.list
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -22,9 +23,11 @@ abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> constructor(
         calculateDiffs: Boolean = true,
         commitCallback: () -> Unit = {}
     ) {
-        if (calculateDiffs) {
+        if (calculateDiffs && currentList.isNotEmpty()) {
+            Log.d("sas", "[${javaClass.name}] commit")
             calculateDiffs(newList, commitCallback)
         } else {
+            Log.d("sas", "[${javaClass.name}] commitImmediately")
             commitImmediately(newList, commitCallback)
         }
     }

@@ -11,6 +11,7 @@
     tools:context=".ui.screen.current.pager.CurrentForecastActivity">
 
     <androidx.viewpager2.widget.ViewPager2
+        android:background="?attr/colorControlHighlight"
         android:id="@+id/currentHostViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

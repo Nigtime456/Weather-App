@@ -154,7 +154,6 @@ class LocationsActivity : BaseActivity(), LocationsContract.View {
 
     private fun initAppBar() {
         setSupportActionBar(locationsToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun initList() {
@@ -181,18 +180,20 @@ class LocationsActivity : BaseActivity(), LocationsContract.View {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-            }
+        return when (item.itemId) {
             R.id.menuFindCity -> {
                 presenter.clickAddCity()
+                true
             }
             R.id.menuAddLocation -> {
                 Toast.makeText(this, R.string.todo, Toast.LENGTH_LONG).show()
+                true
+            }
+            else -> {
+                false
             }
         }
-        return true
+
     }
 
 
@@ -228,7 +229,7 @@ class LocationsActivity : BaseActivity(), LocationsContract.View {
     }
 
     override fun showLocations(items: List<SavedLocation>, scrollToPosition: Int) {
-        locationsAdapter.submitList(items, false) {
+        locationsAdapter.submitList(items) {
             locationsRecycler.smoothScrollToPosition(scrollToPosition)
         }
     }

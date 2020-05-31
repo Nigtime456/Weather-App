@@ -29,7 +29,7 @@
     <Preference
         android:icon="@drawable/ic_thermometer"
         android:title="@string/settings_units"
-        app:fragment="com.nigtime.weatherapplication.screen.settings.UnitSettingsFragment" />
+        app:fragment="com.gmail.nigtime456.weatherapplication.ui.screen.settings.UnitSettingsFragment" />
 
     <SeekBarPreference
         android:max="24"
@@ -45,6 +45,6 @@
     <Preference
         android:icon="@drawable/ic_sd_storage"
         android:title="@string/settings_app_data"
-        app:fragment="com.nigtime.weatherapplication.screen.settings.DataSettingsFragment" />
+        app:fragment="com.gmail.nigtime456.weatherapplication.ui.screen.settings.DataSettingsFragment" />
 
 </PreferenceScreen>

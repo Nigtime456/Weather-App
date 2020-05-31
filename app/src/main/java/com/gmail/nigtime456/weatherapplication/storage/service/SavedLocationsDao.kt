@@ -7,7 +7,6 @@ package com.gmail.nigtime456.weatherapplication.storage.service
 import androidx.room.*
 import com.gmail.nigtime456.weatherapplication.storage.table.SavedLocationTable
 import io.reactivex.Observable
-import io.reactivex.Single
 
 
 @Dao
@@ -15,9 +14,6 @@ interface SavedLocationsDao {
 
     @Query("SELECT *FROM saved_locations ORDER BY list_index ASC")
     fun getAll(): Observable<List<SavedLocationTable>>
-
-    @Query("SELECT *FROM saved_locations ORDER BY list_index ASC")
-    fun getAllOnce(): Single<List<SavedLocationTable>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun updateAll(items: List<SavedLocationTable>)

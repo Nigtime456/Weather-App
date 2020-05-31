@@ -5,6 +5,7 @@
 package com.gmail.nigtime456.weatherapplication.ui.screen.splash
 
 import android.app.TaskStackBuilder
+import android.content.Intent
 import android.os.Bundle
 import com.gmail.nigtime456.weatherapplication.R
 import com.gmail.nigtime456.weatherapplication.di.AppComponent
@@ -44,6 +45,7 @@ class SplashActivity : BaseActivity(), SplashContract.View {
 
     override fun showCurrentForecastScreen() {
         val intent = CurrentForecastActivity.getIntent(this)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }
 

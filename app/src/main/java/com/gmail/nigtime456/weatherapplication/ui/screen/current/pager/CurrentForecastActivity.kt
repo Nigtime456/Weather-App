@@ -28,6 +28,7 @@ import com.gmail.nigtime456.weatherapplication.ui.screen.current.pager.di.Curren
 import com.gmail.nigtime456.weatherapplication.ui.screen.current.pager.di.DaggerCurrentForecastHostComponent
 import com.gmail.nigtime456.weatherapplication.ui.screen.locations.LocationsActivity
 import com.gmail.nigtime456.weatherapplication.ui.screen.search.SearchActivity
+import com.gmail.nigtime456.weatherapplication.ui.screen.settings.SettingsActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_current_forecast.*
 import javax.inject.Inject
@@ -197,8 +198,7 @@ class CurrentForecastActivity : BaseActivity(),
     }
 
     override fun showSettingsScreen() {
-        Toast.makeText(this, R.string.todo, Toast.LENGTH_SHORT).show()
-
+        startActivity(SettingsActivity.getIntent(this))
     }
 
     override fun showWeatherNotificationScreen() {

@@ -13,22 +13,31 @@
         android:supportsRtl="true"
         android:theme="@style/BaseTheme">
 
+
         <activity
-            android:name="com.gmail.nigtime456.weatherapplication.ui.screen.splash.SplashActivity"
+            android:name=".ui.screen.splash.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.screen.current.pager.CurrentForecastActivity"
+            android:theme="@style/BaseTheme.Dark" />
+        <activity
+            android:name=".ui.screen.search.SearchActivity"
+            android:theme="@style/BaseTheme.Dark" />
 
-        <activity android:name="com.gmail.nigtime456.weatherapplication.ui.screen.current.pager.CurrentForecastActivity" />
+        <activity
+            android:name=".ui.screen.locations.LocationsActivity"
+            android:parentActivityName=".ui.screen.current.pager.CurrentForecastActivity"
+            android:theme="@style/BaseTheme.Dark" />
 
-        <activity android:name="com.gmail.nigtime456.weatherapplication.ui.screen.search.SearchActivity" />
-
-        <activity android:name="com.gmail.nigtime456.weatherapplication.ui.screen.locations.LocationsActivity" />
-
-
+        <activity
+            android:name=".ui.screen.settings.SettingsActivity"
+            android:theme="@style/BaseTheme.Dark" />
     </application>
 
 </manifest>

@@ -8,7 +8,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.ViewTreeObserver
 import com.gmail.nigtime456.weatherapplication.R
 import com.gmail.nigtime456.weatherapplication.di.AppComponent
@@ -77,15 +76,6 @@ class SearchActivity : BaseActivity(), SearchContract.View {
         initViews()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-            }
-        }
-        return true
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         presenter.stop()
@@ -99,7 +89,6 @@ class SearchActivity : BaseActivity(), SearchContract.View {
 
     private fun initAppBar() {
         setSupportActionBar(searchToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun initList() {

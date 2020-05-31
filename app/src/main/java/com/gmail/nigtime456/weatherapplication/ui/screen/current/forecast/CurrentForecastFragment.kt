@@ -9,6 +9,7 @@
 package com.gmail.nigtime456.weatherapplication.ui.screen.current.forecast
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.widget.NestedScrollView
@@ -60,8 +61,7 @@ class CurrentForecastFragment :
         }
     }
 
-    @Inject
-    lateinit var unitFormatHelper: UnitFormatHelper
+    private val unitFormatHelper by lazy { UnitFormatHelper(requireContext()) }
 
     @Inject
     lateinit var presenter: CurrentForecastContract.Presenter
@@ -77,6 +77,7 @@ class CurrentForecastFragment :
 
     override fun initDi(appComponent: AppComponent) {
         val currentLocation = getLocation()
+        Log.d("sas", "current create [${currentLocation.getName()}][${hashCode()}]")
         DaggerCurrentForecastComponent.builder()
             .appComponent(appComponent)
             .currentForecastModule(CurrentForecastModule(this, currentLocation))

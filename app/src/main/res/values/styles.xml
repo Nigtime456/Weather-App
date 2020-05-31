@@ -13,6 +13,7 @@
         <item name="android:colorEdgeEffect">?attr/colorAccent</item>
         <item name="android:colorControlActivated">?attr/colorAccent</item>
 
+
         <!--   Action Mode     -->
         <item name="windowActionModeOverlay">true</item>
         <item name="actionModeBackground">?colorPrimary</item>
@@ -32,6 +33,8 @@
         <item name="colorPrimary">#333333</item>
         <item name="colorPrimaryDark">#282828</item>
         <item name="colorControlHighlight">#282828</item>
+
+        <item name="android:windowBackground">?attr/colorPrimary</item>
 
         <item name="iconTint">@color/white</item>
 
@@ -90,6 +93,7 @@
         <item name="itemIconSize">@dimen/icon_small</item>
         <item name="itemIconTint">@color/selector_checked_icon</item>
         <item name="itemTextColor">@color/selector_primary_text</item>
+        <item name="android:background">?attr/colorPrimary</item>
     </style>
 
     <style name="NavigationThemeOverlay">

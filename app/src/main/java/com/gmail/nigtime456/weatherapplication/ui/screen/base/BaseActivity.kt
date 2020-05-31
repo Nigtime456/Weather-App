@@ -12,6 +12,7 @@ import com.gmail.nigtime456.weatherapplication.App
 import com.gmail.nigtime456.weatherapplication.di.AppComponent
 import com.gmail.nigtime456.weatherapplication.tools.rx.AutoDisposable
 import leakcanary.AppWatcher
+import timber.log.Timber
 import java.util.*
 
 
@@ -45,6 +46,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(settingsProvider.getTheme())
         initDi(App.getComponent())
         super.onCreate(savedInstanceState)
         observeLangChanges()
@@ -53,6 +55,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        Timber.tag("base_activity").d("[${javaClass.name}] destroy")
         AppWatcher.objectWatcher.watch(this, "activity leak")
     }
 
@@ -70,5 +73,12 @@ abstract class BaseActivity : AppCompatActivity() {
                 .subscribe { recreate() })
     }
 
-    protected abstract fun initDi(appComponent: AppComponent)
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    protected open fun initDi(appComponent: AppComponent) {
+
+    }
 }

@@ -15,7 +15,7 @@ import io.reactivex.Single
 import timber.log.Timber
 import javax.inject.Inject
 
-class LocationRepositoryImpl @Inject constructor(
+class LocationsRepositoryImpl @Inject constructor(
     private val schedulerProvider: SchedulerProvider,
     private val savedLocationsDao: SavedLocationsDao,
     private val mapper: SavedLocationMapper
