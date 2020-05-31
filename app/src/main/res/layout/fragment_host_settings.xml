@@ -9,7 +9,7 @@
     android:layout_height="match_parent"
     android:background="?attr/colorPrimary"
     android:orientation="vertical"
-    tools:context=".screen.settings.HostSettingsFragment">
+    tools:context=".ui.screen.settings.HostSettingsFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/hostSettingsToolbar"

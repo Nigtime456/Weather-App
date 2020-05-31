@@ -5,7 +5,7 @@
 package com.gmail.nigtime456.weatherapplication.storage.service
 
 import androidx.room.*
-import com.gmail.nigtime456.weatherapplication.storage.tables.SavedLocationTable
+import com.gmail.nigtime456.weatherapplication.storage.table.SavedLocationTable
 import io.reactivex.Observable
 import io.reactivex.Single
 

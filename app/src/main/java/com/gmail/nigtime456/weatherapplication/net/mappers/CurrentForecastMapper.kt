@@ -7,9 +7,10 @@ package com.gmail.nigtime456.weatherapplication.net.mappers
 import com.gmail.nigtime456.weatherapplication.domain.forecast.CurrentForecast
 import com.gmail.nigtime456.weatherapplication.net.dto.NetData
 import com.gmail.nigtime456.weatherapplication.net.json.JsonCurrentForecast
+import javax.inject.Inject
 
 
-class CurrentForecastMapper constructor(
+class CurrentForecastMapper @Inject constructor(
     private val windMapper: WindMapper,
     private val airQualityMapper: AirQualityMapper,
     private val uvIndexMapper: UvIndexMapper,

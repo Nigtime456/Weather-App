@@ -5,9 +5,10 @@
 package com.gmail.nigtime456.weatherapplication.storage.mappers
 
 import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
-import com.gmail.nigtime456.weatherapplication.storage.tables.SavedLocationTable
+import com.gmail.nigtime456.weatherapplication.storage.table.SavedLocationTable
+import javax.inject.Inject
 
-class SavedLocationMapper {
+class SavedLocationMapper @Inject constructor() {
 
     private fun mapDomain(entity: SavedLocationTable): SavedLocation {
         return SavedLocation.City(
@@ -20,15 +21,15 @@ class SavedLocationMapper {
     }
 
     fun mapDomainList(list: List<SavedLocationTable>): List<SavedLocation> {
-        return list.map { item -> mapDomain(item) }
+        return list.map(this::mapDomain)
     }
 
     fun mapEntity(location: SavedLocation): SavedLocationTable {
         return when (location) {
             is SavedLocation.City -> {
                 SavedLocationTable(
-                    location.listIndex,
                     location.cityId,
+                    location.listIndex,
                     location.cityName,
                     location.stateName,
                     location.countryName
@@ -37,7 +38,29 @@ class SavedLocationMapper {
         }
     }
 
+    /**
+     * Что бы учесть изменений позиций - нужно перезаписать индексы.
+     */
     fun mapListEntity(list: List<SavedLocation>): List<SavedLocationTable> {
-        return list.map { item -> mapEntity(item) }
+        return list.mapIndexed(this::mapEntityWithListIndex)
     }
+
+    private fun mapEntityWithListIndex(
+        listIndex: Int,
+        location: SavedLocation
+    ): SavedLocationTable {
+        return when (location) {
+            is SavedLocation.City -> {
+                SavedLocationTable(
+                    location.cityId,
+                    listIndex,
+                    location.cityName,
+                    location.stateName,
+                    location.countryName
+                )
+            }
+        }
+    }
+
+
 }

@@ -6,5 +6,5 @@ package com.gmail.nigtime456.weatherapplication.domain.forecast
 
 data class DailyForecast(
     val loadTimestamp: Long,
-    val weather: List<DailyWeather>
+    val weatherList: List<DailyWeather>
 )

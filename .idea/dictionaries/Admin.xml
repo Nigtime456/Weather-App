@@ -2,9 +2,11 @@
   <dictionary name="Admin">
     <words>
       <w>flowable</w>
+      <w>formatters</w>
       <w>geonames</w>
       <w>gmail</w>
       <w>gson</w>
+      <w>jsons</w>
       <w>mbar</w>
       <w>nigtime</w>
       <w>pokrovsky</w>

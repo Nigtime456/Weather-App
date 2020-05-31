@@ -23,6 +23,7 @@ interface SavedLocationsRepository {
      */
     fun getLocations(): Observable<List<SavedLocation>>
 
+    //TODO unused
     fun getLocationsOnce(): Single<List<SavedLocation>>
 
     fun hasLocations(): Single<Boolean>

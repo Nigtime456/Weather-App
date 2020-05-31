@@ -8,8 +8,9 @@ import com.gmail.nigtime456.weatherapplication.domain.forecast.HourlyWeather
 import com.gmail.nigtime456.weatherapplication.net.json.JsonHourlyData
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class HourlyWeatherMapper {
+class HourlyWeatherMapper @Inject constructor() {
 
     private companion object {
         const val HOURLY_PATTERN = "yyyy-MM-dd'T'HH:mm"

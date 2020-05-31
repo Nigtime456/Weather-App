@@ -9,6 +9,7 @@
 package com.gmail.nigtime456.weatherapplication.domain.repository
 
 import androidx.annotation.StyleRes
+import androidx.lifecycle.LiveData
 import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfLength
 import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfPressure
 import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfSpeed
@@ -22,6 +23,7 @@ import java.util.*
  *
  * Так же предоставляет методы для отслеживания изменений настроек.
  */
+//TODO может LiveData возвращать ?
 interface SettingsProvider {
     @StyleRes
     fun getTheme(): Int

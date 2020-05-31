@@ -7,8 +7,9 @@ package com.gmail.nigtime456.weatherapplication.net.mappers
 import com.gmail.nigtime456.weatherapplication.domain.forecast.DailyForecast
 import com.gmail.nigtime456.weatherapplication.net.dto.NetData
 import com.gmail.nigtime456.weatherapplication.net.json.JsonDailyForecast
+import javax.inject.Inject
 
-class DailyForecastMapper constructor(
+class DailyForecastMapper @Inject constructor(
     private val dailyWeatherMapper: DailyWeatherMapper
 ) {
 

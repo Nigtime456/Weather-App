@@ -5,26 +5,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <item android:title="@string/location_pages_main">
+    <item android:title="@string/current_forecast_host_main">
         <menu>
             <item
                 android:id="@+id/menuWeatherNotifications"
                 android:checked="true"
                 android:icon="@drawable/ic_notifications"
-                android:title="@string/location_pages_weather_notification" />
+                android:title="@string/current_forecast_host_weather_notification" />
 
             <item
-                android:id="@+id/menuChangeListLocations"
+                android:id="@+id/menuChangeLocations"
                 android:checked="true"
                 android:icon="@drawable/ic_change_locations"
-                android:title="@string/location_pages_change_location" />
+                android:title="@string/current_forecast_host_change_location" />
         </menu>
     </item>
 
 
     <item
         android:id="@+id/menuListLocations"
-        android:title="@string/location_pages_cities">
+        android:title="@string/current_forecast_host_cities">
         <menu>
             <!--     this is stub to be able to programmatically find this menu       -->
             <item
@@ -34,18 +34,18 @@
     </item>
 
     <item
-        android:title="@string/location_pages_other">
+        android:title="@string/current_forecast_host_other">
         <menu>
             <item
                 android:id="@+id/menuSettings"
                 android:checked="true"
                 android:icon="@drawable/ic_settings"
-                android:title="@string/location_pages_settings" />
+                android:title="@string/current_forecast_host_settings" />
             <item
                 android:id="@+id/menuAboutApp"
                 android:checked="true"
                 android:icon="@drawable/ic_about_app"
-                android:title="@string/location_pages_about_app" />
+                android:title="@string/current_forecast_host_about_app" />
         </menu>
     </item>
 </menu>

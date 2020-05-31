@@ -9,6 +9,7 @@
 package com.gmail.nigtime456.weatherapplication.domain.repository
 
 import com.gmail.nigtime456.weatherapplication.domain.location.SearchCity
+import io.reactivex.Observable
 import io.reactivex.Single
 
 /**
@@ -21,8 +22,5 @@ interface PagedSearchRepository {
      */
     fun insert(searchCity: SearchCity): Single<Int>
 
-    /**
-     * Загрузить результат [query] с [position] количеством [count]
-     */
-    fun loadPage(query: String, position: Int, count: Int): Single<List<SearchCity>>
+    fun loadPage(query: String): Observable<List<SearchCity>>
 }

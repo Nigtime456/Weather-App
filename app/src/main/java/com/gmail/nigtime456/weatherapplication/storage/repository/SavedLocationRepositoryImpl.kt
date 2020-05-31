@@ -5,19 +5,18 @@
 package com.gmail.nigtime456.weatherapplication.storage.repository
 
 import android.util.Log
-import com.gmail.nigtime456.weatherapplication.common.rx.SchedulerProvider
 import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
 import com.gmail.nigtime456.weatherapplication.domain.repository.SavedLocationsRepository
 import com.gmail.nigtime456.weatherapplication.storage.mappers.SavedLocationMapper
-import com.gmail.nigtime456.weatherapplication.storage.service.ReferenceCitiesDao
 import com.gmail.nigtime456.weatherapplication.storage.service.SavedLocationsDao
+import com.gmail.nigtime456.weatherapplication.tools.rx.SchedulerProvider
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import javax.inject.Inject
 
-class SavedLocationRepositoryImpl constructor(
+class SavedLocationRepositoryImpl @Inject constructor(
     private val schedulerProvider: SchedulerProvider,
-    private val referenceCitiesDao: ReferenceCitiesDao,
     private val savedLocationsDao: SavedLocationsDao,
     private val mapper: SavedLocationMapper
 ) : SavedLocationsRepository {
@@ -26,7 +25,7 @@ class SavedLocationRepositoryImpl constructor(
 
     override fun getLocations(): Observable<List<SavedLocation>> {
         return if (::cachedLocations.isInitialized) {
-            Log.d("sas", "cache locations")
+            Log.d("sas", "REPO: cache locations")
             cachedLocations
         } else {
             createCachedLocations()
@@ -37,13 +36,13 @@ class SavedLocationRepositoryImpl constructor(
     private fun createCachedLocations() {
         cachedLocations = savedLocationsDao.getAll()
             .doOnEach {
-                Log.d("sas", "LOAD = $it")
+                Log.d("sas", "REPO: LOAD = $it")
             }
             .map(mapper::mapDomainList)
             .replay(1)
             .refCount()
             .doOnEach {
-                Log.d("sas", "REF = $it")
+                Log.d("sas", "REPO: ref = $it")
             }
             .subscribeOn(schedulerProvider.database())
             .observeOn(schedulerProvider.ui())

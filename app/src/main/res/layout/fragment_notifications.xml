@@ -26,9 +26,9 @@
                 style="@style/ToolbarDefault"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:menu="@menu/saved_locations"
+                app:menu="@menu/locations"
                 app:navigationIcon="@drawable/ic_arrow_back"
-                app:title="@string/saved_locations_title" />
+                app:title="@string/locations_title" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

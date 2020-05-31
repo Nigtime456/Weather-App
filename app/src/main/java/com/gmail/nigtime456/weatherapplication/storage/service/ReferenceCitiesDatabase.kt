@@ -8,7 +8,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.gmail.nigtime456.weatherapplication.storage.tables.ReferenceCityTable
+import com.gmail.nigtime456.weatherapplication.storage.table.ReferenceCityTable
 
 @Database(
     entities = [ReferenceCityTable::class],

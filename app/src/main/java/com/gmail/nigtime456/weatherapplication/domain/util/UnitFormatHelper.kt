@@ -12,8 +12,9 @@ import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfLength
 import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfPressure
 import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfSpeed
 import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfTemp
+import javax.inject.Inject
 
-class UnitFormatHelper constructor(private val context: Context) {
+class UnitFormatHelper @Inject constructor(private val context: Context) {
 
     fun formatTemp(unitOfTemp: UnitOfTemp, temp: Double): String {
         return context.getString(R.string.units_temp_f, unitOfTemp.convert(temp))

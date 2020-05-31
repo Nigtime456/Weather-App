@@ -8,8 +8,9 @@ import com.gmail.nigtime456.weatherapplication.domain.forecast.DailyWeather
 import com.gmail.nigtime456.weatherapplication.net.json.JsonDailyData
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class DailyWeatherMapper {
+class DailyWeatherMapper @Inject constructor(){
 
     private companion object {
         private const val DATE_PATTERN = "yyyy-MM-dd"

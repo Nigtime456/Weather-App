@@ -6,8 +6,9 @@ package com.gmail.nigtime456.weatherapplication.net.mappers
 
 import com.gmail.nigtime456.weatherapplication.domain.forecast.AirQuality
 import com.gmail.nigtime456.weatherapplication.net.json.JsonCurrentData
+import javax.inject.Inject
 
-class AirQualityMapper {
+class AirQualityMapper @Inject  constructor(){
 
     fun map(jsonCurrentData: JsonCurrentData): AirQuality {
         return AirQuality(jsonCurrentData.airQualityIndex)

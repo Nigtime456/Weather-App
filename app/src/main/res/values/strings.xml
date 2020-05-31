@@ -114,30 +114,32 @@
     <string name="weather_description_900">Unknown Precipitation</string>
 
     <!--  Search city  -->
-    <string name="search_input_hint">For example: Moscow</string>
+    <string name="search_input_hint">Print city name</string>
     <string name="search_city_not_found">Nothing found :(</string>
     <string name="search_title">Add a city</string>
     <string name="search_current_location">Current location</string>
-    <string name="search_widget_hint">Start typing for search…</string>
     <string name="search_already_selected">This city has already been added!</string>
 
     <!--  Saved Locations  -->
-    <string name="saved_locations_undo">Undo</string>
-    <string name="saved_locations_title">List of locations</string>
-    <string name="saved_locations_wait">Please wait…</string>
-    <string name="saved_locations_removed">Removed</string>
-    <string name="saved_locations_hint">No added locations.\nAdd a city or enable weather by location.</string>
+    <string name="locations_undo">Undo</string>
+    <string name="locations_title">List of locations</string>
+    <string name="locations_wait">Please wait…</string>
+    <string name="locations_removed">Removed</string>
+    <string name="locations_hint">No added locations.\nAdd a city or enable weather by location.</string>
+    <string name="locations_dialog_title">Hint</string>
+    <string name="locations_dialog_message">For the app to work you need to add a new city or enable weather tracking by location</string>
+    <string name="locations_dialog_button_ok">OK</string>
 
-    <!--  Location Pages  -->
-    <string name="location_pages_cities">Cities</string>
-    <string name="location_pages_other">Others</string>
-    <string name="location_pages_main">Main</string>
-    <string name="location_pages_settings">Settings</string>
-    <string name="location_pages_about_app">About app</string>
-    <string name="location_pages_change_location">Change locations</string>
-    <string name="location_pages_weather_notification">Weather notifications</string>
+    <!--  Current forecast host (activity with viewpager)-->
+    <string name="current_forecast_host_cities">Cities</string>
+    <string name="current_forecast_host_other">Others</string>
+    <string name="current_forecast_host_main">Main</string>
+    <string name="current_forecast_host_settings">Settings</string>
+    <string name="current_forecast_host_about_app">About app</string>
+    <string name="current_forecast_host_change_location">Change locations</string>
+    <string name="current_forecast_host_weather_notification">Weather notifications</string>
 
-    <!--  Current forecast  -->
+    <!--  Current forecast (frag)  -->
     <string name="current_forecast_char_separator" translatable="false">|</string>
     <string name="current_forecast_hourly_forecast">Hourly forecast</string>
     <string name="current_forecast_daily_forecast">Daily forecast</string>

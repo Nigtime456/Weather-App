@@ -17,7 +17,6 @@ sealed class SavedLocation constructor(val listIndex: Int) : Parcelable {
     abstract fun getDescription(): String
     abstract fun areItemsTheSame(other: SavedLocation): Boolean
     abstract fun areContentsTheSame(other: SavedLocation): Boolean
-    abstract fun changeListIndex(listIndex: Int): SavedLocation
 
     @Suppress("MemberVisibilityCanBePrivate")
     class City(
@@ -39,9 +38,9 @@ sealed class SavedLocation constructor(val listIndex: Int) : Parcelable {
         constructor(source: Parcel) : this(
             source.readInt(),
             source.readLong(),
-            source.readString()!!,
-            source.readString()!!,
-            source.readString()!!
+            source.readString() ?: "",
+            source.readString() ?: "",
+            source.readString() ?: ""
         )
 
         override fun describeContents() = 0
@@ -92,8 +91,8 @@ sealed class SavedLocation constructor(val listIndex: Int) : Parcelable {
             return cityId == other.cityId && listIndex == other.listIndex
         }
 
-        override fun changeListIndex(listIndex: Int): SavedLocation {
-            return SavedLocation.City(listIndex, cityId, cityName, stateName, countryName)
+        override fun toString(): String {
+            return "[$listIndex] $cityName"
         }
     }
 }

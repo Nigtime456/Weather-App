@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/5/26
+  -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/locationsRootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.screen.locations.LocationsActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/locationsAppbar"
+        style="@style/LiftingCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/locationsToolbar"
+                style="@style/ToolbarDefault"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:title="@string/locations_title" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <com.gmail.nigtime456.weatherapplication.ui.customview.CrossFadeAnimatorLayout
+        android:id="@+id/locationsViewSwitcher"
+        style="@style/CrossFadeDefault"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:crossDisplayedChild="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end" />
+
+            <TextView
+                style="@style/PrimaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:gravity="center"
+                android:text="@string/locations_wait" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/locationsRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="always"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_saved_location" />
+
+        <TextView
+            style="@style/PrimaryText.Lowest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/locations_hint" />
+
+    </com.gmail.nigtime456.weatherapplication.ui.customview.CrossFadeAnimatorLayout>
+
+
+</LinearLayout>

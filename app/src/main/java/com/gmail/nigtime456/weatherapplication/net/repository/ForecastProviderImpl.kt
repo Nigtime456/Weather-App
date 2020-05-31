@@ -5,7 +5,6 @@
 package com.gmail.nigtime456.weatherapplication.net.repository
 
 import androidx.collection.LruCache
-import com.gmail.nigtime456.weatherapplication.common.rx.SchedulerProvider
 import com.gmail.nigtime456.weatherapplication.domain.forecast.CurrentForecast
 import com.gmail.nigtime456.weatherapplication.domain.forecast.DailyForecast
 import com.gmail.nigtime456.weatherapplication.domain.forecast.HourlyForecast
@@ -14,9 +13,11 @@ import com.gmail.nigtime456.weatherapplication.domain.repository.ForecastProvide
 import com.gmail.nigtime456.weatherapplication.net.mappers.CurrentForecastMapper
 import com.gmail.nigtime456.weatherapplication.net.mappers.DailyForecastMapper
 import com.gmail.nigtime456.weatherapplication.net.mappers.HourlyForecastMapper
+import com.gmail.nigtime456.weatherapplication.tools.rx.SchedulerProvider
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class ForecastProviderImpl constructor(
+class ForecastProviderImpl @Inject constructor(
     private val schedulerProvider: SchedulerProvider,
     private val netSource: ForecastSource,
     private val currentMapper: CurrentForecastMapper,

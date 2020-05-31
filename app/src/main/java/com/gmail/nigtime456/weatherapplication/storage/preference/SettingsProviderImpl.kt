@@ -17,9 +17,10 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import java.util.*
+import javax.inject.Inject
 
 
-class SettingsProviderImpl constructor(context: Context) : SettingsProvider,
+class SettingsProviderImpl @Inject constructor(context: Context) : SettingsProvider,
     SharedPreferences.OnSharedPreferenceChangeListener {
 
     private companion object {

@@ -5,10 +5,11 @@
 package com.gmail.nigtime456.weatherapplication.storage.mappers
 
 import com.gmail.nigtime456.weatherapplication.domain.location.SearchCity
-import com.gmail.nigtime456.weatherapplication.storage.tables.ReferenceCityTable
-import com.gmail.nigtime456.weatherapplication.storage.tables.SavedLocationTable
+import com.gmail.nigtime456.weatherapplication.storage.table.ReferenceCityTable
+import com.gmail.nigtime456.weatherapplication.storage.table.SavedLocationTable
+import javax.inject.Inject
 
-class SearchCityMapper {
+class SearchCityMapper @Inject constructor() {
 
     private fun mapDomain(
         entity: ReferenceCityTable,
@@ -35,8 +36,8 @@ class SearchCityMapper {
 
     fun mapLocationsTable(searchCity: SearchCity, listIndex: Int): SavedLocationTable {
         return SavedLocationTable(
-            listIndex,
             searchCity.cityId,
+            listIndex,
             searchCity.name,
             searchCity.stateName,
             searchCity.countryName

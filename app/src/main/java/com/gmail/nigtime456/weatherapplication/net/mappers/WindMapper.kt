@@ -6,8 +6,9 @@ package com.gmail.nigtime456.weatherapplication.net.mappers
 
 import com.gmail.nigtime456.weatherapplication.domain.forecast.Wind
 import com.gmail.nigtime456.weatherapplication.net.json.JsonCurrentData
+import javax.inject.Inject
 
-class WindMapper {
+class WindMapper @Inject constructor(){
 
     fun map(jsonCurrentData: JsonCurrentData): Wind {
         return Wind(

@@ -4,19 +4,21 @@
 
 package com.gmail.nigtime456.weatherapplication.storage.repository
 
-import com.gmail.nigtime456.weatherapplication.common.rx.SchedulerProvider
 import com.gmail.nigtime456.weatherapplication.domain.location.SearchCity
 import com.gmail.nigtime456.weatherapplication.domain.repository.PagedSearchRepository
 import com.gmail.nigtime456.weatherapplication.storage.mappers.SearchCityMapper
 import com.gmail.nigtime456.weatherapplication.storage.service.ReferenceCitiesDao
 import com.gmail.nigtime456.weatherapplication.storage.service.SavedLocationsDao
+import com.gmail.nigtime456.weatherapplication.tools.rx.SchedulerProvider
+import io.reactivex.Observable
 import io.reactivex.Single
+import javax.inject.Inject
 
 /**
  * Репозиторий хранит состояние в вилде IDs сохраненных городов,
  * поэтому должен содаваться по новому, для каждого поиска
  */
-class PagedSearchRepositoryImpl(
+class PagedSearchRepositoryImpl @Inject constructor(
     private val schedulerProvider: SchedulerProvider,
     private val referenceCitiesDao: ReferenceCitiesDao,
     private val savedLocationsDao: SavedLocationsDao,
@@ -33,6 +35,7 @@ class PagedSearchRepositoryImpl(
             .observeOn(schedulerProvider.ui())
     }
 
+
     private fun getMaxListIndex(): Int {
         return getNewIndexFromList(savedLocationsDao.getMaxListIndex())
     }
@@ -41,9 +44,9 @@ class PagedSearchRepositoryImpl(
         return if (listWithIndex.isEmpty()) 0 else listWithIndex.first().inc()
     }
 
-    override fun loadPage(query: String, position: Int, count: Int): Single<List<SearchCity>> {
-        return Single.just(getSQLPatternQuery(query))
-            .map { sqlQuery -> referenceCitiesDao.queryByName(sqlQuery, position, count) }
+    override fun loadPage(query: String): Observable<List<SearchCity>> {
+        return Observable.just(getSQLPatternQuery(query))
+            .map(referenceCitiesDao::queryByName)
             .map { list -> mapper.mapDomainList(list, getSavedLocationsIds(), query) }
             .subscribeOn(schedulerProvider.database())
             .observeOn(schedulerProvider.ui())

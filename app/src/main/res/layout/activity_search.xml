@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/5/26
+  -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/searchRootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/searchAppbar"
+        style="@style/LiftingCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/small_margin">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/searchToolbar"
+                style="@style/ToolbarDefault"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:title="@string/search_title" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/medium_margin">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/searchEditText"
+                    style="@style/TextInputEditDefault"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/search_input_hint"
+                    android:paddingVertical="@dimen/medium_padding"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp">
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <com.gmail.nigtime456.weatherapplication.ui.customview.CrossFadeAnimatorLayout
+        android:id="@+id/searchViewSwitcher"
+        style="@style/CrossFadeDefault"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:crossDisplayedChild="1">
+
+        <ProgressBar
+            android:id="@+id/searchProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="ifContentScrolls"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_search_city" />
+
+        <TextView
+            android:id="@+id/searchNotFound"
+            style="@style/PrimaryText.Lowest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/search_city_not_found" />
+
+        <!--    just place holder    -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.gmail.nigtime456.weatherapplication.ui.customview.CrossFadeAnimatorLayout>
+</LinearLayout>
