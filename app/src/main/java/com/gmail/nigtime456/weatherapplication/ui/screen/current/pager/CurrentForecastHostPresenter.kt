@@ -4,17 +4,44 @@
 
 package com.gmail.nigtime456.weatherapplication.ui.screen.current.pager
 
-import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
-import com.gmail.nigtime456.weatherapplication.domain.repository.SavedLocationsRepository
+import android.os.Parcel
+import android.os.Parcelable
+import com.gmail.nigtime456.weatherapplication.domain.repository.LocationsRepository
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
+import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 class CurrentForecastHostPresenter @Inject constructor(
     private val view: CurrentForecastHostContract.View,
-    private val savedLocationsRepository: SavedLocationsRepository
+    private val locationsRepository: LocationsRepository
 ) :
     CurrentForecastHostContract.Presenter {
+
+    private class State(private val page: Int) : CurrentForecastHostContract.State {
+
+        constructor(source: Parcel) : this(
+            source.readInt()
+        )
+
+        override fun getCurrentPage(): Int = page
+
+        override fun describeContents() = 0
+
+        override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+            writeInt(page)
+        }
+
+        companion object {
+
+            @JvmField
+            val CREATOR: Parcelable.Creator<State> = object : Parcelable.Creator<State> {
+                override fun createFromParcel(source: Parcel): State = State(source)
+                override fun newArray(size: Int): Array<State?> = arrayOfNulls(size)
+            }
+
+        }
+    }
 
     private val compositeDisposable = CompositeDisposable()
     private var currentPage = 0
@@ -23,18 +50,25 @@ class CurrentForecastHostPresenter @Inject constructor(
         compositeDisposable.clear()
     }
 
+    override fun applyState(state: CurrentForecastHostContract.State?) {
+        state?.let {
+            currentPage = it.getCurrentPage()
+        }
+    }
+
+    override fun getState(): CurrentForecastHostContract.State {
+        return State(currentPage)
+    }
+
     override fun loadLocations() {
-        compositeDisposable += savedLocationsRepository.getLocations()
-            .subscribe(this::onNextListLocations)
+        compositeDisposable += locationsRepository.getLocations()
+            .subscribeBy { list ->
+                view.showPages(list)
+                view.showNavView(list)
+                view.setCurrentPage(currentPage)
+                view.setCurrentNavItem(currentPage)
+            }
     }
-
-    private fun onNextListLocations(list: List<SavedLocation>) {
-        view.showPages(list)
-        view.showNavView(list)
-        view.setCurrentPage(currentPage)
-        view.setCurrentNavItem(currentPage)
-    }
-
 
     override fun scrollPage(page: Int) {
         currentPage = page
@@ -50,7 +84,7 @@ class CurrentForecastHostPresenter @Inject constructor(
     }
 
     override fun clickChangeLocations() {
-        view.showChangeLocationsScreen()
+        view.showEditLocationsScreen()
     }
 
     override fun clickSettings() {
@@ -62,6 +96,10 @@ class CurrentForecastHostPresenter @Inject constructor(
     }
 
     override fun onCityInserted(position: Int) {
+        currentPage = position
+    }
+
+    override fun onCitySelected(position: Int) {
         currentPage = position
     }
 }

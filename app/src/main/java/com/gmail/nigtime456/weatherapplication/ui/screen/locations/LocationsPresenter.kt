@@ -6,18 +6,17 @@ package com.gmail.nigtime456.weatherapplication.ui.screen.locations
 
 import android.annotation.SuppressLint
 import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
-import com.gmail.nigtime456.weatherapplication.domain.repository.SavedLocationsRepository
+import com.gmail.nigtime456.weatherapplication.domain.repository.LocationsRepository
 import com.gmail.nigtime456.weatherapplication.tools.rx.RxDelayedMessageDispatcher
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
-import timber.log.Timber
 import javax.inject.Inject
 
 
 class LocationsPresenter @Inject constructor(
     private val view: LocationsContract.View,
-    private val savedLocationsRepository: SavedLocationsRepository,
+    private val locationsRepository: LocationsRepository,
     private val messageDispatcher: RxDelayedMessageDispatcher
 ) : LocationsContract.Presenter {
 
@@ -30,23 +29,20 @@ class LocationsPresenter @Inject constructor(
     private var mutableItems = mutableListOf<SavedLocation>()
 
     override fun loadLocations() {
-        compositeDisposable += savedLocationsRepository.getLocations()
+        compositeDisposable += locationsRepository.getLocations()
             .take(1)
             .doOnSubscribe { view.showProgressLayout() }
-            .subscribeBy(onNext = this::onListLoaded)
+            .subscribeBy { list ->
+                mutableItems = list.toMutableList()
+                if (mutableItems.isNotEmpty()) {
+                    view.showListLayout()
+                    showLocations()
+                } else {
+                    view.showEmptyLayout()
+                }
+            }
     }
 
-    private fun onListLoaded(list: List<SavedLocation>) {
-        Timber.tag("locations").d("PRESENTER: list loaded $list")
-        mutableItems = list.toMutableList()
-
-        if (mutableItems.isNotEmpty()) {
-            view.showListLayout()
-            showLocations()
-        } else {
-            view.showEmptyLayout()
-        }
-    }
 
     private fun showLocations() {
         if (insertedPosition != NO_POSITION) {
@@ -81,7 +77,7 @@ class LocationsPresenter @Inject constructor(
             DeleteItemMessage(
                 swiped,
                 position,
-                savedLocationsRepository
+                locationsRepository
             )
         )
     }
@@ -103,7 +99,7 @@ class LocationsPresenter @Inject constructor(
 
     private fun saveListChanges() {
         if (mutableItems.isNotEmpty()) {
-            savedLocationsRepository.replaceAll(mutableItems)
+            locationsRepository.replaceAll(mutableItems)
                 .subscribe()
         }
     }
@@ -147,7 +143,7 @@ class LocationsPresenter @Inject constructor(
     private class DeleteItemMessage(
         val item: SavedLocation,
         val position: Int,
-        val repository: SavedLocationsRepository
+        val repository: LocationsRepository
     ) : Runnable {
 
         @SuppressLint("CheckResult")

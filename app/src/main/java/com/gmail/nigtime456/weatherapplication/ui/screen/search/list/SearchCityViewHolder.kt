@@ -15,7 +15,7 @@ class SearchCityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(city: SearchCity, spanHelper: ColorSpanHelper) {
         itemView.itemSearchName.text = spanHelper.highlightText(city.name, city.query)
         itemView.itemSearchDescription.text = city.getStateAndCounty()
-        //уже добавлен
-        itemView.isEnabled = !city.isSaved
+        //если уже добавлен - изменим цвет текста
+        itemView.itemSearchTextLayout.isEnabled = !city.isSaved
     }
 }

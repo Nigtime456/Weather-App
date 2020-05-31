@@ -1,5 +1,6 @@
 <component name="CopyrightManager">
   <copyright>
+    <option name="allowReplaceRegexp" value="Сreated by Igor Pokrovsky. $today.year/$today.month/$today.day" />
     <option name="notice" value="Сreated by Igor Pokrovsky. &amp;#36;today.year/&amp;#36;today.month/&amp;#36;today.day " />
     <option name="myName" value="IgorPokrovsky" />
   </copyright>

@@ -11,11 +11,11 @@ package com.gmail.nigtime456.weatherapplication.ui.screen.current.forecast.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.gmail.nigtime456.weatherapplication.R
-import com.gmail.nigtime456.weatherapplication.ui.list.BaseAdapter
-import com.gmail.nigtime456.weatherapplication.ui.list.SimpleDiffCallback
 import com.gmail.nigtime456.weatherapplication.domain.forecast.HourlyWeather
 import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfTemp
 import com.gmail.nigtime456.weatherapplication.tools.rx.RxAsyncDiffer
+import com.gmail.nigtime456.weatherapplication.ui.list.BaseAdapter
+import com.gmail.nigtime456.weatherapplication.ui.list.SimpleDiffCallback
 
 class HourlyWeatherAdapter(rxAsyncDiffer: RxAsyncDiffer) :
     BaseAdapter<HourlyWeather, HourlyWeatherViewHolder>(DIFF_CALLBACK, rxAsyncDiffer) {
@@ -51,9 +51,8 @@ class HourlyWeatherAdapter(rxAsyncDiffer: RxAsyncDiffer) :
         parent: ViewGroup,
         viewType: Int
     ): HourlyWeatherViewHolder {
-        return HourlyWeatherViewHolder(
-            inflater.inflate(R.layout.item_hourly_forecast, parent, false)
-        )
+        val view = inflater.inflate(R.layout.item_hourly_forecast, parent, false)
+        return HourlyWeatherViewHolder(view)
     }
 
     override fun bindViewHolder(

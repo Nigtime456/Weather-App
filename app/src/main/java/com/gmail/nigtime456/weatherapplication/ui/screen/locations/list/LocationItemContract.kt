@@ -17,6 +17,5 @@ interface LocationItemContract {
 
     interface Presenter : BasePresenter<View> {
         fun loadForecast(view: View)
-        fun clearView()
     }
 }

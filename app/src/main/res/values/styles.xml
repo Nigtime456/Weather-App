@@ -5,12 +5,13 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <!--  <item name="buttonBarNegativeButtonStyle">@style/AlertDialogButton</item>  -->
+
     <!-- Base application theme. -->
     <style name="BaseTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorAccent">#673AB7</item>
         <item name="android:colorEdgeEffect">?attr/colorAccent</item>
         <item name="android:colorControlActivated">?attr/colorAccent</item>
-        <item name="buttonBarNegativeButtonStyle">@style/AlertDialogButton</item>
 
         <!--   Action Mode     -->
         <item name="windowActionModeOverlay">true</item>
@@ -89,7 +90,6 @@
         <item name="itemIconSize">@dimen/icon_small</item>
         <item name="itemIconTint">@color/selector_checked_icon</item>
         <item name="itemTextColor">@color/selector_primary_text</item>
-        <item name="android:background">?attr/colorPrimary</item>
     </style>
 
     <style name="NavigationThemeOverlay">

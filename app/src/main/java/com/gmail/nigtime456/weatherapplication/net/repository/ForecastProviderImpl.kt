@@ -26,12 +26,12 @@ class ForecastProviderImpl @Inject constructor(
 ) : ForecastProvider {
 
     private companion object {
-        private const val MAX_STORE_SIZE = 200
+        private const val MAX_CACHE_SIZE = 200
     }
 
-    private val currentStore: LruCache<Long, Observable<CurrentForecast>> = LruCache(MAX_STORE_SIZE)
-    private val hourlyStore: LruCache<Long, Observable<HourlyForecast>> = LruCache(MAX_STORE_SIZE)
-    private val dailyStore: LruCache<Long, Observable<DailyForecast>> = LruCache(MAX_STORE_SIZE)
+    private val currentStore: LruCache<Long, Observable<CurrentForecast>> = LruCache(MAX_CACHE_SIZE)
+    private val hourlyStore: LruCache<Long, Observable<HourlyForecast>> = LruCache(MAX_CACHE_SIZE)
+    private val dailyStore: LruCache<Long, Observable<DailyForecast>> = LruCache(MAX_CACHE_SIZE)
 
     override fun getCurrentForecast(
         params: RequestParams,
@@ -48,8 +48,10 @@ class ForecastProviderImpl @Inject constructor(
     private fun forceNetCurrentForecast(params: RequestParams): Observable<CurrentForecast> {
         return netSource.getCurrentForecast(params)
             .map(currentMapper::map)
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
             .replay(1)
-            .refCount()
+            .autoConnect()
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())
             .also { observable -> currentStore.put(params.getKey(), observable) }
@@ -69,10 +71,10 @@ class ForecastProviderImpl @Inject constructor(
     private fun forceNetHourlyForecast(params: RequestParams): Observable<HourlyForecast> {
         return netSource.getHourlyForecast(params)
             .map(hourlyMapper::map)
-            .replay(1)
-            .refCount()
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())
+            .replay(1)
+            .autoConnect()
             .also { observable -> hourlyStore.put(params.getKey(), observable) }
     }
 
@@ -90,10 +92,10 @@ class ForecastProviderImpl @Inject constructor(
     private fun forceNetDailyForecast(params: RequestParams): Observable<DailyForecast> {
         return netSource.getDailyForecast(params)
             .map(dailyMapper::map)
-            .replay(1)
-            .refCount()
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())
+            .replay(1)
+            .autoConnect()
             .also { observable -> dailyStore.put(params.getKey(), observable) }
     }
 }

@@ -48,7 +48,7 @@ class CurrentForecastPresenter @Inject constructor(
         compositeDisposable.clear()
     }
 
-    override fun viewReady() {
+    override fun provideForecast() {
         observeScrollChanges()
         observeDisplayedDaysChanges()
         observeUnitSettingsChanges()
@@ -100,6 +100,7 @@ class CurrentForecastPresenter @Inject constructor(
     override fun refreshData() {
         provideForecast(true)
     }
+
 
     private fun provideForecast(forceNet: Boolean) {
         compositeDisposable += getForecastAsTriple(currentLocation.createRequestParams(), forceNet)
@@ -193,6 +194,4 @@ class CurrentForecastPresenter @Inject constructor(
     override fun changeScroll(scrollY: Int) {
         verticalScrollSubject.onNext(scrollY)
     }
-
-
 }

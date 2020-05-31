@@ -2,10 +2,6 @@
  * Сreated by Igor Pokrovsky. 2020/5/30
  */
 
-/*
- * Сreated by Igor Pokrovsky. 2020/5/30
- */
-
 package com.gmail.nigtime456.weatherapplication.ui.screen.splash.di
 
 import com.gmail.nigtime456.weatherapplication.ui.screen.splash.SplashContract

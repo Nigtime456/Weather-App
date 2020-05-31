@@ -10,10 +10,10 @@
     android:paddingHorizontal="@dimen/medium_padding">
 
     <LinearLayout
+        android:id="@+id/itemSearchTextLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:duplicateParentState="true"
         android:orientation="vertical">
 
         <TextView

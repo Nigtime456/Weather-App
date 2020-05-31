@@ -13,10 +13,10 @@
 package com.gmail.nigtime456.weatherapplication.di.storage
 
 import com.gmail.nigtime456.weatherapplication.di.ApplicationScope
-import com.gmail.nigtime456.weatherapplication.domain.repository.PagedSearchRepository
-import com.gmail.nigtime456.weatherapplication.domain.repository.SavedLocationsRepository
-import com.gmail.nigtime456.weatherapplication.storage.repository.PagedSearchRepositoryImpl
-import com.gmail.nigtime456.weatherapplication.storage.repository.SavedLocationRepositoryImpl
+import com.gmail.nigtime456.weatherapplication.domain.repository.LocationsRepository
+import com.gmail.nigtime456.weatherapplication.domain.repository.SearchRepository
+import com.gmail.nigtime456.weatherapplication.storage.repository.LocationRepositoryImpl
+import com.gmail.nigtime456.weatherapplication.storage.repository.SearchRepositoryImpl
 import dagger.Binds
 import dagger.Module
 
@@ -25,9 +25,9 @@ interface StorageRepositoriesModule {
 
     @ApplicationScope
     @Binds
-    fun provideSavedLocationsRepository(repository: SavedLocationRepositoryImpl): SavedLocationsRepository
+    fun provideSavedLocationsRepository(repository: LocationRepositoryImpl): LocationsRepository
 
     //Должен создаваться каждый раз новый
     @Binds
-    fun providePagedSearchRepository(repository: PagedSearchRepositoryImpl): PagedSearchRepository
+    fun providePagedSearchRepository(repository: SearchRepositoryImpl): SearchRepository
 }

@@ -12,9 +12,15 @@ import android.view.View
 import android.widget.EditText
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
 
 fun View.showSnackBar(@StringRes message: Int, duration: Int = Snackbar.LENGTH_SHORT) {
     Snackbar.make(this, message, duration).show()
+}
+
+fun EditText.changeTextListener(onChanged: (String) -> Unit) {
+    addTextChangedListener(object : SimpleTextWatcher() {
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            onChanged(s.toString())
+        }
+    })
 }

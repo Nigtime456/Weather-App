@@ -85,7 +85,7 @@
     <string name="weather_description_801">Преимущественно ясно</string>
     <string name="weather_description_900">Неизвестные осадки</string>
     <string name="search_title">Добавить город</string>
-    <string name="search_input_hint">Введите название города</string>
+    <string name="search_input_hint">Название города (только англ)</string>
     <string name="search_current_location">Текущее местоположение</string>
     <string name="search_city_not_found">Ничего не найдено :(</string>
     <string name="search_already_selected">Этот город уже добавлен!</string>

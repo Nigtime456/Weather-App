@@ -4,10 +4,8 @@
 
 package com.gmail.nigtime456.weatherapplication.ui.screen.search
 
-import androidx.paging.PagedList
 import com.gmail.nigtime456.weatherapplication.domain.location.SearchCity
 import com.gmail.nigtime456.weatherapplication.ui.screen.base.BasePresenter
-import com.jakewharton.rxbinding3.InitialValueObservable
 
 interface SearchContract {
 
@@ -26,7 +24,8 @@ interface SearchContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun observeSearchInput(observable: InitialValueObservable<CharSequence>)
+        fun queryChanges(query: CharSequence)
         fun clickItem(city: SearchCity)
+
     }
 }

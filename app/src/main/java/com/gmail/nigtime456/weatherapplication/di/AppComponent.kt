@@ -12,8 +12,8 @@ import com.gmail.nigtime456.weatherapplication.di.storage.DatabasesModule
 import com.gmail.nigtime456.weatherapplication.di.storage.SettingsProviderModule
 import com.gmail.nigtime456.weatherapplication.di.storage.StorageRepositoriesModule
 import com.gmail.nigtime456.weatherapplication.domain.repository.ForecastProvider
-import com.gmail.nigtime456.weatherapplication.domain.repository.PagedSearchRepository
-import com.gmail.nigtime456.weatherapplication.domain.repository.SavedLocationsRepository
+import com.gmail.nigtime456.weatherapplication.domain.repository.LocationsRepository
+import com.gmail.nigtime456.weatherapplication.domain.repository.SearchRepository
 import com.gmail.nigtime456.weatherapplication.domain.repository.SettingsProvider
 import com.gmail.nigtime456.weatherapplication.tools.rx.SchedulerProvider
 import dagger.Component
@@ -31,8 +31,8 @@ import dagger.Component
 interface AppComponent {
     fun getApplicationContext(): Context
     fun getSchedulerProvider(): SchedulerProvider
-    fun getSavedLocationsRepository(): SavedLocationsRepository
-    fun getPagedSearchRepository(): PagedSearchRepository
+    fun getSavedLocationsRepository(): LocationsRepository
+    fun getPagedSearchRepository(): SearchRepository
     fun getSettingsProvider(): SettingsProvider
     fun getForecastProvider(): ForecastProvider
 }

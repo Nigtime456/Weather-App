@@ -176,7 +176,7 @@ class LocationsActivity : BaseActivity(), LocationsContract.View {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.locations, menu)
+        menuInflater.inflate(R.menu.locations_toolbar, menu)
         return true
     }
 
@@ -197,7 +197,7 @@ class LocationsActivity : BaseActivity(), LocationsContract.View {
 
 
     override fun showProgressLayout() {
-        locationsViewSwitcher.switchTo(0, false)
+        locationsViewSwitcher.switchTo(0, true)
     }
 
     override fun showEmptyLayout() {
@@ -228,7 +228,7 @@ class LocationsActivity : BaseActivity(), LocationsContract.View {
     }
 
     override fun showLocations(items: List<SavedLocation>, scrollToPosition: Int) {
-        locationsAdapter.submitList(items) {
+        locationsAdapter.submitList(items, false) {
             locationsRecycler.smoothScrollToPosition(scrollToPosition)
         }
     }
@@ -257,6 +257,6 @@ class LocationsActivity : BaseActivity(), LocationsContract.View {
     }
 
     override fun finishView() {
-        onBackPressed()
+        finish()
     }
 }

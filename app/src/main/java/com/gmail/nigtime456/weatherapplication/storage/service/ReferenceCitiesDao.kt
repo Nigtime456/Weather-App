@@ -10,6 +10,6 @@ import com.gmail.nigtime456.weatherapplication.storage.table.ReferenceCityTable
 
 @Dao
 interface ReferenceCitiesDao {
-    @Query("SELECT * FROM reference_cities WHERE name LIKE :name ORDER BY name ASC LIMIT 5")
-    fun queryByName(name: String): List<ReferenceCityTable>
+    @Query("SELECT * FROM reference_cities WHERE name LIKE :name ORDER BY name ASC LIMIT 50")
+    fun searchByName(name: String): List<ReferenceCityTable>
 }

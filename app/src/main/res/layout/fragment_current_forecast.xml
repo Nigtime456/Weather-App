@@ -19,7 +19,7 @@
             style="@style/ToolbarDefault"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:menu="@menu/current_forecast"
+            app:menu="@menu/current_forecast_toolbar"
             app:navigationIcon="@drawable/ic_menu">
 
             <LinearLayout
@@ -55,8 +55,7 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/currentForecastSwipeRefresh"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="?attr/colorPrimary">
+        android:layout_height="match_parent">
 
 
         <com.gmail.nigtime456.weatherapplication.ui.customview.PendingNestedScrollView

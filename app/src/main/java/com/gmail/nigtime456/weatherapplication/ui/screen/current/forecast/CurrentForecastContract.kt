@@ -73,7 +73,7 @@ interface CurrentForecastContract {
 
     interface Presenter :
         BasePresenter<View> {
-        fun viewReady()
+        fun provideForecast()
         fun changeDisplayedDays(buttonId: Int)
         fun refreshData()
         fun clickDailyWeatherItem(dayIndex: Int)

@@ -4,7 +4,6 @@
 
 package com.gmail.nigtime456.weatherapplication.ui.screen.locations.list
 
-import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +28,7 @@ class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
     }
 
     fun detachPresenter() {
-        presenter?.clearView()
+        presenter?.stop()
     }
 
     override fun showCurrentTemp(temp: Double, unitOfTemp: UnitOfTemp) {

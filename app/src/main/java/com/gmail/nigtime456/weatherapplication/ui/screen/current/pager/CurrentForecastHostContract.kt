@@ -8,10 +8,15 @@
 
 package com.gmail.nigtime456.weatherapplication.ui.screen.current.pager
 
+import android.os.Parcelable
 import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
 import com.gmail.nigtime456.weatherapplication.ui.screen.base.BasePresenter
 
 interface CurrentForecastHostContract {
+
+    interface State : Parcelable {
+        fun getCurrentPage(): Int
+    }
 
     interface View {
         fun showPages(items: List<SavedLocation>)
@@ -21,13 +26,16 @@ interface CurrentForecastHostContract {
         fun setCurrentNavItem(index: Int)
 
         fun showDialogAboutApp()
-        fun showChangeLocationsScreen()
+        fun showEditLocationsScreen()
         fun showSettingsScreen()
         fun showWeatherNotificationScreen()
     }
 
-    interface Presenter :
-        BasePresenter<View> {
+    interface Presenter : BasePresenter<View> {
+
+        fun applyState(state: State?)
+        fun getState(): State
+
         fun loadLocations()
         fun scrollPage(page: Int)
         fun clickNavItem(index: Int)
@@ -37,5 +45,6 @@ interface CurrentForecastHostContract {
         fun clickWeatherNotifications()
 
         fun onCityInserted(position: Int)
+        fun onCitySelected(position: Int)
     }
 }

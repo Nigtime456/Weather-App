@@ -21,16 +21,14 @@ class LocationItemPresenter @Inject constructor(
     private var view: LocationItemContract.View? = null
 
     override fun loadForecast(view: LocationItemContract.View) {
+        this.view = view
         compositeDisposable += forecastProvider.getCurrentForecast(savedLocation.createRequestParams())
             .subscribe(this::showCurrentForecast) {/* ignore errors */ }
     }
 
-    override fun clearView() {
-        view = null
-    }
-
     override fun stop() {
         compositeDisposable.clear()
+        view = null
     }
 
     private fun showCurrentForecast(currentForecast: CurrentForecast) {

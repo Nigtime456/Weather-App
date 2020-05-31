@@ -50,7 +50,7 @@ class CurrentForecastFragment :
     }
 
     companion object {
-        private const val EXTRA_LOCATION = "weatherapplication.screen.current_forecast.location"
+        private const val EXTRA_LOCATION = "weatherapplication.screen.current.fragment.location"
 
         fun newInstance(location: SavedLocation): CurrentForecastFragment {
             return CurrentForecastFragment()
@@ -91,12 +91,12 @@ class CurrentForecastFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        presenter.viewReady()
+        presenter.provideForecast()
     }
 
     override fun onRestart() {
         super.onRestart()
-        presenter.viewReady()
+        presenter.provideForecast()
     }
 
     override fun onStop() {

@@ -7,7 +7,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimary"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -26,7 +25,7 @@
                 style="@style/ToolbarDefault"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:menu="@menu/locations"
+                app:menu="@menu/locations_toolbar"
                 app:navigationIcon="@drawable/ic_arrow_back"
                 app:title="@string/locations_title" />
         </LinearLayout>

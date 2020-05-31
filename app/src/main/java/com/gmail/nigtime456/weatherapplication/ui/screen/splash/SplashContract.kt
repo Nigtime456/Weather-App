@@ -13,8 +13,7 @@ interface SplashContract {
         fun showLocationsScreen()
     }
 
-    interface Presenter :
-        BasePresenter<View> {
+    interface Presenter : BasePresenter<View> {
         fun dispatchScreen()
     }
 }

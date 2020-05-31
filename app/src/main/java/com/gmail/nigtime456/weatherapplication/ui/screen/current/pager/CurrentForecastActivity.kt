@@ -38,6 +38,7 @@ class CurrentForecastActivity : BaseActivity(),
     CurrentForecastFragment.Parent {
 
     companion object {
+        private const val EXTRA_PRESENTER_STATE = "weatherapplication.screen.current.activity.state"
         private const val PAGE_LIMIT = 1
         private const val REQUEST_INSERT = 0
         private const val REQUEST_SELECT = 1
@@ -47,8 +48,6 @@ class CurrentForecastActivity : BaseActivity(),
 
     @Inject
     lateinit var presenter: CurrentForecastHostContract.Presenter
-
-    private val pageAdapter by lazy { LocationsPageAdapter(this) }
 
     private val pageScrollListener = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
@@ -69,6 +68,7 @@ class CurrentForecastActivity : BaseActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_current_forecast)
         initViews()
+        presenter.applyState(savedInstanceState?.getParcelable(EXTRA_PRESENTER_STATE))
         presenter.loadLocations()
     }
 
@@ -80,6 +80,12 @@ class CurrentForecastActivity : BaseActivity(),
     override fun onStop() {
         super.onStop()
         presenter.stop()
+    }
+
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(EXTRA_PRESENTER_STATE, presenter.getState())
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -94,6 +100,10 @@ class CurrentForecastActivity : BaseActivity(),
             REQUEST_INSERT -> {
                 val position = data.getIntExtra(SearchActivity.EXTRA_INSERTED_POSITION, 0)
                 presenter.onCityInserted(position)
+            }
+            REQUEST_SELECT -> {
+                val position = data.getIntExtra(LocationsActivity.EXTRA_SELECTED_POSITION, 0)
+                presenter.onCitySelected(position)
             }
         }
     }
@@ -133,18 +143,23 @@ class CurrentForecastActivity : BaseActivity(),
     private fun initViewPager() {
         currentHostViewPager.apply {
             offscreenPageLimit = PAGE_LIMIT
-            adapter = pageAdapter
             registerOnPageChangeCallback(pageScrollListener)
             setPageTransformer(MarginPageTransformer(resources.getDimensionPixelOffset(R.dimen.divider_size)))
         }
     }
+
 
     private fun closeDrawer() {
         currentHostDrawer.closeDrawer(GravityCompat.START)
     }
 
     override fun showPages(items: List<SavedLocation>) {
-        pageAdapter.submitList(items)
+        //нужно для правильного восстановления фрагментов
+        if (currentHostViewPager.adapter == null) {
+            currentHostViewPager.adapter = CurrentForecastPageAdapter(this, items)
+        } else {
+            (currentHostViewPager.adapter as CurrentForecastPageAdapter).submitList(items)
+        }
     }
 
     override fun showNavView(items: List<SavedLocation>) {
@@ -158,8 +173,8 @@ class CurrentForecastActivity : BaseActivity(),
     }
 
     private fun SubMenu.setupNavItems(items: List<SavedLocation>) {
-        items.forEachIndexed { index, cityForForecast ->
-            val menuItem = add(0, index, 0, cityForForecast.getName())
+        items.forEachIndexed { index, location ->
+            val menuItem = add(0, index, 0, location.getName())
             menuItem.setIcon(R.drawable.ic_city)
             menuItem.isCheckable = true
         }
@@ -177,7 +192,7 @@ class CurrentForecastActivity : BaseActivity(),
         Toast.makeText(this, R.string.todo, Toast.LENGTH_SHORT).show()
     }
 
-    override fun showChangeLocationsScreen() {
+    override fun showEditLocationsScreen() {
         startActivityForResult(LocationsActivity.getIntent(this), REQUEST_SELECT)
     }
 

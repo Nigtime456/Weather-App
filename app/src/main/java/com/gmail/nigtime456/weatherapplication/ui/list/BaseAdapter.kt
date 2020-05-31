@@ -7,18 +7,21 @@ package com.gmail.nigtime456.weatherapplication.ui.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.gmail.nigtime456.weatherapplication.App
 import com.gmail.nigtime456.weatherapplication.tools.rx.RxAsyncDiffer
 
 abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> constructor(
     private val diffCallback: SimpleDiffCallback<T>,
     private val rxAsyncDiffer: RxAsyncDiffer,
-    private val detectMoves: Boolean = false) :
-    RecyclerView.Adapter<VH>() {
+    private val detectMoves: Boolean = false
+) : RecyclerView.Adapter<VH>() {
 
     private var currentList = emptyList<T>()
 
-    fun submitList(newList: List<T>, calculateDiffs: Boolean = true, commitCallback: () -> Unit = {}) {
+    fun submitList(
+        newList: List<T>,
+        calculateDiffs: Boolean = true,
+        commitCallback: () -> Unit = {}
+    ) {
         if (calculateDiffs) {
             calculateDiffs(newList, commitCallback)
         } else {

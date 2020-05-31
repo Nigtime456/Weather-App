@@ -21,8 +21,8 @@ import com.gmail.nigtime456.weatherapplication.ui.screen.search.di.SearchModule
 import com.gmail.nigtime456.weatherapplication.ui.screen.search.list.SearchAdapter
 import com.gmail.nigtime456.weatherapplication.ui.util.ColorSpanHelper
 import com.gmail.nigtime456.weatherapplication.ui.util.ThemeUtils
+import com.gmail.nigtime456.weatherapplication.ui.util.changeTextListener
 import com.gmail.nigtime456.weatherapplication.ui.util.showSnackBar
-import com.jakewharton.rxbinding3.widget.textChanges
 import kotlinx.android.synthetic.main.activity_search.*
 import javax.inject.Inject
 
@@ -99,10 +99,8 @@ class SearchActivity : BaseActivity(), SearchContract.View {
 
     private fun initAppBar() {
         setSupportActionBar(searchToolbar)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
-
 
     private fun initList() {
         searchRecycler.apply {
@@ -114,7 +112,7 @@ class SearchActivity : BaseActivity(), SearchContract.View {
     }
 
     private fun initInputField() {
-        presenter.observeSearchInput(searchEditText.textChanges())
+        searchEditText.changeTextListener(presenter::queryChanges)
     }
 
     private fun getDivider(): ColorDividerDecoration {
@@ -138,7 +136,7 @@ class SearchActivity : BaseActivity(), SearchContract.View {
 
     override fun showNotFoundLayout() {
         liftAppBar(false)
-        searchViewSwitcher.switchTo(2, false)
+        searchViewSwitcher.switchTo(2, true)
     }
 
     override fun showMessageAlreadySaved() {
@@ -159,6 +157,6 @@ class SearchActivity : BaseActivity(), SearchContract.View {
     }
 
     override fun finishView() {
-        onBackPressed()
+        finish()
     }
 }

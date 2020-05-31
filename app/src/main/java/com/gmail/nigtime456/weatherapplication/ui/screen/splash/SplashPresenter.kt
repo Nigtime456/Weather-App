@@ -9,7 +9,7 @@
 package com.gmail.nigtime456.weatherapplication.ui.screen.splash
 
 
-import com.gmail.nigtime456.weatherapplication.domain.repository.SavedLocationsRepository
+import com.gmail.nigtime456.weatherapplication.domain.repository.LocationsRepository
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
@@ -17,19 +17,29 @@ import javax.inject.Inject
 
 class SplashPresenter @Inject constructor(
     private val view: SplashContract.View,
-    private val savedLocationsRepository: SavedLocationsRepository
+    private val locationsRepository: LocationsRepository
 ) : SplashContract.Presenter {
 
     private val compositeDisposable = CompositeDisposable()
 
     override fun dispatchScreen() {
-        compositeDisposable += savedLocationsRepository.hasLocations()
+        compositeDisposable += locationsRepository.hasLocations()
             .subscribeBy { hasLocations ->
                 if (hasLocations) {
-                    view.showCurrentForecastScreen()
+                    preloadLocations()
                 } else {
                     view.showLocationsScreen()
                 }
+            }
+    }
+
+    /**
+     * Загрузить локации в первый раз, репозиторий закэширует их
+     */
+    private fun preloadLocations() {
+        compositeDisposable += locationsRepository.getLocations()
+            .subscribe {
+                view.showCurrentForecastScreen()
             }
     }
 

@@ -2,10 +2,6 @@
  * Сreated by Igor Pokrovsky. 2020/5/31
  */
 
-/*
- * Сreated by Igor Pokrovsky. 2020/5/31
- */
-
 package com.gmail.nigtime456.weatherapplication.ui.screen.search.list
 
 import android.view.LayoutInflater
@@ -21,7 +17,9 @@ class SearchAdapter(
     rxAsyncDiffer: RxAsyncDiffer,
     private val spanHelper: ColorSpanHelper,
     private val onClick: (SearchCity) -> Unit
-) : BaseAdapter<SearchCity, SearchCityViewHolder>(DIFF_CALLBACK, rxAsyncDiffer) {
+) : BaseAdapter<SearchCity, SearchCityViewHolder>(
+    DIFF_CALLBACK, rxAsyncDiffer
+) {
 
     private companion object {
         val DIFF_CALLBACK = object : SimpleDiffCallback<SearchCity>() {
@@ -30,9 +28,8 @@ class SearchAdapter(
             }
 
             override fun areContentsTheSame(old: SearchCity, new: SearchCity): Boolean {
-                return old.cityId == new.cityId
+                return old.cityId == new.cityId && old.query == new.query
             }
-
         }
     }
 
@@ -57,7 +54,7 @@ class SearchAdapter(
         parent: ViewGroup,
         viewType: Int
     ): SearchCityViewHolder {
-        val view = inflater.inflate(R.layout.item_search_city, parent,false)
+        val view = inflater.inflate(R.layout.item_search_city, parent, false)
         return SearchCityViewHolder(view)
     }
 }

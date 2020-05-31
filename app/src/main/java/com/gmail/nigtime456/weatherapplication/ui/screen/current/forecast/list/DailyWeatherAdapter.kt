@@ -62,7 +62,8 @@ class DailyWeatherAdapter constructor(
         parent: ViewGroup,
         viewType: Int
     ): DailyWeatherViewHolder {
-        return DailyWeatherViewHolder(inflater.inflate(R.layout.item_daily_forecast, parent, false))
+        val view = inflater.inflate(R.layout.item_daily_forecast, parent, false)
+        return DailyWeatherViewHolder(view)
     }
 
     override fun bindViewHolder(

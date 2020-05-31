@@ -22,7 +22,7 @@ class LocationsAdapter constructor(
     private val listener: Listener,
     private val presenterFactory: LocationItemPresenterFactory,
     rxAsyncDiffer: RxAsyncDiffer
-) : BaseAdapter<SavedLocation, LocationViewHolder>(DIFF_CALLBACK, rxAsyncDiffer, true),
+) : BaseAdapter<SavedLocation, LocationViewHolder>(DIFF_CALLBACK, rxAsyncDiffer),
     ItemTouchController.TouchAdapter<LocationViewHolder> {
 
     interface Listener {
@@ -50,6 +50,7 @@ class LocationsAdapter constructor(
             }
         }
     }
+
 
     override fun createViewHolder(
         inflater: LayoutInflater,
