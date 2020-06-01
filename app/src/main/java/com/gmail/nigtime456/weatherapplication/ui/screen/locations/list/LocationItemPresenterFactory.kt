@@ -6,12 +6,12 @@ package com.gmail.nigtime456.weatherapplication.ui.screen.locations.list
 
 import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
 import com.gmail.nigtime456.weatherapplication.domain.repository.ForecastProvider
-import com.gmail.nigtime456.weatherapplication.domain.repository.SettingsProvider
+import com.gmail.nigtime456.weatherapplication.domain.repository.SettingsManager
 import javax.inject.Inject
 
 class LocationItemPresenterFactory @Inject constructor(
     private val forecastProvider: ForecastProvider,
-    private val settingsProvider: SettingsProvider
+    private val settingsManager: SettingsManager
 ) {
     private val presenters = mutableMapOf<Long, LocationItemPresenter>()
 
@@ -24,7 +24,7 @@ class LocationItemPresenterFactory @Inject constructor(
     private fun createItemPresenter(savedLocation: SavedLocation): LocationItemPresenter {
         return LocationItemPresenter(
             forecastProvider,
-            settingsProvider,
+            settingsManager,
             savedLocation
         )
     }

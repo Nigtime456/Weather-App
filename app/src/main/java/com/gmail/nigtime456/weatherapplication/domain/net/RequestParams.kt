@@ -6,9 +6,9 @@ package com.gmail.nigtime456.weatherapplication.domain.net
 
 sealed class RequestParams {
 
-    abstract fun getKey(): Long
+    abstract fun getCacheKey(): Long
 
     data class City(val cityId: Long) : RequestParams() {
-        override fun getKey(): Long = cityId
+        override fun getCacheKey(): Long = cityId
     }
 }

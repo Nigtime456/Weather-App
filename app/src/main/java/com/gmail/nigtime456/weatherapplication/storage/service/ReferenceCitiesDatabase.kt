@@ -13,7 +13,7 @@ import com.gmail.nigtime456.weatherapplication.storage.table.ReferenceCityTable
 @Database(
     entities = [ReferenceCityTable::class],
     version = 1,
-    exportSchema = true
+    exportSchema = false
 )
 abstract class ReferenceCitiesDatabase : RoomDatabase() {
 

@@ -6,21 +6,20 @@ package com.gmail.nigtime456.weatherapplication.storage.preference
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.preference.PreferenceManager
 import com.gmail.nigtime456.weatherapplication.R
-import com.gmail.nigtime456.weatherapplication.domain.repository.SettingsProvider
-import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfLength
-import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfPressure
-import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfSpeed
-import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfTemp
+import com.gmail.nigtime456.weatherapplication.domain.repository.SettingsManager
+import com.gmail.nigtime456.weatherapplication.domain.settings.*
 import io.reactivex.Observable
+import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import java.util.*
 import javax.inject.Inject
 
 
-class SettingsProviderImpl @Inject constructor(context: Context) : SettingsProvider,
+class SettingsManagerImpl @Inject constructor(context: Context) : SettingsManager,
     SharedPreferences.OnSharedPreferenceChangeListener {
 
     private companion object {
@@ -30,66 +29,71 @@ class SettingsProviderImpl @Inject constructor(context: Context) : SettingsProvi
         const val KEY_UNIT_OF_PRESSURE = "unit_of_pressure"
         const val KEY_LANG = "lang"
         const val KEY_THEME = "theme"
+        const val KEY_DAYS_COUNT = "internal_days_count"
     }
 
-    private val sharedPreferences: SharedPreferences =
+    private val preferences: SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(context)
 
-    private val unitsChangesSubject: Subject<Unit> = PublishSubject.create()
     private val langChangesSubject: Subject<Unit> = PublishSubject.create()
     private val themeChangesSubject: Subject<Unit> = PublishSubject.create()
+    private val daysCountSubject: Subject<DaysCount> = BehaviorSubject.create()
 
     private lateinit var latestUnitOfTemp: UnitOfTemp
     private lateinit var latestUnitOfSpeed: UnitOfSpeed
     private lateinit var latestUnitOfLength: UnitOfLength
     private lateinit var latestUnitOfPressure: UnitOfPressure
+    private lateinit var latestDaysCount: DaysCount
 
     init {
         initUnitOfTemp()
         initUnitOfSpeed()
         initUnitOfLength()
         initUnitOfPressure()
+        initDaysCount()
 
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+        preferences.registerOnSharedPreferenceChangeListener(this)
     }
 
     private fun initUnitOfTemp() {
-        val code = sharedPreferences.getStringOrThrow(KEY_UNIT_OF_TEMP)
+        val code = preferences.getStringOrThrow(KEY_UNIT_OF_TEMP)
         latestUnitOfTemp = UnitOfTemp.getByCode(code)
     }
 
     private fun initUnitOfSpeed() {
-        val code = sharedPreferences.getStringOrThrow(KEY_UNIT_OF_SPEED)
+        val code = preferences.getStringOrThrow(KEY_UNIT_OF_SPEED)
         latestUnitOfSpeed = UnitOfSpeed.getByCode(code)
     }
 
     private fun initUnitOfLength() {
-        val code = sharedPreferences.getStringOrThrow(KEY_UNIT_OF_LENGTH)
+        val code = preferences.getStringOrThrow(KEY_UNIT_OF_LENGTH)
         latestUnitOfLength = UnitOfLength.getByCode(code)
     }
 
     private fun initUnitOfPressure() {
-        val code = sharedPreferences.getStringOrThrow(KEY_UNIT_OF_PRESSURE)
+        val code = preferences.getStringOrThrow(KEY_UNIT_OF_PRESSURE)
         latestUnitOfPressure = UnitOfPressure.getByCode(code)
+    }
+
+    private fun initDaysCount() {
+        val code = preferences.getString(KEY_DAYS_COUNT, DaysCount.getDefaultKey())
+            ?: DaysCount.getDefaultKey()
+        latestDaysCount = DaysCount.getByCode(code)
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         when (key) {
             KEY_UNIT_OF_TEMP -> {
                 initUnitOfTemp()
-                unitsChangesSubject.onNext(Unit)
             }
             KEY_UNIT_OF_SPEED -> {
                 initUnitOfSpeed()
-                unitsChangesSubject.onNext(Unit)
             }
             KEY_UNIT_OF_LENGTH -> {
                 initUnitOfLength()
-                unitsChangesSubject.onNext(Unit)
             }
             KEY_UNIT_OF_PRESSURE -> {
                 initUnitOfPressure()
-                unitsChangesSubject.onNext(Unit)
             }
             KEY_LANG -> {
                 langChangesSubject.onNext(Unit)
@@ -101,7 +105,7 @@ class SettingsProviderImpl @Inject constructor(context: Context) : SettingsProvi
     }
 
     override fun getTheme(): Int {
-        return when (val theme = sharedPreferences.getStringOrThrow(KEY_THEME)) {
+        return when (val theme = preferences.getStringOrThrow(KEY_THEME)) {
             "dark" -> R.style.BaseTheme_Dark
             "light" -> R.style.BaseTheme_Light
             else -> error("unknown theme tag = $theme?")
@@ -109,8 +113,26 @@ class SettingsProviderImpl @Inject constructor(context: Context) : SettingsProvi
     }
 
     override fun getLocale(): Locale {
-        val langCode = sharedPreferences.getStringOrThrow(KEY_LANG)
+        val langCode = preferences.getStringOrThrow(KEY_LANG)
         return Locale(langCode)
+    }
+
+    override fun getDaysCount(): DaysCount = latestDaysCount
+
+    override fun setDaysCount(daysCount: DaysCount) {
+        Log.d("sas", "SETTINGS_MANAGER cur = [$latestDaysCount] new = [$daysCount]")
+        if (latestDaysCount == daysCount) {
+            return
+        }
+        latestDaysCount = daysCount
+        daysCountSubject.onNext(latestDaysCount)
+        saveDaysCount()
+    }
+
+    private fun saveDaysCount() {
+        preferences.edit()
+            .putString(KEY_DAYS_COUNT, latestDaysCount.getCode())
+            .apply()
     }
 
     override fun getUnitOfTemp(): UnitOfTemp = latestUnitOfTemp
@@ -121,11 +143,11 @@ class SettingsProviderImpl @Inject constructor(context: Context) : SettingsProvi
 
     override fun getUnitOfLength(): UnitOfLength = latestUnitOfLength
 
-    override fun observeUnitsChanges(): Observable<Unit> = unitsChangesSubject
-
     override fun observeLangChanges(): Observable<Unit> = langChangesSubject
 
     override fun observeThemeChanges(): Observable<Unit> = themeChangesSubject
+
+    override fun observeDaysCountChanges(): Observable<DaysCount> = daysCountSubject
 
     private fun SharedPreferences.getStringOrThrow(key: String): String {
         return getString(key, null) ?: error("failed to get preference for key $key")

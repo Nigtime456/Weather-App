@@ -13,7 +13,6 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.gmail.nigtime456.weatherapplication.App
 import com.gmail.nigtime456.weatherapplication.di.AppComponent
-import leakcanary.AppWatcher
 
 abstract class BaseFragment<L>(@LayoutRes layoutRes: Int) : Fragment(layoutRes) {
     protected var parentListener: L? = null
@@ -53,15 +52,12 @@ abstract class BaseFragment<L>(@LayoutRes layoutRes: Int) : Fragment(layoutRes) 
         hasStop = true
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        AppWatcher.objectWatcher.watch(this, "fragment ${this::class.java}  leak")
-    }
-
     override fun onDetach() {
         super.onDetach()
         parentListener = null
     }
+
+    protected fun requireListener() = parentListener ?: error("listener is null")
 
     /**
      * Вернуть класс listener'a.

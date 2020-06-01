@@ -8,13 +8,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.gmail.nigtime456.weatherapplication.tools.AppExecutors
 import com.gmail.nigtime456.weatherapplication.storage.table.SavedLocationTable
+import com.gmail.nigtime456.weatherapplication.tools.AppExecutors
 
 @Database(
     entities = [SavedLocationTable::class],
     version = 1,
-    exportSchema = true
+    exportSchema = false
 )
 abstract class SavedLocationsDatabase : RoomDatabase() {
 

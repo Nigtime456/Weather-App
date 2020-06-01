@@ -9,11 +9,7 @@
 package com.gmail.nigtime456.weatherapplication.domain.repository
 
 import androidx.annotation.StyleRes
-import androidx.lifecycle.LiveData
-import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfLength
-import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfPressure
-import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfSpeed
-import com.gmail.nigtime456.weatherapplication.domain.settings.UnitOfTemp
+import com.gmail.nigtime456.weatherapplication.domain.settings.*
 import io.reactivex.Observable
 import java.util.*
 
@@ -23,16 +19,20 @@ import java.util.*
  *
  * Так же предоставляет методы для отслеживания изменений настроек.
  */
-//TODO может LiveData возвращать ?
-interface SettingsProvider {
+interface SettingsManager {
     @StyleRes
     fun getTheme(): Int
     fun getLocale(): Locale
+    fun getDaysCount(): DaysCount
+
+    fun setDaysCount(daysCount: DaysCount)
+
     fun getUnitOfTemp(): UnitOfTemp
     fun getUnitOfPressure(): UnitOfPressure
     fun getUnitOfSpeed(): UnitOfSpeed
     fun getUnitOfLength(): UnitOfLength
-    fun observeUnitsChanges(): Observable<Unit>
+
     fun observeLangChanges(): Observable<Unit>
     fun observeThemeChanges(): Observable<Unit>
+    fun observeDaysCountChanges(): Observable<DaysCount>
 }

@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/BaseTheme">
 
-
         <activity
             android:name=".ui.screen.splash.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -23,12 +22,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.screen.current.pager.CurrentForecastActivity"
             android:theme="@style/BaseTheme.Dark" />
+
         <activity
             android:name=".ui.screen.search.SearchActivity"
-            android:theme="@style/BaseTheme.Dark" />
+            android:theme="@style/BaseTheme.Dark"
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".ui.screen.locations.LocationsActivity"

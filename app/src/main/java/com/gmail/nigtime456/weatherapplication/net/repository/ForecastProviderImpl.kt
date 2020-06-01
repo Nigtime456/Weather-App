@@ -41,7 +41,7 @@ class ForecastProviderImpl @Inject constructor(
         return if (forceNet) {
             forceNetCurrentForecast(params)
         } else {
-            currentStore.get(params.getKey()) ?: forceNetCurrentForecast(params)
+            currentStore.get(params.getCacheKey()) ?: forceNetCurrentForecast(params)
         }
     }
 
@@ -52,9 +52,7 @@ class ForecastProviderImpl @Inject constructor(
             .observeOn(schedulerProvider.ui())
             .replay(1)
             .autoConnect()
-            .subscribeOn(schedulerProvider.io())
-            .observeOn(schedulerProvider.ui())
-            .also { observable -> currentStore.put(params.getKey(), observable) }
+            .also { observable -> currentStore.put(params.getCacheKey(), observable) }
     }
 
     override fun getHourlyForecast(
@@ -64,7 +62,7 @@ class ForecastProviderImpl @Inject constructor(
         return if (forceNet) {
             forceNetHourlyForecast(params)
         } else {
-            hourlyStore.get(params.getKey()) ?: forceNetHourlyForecast(params)
+            hourlyStore.get(params.getCacheKey()) ?: forceNetHourlyForecast(params)
         }
     }
 
@@ -75,7 +73,7 @@ class ForecastProviderImpl @Inject constructor(
             .observeOn(schedulerProvider.ui())
             .replay(1)
             .autoConnect()
-            .also { observable -> hourlyStore.put(params.getKey(), observable) }
+            .also { observable -> hourlyStore.put(params.getCacheKey(), observable) }
     }
 
     override fun getDailyForecast(
@@ -85,7 +83,7 @@ class ForecastProviderImpl @Inject constructor(
         return if (forceNet) {
             forceNetDailyForecast(params)
         } else {
-            dailyStore.get(params.getKey()) ?: forceNetDailyForecast(params)
+            dailyStore.get(params.getCacheKey()) ?: forceNetDailyForecast(params)
         }
     }
 
@@ -96,6 +94,6 @@ class ForecastProviderImpl @Inject constructor(
             .observeOn(schedulerProvider.ui())
             .replay(1)
             .autoConnect()
-            .also { observable -> dailyStore.put(params.getKey(), observable) }
+            .also { observable -> dailyStore.put(params.getCacheKey(), observable) }
     }
 }

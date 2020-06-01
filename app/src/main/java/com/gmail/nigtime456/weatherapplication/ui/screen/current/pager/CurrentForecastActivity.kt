@@ -2,10 +2,6 @@
  * Сreated by Igor Pokrovsky. 2020/5/26
  */
 
-/*
- * Сreated by Igor Pokrovsky. 2020/5/26
- */
-
 package com.gmail.nigtime456.weatherapplication.ui.screen.current.pager
 
 import android.annotation.SuppressLint
@@ -30,6 +26,7 @@ import com.gmail.nigtime456.weatherapplication.ui.screen.locations.LocationsActi
 import com.gmail.nigtime456.weatherapplication.ui.screen.search.SearchActivity
 import com.gmail.nigtime456.weatherapplication.ui.screen.settings.SettingsActivity
 import com.google.android.material.navigation.NavigationView
+import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.activity_current_forecast.*
 import javax.inject.Inject
 
@@ -40,7 +37,7 @@ class CurrentForecastActivity : BaseActivity(),
 
     companion object {
         private const val EXTRA_PRESENTER_STATE = "weatherapplication.screen.current.activity.state"
-        private const val PAGE_LIMIT = 1
+        private const val PAGE_LIMIT = 2
         private const val REQUEST_INSERT = 0
         private const val REQUEST_SELECT = 1
 
@@ -69,7 +66,7 @@ class CurrentForecastActivity : BaseActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_current_forecast)
         initViews()
-        presenter.applyState(savedInstanceState?.getParcelable(EXTRA_PRESENTER_STATE))
+        presenter.restoreState(savedInstanceState?.getParcelable(EXTRA_PRESENTER_STATE))
         presenter.loadLocations()
     }
 
@@ -216,4 +213,8 @@ class CurrentForecastActivity : BaseActivity(),
     override fun requestDailyForecast(location: SavedLocation, dayIndex: Int) {
         Toast.makeText(this, R.string.todo, Toast.LENGTH_SHORT).show()
     }
+
+    override fun getSyncPageScrollSubject(): Subject<Int> = presenter.getSyncPageScrollSubject()
+
+
 }

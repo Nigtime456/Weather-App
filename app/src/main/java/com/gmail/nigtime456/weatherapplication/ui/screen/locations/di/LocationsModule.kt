@@ -6,12 +6,9 @@ package com.gmail.nigtime456.weatherapplication.ui.screen.locations.di
 
 import android.content.Context
 import com.gmail.nigtime456.weatherapplication.R
-import com.gmail.nigtime456.weatherapplication.domain.repository.ForecastProvider
-import com.gmail.nigtime456.weatherapplication.domain.repository.SettingsProvider
 import com.gmail.nigtime456.weatherapplication.tools.rx.RxDelayedMessageDispatcher
 import com.gmail.nigtime456.weatherapplication.tools.rx.SchedulerProvider
 import com.gmail.nigtime456.weatherapplication.ui.screen.locations.LocationsContract
-import com.gmail.nigtime456.weatherapplication.ui.screen.locations.list.LocationItemPresenterFactory
 import dagger.Module
 import dagger.Provides
 

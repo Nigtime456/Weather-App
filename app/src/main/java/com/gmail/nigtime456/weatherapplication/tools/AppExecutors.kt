@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadFactory
 import java.util.concurrent.atomic.AtomicInteger
 
 object AppExecutors {
-    private val maxIOThreads = Runtime.getRuntime().availableProcessors() * 2
+    private val maxIOThreads = Runtime.getRuntime().availableProcessors() * 3
     val dataBaseExecutor: Executor = Executors.newSingleThreadExecutor(DatabaseThreadFactory())
     val IOExecutor: Executor = Executors.newFixedThreadPool(maxIOThreads, IOThreadFactory())
     val singleExecutor: Executor = Executors.newSingleThreadExecutor(SingleThreadFactory())

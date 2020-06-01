@@ -2,10 +2,6 @@
  * Сreated by Igor Pokrovsky. 2020/5/25
  */
 
-/*
- * Сreated by Igor Pokrovsky. 2020/4/29
- */
-
 package com.gmail.nigtime456.weatherapplication.net.repository
 
 import com.gmail.nigtime456.weatherapplication.domain.net.RequestParams

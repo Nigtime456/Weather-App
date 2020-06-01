@@ -12,15 +12,15 @@
 
 package com.gmail.nigtime456.weatherapplication.ui.screen.current.forecast
 
+import android.util.Log
 import com.gmail.nigtime456.weatherapplication.domain.forecast.CurrentForecast
 import com.gmail.nigtime456.weatherapplication.domain.forecast.DailyForecast
 import com.gmail.nigtime456.weatherapplication.domain.forecast.HourlyForecast
 import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
 import com.gmail.nigtime456.weatherapplication.domain.net.RequestParams
 import com.gmail.nigtime456.weatherapplication.domain.repository.ForecastProvider
-import com.gmail.nigtime456.weatherapplication.domain.repository.SettingsProvider
-import com.gmail.nigtime456.weatherapplication.ui.screen.current.forecast.di.DaysSwitchSubject
-import com.gmail.nigtime456.weatherapplication.ui.screen.current.forecast.di.ScrollSubject
+import com.gmail.nigtime456.weatherapplication.domain.repository.SettingsManager
+import com.gmail.nigtime456.weatherapplication.domain.settings.DaysCount
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.Observables
@@ -33,16 +33,12 @@ class CurrentForecastPresenter @Inject constructor(
     private val view: CurrentForecastContract.View,
     private val currentLocation: SavedLocation,
     private val forecastProvider: ForecastProvider,
-    private val settingsProvider: SettingsProvider,
-    @DaysSwitchSubject private val displayedDaysSwitchSubject: Subject<Int>,
-    @ScrollSubject private val verticalScrollSubject: Subject<Int>
+    private val settingsManager: SettingsManager,
+    private val scrollSubject: Subject<Int>
 ) : CurrentForecastContract.Presenter {
-
 
     private val compositeDisposable = CompositeDisposable()
     private var isDataShown = false
-    private var currentDisplayedDays = CurrentForecastContract.DISPLAY_5_DAYS
-
 
     override fun stop() {
         compositeDisposable.clear()
@@ -51,45 +47,23 @@ class CurrentForecastPresenter @Inject constructor(
     override fun provideForecast() {
         observeScrollChanges()
         observeDisplayedDaysChanges()
-        observeUnitSettingsChanges()
         setupScreen()
     }
 
     private fun observeDisplayedDaysChanges() {
-        compositeDisposable += displayedDaysSwitchSubject
-            .subscribe { buttonId ->
-                currentDisplayedDays = buttonId
-                setDisplayedDays(buttonId)
-            }
-
+        compositeDisposable += settingsManager.observeDaysCountChanges()
+            .subscribe(this::setupDisplayedDays)
     }
 
-    private fun setDisplayedDays(buttonId: Int) {
-        view.setDisplayedDays(getDaysCountByButtonId(buttonId))
-        view.selectDaysSwitchButton(buttonId)
-    }
-
-    private fun getDaysCountByButtonId(buttonId: Int?): Int {
-        return when (buttonId) {
-            CurrentForecastContract.DISPLAY_5_DAYS -> 5
-            CurrentForecastContract.DISPLAY_10_DAYS -> 10
-            CurrentForecastContract.DISPLAY_16_DAYS -> 16
-            else -> error("unknown id == $buttonId ?")
-        }
+    private fun setupDisplayedDays(displayedDays: DaysCount) {
+        view.setDisplayedDays(displayedDays.getCount())
+        view.selectDaysSwitchButton(displayedDays.getId())
     }
 
     private fun observeScrollChanges() {
-        compositeDisposable += verticalScrollSubject.subscribe { scrollY ->
+        compositeDisposable += scrollSubject.subscribe { scrollY ->
             view.setVerticalScroll(scrollY)
         }
-    }
-
-    private fun observeUnitSettingsChanges() {
-        compositeDisposable += settingsProvider.observeUnitsChanges()
-            .subscribe {
-                //при смене единиц измерения - перезагружаем погоду
-                provideForecast(false)
-            }
     }
 
     private fun setupScreen() {
@@ -101,11 +75,14 @@ class CurrentForecastPresenter @Inject constructor(
         provideForecast(true)
     }
 
-
     private fun provideForecast(forceNet: Boolean) {
+        val start = System.currentTimeMillis()
         compositeDisposable += getForecastAsTriple(currentLocation.createRequestParams(), forceNet)
             .doOnSubscribe { onLoadStart() }
-            .doFinally { onLoadEnd() }
+            .doFinally {
+                Log.d("sas", "end = ${System.currentTimeMillis() - start}")
+                onLoadEnd()
+            }
             .subscribe(this::onNextDataLoaded, this::onErrorLoading)
     }
 
@@ -149,10 +126,11 @@ class CurrentForecastPresenter @Inject constructor(
     }
 
     private fun bindData(data: Triple<CurrentForecast, HourlyForecast, DailyForecast>) {
-        val unitOfTemp = settingsProvider.getUnitOfTemp()
-        val unitOfSpeed = settingsProvider.getUnitOfSpeed()
-        val unitOfPressure = settingsProvider.getUnitOfPressure()
-        val unitOfLength = settingsProvider.getUnitOfLength()
+        Log.d("sas", "bind[$currentLocation], days = [${settingsManager.getDaysCount()}]")
+        val unitOfTemp = settingsManager.getUnitOfTemp()
+        val unitOfSpeed = settingsManager.getUnitOfSpeed()
+        val unitOfPressure = settingsManager.getUnitOfPressure()
+        val unitOfLength = settingsManager.getUnitOfLength()
 
         val currentForecast = data.first
         val hourlyForecast = data.second
@@ -164,6 +142,7 @@ class CurrentForecastPresenter @Inject constructor(
         view.setCurrentWeatherDescription(currentForecast.description)
 
         view.setDailyForecast(dailyForecast.weatherList, unitOfTemp)
+
         view.setHourlyForecast(hourlyForecast.weatherList, unitOfTemp)
 
         view.setWind(currentForecast.wind, unitOfSpeed)
@@ -179,19 +158,18 @@ class CurrentForecastPresenter @Inject constructor(
         view.setTimezone(currentForecast.timeZone)
         view.setSunInfo(currentForecast.sunInfo)
 
-        setDisplayedDays(currentDisplayedDays)
+        setupDisplayedDays(settingsManager.getDaysCount())
     }
 
     override fun changeDisplayedDays(buttonId: Int) {
-        displayedDaysSwitchSubject.onNext(buttonId)
+        // settingsManager.setDaysCount(DaysCount.getById(buttonId))
     }
-
 
     override fun clickDailyWeatherItem(dayIndex: Int) {
         view.showDailyForecastScreen(currentLocation, dayIndex)
     }
 
     override fun changeScroll(scrollY: Int) {
-        verticalScrollSubject.onNext(scrollY)
+        scrollSubject.onNext(scrollY)
     }
 }

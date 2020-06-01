@@ -8,19 +8,14 @@ import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
 import com.gmail.nigtime456.weatherapplication.ui.screen.current.forecast.CurrentForecastContract
 import dagger.Module
 import dagger.Provides
-import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.Subject
 
 @Module
 class CurrentForecastModule constructor(
     private val view: CurrentForecastContract.View,
-    private val currentLocation: SavedLocation
+    private val currentLocation: SavedLocation,
+    private val scrollSubject: Subject<Int>
 ) {
-
-    private companion object {
-        private val DAYS_SWITCH_SUBJECT: Subject<Int> = BehaviorSubject.create()
-        private val SCROLL_SUBJECT: Subject<Int> = BehaviorSubject.create()
-    }
 
     @Provides
     fun provideView(): CurrentForecastContract.View = view
@@ -28,11 +23,7 @@ class CurrentForecastModule constructor(
     @Provides
     fun provideCurrentLocation(): SavedLocation = currentLocation
 
-    @DaysSwitchSubject
     @Provides
-    fun provideDaysSwitchSubject() = DAYS_SWITCH_SUBJECT
+    fun providesSyncScrollHelper(): Subject<Int> = scrollSubject
 
-    @ScrollSubject
-    @Provides
-    fun provideScrollSubject() = SCROLL_SUBJECT
 }

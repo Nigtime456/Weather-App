@@ -11,11 +11,13 @@ package com.gmail.nigtime456.weatherapplication.ui.screen.current.pager
 import android.os.Parcelable
 import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
 import com.gmail.nigtime456.weatherapplication.ui.screen.base.BasePresenter
+import io.reactivex.subjects.Subject
 
 interface CurrentForecastHostContract {
 
     interface State : Parcelable {
         fun getCurrentPage(): Int
+        fun getVerticalScroll(): Int
     }
 
     interface View {
@@ -33,8 +35,10 @@ interface CurrentForecastHostContract {
 
     interface Presenter : BasePresenter<View> {
 
-        fun applyState(state: State?)
+        fun restoreState(state: State?)
         fun getState(): State
+
+        fun getSyncPageScrollSubject(): Subject<Int>
 
         fun loadLocations()
         fun scrollPage(page: Int)
@@ -46,5 +50,6 @@ interface CurrentForecastHostContract {
 
         fun onCityInserted(position: Int)
         fun onCitySelected(position: Int)
+
     }
 }

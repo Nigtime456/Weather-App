@@ -9,15 +9,15 @@
 package com.gmail.nigtime456.weatherapplication.di.storage
 
 import com.gmail.nigtime456.weatherapplication.di.ApplicationScope
-import com.gmail.nigtime456.weatherapplication.domain.repository.SettingsProvider
-import com.gmail.nigtime456.weatherapplication.storage.preference.SettingsProviderImpl
+import com.gmail.nigtime456.weatherapplication.domain.repository.SettingsManager
+import com.gmail.nigtime456.weatherapplication.storage.preference.SettingsManagerImpl
 import dagger.Binds
 import dagger.Module
 
 @Module
-interface SettingsProviderModule {
+interface SettingsManagerModule {
 
     @ApplicationScope
     @Binds
-    fun provideSettingsProvider(impl: SettingsProviderImpl): SettingsProvider
+    fun provideSettingsProvider(impl: SettingsManagerImpl): SettingsManager
 }

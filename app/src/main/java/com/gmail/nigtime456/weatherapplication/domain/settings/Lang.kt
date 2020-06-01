@@ -6,6 +6,7 @@ package com.gmail.nigtime456.weatherapplication.domain.settings
 
 import java.util.*
 
+//TODO unused
 sealed class Lang {
     abstract fun getLangCode(): String
     abstract fun getLocale(): Locale

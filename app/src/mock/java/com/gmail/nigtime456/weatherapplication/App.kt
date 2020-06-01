@@ -11,8 +11,6 @@ import androidx.preference.PreferenceManager
 import com.gmail.nigtime456.weatherapplication.di.AppComponent
 import com.gmail.nigtime456.weatherapplication.di.DaggerAppComponent
 import com.gmail.nigtime456.weatherapplication.di.other.ContextModule
-import leakcanary.AppWatcher
-import leakcanary.LeakCanary
 import timber.log.Timber
 
 
@@ -31,7 +29,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         setupPreferences()
-        setCanary()
         setDi()
         setLogger()
     }
@@ -40,22 +37,6 @@ class App : Application() {
         PreferenceManager.setDefaultValues(this, R.xml.main_preferences, true)
         PreferenceManager.setDefaultValues(this, R.xml.data_preferences, true)
         PreferenceManager.setDefaultValues(this, R.xml.unit_preferences, true)
-    }
-
-    /**
-     * Leak Canary отслеживает ЖЦ объектов и детектит утечки объектов
-     *
-     */
-    private fun setCanary() {
-        AppWatcher.config = AppWatcher.config.copy(
-            enabled = true,
-            watchActivities = true,
-            watchFragments = true,
-            watchFragmentViews = true,
-            watchViewModels = true,
-            watchDurationMillis = 5000
-        )
-        LeakCanary.config = LeakCanary.config.copy(retainedVisibleThreshold = 1)
     }
 
     private fun setDi() {

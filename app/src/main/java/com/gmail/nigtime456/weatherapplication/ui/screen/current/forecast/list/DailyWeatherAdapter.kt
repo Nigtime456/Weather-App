@@ -50,12 +50,14 @@ class DailyWeatherAdapter constructor(
         weatherList = newList
         val calculateDiffs = this::unitOfTemp.isInitialized && this.unitOfTemp == unitOfTemp
         this.unitOfTemp = unitOfTemp
-        submitList(newList, calculateDiffs)
+        submitList(weatherList, calculateDiffs)
     }
 
     fun setDisplayedCount(count: Int) {
-        submitList(weatherList.take(count), true)
+        submitList(takeCount(count), true)
     }
+
+    private fun takeCount(count: Int) = weatherList.take(count)
 
     override fun createViewHolder(
         inflater: LayoutInflater,

@@ -9,7 +9,6 @@
 package com.gmail.nigtime456.weatherapplication.ui.screen.current.forecast
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.widget.NestedScrollView
@@ -32,6 +31,7 @@ import com.gmail.nigtime456.weatherapplication.ui.screen.current.forecast.list.D
 import com.gmail.nigtime456.weatherapplication.ui.screen.current.forecast.list.HourlyWeatherAdapter
 import com.gmail.nigtime456.weatherapplication.ui.util.ThemeUtils
 import com.gmail.nigtime456.weatherapplication.ui.util.showSnackBar
+import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.fragment_current_forecast.*
 import kotlinx.android.synthetic.main.fragment_current_forecast_main.*
 import javax.inject.Inject
@@ -48,6 +48,7 @@ class CurrentForecastFragment :
         fun clickAddCity()
         fun openDrawer()
         fun requestDailyForecast(location: SavedLocation, dayIndex: Int)
+        fun getSyncPageScrollSubject(): Subject<Int>
     }
 
     companion object {
@@ -77,10 +78,15 @@ class CurrentForecastFragment :
 
     override fun initDi(appComponent: AppComponent) {
         val currentLocation = getLocation()
-        Log.d("sas", "current create [${currentLocation.getName()}][${hashCode()}]")
         DaggerCurrentForecastComponent.builder()
             .appComponent(appComponent)
-            .currentForecastModule(CurrentForecastModule(this, currentLocation))
+            .currentForecastModule(
+                CurrentForecastModule(
+                    this,
+                    currentLocation,
+                    requireListener().getSyncPageScrollSubject()
+                )
+            )
             .build()
             .inject(this)
     }
@@ -95,6 +101,11 @@ class CurrentForecastFragment :
         presenter.provideForecast()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        currentForecastScrollView.setOnScrollChangeListener(nullScrollListener)
+    }
+
     override fun onRestart() {
         super.onRestart()
         presenter.provideForecast()
@@ -103,11 +114,6 @@ class CurrentForecastFragment :
     override fun onStop() {
         super.onStop()
         presenter.stop()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        currentForecastScrollView.setOnScrollChangeListener(nullScrollListener)
     }
 
     private fun initViews() {

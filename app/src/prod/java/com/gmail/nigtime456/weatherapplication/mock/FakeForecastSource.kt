@@ -4,6 +4,7 @@
 
 package com.gmail.nigtime456.weatherapplication.mock
 
+import android.util.Log
 import com.gmail.nigtime456.weatherapplication.domain.net.RequestParams
 import com.gmail.nigtime456.weatherapplication.net.dto.NetData
 import com.gmail.nigtime456.weatherapplication.net.json.JsonCurrentForecast
@@ -11,6 +12,7 @@ import com.gmail.nigtime456.weatherapplication.net.json.JsonDailyForecast
 import com.gmail.nigtime456.weatherapplication.net.json.JsonHourlyForecast
 import com.gmail.nigtime456.weatherapplication.net.repository.ForecastSource
 import io.reactivex.Observable
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class FakeForecastSource @Inject constructor() : ForecastSource {
