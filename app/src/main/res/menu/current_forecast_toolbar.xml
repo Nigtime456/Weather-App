@@ -9,6 +9,6 @@
         android:icon="@drawable/ic_add"
         android:orderInCategory="1"
         android:title="@string/menu_add_city"
-        app:iconTint="?attr/colorAccent"
+
         app:showAsAction="always" />
 </menu>

@@ -86,14 +86,11 @@
     <string name="weather_description_900">Неизвестные осадки</string>
     <string name="search_title">Добавить город</string>
     <string name="search_input_hint">Название города (только англ)</string>
-    <string name="search_current_location">Текущее местоположение</string>
     <string name="search_city_not_found">Ничего не найдено :(</string>
     <string name="search_already_selected">Этот город уже добавлен!</string>
     <string name="locations_title">Список городов</string>
-    <string name="locations_wait">Секунду…</string>
     <string name="locations_hint">Нет добавленных локаций.\nДобавьте город или включите погоду по местоположению.</string>
     <string name="locations_removed">Удалено</string>
-    <string name="locations_undo">Отмена</string>
     <string name="current_forecast_host_other">Прочее</string>
     <string name="current_forecast_host_cities">Города</string>
     <string name="current_forecast_host_settings">Настройки</string>
@@ -101,10 +98,7 @@
     <string name="current_forecast_host_change_location">Изменить местоположение</string>
     <string name="network_error">Ошибка сети!</string>
     <string name="current_forecast_hourly_forecast">Прогноз на 24 часа</string>
-    <string name="current_forecast_daily_forecast">Прогноз по дням</string>
-    <string name="current_forecast_5_days">5 дн.</string>
-    <string name="current_forecast_10_days">10 дн.</string>
-    <string name="current_forecast_16_days">16 дн.</string>
+    <string name="current_forecast_daily_forecast">Прогноз на 7 дней</string>
     <string name="current_forecast_more">Подробнее</string>
     <string name="current_forecast_wind">Ветер</string>
     <string name="current_forecast_pressure">Давление</string>
@@ -145,4 +139,6 @@
     <string name="locations_dialog_title">Подсказка</string>
     <string name="locations_dialog_message">Для работы приложения необходимо добавить новый город или включить отслеживание погоду по местоположению</string>
     <string name="locations_dialog_button_ok">Ок</string>
+    <string name="menu_select_all">Выбрать всё</string>
+    <string name="menu_delete">Удалить</string>
 </resources>

@@ -8,9 +8,9 @@
 
 package com.gmail.nigtime456.weatherapplication.di.net
 
+import com.gmail.nigtime456.weatherapplication.data.repository.ForecastProvider
 import com.gmail.nigtime456.weatherapplication.di.ApplicationScope
 import com.gmail.nigtime456.weatherapplication.mock.FakeForecastSource
-import com.gmail.nigtime456.weatherapplication.domain.repository.ForecastProvider
 import com.gmail.nigtime456.weatherapplication.net.repository.ForecastProviderImpl
 import com.gmail.nigtime456.weatherapplication.net.repository.ForecastSource
 import dagger.Binds

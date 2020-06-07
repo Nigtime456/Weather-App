@@ -4,59 +4,66 @@
 
 package com.gmail.nigtime456.weatherapplication.net.mappers
 
-import com.gmail.nigtime456.weatherapplication.domain.forecast.CurrentForecast
+import com.gmail.nigtime456.weatherapplication.data.forecast.CurrentForecast
 import com.gmail.nigtime456.weatherapplication.net.dto.NetData
+import com.gmail.nigtime456.weatherapplication.net.json.JsonCurrentData
 import com.gmail.nigtime456.weatherapplication.net.json.JsonCurrentForecast
 import javax.inject.Inject
 
+class CurrentWeatherMapper @Inject constructor() {
 
-class CurrentForecastMapper @Inject constructor(
-    private val windMapper: WindMapper,
+    fun map(jsonCurrentData: JsonCurrentData): CurrentForecast.Weather {
+        return CurrentForecast.Weather(
+            jsonCurrentData.temp,
+            jsonCurrentData.feelsLikeTemp,
+            WeatherConditionHelper.getIconByCode(jsonCurrentData.weather.icon),
+            WeatherConditionHelper.getDescriptionByCode(jsonCurrentData.weather.code)
+        )
+    }
+}
+
+class DetailedForecastMapper @Inject constructor(private val windMapper: WindMapper) {
+
+    fun map(jsonCurrentData: JsonCurrentData): CurrentForecast.DetailedWeather {
+        return CurrentForecast.DetailedWeather(
+            windMapper.map(jsonCurrentData),
+            jsonCurrentData.pressure,
+            jsonCurrentData.visibility
+        )
+    }
+}
+
+class EnvironmentMapper @Inject constructor(
     private val airQualityMapper: AirQualityMapper,
-    private val uvIndexMapper: UvIndexMapper,
-    private val sunInfoMapper: SunInfoMapper
+    private val uvIndexMapper: UvIndexMapper
 ) {
 
-    fun map(json: NetData<JsonCurrentForecast>): CurrentForecast {
-        val jsonCurrentData = json.data.forecastList[0]
+    fun map(jsonCurrentData: JsonCurrentData): CurrentForecast.Environment {
+        return CurrentForecast.Environment(
+            jsonCurrentData.averageHumidity,
+            airQualityMapper.map(jsonCurrentData),
+            uvIndexMapper.map(jsonCurrentData),
+            jsonCurrentData.cloudsCoverage,
+            jsonCurrentData.dewPoint
+        )
+    }
+}
 
-        val loadTimestamp = json.loadTimestamp
+class CurrentForecastMapper @Inject constructor(
+    private val currentWeatherMapper: CurrentWeatherMapper,
+    private val detailedForecastMapper: DetailedForecastMapper,
+    private val environmentMapper: EnvironmentMapper
+) {
 
-        val temp = jsonCurrentData.temp
-        val feelsLikeTemp = jsonCurrentData.feelsLikeTemp
-        val icon = WeatherConditionHelper.getIconByCode(jsonCurrentData.weather.icon)
-        val description = WeatherConditionHelper.getDescriptionByCode(jsonCurrentData.weather.code)
-
-        val wind = windMapper.map(jsonCurrentData)
-
-        val humidity = jsonCurrentData.averageHumidity
-        val pressure = jsonCurrentData.pressure
-        val visibility = jsonCurrentData.visibility
-
-        val airQuality = airQualityMapper.map(jsonCurrentData)
-        val uvIndex = uvIndexMapper.map(jsonCurrentData)
-
-        val cloudsCoverage = jsonCurrentData.cloudsCoverage
-
-        val timeZone = jsonCurrentData.timezone
-
-        val sunInfo = sunInfoMapper.map(jsonCurrentData)
+    fun map(data: NetData<JsonCurrentForecast>): CurrentForecast {
+        val jsonCurrentData = data.data.forecastList[0]
 
         return CurrentForecast(
-            loadTimestamp,
-            temp,
-            icon,
-            feelsLikeTemp,
-            description,
-            wind,
-            humidity,
-            pressure,
-            visibility,
-            airQuality,
-            uvIndex,
-            cloudsCoverage,
-            timeZone,
-            sunInfo
+            data.loadTimestamp,
+            currentWeatherMapper.map(jsonCurrentData),
+            detailedForecastMapper.map(jsonCurrentData),
+            environmentMapper.map(jsonCurrentData),
+            jsonCurrentData.timezone
         )
     }
 }

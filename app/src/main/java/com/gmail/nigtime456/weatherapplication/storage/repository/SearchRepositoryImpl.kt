@@ -4,8 +4,8 @@
 
 package com.gmail.nigtime456.weatherapplication.storage.repository
 
-import com.gmail.nigtime456.weatherapplication.domain.location.SearchCity
-import com.gmail.nigtime456.weatherapplication.domain.repository.SearchRepository
+import com.gmail.nigtime456.weatherapplication.data.location.SearchCity
+import com.gmail.nigtime456.weatherapplication.data.repository.SearchRepository
 import com.gmail.nigtime456.weatherapplication.storage.mappers.SearchCityMapper
 import com.gmail.nigtime456.weatherapplication.storage.service.ReferenceCitiesDao
 import com.gmail.nigtime456.weatherapplication.storage.service.SavedLocationsDao

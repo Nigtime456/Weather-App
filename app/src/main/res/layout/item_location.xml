@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zerobranch.layout.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemLocationSwipeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_height_normal"
+    android:background="?attr/colorPrimary"
+    android:elevation="@dimen/elevation_item"
+    android:stateListAnimator="@animator/draggable_item"
+    app:draggedItem="@id/itemLocationItemGroup"
+    app:isTogether="true"
+    app:rightItem="@id/itemLocationDelete"
+    app:swipeDirection="left">
+
+    <FrameLayout
+        android:id="@+id/itemLocationDelete"
+        android:layout_width="@dimen/item_height_normal"
+        android:layout_height="match_parent"
+        android:background="@drawable/btn_ripple_red_background">
+
+        <ImageView
+            android:layout_width="@dimen/icon_small"
+            android:layout_height="@dimen/icon_small"
+            android:layout_gravity="center"
+            android:contentDescription="@string/content_description_delete"
+            android:src="@drawable/ic_delete" />
+
+    </FrameLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemLocationItemGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/btn_ripple_primary_background"
+        android:clickable="true"
+        android:focusable="true">
+
+        <FrameLayout
+            android:id="@+id/itemLocationDragHandle"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:paddingHorizontal="@dimen/spacing_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="@dimen/icon_small"
+                android:layout_height="@dimen/icon_small"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/content_description_start_drag"
+                android:src="@drawable/ic_drag_handle" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/itemLocationName"
+            style="@style/PrimaryText.Lowest"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/itemLocationDescription"
+            app:layout_constraintEnd_toStartOf="@+id/itemLocationTempIco"
+            app:layout_constraintStart_toEndOf="@id/itemLocationDragHandle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="CityName" />
+
+        <TextView
+            android:id="@+id/itemLocationDescription"
+            style="@style/SecondaryText.Lowest"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/itemLocationName"
+            app:layout_constraintStart_toStartOf="@id/itemLocationName"
+            app:layout_constraintTop_toBottomOf="@id/itemLocationName"
+            tools:text="State, Country" />
+
+        <ImageView
+            android:id="@+id/itemLocationTempIco"
+            android:layout_width="@dimen/icon_small"
+            android:layout_height="@dimen/icon_small"
+            android:layout_marginEnd="@dimen/spacing_small"
+            android:contentDescription="@string/content_description_weather_ico"
+            app:layout_constraintBottom_toBottomOf="@id/itemLocationTemp"
+            app:layout_constraintEnd_toStartOf="@id/itemLocationTemp"
+            app:layout_constraintTop_toTopOf="@id/itemLocationTemp"
+            tools:src="@drawable/ic_weather_rain_dn" />
+
+        <TextView
+            android:id="@+id/itemLocationTemp"
+            style="@style/SecondaryText.Lowest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:text="@string/stub"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.zerobranch.layout.SwipeLayout>
+

@@ -4,7 +4,7 @@
 
 package com.gmail.nigtime456.weatherapplication.net.mappers
 
-import com.gmail.nigtime456.weatherapplication.domain.forecast.HourlyForecast
+import com.gmail.nigtime456.weatherapplication.data.forecast.HourlyForecast
 import com.gmail.nigtime456.weatherapplication.net.dto.NetData
 import com.gmail.nigtime456.weatherapplication.net.json.JsonHourlyForecast
 import javax.inject.Inject

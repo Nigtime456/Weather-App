@@ -4,7 +4,7 @@
 
 package com.gmail.nigtime456.weatherapplication.mock
 
-import com.gmail.nigtime456.weatherapplication.domain.net.RequestParams
+import com.gmail.nigtime456.weatherapplication.data.net.RequestParams
 import com.gmail.nigtime456.weatherapplication.net.dto.NetData
 import com.gmail.nigtime456.weatherapplication.net.json.JsonCurrentForecast
 import com.gmail.nigtime456.weatherapplication.net.json.JsonDailyForecast

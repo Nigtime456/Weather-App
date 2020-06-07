@@ -8,18 +8,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/currentForecastAppBar"
-        style="@style/LiftingCard"
+    <com.gmail.nigtime456.weatherapplication.customview.LiftingCardView
+        android:id="@+id/currentForecastFragmentAppBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:stateListAnimator="@animator/liftable_appbar"
+        app:cardBackgroundColor="?attr/colorPrimary">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/currentForecastToolbar"
+            android:id="@+id/currentForecastFragmentToolbar"
             style="@style/ToolbarDefault"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:menu="@menu/current_forecast_toolbar"
             app:navigationIcon="@drawable/ic_menu">
 
             <LinearLayout
@@ -30,7 +30,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/currentForecastLocationName"
+                    android:id="@+id/currentForecastFragmentLocationName"
                     style="@style/PrimaryText.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -40,7 +40,8 @@
                     tools:text="Dubai" />
 
                 <TextClock
-                    android:id="@+id/currentForecastLocalClock"
+                    android:id="@+id/currentForecastFragmentClock"
+                    android:textColor="?attr/themePrimaryTextColor"
                     style="@style/TextClockDefault"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -50,43 +51,64 @@
 
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/currentForecastSwipeRefresh"
-        android:layout_width="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:layout_height="match_parent">
+    </com.gmail.nigtime456.weatherapplication.customview.LiftingCardView>
 
 
-        <com.gmail.nigtime456.weatherapplication.ui.customview.PendingNestedScrollView
-            android:id="@+id/currentForecastScrollView"
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/currentForecastFragmentSwipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorPrimary">
+
+        <com.scwang.smart.refresh.header.ClassicsHeader
+            android:id="@+id/currentForecastFragmentHeader"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            app:srlAccentColor="?attr/themePrimaryTextColor"
+            app:srlDrawableArrow="@drawable/ic_double_down_arrow"
+            app:srlPrimaryColor="?attr/colorPrimary"
+            app:srlTextFinish="Данные обновлены"
+            app:srlTextPulling="Потяните для обновления"
+            app:srlTextRefreshing="Обновление..."
+            app:srlTextRelease="Отпустите для обновления"
+            app:srlTextUpdate="Данные от MM-dd HH:mm" />
+
+
+        <com.gmail.nigtime456.weatherapplication.customview.CrossFadeAnimatorLayout
+            android:id="@+id/currentForecastFragmentViewSwitcher"
+            style="@style/CrossFadeDefault"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:scrollbars="vertical"
-            android:overScrollMode="never"
-            tools:context=".ui.screen.current.forecast.CurrentForecastFragment">
+            app:cfalDisplayedChild="0">
 
-            <com.gmail.nigtime456.weatherapplication.ui.customview.CrossFadeAnimatorLayout
-                android:id="@+id/currentForecastViewSwitcher"
-                style="@style/CrossFadeDefault"
+            <com.gmail.nigtime456.weatherapplication.customview.PendingNestedScrollView
+                android:id="@+id/currentForecastFragmentNestedScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:crossDisplayedChild="0">
+                android:layout_height="match_parent">
 
-                <include layout="@layout/fragment_current_forecast_main" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/currentForecastFragmentRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-                <include layout="@layout/fragment_current_forecast_load" />
+            </com.gmail.nigtime456.weatherapplication.customview.PendingNestedScrollView>
 
-                <include layout="@layout/fragment_current_forecast_error" />
+            <include layout="@layout/include_loading" />
 
-            </com.gmail.nigtime456.weatherapplication.ui.customview.CrossFadeAnimatorLayout>
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Error!"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="25sp" />
 
-        </com.gmail.nigtime456.weatherapplication.ui.customview.PendingNestedScrollView>
+        </com.gmail.nigtime456.weatherapplication.customview.CrossFadeAnimatorLayout>
 
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
 </LinearLayout>
 

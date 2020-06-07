@@ -7,9 +7,9 @@
 
 
     <declare-styleable name="CrossFadeAnimatorLayout">
-        <attr name="crossDisplayedChild" format="integer" />
-        <attr name="crossStartDelay" format="integer" />
-        <attr name="crossAnimationDuration" format="integer" />
+        <attr name="cfalDisplayedChild" format="integer" />
+        <attr name="cfalStartDelay" format="integer" />
+        <attr name="cfalAnimationDuration" format="integer" />
     </declare-styleable>
 
 </resources>

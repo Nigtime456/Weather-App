@@ -1,7 +1,6 @@
 /*
  * Сreated by Igor Pokrovsky. 2020/5/29
  */
-
 /*
  * Сreated by Igor Pokrovsky. 2020/5/21
  */
@@ -20,7 +19,6 @@ object AppExecutors {
     val singleExecutor: Executor = Executors.newSingleThreadExecutor(SingleThreadFactory())
 
     private class SingleThreadFactory : ThreadFactory {
-
         override fun newThread(r: Runnable): Thread {
             return Thread(r, "Single-Thread")
         }
@@ -35,7 +33,6 @@ object AppExecutors {
     }
 
     private class DatabaseThreadFactory : ThreadFactory {
-
         override fun newThread(r: Runnable): Thread {
             return Thread(r, "Sync-Database")
         }

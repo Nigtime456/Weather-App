@@ -4,12 +4,12 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <!-- TODO hidden-->
     <item
         android:id="@+id/menuAddLocation"
         android:icon="@drawable/ic_my_location"
         android:title="@string/menu_add_location"
-        app:iconTint="?attr/colorAccent"
+        android:visible="false"
         app:showAsAction="ifRoom" />
 
     <item
@@ -17,6 +17,5 @@
         android:icon="@drawable/ic_add"
         android:orderInCategory="1"
         android:title="@string/menu_add_city"
-        app:iconTint="?attr/colorAccent"
         app:showAsAction="ifRoom" />
 </menu>

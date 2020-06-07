@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/6/5
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/spacing_medium"
+    android:layout_marginVertical="@dimen/spacing_small">
+
+
+    <TextView
+        android:id="@+id/environment_title"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/current_forecast_environment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ic_visibility"
+        android:layout_width="@dimen/icon_small"
+        android:layout_height="@dimen/icon_small"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:contentDescription="@string/current_forecast_visibility"
+        android:src="@drawable/ic_humidity"
+        app:layout_constraintStart_toStartOf="@+id/environment_title"
+        app:layout_constraintTop_toBottomOf="@id/environment_title" />
+
+    <TextView
+        android:id="@+id/title_visibility"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_small"
+        android:text="@string/current_forecast_humidity"
+        app:layout_constraintBottom_toBottomOf="@id/ic_visibility"
+        app:layout_constraintStart_toEndOf="@id/ic_visibility"
+        app:layout_constraintTop_toTopOf="@id/ic_visibility" />
+
+    <TextView
+        android:id="@+id/itemEnvironmentHumidity"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/title_visibility"
+        app:layout_constraintEnd_toEndOf="@+id/divider10"
+        app:layout_constraintTop_toTopOf="@id/title_visibility"
+        tools:text="14 km" />
+
+    <View
+        android:id="@+id/divider10"
+        style="@style/DividerDefault"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/divider_size"
+        android:layout_marginTop="@dimen/spacing_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ic_visibility" />
+
+    <ImageView
+        android:id="@+id/ic_air_quality"
+        android:layout_width="@dimen/icon_small"
+        android:layout_height="@dimen/icon_small"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:contentDescription="@string/current_forecast_air_quality"
+        android:src="@drawable/ic_pollution"
+        app:layout_constraintStart_toStartOf="@id/ic_visibility"
+        app:layout_constraintTop_toBottomOf="@id/divider10" />
+
+    <TextView
+        android:id="@+id/title_air_quality"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_small"
+        android:text="@string/current_forecast_air_quality"
+        app:layout_constraintBottom_toBottomOf="@id/ic_air_quality"
+        app:layout_constraintStart_toEndOf="@id/ic_air_quality"
+        app:layout_constraintTop_toTopOf="@id/ic_air_quality" />
+
+    <TextView
+        android:id="@+id/itemEnvironmentAirQuality"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/title_air_quality"
+        app:layout_constraintEnd_toEndOf="@+id/divider10"
+        app:layout_constraintTop_toTopOf="@id/title_air_quality"
+        tools:text="Хорошее (4)" />
+
+    <View
+        android:id="@+id/divider11"
+        style="@style/DividerDefault"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/divider_size"
+        android:layout_marginTop="@dimen/spacing_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ic_air_quality" />
+
+    <ImageView
+        android:id="@+id/ic_uv_index"
+        android:layout_width="@dimen/icon_small"
+        android:layout_height="@dimen/icon_small"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:contentDescription="@string/current_forecast_uv_index"
+        android:src="@drawable/ic_uv_index"
+        app:layout_constraintStart_toStartOf="@id/ic_air_quality"
+        app:layout_constraintTop_toBottomOf="@id/divider11" />
+
+    <TextView
+        android:id="@+id/title_uv_index"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_small"
+        android:text="@string/current_forecast_uv_index"
+        app:layout_constraintBottom_toBottomOf="@id/ic_uv_index"
+        app:layout_constraintStart_toEndOf="@id/ic_uv_index"
+        app:layout_constraintTop_toTopOf="@id/ic_uv_index" />
+
+    <TextView
+        android:id="@+id/itemEnvironmentUvIndex"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/title_uv_index"
+        app:layout_constraintEnd_toEndOf="@+id/divider11"
+        app:layout_constraintTop_toTopOf="@id/title_uv_index"
+        tools:text="Средний (4)" />
+
+    <View
+        android:id="@+id/divider12"
+        style="@style/DividerDefault"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/divider_size"
+        android:layout_marginTop="@dimen/spacing_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ic_uv_index" />
+
+    <ImageView
+        android:id="@+id/ic_clouds"
+        android:layout_width="@dimen/icon_small"
+        android:layout_height="@dimen/icon_small"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:contentDescription="@string/current_forecast_clouds"
+        android:src="@drawable/ic_clouds"
+        app:layout_constraintStart_toStartOf="@id/ic_uv_index"
+        app:layout_constraintTop_toBottomOf="@id/divider12" />
+
+    <TextView
+        android:id="@+id/title_clouds"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_small"
+        android:text="@string/current_forecast_clouds"
+        app:layout_constraintBottom_toBottomOf="@id/ic_clouds"
+        app:layout_constraintStart_toEndOf="@id/ic_clouds"
+        app:layout_constraintTop_toTopOf="@id/ic_clouds" />
+
+    <TextView
+        android:id="@+id/itemEnvironmentClouds"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/title_clouds"
+        app:layout_constraintEnd_toEndOf="@id/divider12"
+        app:layout_constraintTop_toTopOf="@id/title_clouds"
+        tools:text="40 %" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

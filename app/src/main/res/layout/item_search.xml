@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_height_normal"
+    android:background="@drawable/btn_ripple_primary_background"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/spacing_medium">
+
+    <TextView
+        android:id="@+id/itemSearchName"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:gravity="bottom"
+        tools:text="CityName" />
+
+    <TextView
+        android:id="@+id/itemSearchDescription"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        tools:text="State, Country" />
+
+</LinearLayout>

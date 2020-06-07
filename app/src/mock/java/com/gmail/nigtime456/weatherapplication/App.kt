@@ -35,7 +35,7 @@ class App : Application() {
 
     private fun setupPreferences() {
         PreferenceManager.setDefaultValues(this, R.xml.main_preferences, true)
-        PreferenceManager.setDefaultValues(this, R.xml.data_preferences, true)
+        PreferenceManager.setDefaultValues(this, R.xml.app_data_preferences, true)
         PreferenceManager.setDefaultValues(this, R.xml.unit_preferences, true)
     }
 

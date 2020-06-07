@@ -43,6 +43,8 @@ data class JsonCurrentData(
     val precipitationRate: String, // 4.57895
     @SerializedName("aqi")
     val airQualityIndex: Int, // 13
+    @SerializedName("dewpt")
+    val dewPoint: Double,//15.65
     @SerializedName("clouds")
     val cloudsCoverage: Int,
     @SerializedName("weather")

@@ -4,7 +4,7 @@
 
 package com.gmail.nigtime456.weatherapplication.storage.mappers
 
-import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
+import com.gmail.nigtime456.weatherapplication.data.location.SavedLocation
 import com.gmail.nigtime456.weatherapplication.storage.table.SavedLocationTable
 import javax.inject.Inject
 

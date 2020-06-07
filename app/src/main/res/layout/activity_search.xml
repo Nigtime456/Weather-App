@@ -10,17 +10,17 @@
     android:background="?attr/colorPrimary"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <com.gmail.nigtime456.weatherapplication.customview.LiftingCardView
         android:id="@+id/searchAppbar"
-        style="@style/LiftingCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="?attr/colorControlHighlight">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/small_margin">
+            android:paddingBottom="@dimen/spacing_small">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/searchToolbar"
@@ -31,40 +31,43 @@
                 app:title="@string/search_title" />
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputLayoutDefault"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/medium_margin">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/searchEditText"
-                    style="@style/TextInputEditDefault"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/search_input_hint"
-                    android:paddingVertical="@dimen/medium_padding"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="0dp">
-
-                </com.google.android.material.textfield.TextInputEditText>
-
-            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.gmail.nigtime456.weatherapplication.customview.LiftingCardView>
 
-    <com.gmail.nigtime456.weatherapplication.ui.customview.CrossFadeAnimatorLayout
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_small"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:background="@drawable/field_rounded"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/spacing_small">
+
+        <ImageView
+            android:layout_width="@dimen/icon_small"
+            android:layout_height="@dimen/icon_small"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_search" />
+
+        <EditText
+            android:id="@+id/searchEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:padding="@dimen/spacing_small" />
+
+    </LinearLayout>
+
+
+    <com.gmail.nigtime456.weatherapplication.customview.CrossFadeAnimatorLayout
         android:id="@+id/searchViewSwitcher"
         style="@style/CrossFadeDefault"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:crossDisplayedChild="1">
+        app:cfalDisplayedChild="1">
 
-        <ProgressBar
-            android:id="@+id/searchProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+        <include layout="@layout/include_loading" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchRecycler"
@@ -72,7 +75,7 @@
             android:layout_height="match_parent"
             android:overScrollMode="ifContentScrolls"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_search_city" />
+            tools:listitem="@layout/item_search" />
 
         <TextView
             android:id="@+id/searchNotFound"
@@ -87,5 +90,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </com.gmail.nigtime456.weatherapplication.ui.customview.CrossFadeAnimatorLayout>
+    </com.gmail.nigtime456.weatherapplication.customview.CrossFadeAnimatorLayout>
 </LinearLayout>

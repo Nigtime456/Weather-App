@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/4/25
+  -->
+
+<!--
+  ~ Сreated by Igor Pokrovsky. 2020/6/3
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_activated="true">
+        <set android:duration="@integer/short_anim">
+            <objectAnimator
+                android:propertyName="z"
+                android:valueTo="@dimen/elevation_item_activated"
+                android:valueType="floatType" />
+        </set>
+    </item>
+
+    <item>
+        <set android:duration="@integer/short_anim">
+            <objectAnimator
+                android:propertyName="z"
+                android:valueTo="@dimen/elevation_item"
+                android:valueType="floatType" />
+        </set>
+    </item>
+</selector>

@@ -4,7 +4,7 @@
 
 package com.gmail.nigtime456.weatherapplication.net.mappers
 
-import com.gmail.nigtime456.weatherapplication.domain.forecast.HourlyWeather
+import com.gmail.nigtime456.weatherapplication.data.forecast.HourlyForecast
 import com.gmail.nigtime456.weatherapplication.net.json.JsonHourlyData
 import java.text.SimpleDateFormat
 import java.util.*
@@ -16,12 +16,12 @@ class HourlyWeatherMapper @Inject constructor() {
         const val HOURLY_PATTERN = "yyyy-MM-dd'T'HH:mm"
     }
 
-    fun map(jsonHourlyData: JsonHourlyData): HourlyWeather {
+    fun map(jsonHourlyData: JsonHourlyData): HourlyForecast.Weather {
         //"2020-02-22T21:00:00"
         val dateFormatter = SimpleDateFormat(HOURLY_PATTERN, Locale.ROOT)
         val ico = WeatherConditionHelper.getIconByCode(jsonHourlyData.weather.icon)
         val unixHour = dateFormatter.parse(jsonHourlyData.timeStamp)?.time ?: 0
 
-        return HourlyWeather(jsonHourlyData.temp, ico, unixHour)
+        return HourlyForecast.Weather(jsonHourlyData.temp, ico, unixHour)
     }
 }

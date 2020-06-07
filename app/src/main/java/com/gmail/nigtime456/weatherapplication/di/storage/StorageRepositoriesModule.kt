@@ -12,9 +12,9 @@
 
 package com.gmail.nigtime456.weatherapplication.di.storage
 
+import com.gmail.nigtime456.weatherapplication.data.repository.LocationsRepository
+import com.gmail.nigtime456.weatherapplication.data.repository.SearchRepository
 import com.gmail.nigtime456.weatherapplication.di.ApplicationScope
-import com.gmail.nigtime456.weatherapplication.domain.repository.LocationsRepository
-import com.gmail.nigtime456.weatherapplication.domain.repository.SearchRepository
 import com.gmail.nigtime456.weatherapplication.storage.repository.LocationsRepositoryImpl
 import com.gmail.nigtime456.weatherapplication.storage.repository.SearchRepositoryImpl
 import dagger.Binds

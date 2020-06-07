@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/4/26
+  -->
+
+<!--
+  ~ Сreated by Igor Pokrovsky. 2020/6/3
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_enabled="true" android:state_pressed="true">
+        <ripple android:color="?attr/colorControlHighlight">
+            <item>
+                <color android:color="@color/red" />
+            </item>
+        </ripple>
+    </item>
+
+    <item>
+        <color android:color="@color/red" />
+    </item>
+</selector>

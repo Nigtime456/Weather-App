@@ -4,8 +4,8 @@
 
 package com.gmail.nigtime456.weatherapplication.storage.repository
 
-import com.gmail.nigtime456.weatherapplication.domain.location.SavedLocation
-import com.gmail.nigtime456.weatherapplication.domain.repository.LocationsRepository
+import com.gmail.nigtime456.weatherapplication.data.location.SavedLocation
+import com.gmail.nigtime456.weatherapplication.data.repository.LocationsRepository
 import com.gmail.nigtime456.weatherapplication.storage.mappers.SavedLocationMapper
 import com.gmail.nigtime456.weatherapplication.storage.service.SavedLocationsDao
 import com.gmail.nigtime456.weatherapplication.tools.rx.SchedulerProvider
@@ -61,7 +61,7 @@ class LocationsRepositoryImpl @Inject constructor(
             .observeOn(schedulerProvider.ui())
     }
 
-    override fun replaceAll(items: List<SavedLocation>): Completable {
+    override fun update(items: List<SavedLocation>): Completable {
         return Single.just(items)
             .map(mapper::mapListEntity)
             .doOnSuccess { list -> savedLocationsDao.updateAll(list) }

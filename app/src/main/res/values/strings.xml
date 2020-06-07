@@ -11,6 +11,9 @@
     <string name="content_description_start_drag">Start drag</string>
     <string name="content_description_temp">Temp</string>
     <string name="content_description_weather_ico">Weather</string>
+    <string name="content_description_delete">Delete</string>
+
+    <string name="loading_please_wait">Please wait</string>
 
     <string name="network_error">Network error!</string>
 
@@ -113,24 +116,21 @@
 
     <string name="weather_description_900">Unknown Precipitation</string>
 
-    <!--  Search city  -->
+    <!--  Search  -->
     <string name="search_input_hint">Enter the City</string>
     <string name="search_city_not_found">Nothing found :(</string>
     <string name="search_title">Add a city</string>
-    <string name="search_current_location">Current location</string>
     <string name="search_already_selected">This city has already been added!</string>
 
-    <!--  Saved Locations  -->
-    <string name="locations_undo">Undo</string>
+    <!--  Locations  -->
     <string name="locations_title">List of locations</string>
-    <string name="locations_wait">Please wait…</string>
-    <string name="locations_removed">Removed</string>
     <string name="locations_hint">No added locations.\nAdd a city or enable weather by location.</string>
     <string name="locations_dialog_title">Hint</string>
     <string name="locations_dialog_message">For the app to work you need to add a new city or enable weather tracking by location</string>
     <string name="locations_dialog_button_ok">OK</string>
+    <string name="locations_removed">Removed</string>
 
-    <!--  Current forecast host (activity with viewpager)-->
+    <!--  Current forecast activity -->
     <string name="current_forecast_host_cities">Cities</string>
     <string name="current_forecast_host_other">Others</string>
     <string name="current_forecast_host_main">Main</string>
@@ -142,10 +142,7 @@
     <!--  Current forecast (frag)  -->
     <string name="current_forecast_char_separator" translatable="false">|</string>
     <string name="current_forecast_hourly_forecast">Hourly forecast</string>
-    <string name="current_forecast_daily_forecast">Daily forecast</string>
-    <string name="current_forecast_5_days">5 d.</string>
-    <string name="current_forecast_10_days">10 d.</string>
-    <string name="current_forecast_16_days">16 d.</string>
+    <string name="current_forecast_daily_forecast">7-day forecast</string>
     <string name="current_forecast_more">Details</string>
     <string name="current_forecast_wind">Wind</string>
     <string name="current_forecast_pressure">Pressure</string>
@@ -163,6 +160,8 @@
     <!--  Menu  -->
     <string name="menu_add_city">Add city</string>
     <string name="menu_add_location">Add new location</string>
+    <string name="menu_select_all">Select all</string>
+    <string name="menu_delete">Delete</string>
 
 
     <!-- Preference -->

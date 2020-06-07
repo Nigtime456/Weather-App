@@ -132,7 +132,7 @@ object WeatherConditionHelper {
 
             "c04d", "c04n" -> R.drawable.ic_weather_overcast_clouds_dn
 
-            else -> R.drawable._weather_stub
+            else -> R.drawable.ic_alarm
         }
     }
 }

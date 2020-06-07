@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/5/7
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/btn_ripple"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/spacing_medium"
+    android:paddingVertical="@dimen/spacing_small">
+
+    <TextView
+        android:id="@+id/itemDailyWeatherCurrentDate"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.7"
+        android:gravity="center_vertical"
+        tools:text="Monday" />
+
+    <ImageView
+        android:id="@+id/itemDailyWeatherIco"
+        android:layout_width="@dimen/icon_small"
+        android:layout_height="@dimen/icon_small"
+        android:layout_gravity="center"
+        android:contentDescription="@string/content_description_weather_ico"
+        tools:src="@drawable/ic_weather_rain_dn" />
+
+    <TextView
+        android:id="@+id/itemDailyWeatherDTemp"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="0.4"
+        android:gravity="center|end"
+        tools:text="10°" />
+
+    <TextView
+        android:id="@+id/itemDailyWeatherNTemp"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="0.4"
+        android:gravity="center|end"
+        android:textColor="@color/blue"
+        tools:text="8°" />
+
+</LinearLayout>
+

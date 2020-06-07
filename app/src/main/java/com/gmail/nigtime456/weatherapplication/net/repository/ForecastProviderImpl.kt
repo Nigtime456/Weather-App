@@ -5,11 +5,11 @@
 package com.gmail.nigtime456.weatherapplication.net.repository
 
 import androidx.collection.LruCache
-import com.gmail.nigtime456.weatherapplication.domain.forecast.CurrentForecast
-import com.gmail.nigtime456.weatherapplication.domain.forecast.DailyForecast
-import com.gmail.nigtime456.weatherapplication.domain.forecast.HourlyForecast
-import com.gmail.nigtime456.weatherapplication.domain.net.RequestParams
-import com.gmail.nigtime456.weatherapplication.domain.repository.ForecastProvider
+import com.gmail.nigtime456.weatherapplication.data.forecast.CurrentForecast
+import com.gmail.nigtime456.weatherapplication.data.forecast.DailyForecast
+import com.gmail.nigtime456.weatherapplication.data.forecast.HourlyForecast
+import com.gmail.nigtime456.weatherapplication.data.net.RequestParams
+import com.gmail.nigtime456.weatherapplication.data.repository.ForecastProvider
 import com.gmail.nigtime456.weatherapplication.net.mappers.CurrentForecastMapper
 import com.gmail.nigtime456.weatherapplication.net.mappers.DailyForecastMapper
 import com.gmail.nigtime456.weatherapplication.net.mappers.HourlyForecastMapper
