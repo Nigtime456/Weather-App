@@ -14,7 +14,7 @@
             <br>Приложение использует погодное API <a href="https://darksky.net/">Dark Sky</a>
             <br>
             <br>
-        <b>Ассеты:</b>
+        <b>Ресурсы:</b>
             <br>Иконки погоды - <a href="https://www.climacell.co/">Climacell</a>
             <br>Остальные иконки - <a href="https://www.flaticon.com/">FlatIcon</a>
             <br>База данных городов - <a href="https://www.weatherbit.io/">WeatherBit</a>
