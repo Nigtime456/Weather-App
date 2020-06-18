@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/5/26
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.github.nigtime456.weather.customview.CrossFadeAnimatorLayout
+        android:id="@+id/activity_currently_view_switcher"
+        style="@style/CrossFadeAnimatorLayoutDefault"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cfalAnimationDuration="@integer/long_anim">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/view_pod_day" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/view_pod_night" />
+
+    </com.github.nigtime456.weather.customview.CrossFadeAnimatorLayout>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/activity_currently_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screen.currently.activity.CurrentlyActivity">
+
+        <FrameLayout
+            android:id="@+id/activity_currently_main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/activity_currently_toolbar"
+                style="@style/ToolbarDefault"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:contentInsetEndWithActions="0dp"
+                app:contentInsetStartWithNavigation="0dp"
+                app:menu="@menu/activity_currently_appbar"
+                app:navigationIcon="@drawable/ic_menu"
+                app:title=" ">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/activity_currently_title"
+                        style="@style/PrimaryText.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        tools:text="CityName" />
+
+                    <TextClock
+                        android:id="@+id/activity_currently_text_clock"
+                        style="@style/PrimaryText.Tiny"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:format12Hour="KK:mm a"
+                        android:format24Hour="HH:mm" />
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/activity_currently_locations_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="?attr/actionBarSize" />
+
+        </FrameLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/activity_currently_nav_view"
+            style="@style/NavigationView"
+            android:layout_width="@dimen/drawer_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/partial_header"
+            app:menu="@menu/activity_currently_nav_view" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+</FrameLayout>
+

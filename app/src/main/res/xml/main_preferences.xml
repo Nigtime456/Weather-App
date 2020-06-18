@@ -2,49 +2,44 @@
   ~ Сreated by Igor Pokrovsky. 2020/5/16
   -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
     app:allowDividerAbove="true"
     app:allowDividerBelow="true">
 
     <ListPreference
-        app:defaultValue="dark"
-        app:entries="@array/theme_entries"
-        app:entryValues="@array/theme_values"
-        app:icon="@drawable/ic_change_theme"
-        app:key="theme"
-        app:title="@string/settings_theme"
+        app:defaultValue="cel"
+        app:entries="@array/units_of_temp_entries"
+        app:entryValues="@array/units_of_temp_values"
+        app:icon="@drawable/ic_temp"
+        app:key="unit_of_temp"
+        app:title="@string/activity_settings_temp"
         app:useSimpleSummaryProvider="true" />
-
 
     <ListPreference
-        app:defaultValue="ru"
-        app:entries="@array/lang_entries"
-        app:entryValues="@array/lang_values"
-        app:icon="@drawable/ic_language"
-        app:key="lang"
-        app:title="@string/settings_lang"
+        app:defaultValue="km"
+        app:entries="@array/units_of_length_entries"
+        app:entryValues="@array/units_of_length_values"
+        app:icon="@drawable/ic_ruler"
+        app:key="unit_of_length"
+        app:title="@string/activity_settings_length"
         app:useSimpleSummaryProvider="true" />
 
-    <Preference
-        android:icon="@drawable/ic_thermometer"
-        android:title="@string/settings_units"
-        app:fragment="com.gmail.nigtime456.weatherapplication.screen.settings.UnitSettingsFragment" />
+    <ListPreference
+        app:defaultValue="kph"
+        app:entries="@array/units_of_speed_entries"
+        app:entryValues="@array/units_of_speed_values"
+        app:icon="@drawable/ic_speed"
+        app:key="unit_of_speed"
+        app:title="@string/activity_settings_speed"
+        app:useSimpleSummaryProvider="true" />
 
-    <SeekBarPreference
-        android:max="24"
-        app:defaultValue="3"
-        app:icon="@drawable/ic_alarm"
-        app:key="notification_frequency"
-        app:min="1"
-        app:selectable="false"
-        app:showSeekBarValue="true"
-        app:summary="@string/settings_update_frequency_summary"
-        app:title="@string/settings_update_frequency" />
-
-    <Preference
-        android:icon="@drawable/ic_sd_storage"
-        android:title="@string/settings_app_data"
-        app:fragment="com.gmail.nigtime456.weatherapplication.screen.settings.DataSettingsFragment" />
+    <ListPreference
+        app:defaultValue="mbar"
+        app:entries="@array/units_of_pressure_entries"
+        app:entryValues="@array/units_of_pressure_values"
+        app:icon="@drawable/ic_pressure"
+        app:key="unit_of_pressure"
+        app:title="@string/activity_settings_pressure"
+        app:useSimpleSummaryProvider="true" />
 
 </PreferenceScreen>

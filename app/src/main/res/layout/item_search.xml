@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_height_normal"
-    android:background="@drawable/btn_ripple_primary_background"
+    android:background="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/spacing_medium">
 
     <TextView
-        android:id="@+id/itemSearchName"
+        android:id="@+id/item_search_name"
         style="@style/PrimaryText.Lowest"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -19,7 +19,7 @@
         tools:text="CityName" />
 
     <TextView
-        android:id="@+id/itemSearchDescription"
+        android:id="@+id/item_search_description"
         style="@style/SecondaryText.Lowest"
         android:layout_width="match_parent"
         android:layout_height="0dp"

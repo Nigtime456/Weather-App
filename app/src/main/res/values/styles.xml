@@ -1,201 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/6/7
+  -->
+
 <resources>
-    <!--  Splash theme  -->
-    <style name="SplashTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="android:windowBackground">@drawable/view_splash</item>
-        <item name="android:windowFullscreen">true</item>
-    </style>
-
-    <!--  <item name="buttonBarNegativeButtonStyle">@style/AlertDialogButton</item>  -->
-
-    <!-- Base application theme. -->
-    <style name="BaseTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="colorAccent">#F57C00</item>
-        <item name="android:colorEdgeEffect">?attr/colorAccent</item>
-        <item name="android:colorControlActivated">?attr/colorAccent</item>
-
-
-        <!--   Action Mode     -->
-        <item name="windowActionModeOverlay">true</item>
-        <item name="actionModeBackground">?colorPrimary</item>
-        <item name="android:actionModeCloseDrawable">@drawable/ic_arrow_back</item>
-        <item name="android:actionModeCopyDrawable">@drawable/ic_content_copy</item>
-        <item name="android:actionModeCutDrawable">@drawable/ic_content_cut</item>
-        <item name="android:actionModePasteDrawable">@drawable/ic_content_paste</item>
-        <item name="android:actionModeSelectAllDrawable">@drawable/ic_select_all</item>
-
-        <!--    Snackbar    -->
-        <item name="snackbarStyle">@style/SnackDefault</item>
-        <item name="snackbarTextViewStyle">@style/SnackText</item>
-        <item name="snackbarButtonStyle">@style/SnackButton</item>
-    </style>
-    <!-- 2994D6 -->
-    <style name="BaseTheme.Dark">
-        <item name="colorPrimary">#333333</item>
-        <item name="colorPrimaryDark">#292929</item>
-
-        <item name="colorControlHighlight">#292929</item>
-
-        <item name="android:windowBackground">?attr/colorPrimary</item>
-
-        <item name="iconTint">@color/white</item>
-
-        <!--    Custom color attributes     -->
-        <item name="themePrimaryTextColor">#ffffff</item>
-        <item name="themeSecondaryTextColor">#D8D7D7</item>
-
-
-    </style>
-
-    <style name="BaseTheme.Light">
-        <item name="colorPrimary">#ffffff</item>
-        <item name="colorPrimaryDark">#7C7C7C</item>
-
-        <item name="colorControlHighlight">#7C7C7C</item>
-
-        <item name="iconTint">#333333</item>
-
-        <!--    Custom color attributes     -->
-        <item name="themePrimaryTextColor">#333333</item>
-        <item name="themeSecondaryTextColor">#7C7C7C</item>
-
-    </style>
 
     <!--  TabLayout  -->
-    <style name="TabTextAppearanceDefault" parent="TextAppearance.Design.Tab">
-        <item name="textAllCaps">true</item>
-        <item name="android:textSize">16sp</item>
+    <style name="TabLayoutDefault">
+        <item name="android:background">@null</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="tabBackground">@drawable/view_tab_filled_circle</item>
+        <item name="tabGravity">center</item>
+        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabTextColor">@color/white</item>
+        <item name="tabTextAppearance">@style/PrimaryText.Lowest</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabMinWidth">@dimen/tab_size</item>
+        <item name="tabMaxWidth">@dimen/tab_size</item>
     </style>
 
-    <!--  Alert Dialog  -->
-
-    <style name="AlertDialogButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textSize">@dimen/text_secondary_lowest</item>
-        <item name="android:textColor">?attr/iconTint</item>
-        <item name="textAllCaps">false</item>
-        <item name="android:textStyle">normal</item>
-    </style>
-
-    <!--  TextClock style   -->
-    <style name="TextClockDefault" parent="PrimaryText.Lowest">
-        <item name="android:format12Hour">KK:mm a</item>
-        <item name="android:format24Hour">HH:mm</item>
-    </style>
-
-
-    <!--  CrossFadeAnimator styles  -->
-    <style name="CrossFadeDefault">
-        <item name="cfalAnimationDuration">@integer/medium_anim</item>
-        <item name="cfalStartDelay">@integer/medium_anim</item>
+    <!--  Refresh header  -->
+    <style name="ClassicHeaderDefault">
+        <item name="srlAccentColor">@color/white</item>
+        <item name="srlDrawableArrow">@drawable/ic_arrow_down</item>
+        <item name="srlDrawableProgress">@drawable/ic_sun</item>
+        <item name="srlDrawableSize">@dimen/icon_small</item>
+        <item name="srlTextFinish">@string/classic_header_finish</item>
+        <item name="srlTextPulling">@string/classic_header_pulling</item>
+        <item name="srlTextRefreshing">@string/classic_header_refreshing</item>
+        <item name="srlTextRelease">@string/classic_header_release</item>
+        <item name="srlTextSizeTime">@dimen/text_primary_tiny</item>
+        <item name="srlTextSizeTitle">@dimen/text_secondary_lowest</item>
+        <item name="srlTextFailed">@string/classic_header_failed</item>
+        <item name="srlFinishDuration">@integer/long_anim</item>
     </style>
 
     <!--  NavigationViews  -->
     <style name="NavigationView" parent="Widget.Design.NavigationView">
-        <item name="android:theme">@style/NavigationThemeOverlay</item>
+        <item name="android:theme">@style/NavigationViewOverlay</item>
         <item name="itemIconPadding">@dimen/spacing_medium</item>
         <item name="itemIconSize">@dimen/icon_small</item>
-        <item name="itemIconTint">@color/checked_icon</item>
-        <item name="itemTextColor">@color/primary_text</item>
-        <item name="android:background">?attr/colorPrimary</item>
+        <item name="itemMaxLines">1</item>
+        <item name="itemIconTint">@color/icon_checkable</item>
+        <item name="itemTextColor">@color/text_primary</item>
+        <item name="itemTextAppearance">@style/PrimaryText.Lowest</item>
+        <item name="android:background">@color/black</item>
+        <item name="itemShapeFillColor">@android:color/transparent</item>
     </style>
 
-    <style name="NavigationThemeOverlay">
-        <item name="android:scrollbarThumbVertical">?attr/colorAccent</item>
-        <item name="android:scrollbarStyle">insideInset</item>
-        <item name="android:scrollbarSize">3dp</item>
-        <item name="android:listDivider">?attr/colorControlHighlight</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColorSecondary">@color/secondary_text</item>
+    <style name="NavigationViewOverlay">
+        <!--   hide scrollbar     -->
+        <item name="android:scrollbars">none</item>
+        <item name="android:scrollbarTrackVertical">@null</item>
+        <item name="android:scrollbarThumbVertical">@null</item>
+
+        <!--     divider   -->
+        <item name="android:listDivider">@color/dark_black</item>
+
+        <!--   title attributes     -->
+        <item name="android:textSize">@dimen/text_secondary_lowest</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
     </style>
 
     <!--    Snackbar  styles  -->
     <style name="SnackDefault" parent="Widget.MaterialComponents.Snackbar">
         <item name="animationMode">slide</item>
-        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="backgroundTint">@color/dark_black</item>
         <item name="backgroundOverlayColorAlpha">0</item>
         <item name="actionTextColorAlpha">1</item>
     </style>
 
-    <style name="SnackText" parent="PrimaryText.Lowest">
-        <item name="android:textSize">15sp</item>
-    </style>
-
     <style name="SnackButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">?attr/iconTint</item>
+        <item name="android:textColor">@color/orange</item>
         <item name="backgroundTint">@android:color/transparent</item>
         <item name="rippleColor">?attr/colorControlHighlight</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/text_primary_lowest</item>
     </style>
 
-    <!-- Card styles -->
-    <style name="LiftingCard">
-        <item name="cardBackgroundColor">?attr/colorPrimary</item>
-        <item name="cardCornerRadius">0dp</item>
-        <item name="cardElevation">0dp</item>
-        <item name="android:stateListAnimator">@animator/liftable_appbar</item>
+    <!--  CrossFadeAnimator styles  -->
+    <style name="CrossFadeAnimatorLayoutDefault">
+        <item name="cfalAnimationDuration">@integer/medium_anim</item>
+        <item name="cfalStartDelay">@integer/medium_anim</item>
     </style>
 
     <!--   Toolbar style  -->
     <style name="ToolbarDefault">
-        <item name="titleTextColor">@color/primary_text</item>
+        <item name="titleTextColor">@color/text_primary</item>
         <item name="subtitleTextAppearance">@style/PrimaryText.Lowest</item>
-        <item name="subtitleTextColor">@color/primary_text</item>
+        <item name="subtitleTextColor">@color/text_primary</item>
+        <item name="titleTextAppearance">@style/PrimaryText.Medium</item>
     </style>
 
-    <style name="ToolbarNavigationButton" parent="Widget.AppCompat.Toolbar.Button.Navigation">
-        <item name="tint">?attr/colorAccent</item>
+    <!--  Search view  -->
+    <style name="SearchViewDefault">
+        <item name="closeIcon">@drawable/ic_clear</item>
+        <item name="iconifiedByDefault">false</item>
+        <item name="queryBackground">@null</item>
+        <item name="searchIcon">@drawable/ic_search</item>
+        <item name="android:theme">@style/SearchViewOverlay</item>
     </style>
 
-    <!--  Button's style   -->
-    <style name="TextButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="iconPadding">@dimen/spacing_small</item>
-        <item name="iconSize">@dimen/icon_small</item>
-        <item name="rippleColor">?attr/colorControlHighlight</item>
-        <item name="android:insetLeft">0dp</item>
-        <item name="android:insetTop">0dp</item>
-        <item name="android:insetRight">0dp</item>
-        <item name="android:insetBottom">0dp</item>
-        <item name="android:minWidth">0dp</item>
-        <item name="android:minHeight">0dp</item>
-        <item name="android:paddingLeft">0dp</item>
-        <item name="android:paddingTop">0dp</item>
-        <item name="android:paddingRight">0dp</item>
-        <item name="android:paddingBottom">0dp</item>
+    <style name="SearchViewOverlay">
+        <item name="android:textSize">@dimen/text_primary_lowest</item>
     </style>
 
-    <style name="TextButton.PrimaryLowest">
-        <item name="android:textAppearance">@style/PrimaryText.Lowest</item>
-        <item name="android:textColor">@color/primary_text</item>
-    </style>
-
-    <style name="TextButton.SecondaryLowest">
-        <item name="android:textAppearance">@style/SecondaryText.Lowest</item>
-        <item name="android:textColor">@color/secondary_text</item>
-    </style>
-
-    <!--  TextInputLayout style  -->
-    <style name="TextInputLayoutDefault" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
-        <item name="boxCollapsedPaddingTop">0dp</item>
-        <item name="textInputLayoutFocusedRectEnabled">false</item>
-        <item name="boxBackgroundColor">?attr/colorPrimary</item>
-        <item name="endIconMode">clear_text</item>
-        <item name="endIconTint">?attr/iconTint</item>
-        <item name="boxStrokeWidth">@dimen/divider_size</item>
-        <item name="boxStrokeWidthFocused">@dimen/divider_size</item>
-        <item name="hintEnabled">false</item>
-    </style>
-
-    <style name="TextInputEditDefault" parent="PrimaryText.Lowest">
-        <item name="android:textColor">@color/primary_text</item>
-        <item name="android:textColorHint">@color/secondary_text</item>
+    <!--  Divider  -->
+    <style name="DividerDefault">
+        <item name="android:background">?attr/dividerColor</item>
     </style>
 
     <!--Text styles-->
     <style name="PrimaryText">
-        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textColor">@color/text_primary</item>
     </style>
 
     <style name="SecondaryText">
-        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:textColor">@color/text_secondary</item>
     </style>
 
     <style name="PrimaryText.Large">
@@ -214,11 +133,12 @@
         <item name="android:textSize">@dimen/text_primary_lowest</item>
     </style>
 
+    <style name="PrimaryText.Tiny">
+        <item name="android:textSize">@dimen/text_primary_tiny</item>
+    </style>
+
     <style name="SecondaryText.Lowest">
         <item name="android:textSize">@dimen/text_secondary_lowest</item>
     </style>
 
-    <style name="DividerDefault">
-        <!--        <item name="android:background">?attr/colorControlHighlight</item>-->
-    </style>
 </resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/4/24
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- TODO hidden -->
+    <item
+        android:id="@+id/menu_add_Location"
+        android:icon="@drawable/ic_my_location"
+        android:title="@string/menu_add_location"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_add_city"
+        android:icon="@drawable/ic_add"
+        android:title="@string/menu_add_city"
+        app:showAsAction="always" />
+</menu>

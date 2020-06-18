@@ -4,50 +4,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/locationsRootView"
+    android:id="@+id/activity_locations_root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorPrimary"
     android:orientation="vertical"
     tools:context=".screen.locations.LocationsActivity">
 
-    <com.gmail.nigtime456.weatherapplication.customview.LiftingCardView
-        android:id="@+id/locationsAppbar"
-        style="@style/LiftingCard"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/activity_locations_toolbar"
+        style="@style/ToolbarDefault"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimaryDark"
+        app:menu="@menu/activity_locations_appbar"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:title="@string/activity_locations_title" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/locationsToolbar"
-                style="@style/ToolbarDefault"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:navigationIcon="@drawable/ic_arrow_back"
-                app:title="@string/locations_title" />
-
-        </LinearLayout>
-    </com.gmail.nigtime456.weatherapplication.customview.LiftingCardView>
-
-
-    <com.gmail.nigtime456.weatherapplication.customview.CrossFadeAnimatorLayout
-        android:id="@+id/locationsViewSwitcher"
-        style="@style/CrossFadeDefault"
+    <com.github.nigtime456.weather.customview.CrossFadeAnimatorLayout
+        android:id="@+id/activity_locations_view_switcher"
+        style="@style/CrossFadeAnimatorLayoutDefault"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cfalDisplayedChild="1">
 
-        <include layout="@layout/include_loading" />
+        <include layout="@layout/partial_loading" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/locationsRecycler"
+            android:id="@+id/activity_locations_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:overScrollMode="always"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_location" />
 
@@ -57,9 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/locations_hint" />
+            android:text="@string/activity_locations_hint" />
 
-    </com.gmail.nigtime456.weatherapplication.customview.CrossFadeAnimatorLayout>
-
+    </com.github.nigtime456.weather.customview.CrossFadeAnimatorLayout>
 
 </LinearLayout>

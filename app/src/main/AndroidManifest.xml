@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gmail.nigtime456.weatherapplication">
+    package="com.github.nigtime456.weather">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,33 +11,50 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/BaseTheme">
+        android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.gmail.nigtime456.weatherapplication.screen.splash.SplashActivity"
+            android:name=".screen.daily.activity.DailyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Forecast" />
+
+        <activity
+            android:name=".screen.currently.activity.CurrentlyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Forecast" />
+
+        <activity
+            android:name=".screen.splash.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
-
-        </activity>
-        <activity
-            android:name="com.gmail.nigtime456.weatherapplication.screen.current.activity.CurrentForecastActivity"
-            android:theme="@style/BaseTheme.Dark" />
-        <activity
-            android:name="com.gmail.nigtime456.weatherapplication.screen.search.SearchActivity"
-            android:theme="@style/ActivityTheme.Search"
-            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name="com.gmail.nigtime456.weatherapplication.screen.locations.LocationsActivity"
-            android:parentActivityName="com.gmail.nigtime456.weatherapplication.screen.current.activity.CurrentForecastActivity"
-            android:theme="@style/BaseTheme.Dark" />
+            android:name=".screen.about.AboutActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Secondary.About" />
+
         <activity
-            android:name="com.gmail.nigtime456.weatherapplication.screen.settings.SettingsActivity"
-            android:theme="@style/BaseTheme.Dark" />
+            android:name=".screen.search.SearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Secondary.Search"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".screen.locations.LocationsActivity"
+            android:parentActivityName=".screen.currently.activity.CurrentlyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Secondary.Locations" />
+
+        <activity
+            android:name=".screen.settings.SettingsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Settings" />
     </application>
 
 </manifest>

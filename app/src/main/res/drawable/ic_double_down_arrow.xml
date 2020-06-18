@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Сreated by Igor Pokrovsky. 2020/6/6
-  -->
-
-<rotate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/ic_left_arrow"
-    android:fromDegrees="-90" />

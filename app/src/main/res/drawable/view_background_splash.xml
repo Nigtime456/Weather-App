@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/5/13
+  -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/view_pod_day" />
+    <item
+        android:bottom="@dimen/splash_splash"
+        android:left="@dimen/splash_splash"
+        android:right="@dimen/splash_splash"
+        android:top="@dimen/splash_splash">
+
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/ic_launcher" />
+    </item>
+</layer-list>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/4/28
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/title_main"
+        android:title="@string/activity_currently_main">
+        <menu>
+
+            <!-- TODO hidden-->
+            <item
+                android:id="@+id/menu_weather_notifications"
+                android:checkable="false"
+                android:icon="@drawable/ic_notifications"
+                android:title="@string/activity_currently_weather_notification"
+                android:visible="false" />
+
+            <item
+                android:id="@+id/menu_change_locations"
+                android:checkable="false"
+                android:icon="@drawable/ic_change_location"
+                android:title="@string/activity_currently_change_location" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/menu_list_locations"
+        android:title="@string/activity_currently_cities">
+        <menu>
+            <!--     this is stub to be able to programmatically find this menu       -->
+            <item
+                android:title="_stub_"
+                tools:ignore="HardcodedText" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/title_others"
+        android:title="@string/activity_currently_other">
+        <menu>
+            <item
+                android:id="@+id/menu_settings"
+                android:checkable="false"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/activity_currently_settings" />
+            <item
+                android:id="@+id/menu_about_app"
+                android:checkable="false"
+                android:icon="@drawable/ic_about_app"
+                android:title="@string/activity_currently_about_app" />
+        </menu>
+    </item>
+</menu>

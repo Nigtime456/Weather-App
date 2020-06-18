@@ -1,14 +1,28 @@
-<!--
-  ~ Сreated by Igor Pokrovsky. 2020/4/27
-  -->
-
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
     android:tint="?attr/iconTint"
-    android:viewportWidth="24.0"
-    android:viewportHeight="24.0">
+    android:viewportWidth="6.35"
+    android:viewportHeight="6.350002">
     <path
-        android:fillColor="#FF000000"
-        android:pathData="M3,18h18v-2L3,16v2zM3,13h18v-2L3,11v2zM3,6v2h18L21,6L3,6z" />
+        android:fillAlpha="0.999"
+        android:fillColor="#000000"
+        android:pathData="M0.26458,1.5875h3.96875v0.52917h-3.96875z"
+        android:strokeWidth="0.260852"
+        android:strokeAlpha="0.999"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillAlpha="0.999"
+        android:fillColor="#000000"
+        android:pathData="M0.26458,4.23333h3.96875v0.52917h-3.96875z"
+        android:strokeWidth="0.260851"
+        android:strokeAlpha="0.999"
+        android:strokeColor="#00000000" />
+    <path
+        android:fillAlpha="0.997"
+        android:fillColor="#000000"
+        android:pathData="M0.26458,2.91042h2.64583v0.52917h-2.64583z"
+        android:strokeWidth="0.269411"
+        android:strokeAlpha="0.997"
+        android:strokeColor="#00000000" />
 </vector>

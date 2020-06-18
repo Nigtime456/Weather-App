@@ -10,13 +10,16 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/settingsToolbar"
+        android:id="@+id/activity_settings_toolbar"
+        style="@style/ToolbarDefault"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:navigationIcon="@drawable/ic_arrow_back" />
+        android:background="?attr/colorPrimaryDark"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:title="@string/activity_settings_title" />
 
     <FrameLayout
-        android:id="@+id/settingsFragContainer"
+        android:id="@+id/activity_settings_frag_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

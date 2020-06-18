@@ -1,0 +1,14 @@
+<!--
+  ~ Сreated by Igor Pokrovsky. 2020/6/16
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="?attr/iconTint"
+    android:viewportWidth="108.336"
+    android:viewportHeight="108.336">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M108.336,54.168c0,29.869 -24.3,54.168 -54.168,54.168S0,84.037 0,54.168C0,24.3 24.3,0 54.168,0S108.336,24.3 108.336,54.168z" />
+</vector>

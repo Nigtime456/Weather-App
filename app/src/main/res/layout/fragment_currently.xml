@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/4/27
+  -->
+<com.scwang.smart.refresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_currently_refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.github.nigtime456.weather.customview.RefreshHeader
+        android:id="@+id/fragment_currently_refresh_header"
+        style="@style/ClassicHeaderDefault"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.github.nigtime456.weather.customview.CrossFadeAnimatorLayout
+        android:id="@+id/fragment_currently_view_switcher"
+        style="@style/CrossFadeAnimatorLayoutDefault"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cfalDisplayedChild="1">
+
+        <com.github.nigtime456.weather.trash.PendingNestedScrollView
+            android:id="@+id/fragment_currently_nested_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+            <include layout="@layout/fragment_currently_body" />
+
+        </com.github.nigtime456.weather.trash.PendingNestedScrollView>
+
+        <include layout="@layout/partial_loading" />
+
+        <include layout="@layout/partial_error" />
+
+    </com.github.nigtime456.weather.customview.CrossFadeAnimatorLayout>
+</com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+
+
+
+
+

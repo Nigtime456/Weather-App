@@ -1,192 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/6/7
+  -->
+
 <resources>
-
     <!--   service  -->
-    <string name="lang_tag">en</string>
-    <string name="todo" translatable="false">TODO</string>
-    <string name="stub" translatable="false">--</string>
-    <string name="unknown_code" translatable="false">Unknown weather code</string>
+    <string name="lang_tag">ru</string>
 
-    <!--  Common  -->
-    <string name="app_name">WeatherApplication</string>
-    <string name="content_description_start_drag">Start drag</string>
-    <string name="content_description_temp">Temp</string>
-    <string name="content_description_weather_ico">Weather</string>
-    <string name="content_description_delete">Delete</string>
+    <!--  Common -->
+    <string name="app_name">Погода</string>
+    <string name="stub">--</string>
+    <string name="powered_by_dark_sky">Данные предоставлены Dark Sky</string>
+    <string name="connection_error">Ошибка сети</string>
+    <string name="connection_error_check_connection">Ошибка сети\nПроверьте подключение к сети</string>
+    <string name="button_ok">Ок</string>
+    <string name="update_about_ago">Обновлено %s</string>
+    <string name="update_less_than_minute_ago">Обновлено менее минуты назад</string>
+    <string name="update_data">Обновите данные</string>
 
-    <string name="loading_please_wait">Please wait</string>
+    <!--  Weather titles -->
+    <string name="title_weather">Погода</string>
+    <string name="title_weather_day">День</string>
+    <string name="title_weather_night">Ночь</string>
+    <string name="title_weather_more">Подробнее</string>
+    <string name="title_weather_wind">Ветер</string>
+    <string name="title_weather_pressure">Давление</string>
+    <string name="title_weather_humidity">Влажность</string>
+    <string name="title_weather_visibility">Видимость</string>
+    <string name="title_weather_uv_index">УФ-индекс</string>
+    <string name="title_weather_clouds">Облачность</string>
+    <string name="title_weather_dew_point">Точка росы</string>
+    <string name="title_weather_wind_direction">Направление</string>
+    <string name="title_weather_wind_speed">Скорость</string>
+    <string name="title_weather_wind_gust">Порывы</string>
+    <string name="title_weather_sunrise">Восход</string>
+    <string name="title_weather_sunset">Закат</string>
+    <string name="title_weather_moon">Луна</string>
 
-    <string name="network_error">Network error!</string>
+    <!--  Weather  -->
+    <string name="weather_clear_sky">Ясно</string>
+    <string name="weather_rain">Дождь</string>
+    <string name="weather_snow">Снег</string>
+    <string name="weather_sleet">Мокрый снег</string>
+    <string name="weather_wind">Ветренно</string>
+    <string name="weather_fog">Туман</string>
+    <string name="weather_cloudy">Облачно</string>
+    <string name="weather_partly_cloudy">Местами облачно</string>
+    <string name="weather_hail">Град</string>
+    <string name="weather_thunderstorm">Гроза</string>
+    <string name="weather_tornado">Ураганный ветер</string>
 
-    <!--  units formatting  -->
-    <string name="units_temp_f" translatable="false">%.0f°</string>
-    <string name="units_feels_like_temp_f">Feels like %.0f°</string>
+    <!--  Content description  -->
+    <string name="content_description_weather">Погода</string>
+    <string name="content_description_remove">Удалить</string>
+    <string name="content_description_start_drag">Начать перетаскивание</string>
 
-    <string name="units_today">Today</string>
-    <string name="units_tomorrow">Tomorrow</string>
+    <!--  PullToRefresh header  -->
+    <string name="classic_header_finish">Данные обновлены</string>
+    <string name="classic_header_pulling">Потяните для обновления</string>
+    <string name="classic_header_refreshing">Обновление данных…</string>
+    <string name="classic_header_release">Отпустите для обновления</string>
+    <string name="classic_header_failed">Ошибка обновления</string>
 
-    <string name="units_dir_n">N</string>
-    <string name="units_dir_nne">NNE</string>
-    <string name="units_dir_ne">NE</string>
-    <string name="units_dir_ene">ENE</string>
-    <string name="units_dir_e">E</string>
-    <string name="units_dir_ese">ESE</string>
-    <string name="units_dir_se">SE</string>
-    <string name="units_dir_sse">SSE</string>
-    <string name="units_dir_s">S</string>
-    <string name="units_dir_ssw">SSW</string>
-    <string name="units_dir_sw">SW</string>
-    <string name="units_dir_wsw">WSW</string>
-    <string name="units_dir_w">W</string>
-    <string name="units_dir_wnw">WNW</string>
-    <string name="units_dir_nw">NW</string>
-    <string name="units_dir_nnw">NNW</string>
+    <!--  units   -->
+    <string name="units_temp_f">%.0f°</string>
+    <string name="units_apparent_temp_f">По ощущениям %.0f°</string>
+    <string name="units_percent_pattern_f">%.0f %%</string>
+    <string name="units_kph_f">%.0f км/ч</string>
+    <string name="units_mph_f">%.0f миль/ч</string>
+    <string name="units_kn_f">%.0f узлов</string>
+    <string name="units_mps_f">%.0f м/с</string>
+    <string name="units_km_f">%.1f км</string>
+    <string name="units_mi_f">%.1f миль</string>
+    <string name="units_mbar_f">%.0f мБар</string>
+    <string name="units_mm_hg_f">%.0f мм. рт. ст.</string>
 
-    <string name="units_kph_f">%.1f km/h</string>
-    <string name="units_mph_f">%.1f mi/h</string>
-    <string name="units_kn_f">%.1f knot</string>
-    <string name="units_mps_f">%.1f m/s</string>
+    <!--  Uv Index  -->
+    <string name="uv_index_low">Низкий</string>
+    <string name="uv_index_moderate">Средний</string>
+    <string name="uv_index_high">Высокий </string>
+    <string name="uv_index_very_high">Очень высокий</string>
+    <string name="uv_index_extreme">Экстремальный</string>
 
-    <string name="units_km_f">%.1f km</string>
-    <string name="units_mi_f">%.1f mi</string>
+    <!--  Moon  -->
+    <string name="moon_new">Новолуние</string>
+    <string name="moon_waxing_crescent">Молодая луна</string>
+    <string name="moon_first_quarter">Первая четверть</string>
+    <string name="moon_waxing_gibbous">Прибывающая луна</string>
+    <string name="moon_full">Полнолуние</string>
+    <string name="moon_waning_gibbous">Убывающая луна</string>
+    <string name="moon_last_quarter">Последняя четверть</string>
+    <string name="moon_waning_crescent">Старая луна</string>
 
-    <string name="units_percent_pattern_f" translatable="false">%d %%</string>
-
-    <string name="units_mbar_f">%.0f mBar</string>
-    <string name="units_mm_hg_f">%.0f mm hg</string>
-
-    <!--  weather info  -->
-    <string name="air_quality_good_f">Good (%s)</string>
-    <string name="air_quality_moderate_f">Moderate (%s)</string>
-    <string name="air_quality_unhealthy_sens_f">Unhealthy for sensitive (%s)</string>
-    <string name="air_quality_unhealthy_f">Unhealthy (%s)</string>
-    <string name="air_quality_very_unhealthy_f">Very Unhealthy (%s)</string>
-    <string name="air_quality_hazardous_f">Hazardous (%s)</string>
-
-    <string name="uv_index_low_f">Low (%s)</string>
-    <string name="uv_index_moderate_f">Moderate (%s)</string>
-    <string name="uv_index_high_f">High (%s)</string>
-    <string name="uv_index_very_high_f">Very high (%s)</string>
-    <string name="uv_index_extreme_f">Extreme (%s)</string>
-
-    <!--  Weather description  -->
-    <string name="weather_description_200">Thunderstorm with light rain</string>
-    <string name="weather_description_201">Thunderstorm with rain</string>
-    <string name="weather_description_202">Thunderstorm with heavy rain</string>
-
-    <string name="weather_description_230">Thunderstorm with light drizzle</string>
-    <string name="weather_description_231">Thunderstorm with drizzle</string>
-    <string name="weather_description_232">Thunderstorm with heavy drizzle</string>
-    <string name="weather_description_233">Thunderstorm with hail</string>
-
-    <string name="weather_description_300">Light Drizzle</string>
-    <string name="weather_description_301">Drizzle</string>
-    <string name="weather_description_302">Heavy Drizzle</string>
-
-    <string name="weather_description_500">Light Rain</string>
-    <string name="weather_description_501">Moderate Rain</string>
-    <string name="weather_description_502">Heavy Rain</string>
-    <string name="weather_description_511">Freezing Rain</string>
-    <string name="weather_description_520">Light shower rain</string>
-    <string name="weather_description_521">Shower rain</string>
-    <string name="weather_description_522">Heavy shower rain</string>
-
-    <string name="weather_description_600">Light snow</string>
-    <string name="weather_description_601">Snow</string>
-    <string name="weather_description_602">Heavy Snow</string>
-    <string name="weather_description_610">Mix snow/rain</string>
-    <string name="weather_description_611">Sleet</string>
-    <string name="weather_description_612">Heavy sleet</string>
-    <string name="weather_description_621">Snow shower</string>
-    <string name="weather_description_622">Heavy snow shower</string>
-    <string name="weather_description_623">Flurries</string>
-
-    <string name="weather_description_700">Mist</string>
-    <string name="weather_description_711">Smoke</string>
-    <string name="weather_description_721">Haze</string>
-    <string name="weather_description_731">Sand/dust</string>
-    <string name="weather_description_741">Fog</string>
-    <string name="weather_description_751">Freezing Fog</string>
-
-
-    <string name="weather_description_800">Clear sky</string>
-    <string name="weather_description_801">Few clouds</string>
-    <string name="weather_description_802">Scattered clouds</string>
-    <string name="weather_description_803">Broken clouds</string>
-    <string name="weather_description_804">Overcast clouds</string>
-
-    <string name="weather_description_900">Unknown Precipitation</string>
-
-    <!--  Search  -->
-    <string name="search_input_hint">Enter the City</string>
-    <string name="search_city_not_found">Nothing found :(</string>
-    <string name="search_title">Add a city</string>
-    <string name="search_already_selected">This city has already been added!</string>
-
-    <!--  Locations  -->
-    <string name="locations_title">List of locations</string>
-    <string name="locations_hint">No added locations.\nAdd a city or enable weather by location.</string>
-    <string name="locations_dialog_title">Hint</string>
-    <string name="locations_dialog_message">For the app to work you need to add a new city or enable weather tracking by location</string>
-    <string name="locations_dialog_button_ok">OK</string>
-    <string name="locations_removed">Removed</string>
-
-    <!--  Current forecast activity -->
-    <string name="current_forecast_host_cities">Cities</string>
-    <string name="current_forecast_host_other">Others</string>
-    <string name="current_forecast_host_main">Main</string>
-    <string name="current_forecast_host_settings">Settings</string>
-    <string name="current_forecast_host_about_app">About app</string>
-    <string name="current_forecast_host_change_location">Edit locations</string>
-    <string name="current_forecast_host_weather_notification">Weather notifications</string>
-
-    <!--  Current forecast (frag)  -->
-    <string name="current_forecast_char_separator" translatable="false">|</string>
-    <string name="current_forecast_hourly_forecast">Hourly forecast</string>
-    <string name="current_forecast_daily_forecast">7-day forecast</string>
-    <string name="current_forecast_more">Details</string>
-    <string name="current_forecast_wind">Wind</string>
-    <string name="current_forecast_pressure">Pressure</string>
-    <string name="current_forecast_humidity">Humidity</string>
-    <string name="current_forecast_precipitation">Precipitations</string>
-    <string name="current_forecast_next_3_hours">Next 3 hours</string>
-    <string name="current_forecast_next_6_hours">Next 6 hours</string>
-    <string name="current_forecast_next_12_hours">Next 12 hours</string>
-    <string name="current_forecast_environment">Environment</string>
-    <string name="current_forecast_visibility">Visibility</string>
-    <string name="current_forecast_air_quality">Air quality</string>
-    <string name="current_forecast_uv_index">UV index</string>
-    <string name="current_forecast_clouds">Clouds</string>
+    <!-- Wind -->
+    <string name="wind_dir_n">С</string>
+    <string name="wind_dir_nne">ССВ</string>
+    <string name="wind_dir_ne">СВ</string>
+    <string name="wind_dir_ene">ВСВ</string>
+    <string name="wind_dir_e">В</string>
+    <string name="wind_dir_ese">ВЮВ</string>
+    <string name="wind_dir_se">ЮВ</string>
+    <string name="wind_dir_sse">ЮЮВ</string>
+    <string name="wind_dir_s">Ю</string>
+    <string name="wind_dir_ssw">ЮЮЗ</string>
+    <string name="wind_dir_sw">ЮЗ</string>
+    <string name="wind_dir_wsw">ЗЮЗ</string>
+    <string name="wind_dir_w">З</string>
+    <string name="wind_dir_wnw">ЗСЗ</string>
+    <string name="wind_dir_nw">СЗ</string>
+    <string name="wind_dir_nnw">ССЗ</string>
 
     <!--  Menu  -->
-    <string name="menu_add_city">Add city</string>
-    <string name="menu_add_location">Add new location</string>
-    <string name="menu_select_all">Select all</string>
-    <string name="menu_delete">Delete</string>
+    <string name="menu_add_location">Использовать геолокацию</string>
+    <string name="menu_add_city">Добавить город</string>
 
+    <!--  SearchActivity  -->
+    <string name="activity_search_title">Добавить город</string>
+    <string name="activity_search_hint">Название города (только англ)</string>
+    <string name="activity_search_not_found">Ничего не найдено :(</string>
+    <string name="activity_search_already_saved">Этот город уже добавлен</string>
 
-    <!-- Preference -->
-    <string name="settings_main_title">Settings</string>
-    <string name="settings_units_title">Units</string>
-    <string name="settings_data_title">App data</string>
-    <string name="settings_common">Common</string>
-    <string name="settings_theme">Theme</string>
-    <string name="settings_lang">Lang</string>
-    <string name="settings_units">Units</string>
-    <string name="settings_temp">Temp unit</string>
-    <string name="settings_length">Length unit</string>
-    <string name="settings_speed">Speed unit</string>
-    <string name="settings_pressure">Pressure unit</string>
-    <string name="settings_update_frequency">Update frequency</string>
-    <string name="settings_update_frequency_summary">updating widgets and notifications.\nin hours</string>
-    <string name="settings_app_data">App data</string>
-    <string name="settings_keep_data_cache">Keep weather in cache</string>
-    <string name="settings_keep_data_cache_summary">days</string>
-    <string name="settings_clear_cache">Clear cache</string>
-    <string name="settings_clear_all_data">Clear all data</string>
-    <string name="settings_clear_all_data_summary">cache, locations, settings</string>
+    <!--  LocationsActivity  -->
+    <string name="activity_locations_dialog_title">Подсказка</string>
+    <string name="activity_locations_dialog_message">Для работы приложения необходимо добавить один или несколько городов.</string>
+    <string name="activity_locations_title">Список городов</string>
+    <string name="activity_locations_hint">Нет добавленных город.\nДобавьте город с помощью поиска.</string>
+    <string name="activity_locations_removed">Удалено</string>
 
+    <!--  CurrentlyActivity  -->
+    <string name="activity_currently_weather_notification">Уведомления об погоде</string>
+    <string name="activity_currently_main">Главное</string>
+    <string name="activity_currently_other">Прочее</string>
+    <string name="activity_currently_cities">Города</string>
+    <string name="activity_currently_settings">Настройки</string>
+    <string name="activity_currently_about_app">О приложение</string>
+    <string name="activity_currently_change_location">Изменить местоположение</string>
 
-    <!--  Daily Pages  -->
-    <string name="daily_pages_16_days_forecast">16 days forecast</string>
+    <!--  CurrentlyFragment  -->
+    <string name="fragment_currently_hourly_forecast">Прогноз на 24 часа</string>
+    <string name="fragment_currently_daily_forecast">Прогноз на 7 дней</string>
+    <string name="fragment_currently_today">сегодня</string>
+    <string name="fragment_currently_tomorrow">завтра</string>
+
+    <!--  DailyActivity  -->
+    <string name="activity_daily_title">Прогноз на 7 дней</string>
+
+    <!--  DailyFragment  -->
+    <string name="fragment_daily_sun_and_moon">Солнце и луна</string>
+    <!--  Settings  -->
+    <string name="activity_settings_title">Настройки приложения</string>
+    <string name="activity_settings_temp">Температура</string>
+    <string name="activity_settings_length">Растояние</string>
+    <string name="activity_settings_speed">Скорость</string>
+    <string name="activity_settings_pressure">Давление</string>
+
+    <!--  about  -->
+    <string name="activity_about_title">О приложении</string>
 
 </resources>

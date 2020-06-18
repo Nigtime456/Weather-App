@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Сreated by Igor Pokrovsky. 2020/6/10
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/fragment_currently_temp"
+        style="@style/PrimaryText.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_huge"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_marginTop="0dp"
+        tools:text="14°" />
+
+    <TextView
+        android:id="@+id/fragment_currently_description"
+        style="@style/PrimaryText.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/fragment_currently_ico"
+        app:layout_constraintTop_toBottomOf="@id/fragment_currently_temp"
+        tools:text="Over" />
+
+    <ImageView
+        android:id="@+id/fragment_currently_ico"
+        android:layout_width="@dimen/icon_small"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/spacing_small"
+        android:contentDescription="@string/content_description_weather"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_currently_description"
+        app:layout_constraintEnd_toStartOf="@id/fragment_currently_description"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/fragment_currently_description"
+        tools:src="@drawable/ic_weather_clear_day" />
+
+    <TextView
+        android:id="@+id/fragment_currently_apparent_temp"
+        style="@style/PrimaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_currently_description"
+        tools:text="Feels like 35°" />
+
+    <TextView
+        android:id="@+id/title_01"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_huge"
+        android:text="@string/fragment_currently_hourly_forecast"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_currently_apparent_temp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_currently_hourly_recycler"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_01"
+        tools:listitem="@layout/item_hourly_forecast" />
+
+    <View
+        android:id="@+id/divider1"
+        style="@style/DividerDefault"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/divider_size"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_currently_hourly_recycler" />
+
+    <TextView
+        android:id="@+id/title_1"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:text="@string/fragment_currently_daily_forecast"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider1" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_currently_daily_recycler"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_1"
+        tools:itemCount="1"
+        tools:listitem="@layout/item_daily_forecast" />
+
+    <View
+        android:id="@+id/divider2"
+        style="@style/DividerDefault"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/divider_size"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_currently_daily_recycler" />
+
+    <TextView
+        android:id="@+id/title_2"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:text="@string/title_weather_wind"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/grid_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_small"
+        android:layout_marginTop="@dimen/spacing_small"
+        app:columnCount="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_2"
+        app:orientation="horizontal"
+        app:rowCount="1">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_small"
+            android:orientation="vertical"
+            app:layout_columnWeight="1">
+
+            <ImageView
+                android:layout_width="@dimen/icon_normal"
+                android:layout_height="@dimen/icon_normal"
+                android:layout_gravity="center"
+                android:contentDescription="@string/title_weather_wind_direction"
+                android:src="@drawable/ic_compass" />
+
+            <TextView
+                android:id="@+id/fragment_currently_wind_dir"
+                style="@style/PrimaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:gravity="center"
+                tools:text="SW" />
+
+            <TextView
+                style="@style/SecondaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/title_weather_wind_direction" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_small"
+            android:orientation="vertical"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
+
+            <ImageView
+                android:layout_width="@dimen/icon_normal"
+                android:layout_height="@dimen/icon_normal"
+                android:layout_gravity="center"
+                android:contentDescription="@string/title_weather_wind_speed"
+                android:src="@drawable/ic_wind" />
+
+            <TextView
+                android:id="@+id/fragment_currently_wind_speed"
+                style="@style/PrimaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:gravity="center"
+                tools:text="10 km/h" />
+
+            <TextView
+                style="@style/SecondaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/title_weather_wind_speed" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_small"
+            android:orientation="vertical"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
+
+            <ImageView
+                android:layout_width="@dimen/icon_normal"
+                android:layout_height="@dimen/icon_normal"
+                android:layout_gravity="center"
+                android:contentDescription="@string/title_weather_wind_gust"
+                android:src="@drawable/ic_wind_gust" />
+
+            <TextView
+                android:id="@+id/fragment_currently_wind_gust"
+                style="@style/PrimaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:gravity="center"
+                tools:text="15 km/h" />
+
+            <TextView
+                style="@style/SecondaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/title_weather_wind_gust" />
+
+        </LinearLayout>
+
+    </androidx.gridlayout.widget.GridLayout>
+
+    <View
+        android:id="@+id/divider3"
+        style="@style/DividerDefault"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/divider_size"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/grid_layout" />
+
+    <TextView
+        android:id="@+id/title_3"
+        style="@style/SecondaryText.Lowest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:text="@string/title_weather_more"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/grid_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_small"
+        android:layout_marginTop="@dimen/spacing_small"
+        app:columnCount="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_3"
+        app:orientation="horizontal"
+        app:rowCount="2">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_margin="@dimen/spacing_small"
+            android:orientation="vertical"
+            app:layout_columnWeight="1">
+
+            <ImageView
+                android:layout_width="@dimen/icon_normal"
+                android:layout_height="@dimen/icon_normal"
+                android:layout_gravity="center"
+                android:contentDescription="@string/title_weather_humidity"
+                android:src="@drawable/ic_humidity" />
+
+            <TextView
+                android:id="@+id/fragment_currently_humidity"
+                style="@style/PrimaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:gravity="center"
+                tools:text="50 %" />
+
+            <TextView
+                style="@style/SecondaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/title_weather_humidity" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_margin="@dimen/spacing_small"
+            android:orientation="vertical"
+            app:layout_columnWeight="1">
+
+            <ImageView
+                android:layout_width="@dimen/icon_normal"
+                android:layout_height="@dimen/icon_normal"
+                android:layout_gravity="center"
+                android:contentDescription="@string/title_weather_uv_index"
+                android:src="@drawable/ic_uv_index" />
+
+            <TextView
+                android:id="@+id/fragment_currently_uv_index"
+                style="@style/PrimaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:gravity="center"
+                tools:text="Low" />
+
+            <TextView
+                style="@style/SecondaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/title_weather_uv_index" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_margin="@dimen/spacing_small"
+            android:orientation="vertical"
+            app:layout_columnWeight="1">
+
+            <ImageView
+                android:layout_width="@dimen/icon_normal"
+                android:layout_height="@dimen/icon_normal"
+                android:layout_gravity="center"
+                android:contentDescription="@string/title_weather_pressure"
+                android:src="@drawable/ic_pressure" />
+
+            <TextView
+                android:id="@+id/fragment_currently_pressure"
+                style="@style/PrimaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:gravity="center"
+                tools:text="1000 mBar" />
+
+            <TextView
+                style="@style/SecondaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/activity_settings_pressure" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_margin="@dimen/spacing_small"
+            android:orientation="vertical"
+            app:layout_columnWeight="1">
+
+            <ImageView
+                android:layout_width="@dimen/icon_normal"
+                android:layout_height="@dimen/icon_normal"
+                android:layout_gravity="center"
+                android:contentDescription="@string/title_weather_visibility"
+                android:src="@drawable/ic_visibility" />
+
+            <TextView
+                android:id="@+id/fragment_currently_visibility"
+                style="@style/PrimaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:gravity="center"
+                tools:text="14 km" />
+
+            <TextView
+                style="@style/SecondaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/title_weather_visibility" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_margin="@dimen/spacing_small"
+            android:orientation="vertical"
+            app:layout_columnWeight="1">
+
+            <ImageView
+                android:layout_width="@dimen/icon_normal"
+                android:layout_height="@dimen/icon_normal"
+                android:layout_gravity="center"
+                android:contentDescription="@string/title_weather_dew_point"
+                android:src="@drawable/ic_dew_point" />
+
+            <TextView
+                android:id="@+id/fragment_currently_dew_point"
+                style="@style/PrimaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:gravity="center"
+                tools:text="1°" />
+
+            <TextView
+                style="@style/SecondaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/title_weather_dew_point" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_margin="@dimen/spacing_small"
+            android:orientation="vertical"
+            app:layout_columnWeight="1">
+
+            <ImageView
+                android:layout_width="@dimen/icon_normal"
+                android:layout_height="@dimen/icon_normal"
+                android:layout_gravity="center"
+                android:contentDescription="@string/title_weather_clouds"
+                android:src="@drawable/ic_clouds" />
+
+            <TextView
+                android:id="@+id/fragment_currently_clouds_coverage"
+                style="@style/PrimaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:gravity="center"
+                tools:text="50%" />
+
+            <TextView
+                style="@style/SecondaryText.Lowest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/title_weather_clouds" />
+
+        </LinearLayout>
+
+    </androidx.gridlayout.widget.GridLayout>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/logo_height"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:background="?attr/dividerColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/grid_layout2">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:ignore="UseCompoundDrawables,UselessParent">
+
+            <ImageView
+                android:layout_width="@dimen/icon_small"
+                android:layout_height="@dimen/icon_small"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/powered_by_dark_sky"
+                android:src="@drawable/dark_sky_logo"
+                android:tint="?attr/iconTint" />
+
+            <TextView
+                style="@style/PrimaryText.Tiny"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/spacing_small"
+                android:text="@string/powered_by_dark_sky" />
+        </LinearLayout>
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
