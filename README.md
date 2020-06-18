@@ -1,6 +1,7 @@
 # Weather-App
    <h3>Weather-App - погодное приложение</h3>
-   <a href="https://github.com/Nigtime456/Weather-App/blob/master/demo/app-prod-release.apk?raw=true">Apk</a>
+        <a href="https://github.com/Nigtime456/Weather-App/blob/master/demo/app-prod-release.apk?raw=true"><b>APK</b></a>
+        <br>
         <b>Общая информация:</b>
             <br>Версия: 1.0
             <br>Разработчик: Игорь Покровский
