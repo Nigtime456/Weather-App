@@ -2,6 +2,15 @@
    <h3>Weather-App - погодное приложение</h3>
         <a href="https://github.com/Nigtime456/Weather-App/blob/master/demo/app-prod-release.apk?raw=true"><b>APK</b></a>
         <br>
+        <p>
+        <img src="/demo/1.jpg" width="255" height="550" alt="lorem">
+        <img src="/demo/2.jpg" width="255" height="550" alt="lorem">
+        <img src="/demo/3.jpg" width="255" height="550" alt="lorem">
+        <img src="/demo/4.jpg" width="255" height="550" alt="lorem">
+        <img src="/demo/5.jpg" width="255" height="550" alt="lorem">
+        <img src="/demo/6.jpg" width="255" height="550" alt="lorem">
+        <img src="/demo/7.jpg" width="255" height="550" alt="lorem">
+        </p>
         <br>
         <b>Общая информация:</b>
             <br>Версия: 1.0
@@ -10,7 +19,7 @@
             <br>
             <br>
         <b>Об приложение:</b>
-            <br>Приложение создано в качестве дипломного проекта, а так же для тренировки навыков. В приложение используется паттерн MVP.
+            <br>Приложение создано в качестве дипломного проекта, а так же для тренировки навыков. В приложение используется архитектурный паттерн MVP.
             <br>
             <br>
         <b>API:</b>
