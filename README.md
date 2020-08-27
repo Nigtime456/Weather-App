@@ -11,6 +11,9 @@
         <img src="/demo/5.jpg" width="255" height="550" alt="lorem">
         <img src="/demo/6.jpg" width="255" height="550" alt="lorem">
         <img src="/demo/7.jpg" width="255" height="550" alt="lorem">
+        <img src="/demo/8.jpg" width="255" height="550" alt="lorem">
+        <img src="/demo/9.jpg" width="255" height="550" alt="lorem">
+        <img src="/demo/10.jpg" width="255" height="550" alt="lorem">
         </p>
         <br>
         <b>Общая информация:</b>
